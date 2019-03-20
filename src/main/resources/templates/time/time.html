@@ -1,0 +1,148 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8">
+    <title>时间轴-DragonWen个人博客</title>
+    <meta name="keywords" content="blog"/>
+    <meta name="description" content="blog"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="common/images/D_50.png">
+    <link href="Front-End/css/base.css" rel="stylesheet">
+    <link href="Front-End/css/m.css" rel="stylesheet">
+    <script src="Front-End/js/jquery-1.8.3.min.js"></script>
+    <script src="Front-End/js/comm.js"></script>
+    <!--[if lt IE 9]>
+    <script src="Front-End/js/modernizr.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--top begin-->
+<header id="header">
+    <div class="navbox">
+        <h2 id="mnavh"><span class="navicon"></span></h2>
+        <div class="logo"><a href="http://www.yangqq.com">DragonWen个人博客</a></div>
+        <nav>
+            <ul id="starlist">
+                <li><a href="/">首页</a></li>
+                <li><a href="blog">个人博客日记</a></li>
+                <li class="menu"><a href="classify">随笔分类</a>
+                    <ul class="sub">
+                        <li><a href="/">编程语言</a></li>
+                        <li><a href="/">软件设计</a></li>
+                        <li><a href="/">Web前端</a></li>
+                        <li><a href="/">数据库技术</a></li>
+                        <li><a href="/">其他分类</a></li>
+                    </ul>
+                    <span></span></li>
+                <li><a href="resume">个人简历</a></li>
+                <li><a href="repository">知识库</a></li>
+                <li><a href="about">关于我</a></li>
+            </ul>
+        </nav>
+        <div class="searchico"></div>
+    </div>
+</header>
+<div class="searchbox">
+    <div class="search">
+        <form action="/e/search/index.php" method="post" name="searchform" id="searchform">
+            <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);"
+                   onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}"
+                   onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
+            <input name="show" value="title" type="hidden">
+            <input name="tempid" value="1" type="hidden">
+            <input name="tbname" value="news" type="hidden">
+            <input name="Submit" class="input_submit" value="搜索" type="submit">
+        </form>
+    </div>
+    <div class="searchclose"></div>
+</div>
+<!--top end-->
+<article>
+    <div class="whitebg timebox">
+        <h2 class="htitle">往期文章</h2>
+        <ul id="list2">
+            <li><span>2019-03-12</span><i><a href="https://www.yangqq.com/qiyewangzhanzhizuo/975.html" target="_blank">企业网站制作多少钱报价是合适的？</a></i>
+            </li>
+            <li><span>2019-03-12</span><i><a href="https://www.yangqq.com/qiyewangzhanzhizuo/974.html" target="_blank">企业网站建设便宜的价格真的好吗？</a></i>
+            </li>
+            <li><span>2019-03-12</span><i><a href="https://www.yangqq.com/qiyewangzhanzhizuo/973.html" target="_blank">为什么企业网站建设的价格不一样？</a></i>
+            </li>
+            <li><span>2019-03-08</span><i><a href="https://www.yangqq.com/qiyewangzhanzhizuo/972.html" target="_blank">一般企业网站建设价格是多少？企业网站制作需要多少钱？</a></i>
+            </li>
+            <li><span>2019-03-06</span><i><a href="https://www.yangqq.com/jstt/web/971.html" target="_blank">帝国cms调用自定义分类</a></i>
+            </li>
+            <li><span>2019-03-05</span><i><a href="https://www.yangqq.com/jstt/web/970.html" target="_blank">个人网站制作简单的二维码收款</a></i>
+            </li>
+            <li><span>2019-03-04</span><i><a href="https://www.yangqq.com/qiyewangzhanzhizuo/969.html" target="_blank">企业网站建设前期，公司该做什么样的网站？要看企业如何定位自身</a></i>
+            </li>
+            <li><span>2019-03-04</span><i><a href="https://www.yangqq.com/qiyewangzhanzhizuo/968.html" target="_blank">如果没有企业网站，客户都找不到你！</a></i>
+            </li>
+            <li><span>2019-03-04</span><i><a href="https://www.yangqq.com/qiyewangzhanzhizuo/967.html" target="_blank">企业网站建设到运营投资到底需要多少钱?</a></i>
+            </li>
+            <li><span>2019-02-28</span><i><a href="https://www.yangqq.com/qiyewangzhanzhizuo/965.html" target="_blank">如何制作一个简单又大气的企业网站？</a></i>
+            </li>
+            <li><span>2019-02-28</span><i><a href="https://www.yangqq.com/qiyewangzhanzhizuo/964.html" target="_blank">企业网站模板建站的特点</a></i>
+            </li>
+            <li><span>2019-02-28</span><i><a href="https://www.yangqq.com/qiyewangzhanmuban/963.html" target="_blank">蓝色企业网站模板超实用，完美符合SEO优化，适合企业公司建站的模板</a></i>
+            </li>
+            <li><span>2019-02-28</span><i><a href="https://www.yangqq.com/qiyewangzhanzhizuo/962.html" target="_blank">如何提升企业网站价值，企业建站过程应该注意什么？</a></i>
+            </li>
+            <li><span>2019-02-28</span><i><a href="https://www.yangqq.com/qiyewangzhanzhizuo/961.html" target="_blank">企业网站，建站流程是什么？</a></i>
+            </li>
+            <li><span>2019-02-27</span><i><a href="https://www.yangqq.com/qiyewangzhanmuban/960.html" target="_blank">免费紫色婚庆公司企业网站模板</a></i>
+            </li>
+            <li><span>2019-02-27</span><i><a href="https://www.yangqq.com/qiyewangzhanmuban/959.html" target="_blank">蓝色集团公司企业网站模板</a></i>
+            </li>
+            <li><span>2019-02-27</span><i><a href="https://www.yangqq.com/qiyewangzhanmuban/958.html" target="_blank">门户类型装修公司企业网站模板</a></i>
+            </li>
+            <li><span>2019-02-27</span><i><a href="https://www.yangqq.com/qiyewangzhanmuban/957.html" target="_blank">实用大气的装修公司企业网站模板</a></i>
+            </li>
+            <li><span>2019-02-15</span><i><a href="https://www.yangqq.com/jstt/web/956.html" target="_blank">帝国cms，自定义列表实现首页分页</a></i>
+            </li>
+            <li><span>2019-02-15</span><i><a href="https://www.yangqq.com/jstt/web/955.html" target="_blank">帝国cms灵动标签循环调用栏目文章</a></i>
+            </li>
+            <li><span>2019-02-12</span><i><a href="https://www.yangqq.com/jstt/web/954.html" target="_blank">帝国cms
+                增加网站客服</a></i></li>
+            <li><span>2019-01-11</span><i><a href="https://www.yangqq.com/jstt/web/948.html" target="_blank">帝国cms 自定义页面
+                调用分类方法</a></i></li>
+            <li><span>2019-01-08</span><i><a href="https://www.yangqq.com/jinniu.html" target="_blank">【金牛云服】服务器新购满100减88，域名注册18元！</a></i>
+            </li>
+            <li><span>2019-01-02</span><i><a href="https://www.yangqq.com/jstt/web/946.html" target="_blank">阿里云如何申请配置ssl证书</a></i>
+            </li>
+            <li><span>2019-01-02</span><i><a href="https://www.yangqq.com/jstt/web/945.html" target="_blank">阿里云如何解析域名，搭建云服务器环境</a></i>
+            </li>
+            <div class="pagelist mt20"><a class="allpage"><b>394</b>篇文章</a>&nbsp;&nbsp;<a href="#topnew"
+                                                                                       class="curPage">1</a>&nbsp;&nbsp;<a
+                    href="#topnew" onclick="page(2)">2</a>&nbsp;&nbsp;<a href="#topnew" onclick="page(3)">3</a>&nbsp;&nbsp;<a
+                    href="#topnew" onclick="page(4)">4</a>&nbsp;&nbsp;<a href="#topnew" onclick="page(5)">5</a>&nbsp;&nbsp;<a
+                    href="#topnew" onclick="page(6)">6</a>&nbsp;&nbsp;<a href="#topnew" onclick="page(2)">&gt;&gt;</a>
+            </div>
+        </ul>
+        <div class="clear"></div>
+        <script src="js/page2.js"></script>
+    </div>
+</article>
+
+<footer>
+    <div class="box">
+        <div class="wxbox">
+            <ul>
+                <li><img src="Front-End/images/wxgzh.jpg"><span>微信公众号</span></li>
+                <li><img src="Front-End/images/wx.png"><span>我的微信</span></li>
+            </ul>
+        </div>
+        <div class="endnav">
+            <p><b>站点声明：</b></p>
+            <p>1、本站个人博客模板，均为杨青青本人设计，个人可以使用，但是未经许可不得用于任何商业目的。</p>
+            <p>2、所有文章未经授权禁止转载、摘编、复制或建立镜像，如有违反，追究法律责任。举报邮箱：<a
+                    href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=HHh9cn95b3F1cHVye1xtbTJ-c3E"
+                    target="_blank">dacesmiling@qq.com</a></p>
+            <p>Copyright © <a href="http://www.yangqq.com" target="_blank">www.yangqq.com</a> All Rights Reserved.
+                备案号：<a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备11002373号-1</a></p>
+        </div>
+    </div>
+    <a href="#">
+        <div class="top"></div>
+    </a></footer>
+</body>
+</html>
