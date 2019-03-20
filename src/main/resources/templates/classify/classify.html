@@ -1,20 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-    <meta charset="utf-8">
-    <title>随笔分类-DragonWen个人博客</title>
-    <meta name="keywords" content="blog"/>
-    <meta name="description" content="blog"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="common/images/D_50.png">
-    <link href="Front-End/css/base.css" rel="stylesheet">
-    <link href="Front-End/css/m.css" rel="stylesheet">
-    <script src="Front-End/js/jquery-1.8.3.min.js"></script>
-    <script src="Front-End/js/comm.js"></script>
-    <!--[if lt IE 9]>
-    <script src="Front-End/js/modernizr.js"></script>
-    <![endif]-->
-</head>
+<head th:replace="common/head :: commonHead('随笔分类-DragonWen个人博客')"></head>
 <body>
 <!--top begin-->
 <div th:replace="common/common :: head"></div>
