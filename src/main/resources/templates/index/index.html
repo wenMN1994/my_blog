@@ -19,20 +19,7 @@
 <!--top begin-->
 <div th:replace="common/common :: head"></div>
 
-<div class="searchbox">
-    <div class="search">
-        <form action="/e/search/index.php" method="post" name="searchform" id="searchform">
-            <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);"
-                   onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}"
-                   onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
-            <input name="show" value="title" type="hidden">
-            <input name="tempid" value="1" type="hidden">
-            <input name="tbname" value="news" type="hidden">
-            <input name="Submit" class="input_submit" value="搜索" type="submit">
-        </form>
-    </div>
-    <div class="searchclose"></div>
-</div>
+<div th:replace="common/common :: search"></div>
 <!--top end-->
 <article>
     <!--lbox begin-->
@@ -347,7 +334,7 @@
             <h2>DragonWen的名片</h2>
             <p>网名：DragonWen | 小尹口</p>
             <p>职业：java后台开发工程师</p>
-            <p>现居：广东省省-深圳市</p>
+            <p>现居：广东省-深圳市</p>
             <p>Email：18475536452@163.com</p>
             <ul class="linkmore">
                 <li><a href="http://www.yangqq.com" target="_blank" class="iconfont icon-zhuye" title="网站地址"></a></li>
