@@ -2,8 +2,10 @@ package com.dragon.blog.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author：Dragon Wen
@@ -13,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @modified By：
  * @version: $version$
  */
-@RestController
+@Controller
 public class TestController {
 
     private static final Logger logger = LoggerFactory.getLogger(TestController.class);
@@ -24,8 +26,82 @@ public class TestController {
      * @throws InterruptedException
      */
     @GetMapping("hello")
+    @ResponseBody
     public String test() throws InterruptedException {
         logger.info("欢迎关注DragonWen博客");
         return "i love java";
     }
+
+    /**
+     * 测试首页跳转
+     * @return
+     */
+    @RequestMapping("/")
+    public String index(){
+        return "index/index";
+    }
+
+    /**
+     * 测试个人博客日记跳转
+     * @return
+     */
+    @RequestMapping("/blog")
+    public String blog(){
+        return "blog/blog";
+    }
+
+    /**
+     * 测试随笔分类跳转
+     * @return
+     */
+    @RequestMapping("/classify")
+    public String classify(){
+        return "classify/classify";
+    }
+
+    /**
+     * 测试个人简历跳转
+     * @return
+     */
+    @RequestMapping("/resume")
+    public String resume(){
+        return "resume/resume";
+    }
+
+    /**
+     * 测试知识库跳转
+     * @return
+     */
+    @RequestMapping("/repository")
+    public String repository(){
+        return "repository/repository";
+    }
+
+    /**
+     * 测试关于我跳转
+     * @return
+     */
+    @RequestMapping("/about")
+    public String about(){
+        return "about/about";
+    }
+
+    /**
+     * 测试文章内容页跳转
+     * @return
+     */
+    @RequestMapping("/info")
+    public String info(){
+        return "info/info";
+    }
+
+    /**
+     * 测试时间轴跳转
+     * @return
+     */
+    @RequestMapping("/time")
+    public String time(){
+        return "time/time";
+    }
+
 }
