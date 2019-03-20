@@ -90,33 +90,9 @@
                 <li><i></i><a href="/">做个人博客如何用帝国cms美化留言增加头像选择</a></li>
             </ul>
         </div>
-        <div class="whitebg tuijian">
-            <h2 class="htitle">本栏推荐</h2>
-            <section class="topnews imgscale"><a href="/"><img src="Front-End/images/h2.jpg"><span>6条网页设计配色原则,让你秒变配色高手</span></a></section>
-            <ul>
-                <li><a href="/"><i><img src="Front-End/images/text01.jpg"></i>
-                    <p>十条设计原则教你学会如何设计网页布局!</p>
-                </a></li>
-                <li><a href="/"><i><img src="Front-End/images/text02.jpg"></i>
-                    <p>用js+css3来写一个手机栏目导航</p>
-                </a></li>
-                <li><a href="/"><i><img src="Front-End/images/text03.jpg"></i>
-                    <p>6条网页设计配色原则,让你秒变配色高手</p>
-                </a></li>
-                <li><a href="/"><i><img src="Front-End/images/text04.jpg"></i>
-                    <p>三步实现滚动条触动css动画效果</p>
-                </a></li>
-                <li><a href="/"><i><img src="Front-End/images/text05.jpg"></i>
-                    <p>个人博客，属于我的小世界！</p>
-                </a></li>
-                <li><a href="/"><i><img src="Front-End/images/text06.jpg"></i>
-                    <p>安静地做一个爱设计的女子</p>
-                </a></li>
-                <li><a href="/"><i><img src="Front-End/images/text07.jpg"></i>
-                    <p>个人网站做好了，百度不收录怎么办？来，看看他们怎么做的。</p>
-                </a></li>
-            </ul>
-        </div>
+        <!--站长推荐 begin-->
+        <div th:replace="common/common :: tuijian"></div>
+        <!--站长推荐 end-->
         <!--广告节点3 begin-->
         <div th:replace="common/common :: ad3"></div>
         <!--广告节点3 end-->
