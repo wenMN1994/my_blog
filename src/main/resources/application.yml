@@ -14,3 +14,6 @@ spring:
   resources:
     # 静态资源
     static-locations: classpath:/templates,classpath:/static/
+  thymeleaf:
+    cache: false
+    enabled: true
