@@ -1,4 +1,4 @@
-package com.dragon.db;
+package com.dragon.blog.db;
 
 /**
  * 
