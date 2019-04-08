@@ -58,8 +58,8 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-log4j2:${springBootVersion}"
 	//Thymeleaf模板
 	compile "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}"
-	compile group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.9.RELEASE'
-	compile group: 'org.thymeleaf', name: 'thymeleaf-spring5', version: '3.0.9.RELEASE'
+	compile group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.11.RELEASE'
+	compile group: 'org.thymeleaf', name: 'thymeleaf-spring5', version: '3.0.11.RELEASE'
 	compile group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.2.2'
 //    compile 'com.alibaba:druid:1.1.10'
 	compile group: 'com.alibaba', name: 'druid', version: '1.1.10'
