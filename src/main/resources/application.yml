@@ -18,3 +18,23 @@ spring:
     #开发时关闭缓存,不然没法看到实时页面
     cache: false
     enabled: true
+
+mybatis:
+  type-aliases-package: com.dragon.blog.model # 注意：对应实体类的路径
+  mapper-locations: classpath:mapping/*Mapper.xml #注意：一定要对应mapper映射xml文件的所在路径
+
+#显示mysql执行日志
+logging:
+  level:
+    com:
+      dragon:
+        blog:
+          mapper: debug
+  config: classpath:log4j2-spring.xml
+
+# 分页插件配置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
