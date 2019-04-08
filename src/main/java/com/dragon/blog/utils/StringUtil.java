@@ -1,7 +1,7 @@
-package com.dragon.utils;
+package com.dragon.blog.utils;
 
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
