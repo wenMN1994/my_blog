@@ -1,4 +1,4 @@
-package com.dragon.db;
+package com.dragon.blog.db;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
