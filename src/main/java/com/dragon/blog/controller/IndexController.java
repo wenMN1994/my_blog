@@ -1,6 +1,6 @@
 package com.dragon.blog.controller;
 
-import com.dragon.blog.base.BaseController;
+import com.dragon.base.BaseController;
 import com.dragon.blog.model.BlogMenu;
 import com.dragon.blog.model.BlogMenuExample;
 import com.dragon.blog.service.BlogMenuService;

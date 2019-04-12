@@ -1,7 +1,7 @@
 package com.dragon.blog.service.impl;
 
-import com.dragon.blog.annotation.BaseService;
-import com.dragon.blog.base.BaseServiceImpl;
+import com.dragon.annotation.BaseService;
+import com.dragon.base.BaseServiceImpl;
 import com.dragon.blog.mapper.BlogAdsMapper;
 import com.dragon.blog.model.BlogAds;
 import com.dragon.blog.model.BlogAdsExample;

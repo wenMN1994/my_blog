@@ -1,6 +1,6 @@
 package com.dragon.blog.service;
 
-import com.dragon.blog.base.BaseService;
+import com.dragon.base.BaseService;
 import com.dragon.blog.model.BlogMenu;
 import com.dragon.blog.model.BlogMenuExample;
 

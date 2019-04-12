@@ -1,4 +1,4 @@
-package com.dragon.blog.annotation;
+package com.dragon.annotation;
 
 import java.lang.annotation.*;
 

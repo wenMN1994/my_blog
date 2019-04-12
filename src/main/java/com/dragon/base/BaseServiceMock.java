@@ -1,4 +1,4 @@
-package com.dragon.blog.base;
+package com.dragon.base;
 
 import org.apache.ibatis.annotations.Param;
 

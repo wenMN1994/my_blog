@@ -1,9 +1,9 @@
-package com.dragon.blog.base;
+package com.dragon.base;
 
 import com.github.pagehelper.PageHelper;
-import com.dragon.blog.db.DataSourceEnum;
-import com.dragon.blog.db.DynamicDataSource;
-import com.dragon.blog.utils.SpringContextUtil;
+import com.dragon.db.DataSourceEnum;
+import com.dragon.db.DynamicDataSource;
+import com.dragon.utils.SpringContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.annotations.Param;
 

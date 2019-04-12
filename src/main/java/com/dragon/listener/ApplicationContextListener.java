@@ -1,7 +1,7 @@
-package com.dragon.blog.listener;
+package com.dragon.listener;
 
-import com.dragon.blog.annotation.BaseService;
-import com.dragon.blog.base.BaseInterface;
+import com.dragon.annotation.BaseService;
+import com.dragon.base.BaseInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;

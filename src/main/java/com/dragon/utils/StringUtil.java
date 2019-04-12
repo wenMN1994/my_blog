@@ -1,4 +1,4 @@
-package com.dragon.blog.utils;
+package com.dragon.utils;
 
 
 import org.apache.commons.lang.StringUtils;
