@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dragon.blog.mapper.BlogSysRoleButtonMapper">
+  <resultMap id="BaseResultMap" type="com.dragon.blog.model.BlogSysRoleButton">
+    <id column="role_button_id" jdbcType="VARCHAR" property="roleButtonId" />
+    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <result column="button_id" jdbcType="VARCHAR" property="buttonId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    role_button_id, role_id, button_id
+  </sql>
+  <select id="selectByExample" parameterType="com.dragon.blog.model.BlogSysRoleButtonExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from blog_sys_role_button
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from blog_sys_role_button
+    where role_button_id = #{roleButtonId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from blog_sys_role_button
+    where role_button_id = #{roleButtonId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dragon.blog.model.BlogSysRoleButtonExample">
+    delete from blog_sys_role_button
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dragon.blog.model.BlogSysRoleButton">
+    insert into blog_sys_role_button (role_button_id, role_id, button_id
+      )
+    values (#{roleButtonId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, #{buttonId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dragon.blog.model.BlogSysRoleButton">
+    insert into blog_sys_role_button
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleButtonId != null">
+        role_button_id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="buttonId != null">
+        button_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleButtonId != null">
+        #{roleButtonId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="buttonId != null">
+        #{buttonId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dragon.blog.model.BlogSysRoleButtonExample" resultType="java.lang.Long">
+    select count(*) from blog_sys_role_button
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update blog_sys_role_button
+    <set>
+      <if test="record.roleButtonId != null">
+        role_button_id = #{record.roleButtonId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roleId != null">
+        role_id = #{record.roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buttonId != null">
+        button_id = #{record.buttonId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update blog_sys_role_button
+    set role_button_id = #{record.roleButtonId,jdbcType=VARCHAR},
+      role_id = #{record.roleId,jdbcType=VARCHAR},
+      button_id = #{record.buttonId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dragon.blog.model.BlogSysRoleButton">
+    update blog_sys_role_button
+    <set>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="buttonId != null">
+        button_id = #{buttonId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where role_button_id = #{roleButtonId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dragon.blog.model.BlogSysRoleButton">
+    update blog_sys_role_button
+    set role_id = #{roleId,jdbcType=VARCHAR},
+      button_id = #{buttonId,jdbcType=VARCHAR}
+    where role_button_id = #{roleButtonId,jdbcType=VARCHAR}
+  </update>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>
