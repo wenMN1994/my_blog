@@ -61,7 +61,6 @@ dependencies {
 	compile group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.11.RELEASE'
 	compile group: 'org.thymeleaf', name: 'thymeleaf-spring5', version: '3.0.11.RELEASE'
 	compile group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.2.2'
-//    compile 'com.alibaba:druid:1.1.10'
 	compile group: 'com.alibaba', name: 'druid', version: '1.1.10'
     //这里的版本可以在上述定义
 	compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.39'
@@ -73,12 +72,19 @@ dependencies {
 	compile group: 'net.sf.ehcache', name: 'ehcache', version: '2.10.4'
 
 	compile group: 'org.mybatis', name: 'mybatis-ehcache', version: '1.0.0'
-	
-    //分页插件
+
+	//httpclient
+	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
+
+	//redis
+	compile group: 'redis.clients', name: 'jedis', version: '2.9.0'
+
+	//分页插件
 	compile group: 'com.github.pagehelper', name: 'pagehelper-spring-boot-starter', version: '1.2.10'
 
 	//热部署
 	compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.0.4.RELEASE'
 
+	//commons-lang
 	compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
 }
