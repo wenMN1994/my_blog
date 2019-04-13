@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/admin")
-public class AdminTestController {
+public class AdminController {
     /**
      * 测试后台管理跳转
      * @return

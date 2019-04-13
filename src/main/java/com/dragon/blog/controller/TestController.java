@@ -36,10 +36,10 @@ public class TestController {
      * 测试首页跳转
      * @return
      */
-    @RequestMapping("/")
-    public String index(){
-        return "index/index";
-    }
+//    @RequestMapping("/")
+//    public String index(){
+//        return "index/index";
+//    }
 
     /**
      * 测试个人博客日记跳转
