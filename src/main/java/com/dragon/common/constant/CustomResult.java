@@ -1,4 +1,4 @@
-package com.dragon.utils;
+package com.dragon.common.constant;
 
 import com.dragon.base.BaseResult;
 import com.dragon.common.CustomResultConstant;
