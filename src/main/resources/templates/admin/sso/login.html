@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title>博客后台管理系统 - 登录</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="common/images/wen_50.png">
+    <link href="admin/h_ui_4.9/css/bootstrap.min.css" rel="stylesheet">
+    <link href="admin/h_ui_4.9/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="admin/h_ui_4.9/css/animate.css" rel="stylesheet">
+    <link href="admin/h_ui_4.9/css/style.css" rel="stylesheet">
+    <link href="admin/h_ui_4.9/css/login.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    <script>
+        if (window.top !== window.self) {
+            window.top.location = window.location;
+        }
+    </script>
+
+</head>
+
+<body class="signin">
+<div class="signinpanel">
+    <div class="row">
+        <div class="col-sm-7">
+            <div class="signin-info">
+                <div class="logopanel m-b">
+                    <h1>BLOG SYSTEM</h1>
+                </div>
+                <div class="m-b"></div>
+                <h4>欢迎使用 <strong>BLOG 后台管理系统</strong></h4>
+                <ul class="m-b">
+                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 权限管理</li>
+                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 内容管理</li>
+                </ul>
+                <strong>还没有账号？ <a href="#">联系管理员&raquo;</a></strong>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="login-form">
+                <h4 class="no-margins">登录：</h4>
+                <p class="m-t-md">登录到BLOG后台管理系统</p>
+                <input id="username" type="text" class="form-control uname" name="username" placeholder="Account"
+                       required autofocus value="admin">
+                <input id="password" type="password" class="form-control  pword m-b" name="password"
+                       placeholder="Password" required value="123456">
+                <a href="#">忘记密码了？</a>
+                <button id="login-bt" class="btn btn-success btn-block">登录</button>
+            </div>
+        </div>
+    </div>
+    <div class="signup-footer">
+        <div class="pull-left">
+            &copy; 2015 All Rights Reserved. DragonWen
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
