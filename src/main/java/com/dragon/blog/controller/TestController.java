@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author：Dragon Wen
  * @email：18475536452@163.com
  * @date：Created in 2019/3/18 17:09
- * @description：${description}
+ * @description： 测试Controller
  * @modified By：
  * @version: $version$
  */
 @Controller
+@RequestMapping("/my_blog")
 public class TestController {
 
     private static final Logger logger = LoggerFactory.getLogger(TestController.class);
@@ -36,7 +37,7 @@ public class TestController {
      * 测试首页跳转
      * @return
      */
-//    @RequestMapping("/")
+//    @RequestMapping("")
 //    public String index(){
 //        return "index/index";
 //    }
@@ -45,7 +46,7 @@ public class TestController {
      * 测试个人博客日记跳转
      * @return
      */
-    @RequestMapping("/blog")
+    @RequestMapping("blog")
     public String blog(){
         return "blog/blog";
     }
@@ -54,7 +55,7 @@ public class TestController {
      * 测试随笔分类跳转
      * @return
      */
-    @RequestMapping("/classify")
+    @RequestMapping("classify")
     public String classify(){
         return "classify/classify";
     }
@@ -63,7 +64,7 @@ public class TestController {
      * 测试个人简历跳转
      * @return
      */
-    @RequestMapping("/resume")
+    @RequestMapping("resume")
     public String resume(){
         return "resume/resume";
     }
@@ -72,7 +73,7 @@ public class TestController {
      * 测试知识库跳转
      * @return
      */
-    @RequestMapping("/repository")
+    @RequestMapping("repository")
     public String repository(){
         return "repository/repository";
     }
@@ -81,7 +82,7 @@ public class TestController {
      * 测试关于我跳转
      * @return
      */
-    @RequestMapping("/about")
+    @RequestMapping("about")
     public String about(){
         return "about/about";
     }
@@ -90,7 +91,7 @@ public class TestController {
      * 测试文章内容页跳转
      * @return
      */
-    @RequestMapping("/info")
+    @RequestMapping("info")
     public String info(){
         return "info/info";
     }
@@ -99,7 +100,7 @@ public class TestController {
      * 测试时间轴跳转
      * @return
      */
-    @RequestMapping("/time")
+    @RequestMapping("time")
     public String time(){
         return "time/time";
     }
