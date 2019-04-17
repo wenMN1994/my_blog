@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
  * @author：Dragon Wen
  * @email：18475536452@163.com
  * @date：Created in 2019/4/16 17:40
- * @description： 自定义拦截配置
+ * @description： 自定义拦截器
  * @modified By：
  * @version: $version$
  */
