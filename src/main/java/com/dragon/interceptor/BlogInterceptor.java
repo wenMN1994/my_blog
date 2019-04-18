@@ -40,7 +40,7 @@ public class BlogInterceptor implements HandlerInterceptor {
 
             logger.info("尚未登录，跳转到登录界面");
             response.setHeader("Content-Type", "text/html;charset=UTF-8");
-            response.sendRedirect(request.getContextPath() + "/admin/login");
+            response.sendRedirect(request.getContextPath() + "/sso/login");
             return false;
         }else{
             logger.info("已登录，放行！");
