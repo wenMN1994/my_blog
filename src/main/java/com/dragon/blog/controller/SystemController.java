@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @version: $version$
  */
 @Controller
-@RequestMapping("/admin")
-public class AdminController {
+@RequestMapping("/system")
+public class SystemController {
     /**
      * 测试后台管理跳转
      * @return
@@ -23,14 +23,14 @@ public class AdminController {
         return "admin/index";
     }
 
-    /**
-     * 测试后台管理登录页面
-     * @return
-     */
-    @RequestMapping("login")
-    public String login(){
-        return "admin/sso/login";
-    }
+//    /**
+//     * 测试后台管理登录页面
+//     * @return
+//     */
+//    @RequestMapping("login")
+//    public String login(){
+//        return "admin/sso/login";
+//    }
 
     /**
      * 测试后台管理跳转
