@@ -20,7 +20,7 @@ public class SystemController {
      */
     @RequestMapping("index")
     public String admin(){
-        return "admin/index";
+        return "system/index";
     }
 
 //    /**
@@ -38,6 +38,6 @@ public class SystemController {
      */
     @RequestMapping("home")
     public String home(){
-        return "admin/home/home";
+        return "system/home/home";
     }
 }
