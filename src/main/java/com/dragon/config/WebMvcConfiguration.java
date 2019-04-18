@@ -33,7 +33,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         //排除静态资源拦截
         registry.addResourceHandler("/static/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX+"/static/");
         registry.addResourceHandler("/my_blog/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX+"/static/");
-        registry.addResourceHandler("/admin/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX+"/static/");
+        registry.addResourceHandler("/system/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX+"/static/");
+        registry.addResourceHandler("/sso/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX+"/static/");
     }
 
     /**
@@ -42,7 +43,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         logger.info("add interceptors");
-        registry.addInterceptor(blogInterceptor).addPathPatterns("/**").excludePathPatterns(Arrays.asList("/admin/login","/my_blog/**","/Front-End/**","/common/**","/admin/h_ui_4.9/**"));
+        registry.addInterceptor(blogInterceptor).addPathPatterns("/**").excludePathPatterns(Arrays.asList("/sso/login","/sso/admin/**","/sso/common/**","/my_blog/**","/Front-End/**","/common/**","/admin/**"));
     }
 
 }
