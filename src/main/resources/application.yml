@@ -13,7 +13,7 @@ spring:
       suffix: .html
   resources:
     # 静态资源
-    static-locations: classpath:/templates,classpath:/static/
+    static-locations: classpath:/templates,classpath:/static
   thymeleaf:
     #开发时关闭缓存,不然没法看到实时页面
     cache: false
