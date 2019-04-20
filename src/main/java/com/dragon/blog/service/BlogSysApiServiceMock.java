@@ -1,5 +1,6 @@
 package com.dragon.blog.service;
 
+import com.dragon.blog.model.BlogSysUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,4 +14,10 @@ import org.slf4j.LoggerFactory;
  */
 public class BlogSysApiServiceMock implements BlogSysApiService {
     private static final Logger LOGGER = LoggerFactory.getLogger(BlogSysApiServiceMock.class);
+
+    @Override
+    public BlogSysUser selectBlogSysUserByUsername(String username) {
+        LOGGER.info("BlogSysApiServiceMock => selectBlogSysUserByUsername");
+        return null;
+    }
 }
