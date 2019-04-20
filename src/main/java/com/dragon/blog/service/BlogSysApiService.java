@@ -1,5 +1,7 @@
 package com.dragon.blog.service;
 
+import com.dragon.blog.model.BlogSysUser;
+
 /**
  * @author：Dragon Wen
  * @email：18475536452@163.com
@@ -10,4 +12,10 @@ package com.dragon.blog.service;
  */
 public interface BlogSysApiService {
 
+    /**
+     * 根据username获取BlogSysUser 接口
+     * @param username
+     * @return
+     */
+    BlogSysUser selectBlogSysUserByUsername(String username);
 }
