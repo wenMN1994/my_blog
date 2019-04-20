@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:fragment="commonHead(title)">
+    <base th:href="${#request.getContextPath()}+'/'">
     <meta charset="utf-8">
     <title th:text="${title}">Title</title>
     <meta name="keywords" content="blog"/>
