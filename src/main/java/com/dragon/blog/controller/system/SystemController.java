@@ -1,5 +1,8 @@
 package com.dragon.blog.controller.system;
 
+import com.dragon.base.BaseController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -13,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/system")
-public class SystemController {
+public class SystemController extends BaseController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SystemController.class);
     /**
      * 测试后台管理跳转
      * @return
