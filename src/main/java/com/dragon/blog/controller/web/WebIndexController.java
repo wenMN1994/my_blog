@@ -1,4 +1,4 @@
-package com.dragon.blog.controller;
+package com.dragon.blog.controller.web;
 
 import com.dragon.base.BaseController;
 import org.slf4j.Logger;

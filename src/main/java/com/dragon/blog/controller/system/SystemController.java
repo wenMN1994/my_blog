@@ -1,4 +1,4 @@
-package com.dragon.blog.controller;
+package com.dragon.blog.controller.system;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
