@@ -5,6 +5,7 @@
     <id column="user_id" jdbcType="VARCHAR" property="userId" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="role_id" jdbcType="VARCHAR" property="roleId" />
     <result column="last_login" jdbcType="VARCHAR" property="lastLogin" />
@@ -75,8 +76,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    user_id, user_name, password, name, role_id, last_login, ip, skin, number, email, 
-    phone, status, remark
+    user_id, user_name, password, salt, name, role_id, last_login, ip, skin, number, 
+    email, phone, status, remark
   </sql>
   <select id="selectByExample" parameterType="com.dragon.blog.model.BlogSysUserExample" resultMap="BaseResultMap">
     select
@@ -110,15 +111,15 @@
   </delete>
   <insert id="insert" parameterType="com.dragon.blog.model.BlogSysUser">
     insert into blog_sys_user (user_id, user_name, password, 
-      name, role_id, last_login, 
-      ip, skin, number, email, 
-      phone, status, remark
-      )
+      salt, name, role_id, 
+      last_login, ip, skin, 
+      number, email, phone, 
+      status, remark)
     values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{name,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, #{lastLogin,jdbcType=VARCHAR}, 
-      #{ip,jdbcType=VARCHAR}, #{skin,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
-      )
+      #{salt,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, 
+      #{lastLogin,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{skin,jdbcType=VARCHAR}, 
+      #{number,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.dragon.blog.model.BlogSysUser">
     insert into blog_sys_user
@@ -131,6 +132,9 @@
       </if>
       <if test="password != null">
         password,
+      </if>
+      <if test="salt != null">
+        salt,
       </if>
       <if test="name != null">
         name,
@@ -172,6 +176,9 @@
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        #{salt,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -223,6 +230,9 @@
       <if test="record.password != null">
         password = #{record.password,jdbcType=VARCHAR},
       </if>
+      <if test="record.salt != null">
+        salt = #{record.salt,jdbcType=VARCHAR},
+      </if>
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
       </if>
@@ -263,6 +273,7 @@
     set user_id = #{record.userId,jdbcType=VARCHAR},
       user_name = #{record.userName,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
+      salt = #{record.salt,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR},
       role_id = #{record.roleId,jdbcType=VARCHAR},
       last_login = #{record.lastLogin,jdbcType=VARCHAR},
@@ -285,6 +296,9 @@
       </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        salt = #{salt,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
@@ -323,6 +337,7 @@
     update blog_sys_user
     set user_name = #{userName,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       role_id = #{roleId,jdbcType=VARCHAR},
       last_login = #{lastLogin,jdbcType=VARCHAR},

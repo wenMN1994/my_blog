@@ -6,7 +6,7 @@ import com.dragon.blog.model.BlogSysUserExample;
 
 /**
 * BlogSysUserService接口
-* Created by Dragon.Wen on 2019/4/12.
+* Created by Dragon.Wen on 2019/4/21.
 */
 public interface BlogSysUserService extends BaseService<BlogSysUser, BlogSysUserExample> {
 
