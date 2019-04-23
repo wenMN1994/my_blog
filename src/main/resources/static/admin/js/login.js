@@ -17,8 +17,7 @@ function login() {
         type: 'POST',
         data: {
             username: $('#username').val(),
-            password: $('#password').val(),
-            backurl: BACK_URL
+            password: $('#password').val()
         },
         beforeSend: function() {
 
