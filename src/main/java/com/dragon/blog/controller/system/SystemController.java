@@ -1,8 +1,6 @@
 package com.dragon.blog.controller.system;
 
 import com.dragon.base.BaseController;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -27,12 +25,6 @@ public class SystemController extends BaseController {
      */
     @RequestMapping("index")
     public String admin(){
-        // 获得当前Subject
-        Subject currentUser = SecurityUtils.getSubject();
-        // 验证用户是否验证，即是否登录
-        if (!currentUser.isAuthenticated()) {
-            return "redirect:sso/login";
-        }
         return "system/index";
     }
 
