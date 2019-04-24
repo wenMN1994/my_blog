@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @version: $version$
  */
 @Controller
-@RequestMapping("/my_blog")
+@RequestMapping({"/","/my_blog"})
 public class WebIndexController extends BaseController {
 
-    private static final Logger logger = LoggerFactory.getLogger(WebIndexController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WebIndexController.class);
 
     @RequestMapping("")
     public String index(ModelMap modelMap){
