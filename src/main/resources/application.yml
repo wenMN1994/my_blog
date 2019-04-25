@@ -1,35 +1,46 @@
-#设置tomcat的端口为8088
+# 项目相关配置
+dragon:
+  # 名称
+  name: my_blog
+  # 版本
+  version: 1.0.0
+  # 版权年份
+  copyrightYear: 2019
+  # 文件路径
+  profile: D:/Temp/profile/
+  # 获取ip地址开关
+  addressEnabled: true
+
+# 开发环境配置
 server:
+  # 服务端口
   port: 8088
+
+# Spring配置
 spring:
-  datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/dragon_blog?characterEncoding=utf-8&useSSL=false
-    username: root
-    password: root
-  mvc:
-    view:
-      suffix: .html
   resources:
     # 静态资源
     static-locations: classpath:/templates,classpath:/static
   thymeleaf:
-    #开发时关闭缓存,不然没法看到实时页面
+    mode: HTML
+    encoding: utf-8
+    # 禁用缓存
     cache: false
-    enabled: true
+  profiles:
+    active: druid
 
 mybatis:
+  # 搜索指定包别名
   type-aliases-package: com.dragon.blog.model # 注意：对应实体类的路径
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
   mapper-locations: classpath:mapping/*Mapper.xml #注意：一定要对应mapper映射xml文件的所在路径
 
-#显示mysql执行日志
+# 日志配置
 logging:
   level:
-    com:
-      dragon:
-        blog:
-          mapper: debug
+    com.dragon: debug
+    org.springframework: WARN
+    org.spring.springboot.dao: debug
   config: classpath:log4j2-spring.xml
 
 # 分页插件配置
