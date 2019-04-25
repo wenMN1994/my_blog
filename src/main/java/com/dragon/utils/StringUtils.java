@@ -1,19 +1,16 @@
 package com.dragon.utils;
 
-
-import org.apache.commons.lang.StringUtils;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * 
- * <p>Title: StringUtil</p>  
+ * <p>Title: StringUtils</p>
  * <p>Description: String 工具类</p>  
  * @author Dragon.Wen
  * @date Oct 17, 2018
  */
-public class StringUtil {
+public class StringUtils extends org.apache.commons.lang.StringUtils {
 
     private static Pattern linePattern = Pattern.compile("_(\\w)");
     private static Pattern humpPattern = Pattern.compile("[A-Z]");
@@ -71,7 +68,7 @@ public class StringUtil {
      * @return
      */
     public static String toLowerCaseFirstOne(String s) {
-        if (StringUtils.isBlank(s)) {
+        if (org.apache.commons.lang.StringUtils.isBlank(s)) {
             return s;
         }
         if (Character.isLowerCase(s.charAt(0))) {
@@ -87,7 +84,7 @@ public class StringUtil {
      * @return
      */
     public static String toUpperCaseFirstOne(String s) {
-        if (StringUtils.isBlank(s)) {
+        if (org.apache.commons.lang.StringUtils.isBlank(s)) {
             return s;
         }
         if (Character.isUpperCase(s.charAt(0))) {
@@ -157,4 +154,22 @@ public class StringUtil {
         }
     }
 
+    /**
+     *  判断一个对象是否为空
+     * @param object
+     * @return true：为空 false：非空
+     */
+    public static boolean isNull(Object object) {
+        return object == null;
+    }
+
+    /**
+     * * 判断一个对象是否非空
+     *
+     * @param object Object
+     * @return true：非空 false：空
+     */
+    public static boolean isNotNull(Object object) {
+        return !isNull(object);
+    }
 }
