@@ -298,7 +298,7 @@ CodeMirror.defineMode("perl",function(){
                 exists                          :1,     // - test whether a hash key is present
                 exit                            :1,     // - terminate this program
                 'exp'                           :1,     // - raise I to a power
-                fcntl                           :1,     // - file control admin call
+                fcntl                           :1,     // - file control system call
                 fileno                          :1,     // - return file descriptor from filehandle
                 flock                           :1,     // - lock an entire file with an advisory lock
                 fork                            :1,     // - create a new process just like this one
@@ -339,7 +339,7 @@ CodeMirror.defineMode("perl",function(){
                 'import'                        :1,     // - patch a module's namespace into your own
                 index                           :1,     // - find a substring within a string
                 'int'                           :1,     // - get the integer portion of a number
-                ioctl                           :1,     // - admin-dependent device control admin call
+                ioctl                           :1,     // - system-dependent device control system call
                 'join'                          :1,     // - join a list into a string using a separator
                 keys                            :1,     // - retrieve list of indices from a hash
                 kill                            :1,     // - send a signal to a process or process group
@@ -390,7 +390,7 @@ CodeMirror.defineMode("perl",function(){
                 readdir                         :1,     // - get a directory from a directory handle
                 readline                        :1,     // - fetch a record from a file
                 readlink                        :1,     // - determine where a symbolic link is pointing
-                readpipe                        :1,     // - execute a admin command and collect standard output
+                readpipe                        :1,     // - execute a system command and collect standard output
                 recv                            :1,     // - receive a message over a Socket
                 redo                            :1,     // - start this loop iteration over again
                 ref                             :1,     // - find out the type of thing being referenced
@@ -443,7 +443,7 @@ CodeMirror.defineMode("perl",function(){
                 'sub'                           :1,     // - declare a subroutine, possibly anonymously
                 'substr'                        :1,     // - get or alter a portion of a stirng
                 symlink                         :1,     // - create a symbolic link to a file
-                syscall                         :1,     // - execute an arbitrary admin call
+                syscall                         :1,     // - execute an arbitrary system call
                 sysopen                         :1,     // - open a file, pipe, or descriptor
                 sysread                         :1,     // - fixed-length unbuffered input from a filehandle
                 sysseek                         :1,     // - position I/O pointer on handle used with sysread and syswrite
