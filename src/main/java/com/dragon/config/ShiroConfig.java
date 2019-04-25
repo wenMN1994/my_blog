@@ -1,6 +1,6 @@
 package com.dragon.config;
 
-import com.dragon.client.shiro.filter.BlogShiroRealm;
+import com.dragon.client.shiro.realm.BlogShiroRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
