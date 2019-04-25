@@ -1,4 +1,4 @@
-package com.dragon.client.shiro.filter;
+package com.dragon.client.shiro.realm;
 
 import com.dragon.blog.model.BlogSysUser;
 import com.dragon.blog.service.BlogSysApiService;
@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * @author：Dragon Wen
  * @email：18475536452@163.com
  * @date：Created in 2019/4/20 17:35
- * @description： realm实现类,用于实现具体的验证和授权方法
+ * @description： 自定义Realm 处理登录 权限
  * @modified By：
  * @version: $version$
  */
@@ -28,18 +28,24 @@ public class BlogShiroRealm extends AuthorizingRealm {
     @Resource
     private BlogSysApiService blogSysApiService;
 
+    /**
+     * 授权
+     */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        LOGGER.info("---------------- 执行 Shiro 权限获取 ---------------------");
+        LOGGER.info("---------------- 执行 Shiro 授权 ---------------------");
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         return authorizationInfo;
     }
 
-    /*主要是用来进行身份认证的，也就是说验证用户输入的账号和密码是否正确。*/
+    /**
+     * 登录认证
+     * 主要是用来进行身份认证的，也就是说验证用户输入的账号和密码是否正确。
+     */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken)
             throws AuthenticationException {
-        LOGGER.info("---------------- 执行 Shiro 凭证认证 ----------------------");
+        LOGGER.info("---------------- 执行 Shiro 登录认证 ----------------------");
         //获取用户的输入的账号.
 //        String username = (String)token.getPrincipal();
         UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
