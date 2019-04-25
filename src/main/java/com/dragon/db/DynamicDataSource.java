@@ -4,6 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
+import javax.sql.DataSource;
+import java.util.Map;
+
 /**
  * 
  * <p>Title: DynamicDataSource</p>  
@@ -15,7 +18,17 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(DynamicDataSource.class);
 
+    /**
+     * 使用ThreadLocal维护变量，ThreadLocal为每个使用该变量的线程提供独立的变量副本，
+     * 所以每一个线程都可以独立地改变自己的副本，而不会影响其它线程所对应的副本。
+     */
     private static final ThreadLocal<String> CONTEXT_HOLDER = new ThreadLocal<>();
+
+    public DynamicDataSource(DataSource defaultTargetDataSource, Map<Object, Object> targetDataSources) {
+        super.setDefaultTargetDataSource(defaultTargetDataSource);
+        super.setTargetDataSources(targetDataSources);
+        super.afterPropertiesSet();
+    }
 
     @Override
     protected Object determineCurrentLookupKey() {
@@ -30,6 +43,7 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
      * @param dataSource
      */
     public static void setDataSource(String dataSource) {
+        LOGGER.info("切换到{}数据源", dataSource);
         CONTEXT_HOLDER.set(dataSource);
     }
 
