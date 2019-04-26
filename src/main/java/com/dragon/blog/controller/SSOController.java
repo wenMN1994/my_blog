@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletResponse;
  * @date：Created in 2019/4/13 15:02
  * @description 单点登录Controller
  * @modified By：
- * @version: $version$
+ * @version: 1.0.0
  */
 @Controller
 @RequestMapping("/sso")
@@ -37,22 +37,40 @@ import javax.servlet.http.HttpServletResponse;
 public class SSOController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(SSOController.class);
 
+    /**
+     * 登录成功后跳转链接
+     */
     @Value("${blog.sso.successUrl}")
     private String loginSuccessUrl;
 
+    /**
+     * 登录页面跳转方法
+     * @return 登录页面地址
+     */
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String login() {
         return "system/sso/login";
     }
 
+    /**
+     * 登录请求方法
+     * @param request
+     * @param response
+     * @param modelMap
+     * @return
+     */
     @RequestMapping(value = "login", method = RequestMethod.POST)
     @ResponseBody
     public Object login(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
+        //获取用户输入的用户名
         String username = request.getParameter("username");
+        //获取用户输入的密码
         String password = request.getParameter("password");
+        //判断用户名是否为空
         if (StringUtils.isBlank(username)) {
             return new CustomResult(CustomResultConstant.EMPTY_USERNAME, "帐号不能为空！");
         }
+        //判断密码是否为空
         if (StringUtils.isBlank(password)) {
             return new CustomResult(CustomResultConstant.EMPTY_PASSWORD, "密码不能为空！");
         }
@@ -62,15 +80,23 @@ public class SSOController extends BaseController {
             Subject subject = SecurityUtils.getSubject();
             subject.login(usernamePasswordToken);
         } catch (UnknownAccountException e) {
+            LOGGER.info("登录失败：帐号不存在！");
             return new CustomResult(CustomResultConstant.INVALID_USERNAME, "帐号不存在！");
         } catch (IncorrectCredentialsException e) {
+            LOGGER.info("登录失败：密码错误！");
             return new CustomResult(CustomResultConstant.INVALID_PASSWORD, "密码错误！");
         } catch (LockedAccountException e) {
+            LOGGER.info("登录失败：帐号已锁定！");
             return new CustomResult(CustomResultConstant.INVALID_ACCOUNT, "帐号已锁定！");
         }
 
         return new CustomResult(CustomResultConstant.SUCCESS, loginSuccessUrl);
 
+    }
+
+    @RequestMapping(value = "unauth", method = RequestMethod.GET)
+    public String unauth() {
+        return "error/403";
     }
 
 }
