@@ -53,4 +53,13 @@ pagehelper:
 # 登录成功回调地址
 blog:
   sso:
-    successUrl: system/index
+    successUrl: /system/index
+
+# shiro配置
+shiro:
+  paths:
+    # 登录地址
+    loginUrl: /sso/login
+    # 权限认证失败地址
+    unauthorizedUrl: /unauth
+
