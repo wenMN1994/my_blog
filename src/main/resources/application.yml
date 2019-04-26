@@ -49,3 +49,8 @@ pagehelper:
   reasonable: true
   support-methods-arguments: true
   params: count=countSql
+
+# 登录成功回调地址
+blog:
+  sso:
+    successUrl: system/index

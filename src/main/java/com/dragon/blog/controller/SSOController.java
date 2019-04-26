@@ -12,6 +12,8 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,8 +33,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 @RequestMapping("/sso")
+@Configuration
 public class SSOController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(SSOController.class);
+
+    @Value("${blog.sso.successUrl}")
+    private String loginSuccessUrl;
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String login() {
@@ -63,7 +69,7 @@ public class SSOController extends BaseController {
             return new CustomResult(CustomResultConstant.INVALID_ACCOUNT, "帐号已锁定！");
         }
 
-        return new CustomResult(CustomResultConstant.SUCCESS, "system/index");
+        return new CustomResult(CustomResultConstant.SUCCESS, loginSuccessUrl);
 
     }
 
