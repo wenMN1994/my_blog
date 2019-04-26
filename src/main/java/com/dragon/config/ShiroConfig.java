@@ -1,6 +1,7 @@
 package com.dragon.config;
 
 import com.dragon.client.shiro.realm.BlogShiroRealm;
+import com.dragon.client.shiro.web.LogoutFilter;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -14,9 +15,11 @@ import org.crazycake.shiro.RedisSessionDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Filter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -32,37 +35,63 @@ public class ShiroConfig {
 
     private final Logger LOGGER = LoggerFactory.getLogger(ShiroConfig.class);
 
+    // 登录地址
+    @Value("${shiro.paths.loginUrl}")
+    private String loginUrl;
+
+    // 权限认证失败地址
+    @Value("${shiro.paths.unauthorizedUrl}")
+    private String unauthorizedUrl;
+
     @Bean
     public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
         LOGGER.info("ShiroConfiguration.shirFilter()");
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+        // Shiro的核心安全接口,这个属性是必须的
         shiroFilterFactoryBean.setSecurityManager(securityManager);
+        // 身份认证失败，则跳转到登录页面的配置
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
-        shiroFilterFactoryBean.setLoginUrl("/sso/login");
-
+        shiroFilterFactoryBean.setLoginUrl(loginUrl);
         // 登录成功后要跳转的链接
-        shiroFilterFactoryBean.setSuccessUrl("/system/index");
+//        shiroFilterFactoryBean.setSuccessUrl("/system/index");
+        // 权限认证失败，则跳转到指定页面
+        shiroFilterFactoryBean.setUnauthorizedUrl(unauthorizedUrl);
 
-        //拦截器.
-        Map<String,String> filterChainDefinitionMap = new LinkedHashMap<String,String>();
-        // 配置不会被拦截的链接 顺序判断
-        filterChainDefinitionMap.put("/sso/login", "anon");
-        filterChainDefinitionMap.put("/", "anon");
-        //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
-        filterChainDefinitionMap.put("/logout", "logout");
+        //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
+        // Shiro连接约束配置，即过滤链的定义
+        LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
+        // 对静态资源设置匿名访问
         filterChainDefinitionMap.put("/static/**", "anon");
-        filterChainDefinitionMap.put("/my_blog/**", "anon");
         filterChainDefinitionMap.put("/admin/**", "anon");
         filterChainDefinitionMap.put("/common/**", "anon");
         filterChainDefinitionMap.put("/Front-End/**", "anon");
+        //前台界面设置允许访问
+        filterChainDefinitionMap.put("/", "anon");
+        filterChainDefinitionMap.put("/my_blog/**", "anon");
+        //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
+        filterChainDefinitionMap.put("/logout", "logout");
+        // 不需要拦截的访问
+        filterChainDefinitionMap.put("/sso/login", "anon");
+
+        Map<String, Filter> filters = new LinkedHashMap<>();
+        // 注销成功，则跳转到指定页面
+        filters.put("logout", logoutFilter());
+        shiroFilterFactoryBean.setFilters(filters);
+
         //<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
-        //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
         filterChainDefinitionMap.put("/**", "authc");
 
-        //未授权界面;
-        shiroFilterFactoryBean.setUnauthorizedUrl("error/403");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
+    }
+
+    /**
+     * 退出过滤器
+     */
+    public LogoutFilter logoutFilter() {
+        LogoutFilter logoutFilter = new LogoutFilter();
+        logoutFilter.setLoginUrl(loginUrl);
+        return logoutFilter;
     }
 
     /**
@@ -204,7 +233,7 @@ public class ShiroConfig {
      *
      */
     @Bean
-    public LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
+    public static LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
         return new LifecycleBeanPostProcessor();
     }
 }
