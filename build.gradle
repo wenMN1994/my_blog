@@ -68,8 +68,6 @@ dependencies {
 	//shiro-redis
 	compile group: 'org.crazycake', name: 'shiro-redis', version: '2.4.2.1-RELEASE'
 
-//	compile group: 'org.springframework', name: 'spring-context-support', version: '5.1.5.RELEASE'
-
 	//Thymeleaf模板
 	compile "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}"
 	compile group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.11.RELEASE'
@@ -105,6 +103,9 @@ dependencies {
 	//commons-io
 	compile group: 'commons-io', name: 'commons-io', version: '2.4'
 
-	//json
+	//fastjson
 	compile group: 'com.alibaba', name: 'fastjson', version: '1.2.47'
+	
+	//阿里数据库连接池
+	compile group: 'com.alibaba', name: 'druid-spring-boot-starter', version: '1.1.10'
 }
