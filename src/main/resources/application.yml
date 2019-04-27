@@ -63,3 +63,15 @@ shiro:
     # 权限认证失败地址
     unauthorizedUrl: /unauth
 
+# redis配置
+redis:
+  # redis 地址
+  ip: 127.0.0.1
+  # redis 端口号
+  port: 6379
+  # redis 密码
+  password: foobared
+  # redis 超时时间
+  timeout: 1800
+  # redis 缓存过期时间
+  expiretime: 1000

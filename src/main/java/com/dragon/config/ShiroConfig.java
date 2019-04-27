@@ -35,13 +35,47 @@ public class ShiroConfig {
 
     private final Logger LOGGER = LoggerFactory.getLogger(ShiroConfig.class);
 
-    // 登录地址
+    /**
+     * 登录地址
+     */
     @Value("${shiro.paths.loginUrl}")
     private String loginUrl;
 
-    // 权限认证失败地址
+    /**
+     * 权限认证失败地址
+     */
     @Value("${shiro.paths.unauthorizedUrl}")
     private String unauthorizedUrl;
+
+    /**
+     * redis 地址
+     */
+    @Value("${redis.ip}")
+    private String redisIP;
+
+    /**
+     * redis 端口号
+     */
+    @Value("${redis.port}")
+    private int redisPort;
+
+    /**
+     * redis 密码
+     */
+    @Value("${redis.password}")
+    private String redisPassword;
+
+    /**
+     * redis 超时时间
+     */
+    @Value("${redis.timeout}")
+    private int redisTimeout;
+
+    /**
+     * redis 缓存过期时间
+     */
+    @Value("${redis.expiretime}")
+    private int redisExpiretime;
 
     @Bean
     public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
@@ -192,11 +226,11 @@ public class ShiroConfig {
      */
     public RedisManager redisManager() {
         RedisManager redisManager = new RedisManager();
-        redisManager.setHost("127.0.0.1");
-        redisManager.setPort(6379);
-        redisManager.setExpire(1800);// 配置缓存过期时间
-        redisManager.setTimeout(1000);
-//        redisManager.setPassword(password);
+        redisManager.setHost(redisIP);
+        redisManager.setPort(redisPort);
+        redisManager.setExpire(redisExpiretime);// 配置缓存过期时间
+        redisManager.setTimeout(redisTimeout);
+//        redisManager.setPassword(redisPassword);
         return redisManager;
     }
 
