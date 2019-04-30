@@ -9,7 +9,7 @@ buildscript {
 	}
 
 	repositories {
-        //使用国内源下载依赖
+        // 使用国内源下载依赖
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
 	}
 	dependencies {
@@ -18,14 +18,14 @@ buildscript {
 }
 // 应用Java插件
 apply plugin: 'java'
-//让工程支持IDEA的导入
+// 让工程支持IDEA的导入
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
 group = 'com.dragon.blog'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
-//build.gradle文件中直接声明的依赖项、仓库地址等信息是项目自身需要的资源。
+// build.gradle文件中直接声明的依赖项、仓库地址等信息是项目自身需要的资源。
 repositories {
     maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
     mavenCentral()
@@ -52,60 +52,67 @@ dependencies {
      * 这里注意，如果想使用统一定义的版本，要用双引号标注>_<
      */
 	compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
-	//引入AOP依赖
+	// 引入AOP依赖
 	compile "org.springframework.boot:spring-boot-starter-aop:${springBootVersion}"
-    //@test测试使用
+    // @test测试使用
     testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     compile "org.springframework.boot:spring-boot-starter-log4j2:${springBootVersion}"
 
-	//shiro
+	// shiro
 	compile group: 'org.apache.shiro', name: 'shiro-core', version: shiroVersion
 	compile group: 'org.apache.shiro', name: 'shiro-web', version: shiroVersion
 	compile group: 'org.apache.shiro', name: 'shiro-quartz', version: shiroVersion
 	compile group: 'org.apache.shiro', name: 'shiro-spring', version: shiroVersion
 	compile group: 'org.apache.shiro', name: 'shiro-ehcache', version: shiroVersion
 	
-	//shiro-redis
+	// shiro-redis
 	compile group: 'org.crazycake', name: 'shiro-redis', version: '2.4.2.1-RELEASE'
 
-	//Thymeleaf模板
+	// Thymeleaf模板
 	compile "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}"
 	compile group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.11.RELEASE'
 	compile group: 'org.thymeleaf', name: 'thymeleaf-spring5', version: '3.0.11.RELEASE'
 	compile group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.2.2'
 	compile group: 'com.alibaba', name: 'druid', version: '1.1.10'
-    //这里的版本可以在上述定义
+    // 这里的版本可以在上述定义
 	compile group: 'mysql', name: 'mysql-connector-java', version: mysqlVersion
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.1.3.RELEASE'
 	compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '1.3.2'
-	//让gradle具有内置的compileOnly范围，可用于告诉gradle仅在编译期间添加lombok
+	// 让gradle具有内置的compileOnly范围，可用于告诉gradle仅在编译期间添加lombok
 	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
 
 	compile group: 'net.sf.ehcache', name: 'ehcache', version: '2.10.4'
 
 	compile group: 'org.mybatis', name: 'mybatis-ehcache', version: '1.0.0'
 
-	//httpclient
+	// httpclient
 	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
 
-	//redis
+	// redis
 	compile group: 'redis.clients', name: 'jedis', version: '2.9.0'
 
-	//分页插件
+	// 分页插件
 	compile group: 'com.github.pagehelper', name: 'pagehelper-spring-boot-starter', version: '1.2.10'
 
-	//热部署
+	// 热部署
 	compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.0.4.RELEASE'
 
-	//commons-lang
+	// commons-lang
 	compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
 
-	//commons-io
+	// commons-io
 	compile group: 'commons-io', name: 'commons-io', version: '2.4'
 
-	//fastjson
+	// fastjson
 	compile group: 'com.alibaba', name: 'fastjson', version: '1.2.47'
 	
-	//阿里数据库连接池
+	// 阿里数据库连接池
 	compile group: 'com.alibaba', name: 'druid-spring-boot-starter', version: '1.1.10'
+
+	// HTML解析器
+	compile group: 'org.jsoup', name: 'jsoup', version: '1.11.3'
+
+	// Google Collections Library
+	compile group: 'com.google.collections', name: 'google-collections', version: '1.0'
+
 }
