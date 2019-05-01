@@ -23,7 +23,7 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
 group = 'com.dragon.blog'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0'
 sourceCompatibility = 1.8
 // build.gradle文件中直接声明的依赖项、仓库地址等信息是项目自身需要的资源。
 repositories {
@@ -81,8 +81,10 @@ dependencies {
 	// 让gradle具有内置的compileOnly范围，可用于告诉gradle仅在编译期间添加lombok
 	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
 
+	// ehcache缓存
 	compile group: 'net.sf.ehcache', name: 'ehcache', version: '2.10.4'
 
+	// mybatis-ehcache
 	compile group: 'org.mybatis', name: 'mybatis-ehcache', version: '1.0.0'
 
 	// httpclient
