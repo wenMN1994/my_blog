@@ -51,12 +51,16 @@ dependencies {
     /**
      * 这里注意，如果想使用统一定义的版本，要用双引号标注>_<
      */
+	// SpringBoot 核心包
 	compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
 	// 引入AOP依赖
 	compile "org.springframework.boot:spring-boot-starter-aop:${springBootVersion}"
     // @test测试使用
     testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+	
     compile "org.springframework.boot:spring-boot-starter-log4j2:${springBootVersion}"
+	// 使用注释处理器生成自己的元数据
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
 
 	// shiro
 	compile group: 'org.apache.shiro', name: 'shiro-core', version: shiroVersion
@@ -105,7 +109,7 @@ dependencies {
 	// commons-io
 	compile group: 'commons-io', name: 'commons-io', version: '2.4'
 
-	// fastjson
+	// fastjson 阿里JSON解析器
 	compile group: 'com.alibaba', name: 'fastjson', version: '1.2.47'
 	
 	// 阿里数据库连接池
