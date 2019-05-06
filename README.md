@@ -1,6 +1,6 @@
-# my_blog 是基于SpringBoot2搭建的个人博客系统。
-#前端演示链接 http://dragonwen.wicp.vip/
-#后台管理演示链接 http://dragonwen.wicp.vip/sso/login
+### my_blog 是基于SpringBoot2搭建的个人博客系统。
+### 前端演示链接 http://dragonwen.wicp.vip/
+### 后台管理演示链接 http://dragonwen.wicp.vip/sso/login
 
 ### 技术选型
 
@@ -21,3 +21,5 @@ Gradle | 项目构建管理  | [https://gradle.org](https://gradle.org)
 #### 前端技术:
 技术 | 名称 | 官网
 ----|------|----
+jQuery | 函式库  | [http://jquery.com/](http://jquery.com/)
+Bootstrap | 前端框架  | [http://getbootstrap.com/](http://getbootstrap.com/)
