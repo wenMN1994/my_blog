@@ -21,6 +21,7 @@
     <link href="admin/h_ui_4.9/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
     <link href="admin/h_ui_4.9/css/animate.css" rel="stylesheet">
     <link href="admin/h_ui_4.9/css/style.css?v=4.1.0" rel="stylesheet">
+    <link th:href="@{/admin/css/ui.css}" rel="stylesheet"/>
 </head>
 
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
@@ -283,10 +284,14 @@
                     </li>
                     <li class="J_tabCloseOther"><a>关闭其他选项卡</a>
                     </li>
+                    <li><a class="J_tabMaxCurrent">全屏显示选项卡</a></li>
                 </ul>
             </div>
             <a href="/logout" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
         </div>
+
+        <a id="ax_close_max" class="ax_close_max" title="关闭全屏"> <i class="fa fa-times-circle-o"></i> </a>
+
         <div class="row J_mainContent" id="content-main">
             <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="system/home" frameborder="0"
                     data-id="system/home" seamless></iframe>

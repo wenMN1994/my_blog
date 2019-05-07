@@ -1,0 +1,9 @@
+/** 首页样式 **/
+.ax_close_max {
+    position: fixed;
+    top: 5px;
+    left: 5px;
+    z-index: 9999;
+    display: none;
+    color: #ccc;
+}
