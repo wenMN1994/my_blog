@@ -61,12 +61,12 @@ public class TestController {
     }
 
     /**
-     * 测试个人简历跳转
+     * 测试源码库跳转
      * @return
      */
-    @RequestMapping("resume")
+    @RequestMapping("sourcecode")
     public String resume(){
-        return "resume/resume";
+        return "sourcecode/sourcecode";
     }
 
     /**
