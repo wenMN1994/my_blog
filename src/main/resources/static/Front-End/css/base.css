@@ -185,8 +185,10 @@ a.iconfont.icon-weixin { color: #07AF12;    background: url(../images/c04.png) n
 #weixin i img { height: 100px; display: none }
 #weixin:hover i img { display: block }
 /*htitle*/
-.htitle { font-size: 16px; line-height: 40px; border-bottom: 1px solid #eee; color: #484848; font-weight: normal; position: relative; margin-bottom: 10px; }
-.htitle:after { content: ""; position: absolute; width: 60px; height: 2px; content: ""; background: #000; left: 0; bottom: 0; -moz-transition: all .5s ease; -webkit-transition: all .5s ease; transition: all .5s ease; }
+.htitle { font-size: 14px; line-height: 40px; border-bottom: 1px solid #eee; color: #0181da; font-weight: normal; position: relative; margin-bottom: 10px; }
+.htitle i {color: #ff6700;}
+.htitle small{color:#bcbcbc;margin-left:5px;font-size:12px;}
+.htitle:after { content: ""; position: absolute; width: 60px; height: 2px; content: ""; background: #0181da; left: 0; bottom: 0; -moz-transition: all .5s ease; -webkit-transition: all .5s ease; transition: all .5s ease; }
 .htitle:hover:after { width: 80px; }
 .hnav { float: right }
 .hnav a { display: block; margin-right: 10px; padding-right: 10px; float: left; position: relative }
