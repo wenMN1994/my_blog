@@ -335,15 +335,9 @@
                         src="Front-End/images/wx.png"></i></li>
             </ul>
         </div>
-        <div class="whitebg notice">
-            <h2 class="htitle">网站公告</h2>
-            <ul>
-                <li><a href="/">十条设计原则教你学会如何设计网页布局!</a></li>
-                <li><a href="/">用js+css3来写一个手机栏目导航</a></li>
-                <li><a href="/">6条网页设计配色原则,让你秒变配色高手</a></li>
-                <li><a href="/">三步实现滚动条触动css动画效果</a></li>
-            </ul>
-        </div>
+        <!--网站公告 start-->
+        <div th:replace="common/common :: website_notice"></div>
+        <!--网站公告 end-->
         <!--点击排行 begin-->
         <div th:replace="common/common :: paihang"></div>
         <!--点击排行 end-->
@@ -362,12 +356,9 @@
         <!--站点统计 begin-->
         <div th:replace="common/common :: tongji"></div>
         <!--站点统计 end-->
-        <div class="links whitebg">
-            <h2 class="htitle"><span class="sqlink"><a href="/">申请链接</a></span>友情链接</h2>
-            <ul>
-                <li><a href="http://www.yangqq.com" target="_blank">杨青青个人博客</a></li>
-            </ul>
-        </div>
+        <!--友情链接 start-->
+        <div th:replace="common/common :: friendly_link"></div>
+        <!--友情链接 end-->
     </div>
 </article>
 
