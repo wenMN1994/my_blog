@@ -50,9 +50,29 @@
 </div>
 <!--头部搜索框公共模块 end-->
 
+<!--网站公告 start-->
+<div class="whitebg notice" th:fragment="website_notice">
+    <h2 class="htitle">
+        <i class="el-bullhorn"></i>
+        网站公告
+        <small> Website Notice</small>
+    </h2>
+    <ul>
+        <li><a href="/">十条设计原则教你学会如何设计网页布局!</a></li>
+        <li><a href="/">用js+css3来写一个手机栏目导航</a></li>
+        <li><a href="/">6条网页设计配色原则,让你秒变配色高手</a></li>
+        <li><a href="/">三步实现滚动条触动css动画效果</a></li>
+    </ul>
+</div>
+<!--网站公告 end-->
+
 <!--点击排行 begin-->
 <div class="whitebg paihang" th:fragment="paihang">
-    <h2 class="htitle">点击排行</h2>
+    <h2 class="htitle">
+        <i class="el-signal"></i>
+        点击排行
+        <small> Click Leaderboard</small>
+    </h2>
     <section class="topnews imgscale"><a href="/"><img
             src="Front-End/images/h1.jpg"><span>6条网页设计配色原则,让你秒变配色高手</span></a></section>
     <ul>
@@ -70,7 +90,11 @@
 
 <!--站长推荐 begin-->
 <div class="whitebg tuijian" th:fragment="tuijian">
-    <h2 class="htitle">站长推荐</h2>
+    <h2 class="htitle">
+        <i class="el-thumbs-up"></i>
+        站长推荐
+        <small> Recommended Station</small>
+    </h2>
     <section class="topnews imgscale"><a href="/"><img
             src="Front-End/images/h2.jpg"><span>6条网页设计配色原则,让你秒变配色高手</span></a></section>
     <ul>
@@ -109,7 +133,11 @@
 
 <!--标签云 begin-->
 <div class="whitebg cloud" th:fragment="label">
-    <h2 class="htitle">标签云</h2>
+    <h2 class="htitle">
+        <i class="el-tags"></i>
+        标签云
+        <small> Tags Clouds</small>
+    </h2>
     <ul>
         <a href="" target="_blank">个人博客模板</a> <a href="" target="_blank">css动画</a> <a href="" target="_blank">布局</a> <a href="" target="_blank">今夕何夕</a> <a href="" target="_blank">SEO</a> <a href="" target="_blank">女程序员</a> <a href="" target="_blank">小世界</a> <a href="" target="_blank">个人博客</a> <a href="" target="_blank">网页设计</a>
     </ul>
@@ -118,7 +146,11 @@
 
 <!--猜你喜欢 begin-->
 <div class="whitebg wenzi" th:fragment="love">
-    <h2 class="htitle">猜你喜欢</h2>
+    <h2 class="htitle">
+        <i class="el-asl"></i>
+        猜你喜欢
+        <small> Guess You Like</small>
+    </h2>
     <ul>
         <li><a href="/">十条设计原则教你学会如何设计网页布局!</a></li>
         <li><a href="/">用js+css3来写一个手机栏目导航</a></li>
@@ -142,7 +174,11 @@
 
 <!--站点统计 begin-->
 <div class="whitebg tongji" th:fragment="tongji">
-    <h2 class="htitle">站点信息</h2>
+    <h2 class="htitle">
+        <i class="el-info-circle"></i>
+        站点信息
+        <small> Site Information</small>
+    </h2>
     <ul>
         <li><b>建站时间</b>：2018-10-24</li>
         <li><b>网站程序</b>：博客管理系统</li>
@@ -155,6 +191,19 @@
     </ul>
 </div>
 <!--站点统计 end-->
+
+<!--友情链接 start-->
+<div class="links whitebg" th:fragment="friendly_link">
+    <h2 class="htitle"><span class="sqlink"><a href="/">申请链接</a></span>
+        <i class="el-paper-clip"></i>
+        友情链接
+        <small> Friendly Link</small>
+    </h2>
+    <ul>
+        <li><a href="http://www.yangqq.com" target="_blank">杨青青个人博客</a></li>
+    </ul>
+</div>
+<!--友情链接 end-->
 
 <!--底部公共模块 begin-->
 <footer th:fragment="footer">
