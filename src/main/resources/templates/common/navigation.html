@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>分页模块</title>
+</head>
+<body>
+    <div th:fragment="navigation-index(pageInfo)" class="navigation">
+        <div class="pagination">
+            <div class="list-page">
+                <ul class="post-data">
+                    <li><span class="rows">共46条记录</span></li>
+                </ul>
+            </div>
+            <ul>
+                <li>
+                    <a class="first" href="?pageNum=1" title="">首页</a>
+                </li>
+                <li>
+
+                    <a class=" not-allowed prev" title="">上一页</a>
+                </li>
+                <li class="active">
+
+                    <a class="num" href="?pageNum=1" title="">1</a>
+                </li>
+                <li>
+
+                    <a class="num" href="?pageNum=2">2</a>
+                </li>
+                <li>
+
+                    <a class="num" href="?pageNum=3">3</a>
+                </li>
+                <li>
+
+                    <a class="num" href="?pageNum=4">4</a>
+                </li>
+                <li>
+                    <a class="next" href="?pageNum=2">下一页</a>
+
+                </li>
+                <li>
+                    <a class="end" href="?pageNum=4">尾页</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
