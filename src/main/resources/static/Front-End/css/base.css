@@ -270,12 +270,6 @@ list2.html
 #lc_weixin i { display: block; position: absolute; bottom: 40px; right: 0; box-shadow: #e9eaed 1px 1px 5px; }
 #lc_weixin i img { height: 100px; display: none }
 #lc_weixin:hover i img { display: block }
-/*pagelist*/
-.pagelist { text-align: center; color: #666; width: 100%; clear: both; margin: 0 0 10px; }
-.pagelist a { color: #666; margin: 0 5px 10px; padding: 5px 10px; background: #F7F7F7; display: inline-block; }
-.pagelist a:hover, .pagelist > b { color: #3690cf; color: #FFF; background: #1C2327; }
-.pagelist > b { padding: 5px 10px; }
-a.curPage { color: #19585d; font-weight: bold; }
 /*cloud*/
 .cloud ul a { line-height: 24px; height: 24px; display: block; background: #999; float: left; padding: 3px 10px; margin: 10px 5px 0 0; border-radius: 3px; -moz-transition: all 0.5s; -webkit-transition: all 0.5s; -o-transition: all 0.5s; transition: all 0.5s; color: #FFF }
 .cloud ul a:nth-child(8n-7) { background: #8A9B0F }
