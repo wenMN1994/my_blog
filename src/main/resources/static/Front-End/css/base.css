@@ -385,3 +385,67 @@ margin: auto }
 .timebox li i:before { content: " "; height: 10px; width: 10px; border: 2px solid #cccaca; background: #fff; position: absolute; top: 4px; left: -26px; border-radius: 50%; -webkit-transition: all .5s ease; -moz-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease; }
 .timebox li:hover i:before { background: #080808 }
 .pagelist.mt20 { margin-top: 20px; }
+
+/*分页*/
+.pagination {width:100%;overflow:hidden;margin: 20px 0;font-size:12px;}
+.list-page {float:right;margin-bottom:20px;}
+.pagination ul {float:left;display: inline-block;margin-bottom: 0;margin-left: 0;-webkit-border-radius: 3px;border-radius: 3px;}
+.pagination ul > li {display: inline;}
+.pagination ul > li > a,
+.pagination ul > li > span {float: left;padding: 0 14px;margin:0 5px;line-height: 38px;text-decoration: none;background-color:rgba(255,255,255,0.6);border-left-width: 0;color:gray;box-sizing:border-box;}
+.pagination ul > li>.not-allowed{cursor:no-drop;}
+.pagination ul > li > a:hover,
+.pagination ul > .active > a,
+.pagination ul > .active > span {background-color:rgba(255,255,255,0.9);}
+.pagination ul > .active > a,
+.pagination ul > .active > span {color: #0181da;cursor: default;}
+.pagination ul > .disabled > span,
+.pagination ul > .disabled > a,
+.pagination ul > .disabled > a:hover {color: #999999;cursor: default;background-color: transparent;}
+.pagination-centered {text-align: center;}
+.pagination-right {text-align: right;}
+.page {
+    width: 100%;
+    margin: 20px 0;
+    font-size:12px;
+    overflow: hidden;
+}
+.page .first,
+.page .prev,
+.page .current,
+.page .num,
+.page .current,
+.page .next,
+.page .end {
+    padding: 8px 16px;
+    margin: 0px 5px;
+    display: inline-block;
+    color: #008CBA;
+    border-radius: 5px;
+}
+.page span{
+    color: #008CBA;
+}
+.page .first:hover,
+.page .prev:hover,
+.page .current:hover,
+.page .num:hover,
+.page .current:hover,
+.page .next:hover,
+.page .end:hover {
+    text-decoration: none;
+    background: #F8F5F5;
+}
+.page .current {
+    background-color: #008CBA;
+    color: #FFF;
+    border-radius: 5px;
+    border: 1px solid #008CBA;
+}
+.page .current:hover {
+    text-decoration: none;
+    background: #008CBA;
+}
+.page .not-allowed {
+    cursor: not-allowed;
+}
