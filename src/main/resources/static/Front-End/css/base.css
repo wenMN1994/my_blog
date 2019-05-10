@@ -192,8 +192,6 @@ a.iconfont.icon-weixin { color: #07AF12;    background: url(../images/c04.png) n
 .htitle:hover:after { width: 80px; }
 .hnav { float: right }
 .hnav a { display: block; margin-right: 10px; padding-right: 10px; float: left; position: relative }
-.hnav a:after { position: relative; content: "/"; right: -10px; bottom: 0; color: #ccc }
-.hnav a:last-child::after { content: "" }
 /*notice*/
 .notice ul { padding-top: 18px }
 .notice li { font-size: 12px; line-height: 30px; margin-bottom: 12px; display: block; -moz-border-radius: 4px; border-radius: 4px; background: #f6f6f6; padding: 4px 12px 4px 30px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; position: relative; -moz-transition: all .2s ease; -webkit-transition: all .2s ease; transition: all .2s ease; }
@@ -331,9 +329,9 @@ about
 .qq_join li p { margin: 10px; }
 .qq_join li b { color: #019881; margin: 0 5px; }
 /*
-	
+
 	info.html
-	
+
 */
 .con_tilte { font-size: 22px; margin-top: 20px }
 .con_nav { float: right; font-size: 14px; color: #666 }
