@@ -107,7 +107,7 @@
     .price_info img { position: static }
     .free li { width: 100%; margin-bottom: 10px }
     .newspic span { padding: 0 8px; }
-    .hnav { float: none; width: 100%; clear: both; display: block; overflow: hidden; }
+    .hnav { float: right; width: 23%; clear: both; display: block; overflow: hidden; }
     .ztpic { height: 60px; }
     .zhuanti li b { -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2; font-size: 14px; height: 42px; line-height: 24px; white-space: inherit; }
     .bloginfo { width: 100% }
