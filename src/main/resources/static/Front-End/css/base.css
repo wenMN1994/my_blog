@@ -330,7 +330,7 @@ about
 .qq_join li b { color: #019881; margin: 0 5px; }
 /*
 
-	info.html
+	article.html
 
 */
 .con_tilte { font-size: 22px; margin-top: 20px }
@@ -367,6 +367,27 @@ margin: auto }
 .xiangsi li i:hover img { transform: scale(1.1); }
 .xiangsi li p { font-weight: bold; margin-bottom: 10px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; padding: 0 8px }
 .xiangsi li span { color: #666; overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 3; font-size: 14px; height: 62px; padding: 0 8px }
+/*文章分享按钮样式*/
+.article-fx{text-align:center;width:100%;padding:10px 0;position:relative;}
+.article-fx a{font-size:14px;background:#1dd06d;color:#fff;display:inline-block;width:50px;height:50px;line-height:50px;color:#fff;}
+.article-fx span{font-size:14px;background:#13C5F8;color:#fff;display:inline-block;width:50px;height:50px;line-height:50px;color:#fff;cursor:pointer;}
+.arc-bdfx{display:none;border-radius:5px;position:absolute;background:rgba(255,255,255,0.9);top:-10px;width:350px;box-shadow:0px 0px 15px #ccc;border:1px solid #ccc;left:0;right:0;margin-left:auto;margin-right:auto;}
+.arc-bdfx>.bdsharebuttonbox{padding:20px 0;margin:0;}
+.arc-bdfx i{position:absolute;right:5px;top:5px;color:#777;cursor:pointer;font-size:12px;}
+.img-circle{border-radius:100px;-webkit-border-radius:100px;-moz-border-radius:100px;}
+.bdsharebuttonbox{padding:10px 0 25px 0;text-align:center;margin:auto;overflow:hidden!important;}
+.bdsharebuttonbox li{display:inline;}
+.bdsharebuttonbox a{text-align:center;background:url("../images/bd-fx.png")no-repeat!important;width:50px!important;height:50px!important;display:inline-block!important;margin:0 3.5%!important;transition:all 0.5s;-webkit-transition:all 0.5s;}
+.bdsharebuttonbox .bds_weixin{background-position:0% 4%!important;}
+.bdsharebuttonbox .bds_tsina{background-position:33% 4%!important;}
+.bdsharebuttonbox .bds_qzone{background-position:66% 4%!important;}
+.bdsharebuttonbox .bds_tieba{background-position:99.5% 4%!important;}
+.bdsharebuttonbox .bds_weixin:hover{background-position:0% 90%!important;}
+.bdsharebuttonbox .bds_tsina:hover{background-position:33% 90%!important;}
+.bdsharebuttonbox .bds_qzone:hover{background-position:66% 90%!important;}
+.bdsharebuttonbox .bds_tieba:hover{background-position:99.5% 90%!important;}
+.bdsharebuttonbox a:last-child{margin:0;}
+.bdshare-button-style1-32 a{float:none!important;}
 /*timebox*/
 .timebox { background: url(../images/abbg.png) no-repeat right top #fff; ; padding: 30px }
 .timebox ul { overflow: hidden; }
@@ -441,3 +462,42 @@ margin: auto }
 .page .not-allowed {
     cursor: not-allowed;
 }
+
+/*打赏css*/
+
+.hide_box{z-index:999;filter:alpha(opacity=50);background:#666;opacity: 0.5;-moz-opacity: 0.5;left:0;top:0;height:99%;width:100%;position:fixed;display:none;}
+.shang_box{width:540px;height:540px;padding:10px;background-color:#fff;border-radius:10px;position:fixed;z-index:1000;left:50%;top:50%;margin-left:-280px;margin-top:-280px;border:1px dotted #dedede;display:none;}
+.shang_box img{border:none;border-width:0;}
+.dashang{display:block;width:100px;margin:5px auto;height:25px;line-height:25px;padding:10px;background-color:#E74851;color:#fff;text-align:center;text-decoration:none;border-radius:10px;font-weight:bold;font-size:16px;transition: all 0.3s;}
+.dashang:hover{opacity:0.8;padding:15px;font-size:18px;}
+.shang_close{float:right;display:inline-block;}
+.shang_logo{display:block;text-align:center;margin:20px auto;width: 300px}
+.shang_tit{width: 100%;height: 75px;text-align: center;line-height: 66px;color: #a3a3a3;font-size: 16px;background: url("../images/cy-reward-title-bg.jpg");font-family: 'Microsoft YaHei';margin-top: 7px;margin-right:2px;}
+.shang_tit p{color:#a3a3a3;text-align:center;font-size:16px;}
+.shang_payimg{width:140px;padding:10px;border:6px solid #EA5F00;margin:0 auto;border-radius:3px;height:140px;}
+.shang_payimg img{display:block;text-align:center;width:140px;height:140px; }
+.pay_explain{text-align:center;margin:10px auto;font-size:12px;color:#545454;}
+.radiobox{width: 16px;height: 16px;background: url("../images/radio2.jpg");display: block;float: left;margin-top: 5px;margin-right: 14px;}
+.checked .radiobox{background:url("../images/radio1.jpg");}
+.shang_payselect{text-align:center;margin:0 auto;margin-top:40px;cursor:pointer;height:60px;width:280px;}
+.shang_payselect .pay_item{display:inline-block;margin-right:10px;float:left;}
+.shang_info{clear:both;}
+.shang_info p,.shang_info a{color:#C3C3C3;text-align:center;font-size:12px;text-decoration:none;line-height:2em;}
+/*手机端打赏*/
+.shang_box_wap{padding:10px;background-color:#fff;border-radius:10px;position:fixed;z-index:1000;left:50%;top:50%;margin-left:-151px;margin-top:-190px;border:1px dotted #dedede;display:none;}
+.shang_box_wap img{border:none;border-width:0;}
+.dashang{display:block;width:100px;margin:5px auto;height:25px;line-height:25px;padding:10px;background-color:#E74851;color:#fff;text-align:center;text-decoration:none;border-radius:10px;font-weight:bold;font-size:16px;transition: all 0.3s;}
+.dashang:hover{opacity:0.8;padding:15px;font-size:18px;}
+.shang_close{float:right;display:inline-block;}
+.shang_logo{display:block;text-align:center;margin:20px auto;}
+.shang_tit{width: 100%;height: 75px;text-align: center;line-height: 66px;color: #a3a3a3;font-size: 16px;background: url("../images/cy-reward-title-bg.jpg");font-family: 'Microsoft YaHei';margin-top: 7px;margin-right:2px;}
+.shang_tit p{color:#a3a3a3;text-align:center;font-size:16px;}
+.shang_payimg{width:140px;padding:10px;border:6px solid #EA5F00;margin:0 auto;border-radius:3px;height:140px;}
+.shang_payimg img{display:block;text-align:center;width:140px;height:140px; }
+.pay_explain{text-align:center;margin:10px auto;font-size:12px;color:#545454;}
+.radiobox{width: 16px;height: 16px;background: url("../images/radio2.jpg");display: block;float: left;margin-top: 5px;margin-right: 14px;}
+.checked .radiobox{background:url("../images/radio1.jpg")}
+.shang_payselect{text-align:center;margin:0 auto;margin-top:30px;cursor:pointer;height:40px;width:280px;}
+.shang_payselect .pay_item{display:inline-block;margin-right:10px;float:left;}
+.shang_info{clear:both;}
+.shang_info p,.shang_info a{color:#C3C3C3;text-align:center;font-size:12px;text-decoration:none;line-height:2em;}

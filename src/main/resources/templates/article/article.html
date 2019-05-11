@@ -31,7 +31,34 @@
                 <p><img src="http://www.yangqq.com/d/file/news/life/2018-04-27/f2504f2c46c066e6226d1669effde26e.jpg"></p>
                 <p>后来，也是因为同学说百度搜不着我的个人博客，我才开始琢磨怎么把自己的博客排名提上去，放上去一些自己做过的模板，提供免费下载。页面以前也只有一个首页，当初我就是想着设计一个首页就行了，真正想学的人，一个页面足够了，其他页面，都靠自己设计。现在不同啦，近期版本我提供的模板都很全，实在是架不住人多都来问我怎么只有一个页面，虽然我已经在下载说明里面说得很清楚了。也就是提供了这样一些资源，我的个人博客也不再是一个只关乎自己的一个平台。曝光率越来越高，光天化日之下，哪敢放自己照片，写自己心情啊，于是乎，继续这样的模式吧，把自己写的模板放到网站上去。乐于分享，是能结交到很多朋友的。</p>
                 <p class="share"><b>转载：</b>感谢您对杨青青个人博客网站平台的认可，以及对我们原创作品以及文章的青睐，非常欢迎各位朋友分享到个人站长或者朋友圈，但转载请说明文章出处“来源杨青个人博客”。</p>
-                <p><span class="diggit">很赞哦！ (74)</span></p>
+                <!--分享-->
+                <div class="article-fx">
+                    <span class="img-circle" href="javascript:void(0)" onClick="dashangToggle()">打赏</span>&nbsp;&nbsp;&nbsp;
+                    <a class="fx-btn img-circle img-circle" href="javascript:;">分享</a>
+                    <div class="bd-fx arc-bdfx">
+                        <i class="el-remove fx-close"></i>
+                        <ul class="bdsharebuttonbox">
+                            <li><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></li>
+                            <li><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a></li>
+                            <li><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a></li>
+                            <li><a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a></li>
+                            <script th:inline="javascript"> window._bd_share_config = {
+                                "common": {
+                                    "bdSnsKey": {},
+                                    "bdText": "",
+                                    "bdMini": "2",
+                                    "bdMiniList": false,
+                                    "bdPic": "",
+                                    "bdStyle": "1",
+                                    "bdSize": "32"
+                                }, "share": {}
+                            };
+                            (document.getElementsByTagName('head')[0] || document.body).appendChild(document.createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5);
+                            </script>
+                        </ul>
+                    </div>
+                </div>
+                <!--END 分享-->
                 <div class="nextinfo">
                     <p>上一篇：<a href="/download/f/886.html">html5 个人博客模板《蓝色畅想》</a></p>
                     <p>下一篇：<a href="/download/f/907.html">个人博客模板《tree》-响应式个人网站模板</a></p>
@@ -59,6 +86,55 @@
             <ul>
 
             </ul>
+        </div>
+    </div>
+
+    <div class="hide_box"></div>
+    <div class="shang_box">
+        <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()" title="关闭"><img
+                src="/Front-End/images/close.jpg" alt="取消"></a>
+        <img class="shang_logo" src="/common/images/logo.png" alt="DragonWen 的个人博客"/>
+        <div class="shang_tit">
+            <p>感谢</p>
+        </div>
+        <div class="shang_payimg">
+            <img src="/common/images/alipay.png" alt="扫码查看" title="扫一扫">
+        </div>
+        <div class="shang_payselect">
+            <div class="pay_item checked" data-id="alipay">
+                <span class="radiobox"></span>
+                <span class="pay_logo"><img src="/common/images/alipay-logo.jpg" alt="支付宝"></span>
+            </div>
+            <div class="pay_item" data-id="weipay">
+                <span class="radiobox"></span>
+                <span class="pay_logo"><img src="/common/images/wechat-logo.jpg" alt="微信"></span>
+            </div>
+        </div>
+    </div>
+    <!-- 手机端 -->
+    <div class="shang_box_wap">
+        <a class="shang_close" href="javascript:void(0)" onClick="dashangToggle()" title="关闭"><img
+                src="/Front-End/images/close.jpg"
+                alt="取消"/></a>
+        <div class="shang_tit">
+            <p>感谢您的支持，我会继续努力的!</p>
+        </div>
+        <div class="shang_payimg">
+            <img src="/common/images/alipay.png" alt="扫码查看"
+                 title="扫一扫"/>
+        </div>
+        <div class="pay_explain">长按二维码打赏，你说多少就多少</div>
+        <div class="shang_payselect">
+            <div class="pay_item checked" data-id="alipay">
+                <span class="radiobox"></span>
+                <span class="pay_logo"><img src="/common/images/alipay.png"
+                                            alt="支付宝"/></span>
+            </div>
+            <div class="pay_item" data-id="weipay">
+                <span class="radiobox"></span>
+                <span class="pay_logo"><img src="/common/images/weichartpay.png"
+                                            alt="微信"/></span>
+            </div>
         </div>
     </div>
     <!--lbox end-->
@@ -92,4 +168,40 @@
 <!--footer end-->
 
 </body>
+<script>
+    $(function () {
+        $(".pay_item").click(function () {
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid = $(this).attr('data-id');
+            $(".shang_payimg img").attr("src", dataid == "alipay" ? "/common/images/alipay.png" : "/common/images/weichartpay.png");
+            $("#shang_pay_txt").text(dataid == "alipay" ? "支付宝" : "微信");
+        });
+    });
+
+    function dashangToggle() {
+        $(".hide_box").fadeToggle();
+        var is_pc = IsPC();
+        if (is_pc == true) {
+            $(".shang_box").fadeToggle();
+        } else {
+            $(".shang_box_wap").fadeToggle();
+        }
+    }
+
+    // 判断是不是手机端
+    function IsPC() {
+        var userAgentInfo = navigator.userAgent;
+        var Agents = ["Android", "iPhone",
+            "SymbianOS", "Windows Phone",
+            "iPad", "iPod"];
+        var flag = true;
+        for (var v = 0; v < Agents.length; v++) {
+            if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
+</script>
 </html>
