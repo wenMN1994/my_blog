@@ -91,9 +91,9 @@ public class TestController {
      * 测试文章内容页跳转
      * @return
      */
-    @RequestMapping("info")
+    @RequestMapping("article")
     public String info(){
-        return "info/info";
+        return "article/article";
     }
 
     /**
