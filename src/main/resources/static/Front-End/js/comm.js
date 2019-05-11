@@ -31,4 +31,54 @@ $(document).ready(function() {
         $(this).addClass('newscurrent').siblings().removeClass('newscurrent');
         $('.newstab>div:eq(' + $(this).index() + ')').show().siblings().hide();
     });
+
+    //弹出分享层
+
+    $(".fx-btn").click(function (e) {
+
+        $(".arc-bdfx").show();
+
+        $(document).one("click", function () {
+
+
+            $(".arc-bdfx").hide();
+
+
+        });
+
+        e.stopPropagation();
+
+    });
+
+    $(".side-fx").click(function (e) {
+
+        $(".side-bdfx").show();
+
+        $(".mail-dy").hide();
+
+        $(document).one("click", function () {
+
+
+            $(".side-bdfx").hide();
+
+            $(".mail-dy").hide();
+
+
+        });
+
+        e.stopPropagation();
+
+
+    });
+
+    $(".el-remove").click(function () {
+
+        $(".arc-bdfx").hide();
+
+        $(".mail-dy").hide();
+
+        $(".side-bdfx").hide();
+
+
+    });
 });
