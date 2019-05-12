@@ -246,7 +246,19 @@ footer { background: #373D41; width: 100%; border-top: #00C1DE 10px solid; paddi
 .endnav p { margin-bottom: 5px }
 footer a { color: #73777a; }
 footer a:hover { color: #00C1DE }
-.top { width: 40px; height: 40px; display: block; background: url(../images/top.png) no-repeat center #000; right: 20px; bottom: 10%; position: fixed }
+.top {
+    width:47px;
+    height:47px;
+    background:url("../images/back-top-btn.png")no-repeat;
+    text-align:center;
+    position:fixed;
+    bottom:25px;
+    right:20px;
+    cursor:pointer;
+    text-indent:-9999px;
+    z-index:12;
+    display:none;
+}
 /*
 list.html
 */
@@ -471,7 +483,7 @@ margin: auto }
 .dashang:hover{opacity:0.8;padding:15px;font-size:18px;}
 .shang_close{float:right;display:inline-block;}
 .shang_logo{display:block;text-align:center;margin:20px auto;width: 300px}
-.shang_tit{width: 100%;height: 75px;text-align: center;line-height: 66px;color: #a3a3a3;font-size: 16px;background: url("../images/cy-reward-title-bg.jpg");font-family: 'Microsoft YaHei';margin-top: 7px;margin-right:2px;}
+.shang_tit{width: 100%;height: 75px;text-align: center;line-height: 66px;color: #a3a3a3;font-size: 16px;background:url("../images/cy-reward-title-bg.jpg");font-family: 'Microsoft YaHei';margin-top: 7px;margin-right:2px;}
 .shang_tit p{color:#a3a3a3;text-align:center;font-size:16px;}
 .shang_payimg{width:140px;padding:10px;border:6px solid #EA5F00;margin:0 auto;border-radius:3px;height:140px;}
 .shang_payimg img{display:block;text-align:center;width:140px;height:140px; }
@@ -490,8 +502,8 @@ margin: auto }
 .dashang:hover{opacity:0.8;padding:15px;font-size:18px;}
 .shang_close{float:right;display:inline-block;}
 .shang_logo{display:block;text-align:center;margin:20px auto;}
-.shang_tit{width: 100%;height: 75px;text-align: center;line-height: 66px;color: #a3a3a3;font-size: 16px;font-family: 'Microsoft YaHei';margin-top: 7px;margin-right:2px;}
-.shang_tit p{color:#a3a3a3;text-align:center;font-size:16px;}
+.shang_tit_wap{width: 100%;height: 75px;text-align: center;line-height: 66px;color: #a3a3a3;font-size: 16px;font-family: 'Microsoft YaHei';margin-top: 7px;margin-right:2px;}
+.shang_tit_wap p{color:#a3a3a3;text-align:center;font-size:16px;}
 .shang_payimg{width:140px;padding:10px;border:6px solid #EA5F00;margin:0 auto;border-radius:3px;height:140px;}
 .shang_payimg img{display:block;text-align:center;width:140px;height:140px; }
 .pay_explain{text-align:center;margin:10px auto;font-size:12px;color:#545454;}

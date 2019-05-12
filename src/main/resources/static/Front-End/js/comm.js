@@ -39,11 +39,9 @@ $(document).ready(function() {
         $(".arc-bdfx").show();
 
         $(document).one("click", function () {
-
-
+            
             $(".arc-bdfx").hide();
-
-
+            
         });
 
         e.stopPropagation();
@@ -57,18 +55,15 @@ $(document).ready(function() {
         $(".mail-dy").hide();
 
         $(document).one("click", function () {
-
-
+            
             $(".side-bdfx").hide();
 
             $(".mail-dy").hide();
-
-
+            
         });
 
         e.stopPropagation();
-
-
+        
     });
 
     $(".el-remove").click(function () {
@@ -78,7 +73,31 @@ $(document).ready(function() {
         $(".mail-dy").hide();
 
         $(".side-bdfx").hide();
+        
+    });
 
+    //返回顶部
+    $(function () {
+
+        $(window).scroll(function () {
+
+            if ($(this).scrollTop() >= 500) {
+
+                $('.top').fadeIn();
+
+            } else {
+
+                $('.top').fadeOut();
+
+            }
+
+        });
+        
+        $('.top').click(function () {
+
+            $('body,html').animate({scrollTop: 0}, 800);
+
+        });
 
     });
 });

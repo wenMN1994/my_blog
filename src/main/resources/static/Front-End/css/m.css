@@ -49,6 +49,9 @@
     .rows{display:none}
     .pagination>ul>li> .first{display:none;}
     .pagination>ul>li> .end{display:none;}
+
+    /*返回顶部按钮*/
+    .top{width:30px;height:30px;background-size:100%;right:10px;}
 }
  @media only screen and (max-width: 768px) {
      .zhuanti li { padding: 15px; }
@@ -99,6 +102,7 @@
      .xinlu li { width: 50% }
      .myblog li, .xiangsi li { width: 50% }
      .qq_join li { width: 50%; margin-bottom: 20px }
+     /*底部微信图片样式*/
      .wxbox ul { overflow: hidden; text-align: center }
      .wxbox li { float: none; display: inline-block }
      .wxbox { float: none }
