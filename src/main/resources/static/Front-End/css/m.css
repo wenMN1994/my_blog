@@ -50,6 +50,8 @@
     .pagination>ul>li> .first{display:none;}
     .pagination>ul>li> .end{display:none;}
 
+    /*.kecheng ul li {width: 36%;}*/
+
     /*返回顶部按钮*/
     .top{width:30px;height:30px;background-size:100%;right:10px;}
 }
@@ -64,7 +66,9 @@
      .site_tj li { width: 20% }
      .hnav a { font-size: 12px }
      .muban li section { margin: 0 5px; height: 260px; overflow: hidden }
-     .zhuanti li { width: 27.6%; padding: 8px }
+     .zhuanti li { width: 30.8%; padding: 8px }
+     .kecheng ul li {width: 43%;}
+     .kecheng .arc-right>ul li{width: 45%;padding:0;}
 }
  @media only screen and (max-width: 480px) {
      .headline { width: 100% }
@@ -124,4 +128,12 @@
      .tab_buttons li {margin-right: 30px;width: auto;}
      .newscurrent:after{width:100%}
      .arc-bdfx{ width:93%;}
+     .kecheng ul li {width: 87%;}
+     .arc-right ul li:last-child{display: none}
+}
+
+@media only screen and (max-width: 320px){
+    .kecheng ul li {width: 85%;}
+    .zhuanti li { width: 96% }
+    .arc-right ul li:last-child{display: none}
 }
