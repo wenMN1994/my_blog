@@ -3,7 +3,6 @@
     .navbox { width: 96% }
     #starlist li a { padding: 0 10px; }
     #starlist li.menu:before { right: 0 }
-    .zhuanti li { width: 27% }
     .searchbox { width: 96% }
     .box, article { width: 96% }
     .fader .slide img { height: 320px }
@@ -43,7 +42,6 @@
     .jianzhan li section { margin: 0 5px; }
     .jianzhan li:nth-child(1) { width: 30% }
     .jianzhan li:nth-child(3) { width: 36.3% }
-    .zhuanti li { width: 27%; }
 
     /*手机端分页隐藏一部分*/
     .rows{display:none}
@@ -56,7 +54,6 @@
     .top{width:30px;height:30px;background-size:100%;right:10px;}
 }
  @media only screen and (max-width: 768px) {
-     .zhuanti li { padding: 15px; }
      .bplist a img { width: 96% }
      .xinlu li a { padding: 5px; margin: 0 5px; }
      .myblog li { width: 33.3%; }
@@ -66,7 +63,6 @@
      .site_tj li { width: 20% }
      .hnav a { font-size: 12px }
      .muban li section { margin: 0 5px; height: 260px; overflow: hidden }
-     .zhuanti li { width: 30.8%; padding: 8px }
      .kecheng ul li {width: 43%;}
      .kecheng .arc-right>ul li{width: 45%;padding:0;}
 }
@@ -78,15 +74,6 @@
      .headline ul li span { padding: 0 20px }
      .banbox { width: 100% }
      .fader { height: 200px; }
-     .newspic { width: 100%; height: auto }
-     .newspic li { width: 49%; float: left }
-     .newspic li:last-child { float: right }
-     .newspic li a { height: 100% }
-     .newslist { float: none; width: 100% }
-     .zhuanti ul { padding: 0 }
-     .zhuanti li { width: 44%; padding: 8px; }
-     .zhuanti ul:before { left: 0; }
-     .zhuanti ul:after { bottom: 0 }
      .ad { padding: 5px }
      .blogtitle { font-size: 16px }
      .bplist { height: 60px }
@@ -117,16 +104,11 @@
      .newspic span { padding: 0 8px; }
      .hnav { float: right; width: 23%; clear: both; display: block; overflow: hidden; }
      .ztpic { height: 60px; }
-     .zhuanti li b { -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2; font-size: 14px; height: 42px; line-height: 24px; white-space: inherit; }
      .bloginfo { width: 100% }
      .imgscale img { height: 100%; max-width: 100%; }
      .blogpic i { display: none }
      .fader .slide img { height: 200px; }
      .otherlink li{width:100%}
-     .tab_buttons { overflow-x: auto;}
-     .tab_buttons ul { width: 600px;overflow-x: scroll;}
-     .tab_buttons li {margin-right: 30px;width: auto;}
-     .newscurrent:after{width:100%}
      .arc-bdfx{ width:93%;}
      .kecheng ul li {width: 87%;}
      .arc-right ul li:last-child{display: none}
@@ -134,6 +116,5 @@
 
 @media only screen and (max-width: 320px){
     .kecheng ul li {width: 85%;}
-    .zhuanti li { width: 96% }
     .arc-right ul li:last-child{display: none}
 }

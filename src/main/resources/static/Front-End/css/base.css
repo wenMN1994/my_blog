@@ -83,63 +83,12 @@ nav { float: left; height: 50px; line-height: 50px; text-align: center; }
 .headline ul li img { width: 100%; height: 100%; -moz-transition: all .5s ease; -webkit-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease; transition: all 0.5s; opacity: .7; }
 .headline ul li:hover img { transform: scale(1.1); opacity: 1 }
 .headline ul li span { bottom: 0; position: absolute; top: 30%; left: 0; right: 0; color: #FFF; text-align: center; font-size: 15px; margin-top: 5px; padding: 0 40px; overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2; line-height: 24px; height: 48px; }
-/*tab_buttons*/
-.tab_buttons { margin-bottom: 10px; width: 100%; overflow: hidden; border-bottom: #e4e3e3 1px solid;/* position: relative; */ }
-.tab_buttons li { display: block; font-size: 16px; line-height: 40px; float: left; width: 100px; text-align: center;position: relative; cursor:pointer }
-.newscurrent:after { content: ""; background: #000; width: 100px; height: 2px; position: absolute; bottom: 0; left: 0; }
-.newsitem { display: none; }
-.newsitem:nth-child(1) { display: block; }
-/*tab_box*/
+
 .whitebg { background: #fff; border-radius: 3px; padding: 20px; margin-bottom: 20px; overflow: hidden; }
-.tab_box { clear: both; position: relative; }
-.newslist { float: right; width: 66% }
-.newslist li { overflow: hidden; line-height: 32px; padding: 0 20px 10px 20px; }
-.newslist li a { height: 32px; }
-.newslist li img { width: 100% }
-.newslist li { height: 22px; }
-.newslist li:hover { height: 100%; background: #f7f7f7 }
-.newslist li:hover a { color: #000; font-weight: bold }
-.newslist li:hover i { background: #222; }
-.newslist li:nth-child(1) { height: 100%; background: #f7f7f7 }
-.newslist li:nth-child(1) a { color: #000; font-weight: bold }
-.newslist li:nth-child(1) i { background: #9a9a9a; }
-.newslist:hover li:nth-child(1) { height: 22px; background: none; }
-.newslist:hover li:nth-child(1) a { color: #333; font-weight: normal }
-.newslist:hover li:nth-child(1) i { background: #9a9a9a; }
-.newslist:hover li:nth-child(1):hover { height: 100%; background: #f7f7f7; }
-.newslist:hover li:nth-child(1):hover a { color: #000; font-weight: bold }
-.newslist:hover li:nth-child(1):hover i { background: #222; }
-.newslist p { line-height: 24px; font-size: 14px; overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2; height: 48px; }
-.newspic { float: left; width: 32%; height: 218px; overflow: hidden; position: relative; }
-.newspic ul { overflow: hidden; }
-.newspic li { height: 100px; position: relative; background: rgba(0,0,0,1); overflow: hidden; margin-bottom: 10px; border-radius: 3px }
-.newspic li a { display: block; overflow: hidden }
-.newspic img { height: 100%; width: 100%; opacity: .7; -moz-transition: all .5s ease; -webkit-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease; transition: all 0.5s; }
-.newspic span { bottom: 0; position: absolute; bottom: 30%; left: 0; right: 0; color: #FFF; text-align: center; font-size: 15px; padding: 0 40px; overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2; line-height: 22px; }
-.newspic li:hover img { opacity: .9; transform: scale(1.1); }
-.newsitem ul li i { display: block; width: 20px; height: 20px; background: #9a9a9a; float: left; margin-top: 6px; margin-right: 20px; position: relative; font-style: normal }
-.newsitem ul li i::before { position: absolute; left: 0; top: 0; font-size: 9px; color: #fff; line-height: 20px; width: 20px; text-align: center }
-.newsitem ul li:first-child i { background: #222; }
-.newsitem ul li:first-child i::before { content: "1"; }
-.newsitem ul li:nth-child(2) i::before { content: "2"; }
-.newsitem ul li:nth-child(3) i::before { content: "3"; }
-.newsitem ul li:nth-child(4) i::before { content: "4"; }
-.newsitem ul li:nth-child(5) i::before { content: "5"; }
+
 /*最新源码*/
-.zhuanti ul { overflow: hidden; padding: 10px 0 20px 10px; position: relative; }
-.zhuanti ul:before { content: ""; position: absolute; background: #fff; width: 1px; height: 100%; left: 10px }
-.zhuanti ul:after { content: ""; position: absolute; background: #fff; width: 100%; height: 1px; bottom: 20px; left: 0; }
-.zhuanti li { float: left; width: 27.6%; border-bottom: #eee 1px solid; border-left: #eee 1px solid; overflow: hidden; padding: 20px; -moz-transition: all .5s ease; -webkit-transition: all .5s ease; transition: all .5s ease; }
-.ztpic { width: 100%; height: 100px; overflow: hidden; border-radius: 3px; background: #CCC; display: block }
-.ztpic img { display: inline-block; width: 100%; min-height: 100%; height: auto; vertical-align: middle; transition: all .5s ease-out .1s; }
-.zhuanti li b { display: block; width: 100%; overflow: hidden; height: 30px; line-height: 30px; margin: 10px 0; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
-.zhuanti .curriculum { color: #999; overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 3; font-size: 14px; height: 62px; }
-.readmore { margin: 10px 0 0 0; color: #096; display: block; }
-.readmore:before { content: "+"; color: #063 }
-.zhuanti li:hover { background: #fff; box-shadow: #ccc 1px 1px 8px; }
-.zhuanti li:hover img { transform: scale(1.05) }
+
 /*!*最新课程*!*/
-.kecheng{margin-top:30px;}
 .kecheng >ul> li> .arc-right>h4{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px;}
 .kecheng >ul{padding-bottom: 10px;}
 .kecheng ul li{background:none;padding:10px 5%;margin-bottom:5px;overflow:hidden;}
@@ -152,7 +101,6 @@ nav { float: left; height: 50px; line-height: 50px; text-align: center; }
 .kecheng >ul>li>ul{width:100%;}
 .kecheng .arc-right>ul li{width: 40%;padding:0;}
 .kecheng >ul> li:hover{background:#f9fffc;}
-
 .arc-right{width:71%;float:right;position:relative;}
 .arc-right h4{padding:0;margin:0;background:none;font-size:18px;padding-bottom:11px;text-indent:0;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;color: #0181da;}
 .arc-right h4:hover{color:#ff4200}
