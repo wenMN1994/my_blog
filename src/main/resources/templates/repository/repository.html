@@ -8,166 +8,296 @@
 <div th:replace="common/common :: search"></div>
 <!--top end-->
 <article>
-    <div class="whitebg">
-        <h2 class="htitle">站长推荐</h2>
-        <ul class="site_tj">
-            <li><a href="https://www.lovey9.com/" target="_blank" title="葛优个人博客">葛优个人博客</a></li>
-            <li><a href="http://www.baiyangseo.com/" target="_blank" title="白杨SEO博客">白杨SEO博客</a></li>
-            <li><a href="http://www.mrszhao.com/" target="_blank" title="赵老师博客">赵老师博客</a></li>
-            <li><a href="https://www.weiyiqi.net/" target="_blank" title="魏义齐个人博客">魏义齐个人博客</a></li>
-            <li><a href="http://www.guojian945.com/" target="_blank" title="郭健博客">郭健博客</a></li>
-            <li><a href="http://blog.yzmcms.com" target="_blank" title="袁志蒙博客">袁志蒙博客</a></li>
-            <li><a href="http://www.yemayi.cn" title="野蚂蚁博客" target="_blank">野蚂蚁博客</a></li>
-            <li><a href="http://www.searchtrip.cn/" title="寻之旅" target="_blank">寻之旅</a></li>
-            <li><a href="http://www.jianhuax.com/" title="建华兄个人博客" target="_blank">建华兄个人博客</a></li>
-            <li><a href="http://www.garyhua.com/" title="广华个人博客" target="_blank">广华个人博客</a></li>
-            <li><a href="http://www.sharedblog.cn/" title="前端共享博客" target="_blank">前端共享博客</a></li>
-            <li><a href="http://www.gaibt.com/" target="_blank" title="罗小红个人博客">罗小红个人博客</a></li>
-            <li><a href="http://www.guitu18.com/" target="_blank" title="夜月归途">90后程序员夜月归途</a></li>
-            <li><a href="http://www.asxuxu.com/" target="_blank" title="徐旭个人博客">策划人徐旭个人博客</a></li>
-            <li><a href="http://www.genesisfor.com" target="_blank" title="Genesis 链随">Genesis 链随</a></li>
-            <li><a href="http://blog.zxq2.com" target="_blank" title="张新全博客">张新全博客</a></li>
-            <li><a href="http://zhangtongxin.cn/" target="_blank" title="超级彤馨">超级彤馨</a></li>
-            <li><a href="http://www.jzdlink.com/" target="_blank" title="呆呆萌萌情侣博客">呆呆萌萌情侣博客</a></li>
-            <li><a href="https://www.otaozi.com/" target="_blank" title="刘锁个人博客">刘锁个人博客</a></li>
-            <li><a href="http://www.79bcseo.com/" target="_blank" title="79千秋SEO">79千秋SEO</a></li>
-            <li><a href="http://www.yoyibk.top" target="_blank" title="攸一随心笔记">攸一随心笔记</a></li>
-        </ul>
+    <div class="lbox">
+        <div class="whitebg lanmu"> <img src="Front-End/images/lm04.jpg">
+            <h1>知识库</h1>
+            <p>知识库，本栏目主要是教学视频资源分享。主要有AngularJS、BootStrap、python3.X全栈、Node.js + MongoDB、Java、C/C++、Linux、主流数据库、大数据。。。</p>
+        </div>
+        <div class="kecheng whitebg">
+            <h2 class="htitle">
+                <i class="el-tasks"></i>
+                最新课程
+                <small> Latest Courses</small>
+            </h2>
+            <ul>
+                <li>
+                    <div class="arcimg ">
+                        <a href="" target="_blank">
+                            <img src="Front-End/images/curriculum/1.jpg">
+                        </a>
+                    </div>
+                    <div class="arc-right">
+                        <h4 class="blue-text"><a href=""></a>2017IOS开发全套视频教程传智播客oc/swift项目实战</h4>
+                        <p>IOS开发全套视频教程传智播客oc/swift项目实战。适合人群：零基础想从事ios工作的大学生或在职人员，特别是刚开始从事ios的人员</p>
+                        <ul>
+                            <li>
+                                <a th:title="${'发表于04-30 12:00'}">
+                                    <i class="el-time"></i>
+                                    <span>04-30 12:00</span>
+                                </a>
+                            </li>
+                            <li><a th:title="${'25次浏览'}"><i class="el-fire"></i><span
+                                    th:text="25"></span> </a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="arcimg ">
+                        <a href="" target="_blank">
+                            <img src="Front-End/images/curriculum/2.jpg">
+                        </a>
+                    </div>
+                    <div class="arc-right">
+                        <h4 class="blue-text"><a href=""></a>SSM大型商城系统项目实战视频教程/前后台分布式架构/Java源代码</h4>
+                        <p>SSM大型商城系统项目实战视频教程/前后台分布式架构/Java源代码</p>
+                        <ul>
+                            <li>
+                                <a th:title="${'发表于04-30 12:00'}">
+                                    <i class="el-time"></i>
+                                    <span>04-30 12:00</span>
+                                </a>
+                            </li>
+                            <li><a th:title="${'25次浏览'}"><i class="el-fire"></i><span
+                                    th:text="25"></span> </a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="arcimg ">
+                        <a href="" target="_blank">
+                            <img src="Front-End/images/curriculum/3.png">
+                        </a>
+                    </div>
+                    <div class="arc-right">
+                        <h4 class="blue-text"><a href=""></a>Dubbo/Redis/ZooKeeper/activemq视频教程/电商项目/互联网架构师</h4>
+                        <p>Dubbo/Redis/ZooKeeper/activemq视频教程/电商项目/互联网架构师</p>
+                        <ul>
+                            <li>
+                                <a th:title="${'发表于04-30 12:00'}">
+                                    <i class="el-time"></i>
+                                    <span>04-30 12:00</span>
+                                </a>
+                            </li>
+                            <li><a th:title="${'25次浏览'}"><i class="el-fire"></i><span
+                                    th:text="25"></span> </a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="arcimg ">
+                        <a href="" target="_blank">
+                            <img src="Front-End/images/curriculum/4.jpg">
+                        </a>
+                    </div>
+                    <div class="arc-right">
+                        <h4 class="blue-text"><a href=""></a>spring mvc视频教程 mybatis框架 mybatis ssm spring 框架整合</h4>
+                        <p>spring mvc视频教程 mybatis框架 mybatis ssm spring 框架整合</p>
+                        <ul>
+                            <li>
+                                <a th:title="${'发表于04-30 12:00'}">
+                                    <i class="el-time"></i>
+                                    <span>04-30 12:00</span>
+                                </a>
+                            </li>
+                            <li><a th:title="${'25次浏览'}"><i class="el-fire"></i><span
+                                    th:text="25"></span> </a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="arcimg ">
+                        <a href="" target="_blank">
+                            <img src="Front-End/images/curriculum/5.jpg">
+                        </a>
+                    </div>
+                    <div class="arc-right">
+                        <h4 class="blue-text"><a href=""></a>Node.js从入门到企业Web开发中的应用视频教程自动发货</h4>
+                        <p>Node.js从入门到企业Web开发中的应用视频教程自动发货</p>
+                        <ul>
+                            <li>
+                                <a th:title="${'发表于04-30 12:00'}">
+                                    <i class="el-time"></i>
+                                    <span>04-30 12:00</span>
+                                </a>
+                            </li>
+                            <li><a th:title="${'25次浏览'}"><i class="el-fire"></i><span
+                                    th:text="25"></span> </a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="arcimg ">
+                        <a href="" target="_blank">
+                            <img src="Front-End/images/curriculum/6.png">
+                        </a>
+                    </div>
+                    <div class="arc-right">
+                        <h4 class="blue-text"><a href=""></a>Linux全套视频教程零基础 CentOS UBuntu系统运维开发入门到精通</h4>
+                        <p>Linux全套视频教程零基础 CentOS UBuntu系统运维开发入门到精通</p>
+                        <ul>
+                            <li>
+                                <a th:title="${'发表于04-30 12:00'}">
+                                    <i class="el-time"></i>
+                                    <span>04-30 12:00</span>
+                                </a>
+                            </li>
+                            <li><a th:title="${'25次浏览'}"><i class="el-fire"></i><span
+                                    th:text="25"></span> </a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="arcimg ">
+                        <a href="" target="_blank">
+                            <img src="Front-End/images/curriculum/1.jpg">
+                        </a>
+                    </div>
+                    <div class="arc-right">
+                        <h4 class="blue-text"><a href=""></a>2017IOS开发全套视频教程传智播客oc/swift项目实战</h4>
+                        <p>IOS开发全套视频教程传智播客oc/swift项目实战。适合人群：零基础想从事ios工作的大学生或在职人员，特别是刚开始从事ios的人员</p>
+                        <ul>
+                            <li>
+                                <a th:title="${'发表于04-30 12:00'}">
+                                    <i class="el-time"></i>
+                                    <span>04-30 12:00</span>
+                                </a>
+                            </li>
+                            <li><a th:title="${'25次浏览'}"><i class="el-fire"></i><span
+                                    th:text="25"></span> </a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="arcimg ">
+                        <a href="" target="_blank">
+                            <img src="Front-End/images/curriculum/2.jpg">
+                        </a>
+                    </div>
+                    <div class="arc-right">
+                        <h4 class="blue-text"><a href=""></a>SSM大型商城系统项目实战视频教程/前后台分布式架构/Java源代码</h4>
+                        <p>SSM大型商城系统项目实战视频教程/前后台分布式架构/Java源代码</p>
+                        <ul>
+                            <li>
+                                <a th:title="${'发表于04-30 12:00'}">
+                                    <i class="el-time"></i>
+                                    <span>04-30 12:00</span>
+                                </a>
+                            </li>
+                            <li><a th:title="${'25次浏览'}"><i class="el-fire"></i><span
+                                    th:text="25"></span> </a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="arcimg ">
+                        <a href="" target="_blank">
+                            <img src="Front-End/images/curriculum/3.png">
+                        </a>
+                    </div>
+                    <div class="arc-right">
+                        <h4 class="blue-text"><a href=""></a>Dubbo/Redis/ZooKeeper/activemq视频教程/电商项目/互联网架构师</h4>
+                        <p>Dubbo/Redis/ZooKeeper/activemq视频教程/电商项目/互联网架构师</p>
+                        <ul>
+                            <li>
+                                <a th:title="${'发表于04-30 12:00'}">
+                                    <i class="el-time"></i>
+                                    <span>04-30 12:00</span>
+                                </a>
+                            </li>
+                            <li><a th:title="${'25次浏览'}"><i class="el-fire"></i><span
+                                    th:text="25"></span> </a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="arcimg ">
+                        <a href="" target="_blank">
+                            <img src="Front-End/images/curriculum/4.jpg">
+                        </a>
+                    </div>
+                    <div class="arc-right">
+                        <h4 class="blue-text"><a href=""></a>spring mvc视频教程 mybatis框架 mybatis ssm spring 框架整合</h4>
+                        <p>spring mvc视频教程 mybatis框架 mybatis ssm spring 框架整合</p>
+                        <ul>
+                            <li>
+                                <a th:title="${'发表于04-30 12:00'}">
+                                    <i class="el-time"></i>
+                                    <span>04-30 12:00</span>
+                                </a>
+                            </li>
+                            <li><a th:title="${'25次浏览'}"><i class="el-fire"></i><span
+                                    th:text="25"></span> </a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="arcimg ">
+                        <a href="" target="_blank">
+                            <img src="Front-End/images/curriculum/5.jpg">
+                        </a>
+                    </div>
+                    <div class="arc-right">
+                        <h4 class="blue-text"><a href=""></a>Node.js从入门到企业Web开发中的应用视频教程自动发货</h4>
+                        <p>Node.js从入门到企业Web开发中的应用视频教程自动发货</p>
+                        <ul>
+                            <li>
+                                <a th:title="${'发表于04-30 12:00'}">
+                                    <i class="el-time"></i>
+                                    <span>04-30 12:00</span>
+                                </a>
+                            </li>
+                            <li><a th:title="${'25次浏览'}"><i class="el-fire"></i><span
+                                    th:text="25"></span> </a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="arcimg ">
+                        <a href="" target="_blank">
+                            <img src="Front-End/images/curriculum/6.png">
+                        </a>
+                    </div>
+                    <div class="arc-right">
+                        <h4 class="blue-text"><a href=""></a>Linux全套视频教程零基础 CentOS UBuntu系统运维开发入门到精通</h4>
+                        <p>Linux全套视频教程零基础 CentOS UBuntu系统运维开发入门到精通</p>
+                        <ul>
+                            <li>
+                                <a th:title="${'发表于04-30 12:00'}">
+                                    <i class="el-time"></i>
+                                    <span>04-30 12:00</span>
+                                </a>
+                            </li>
+                            <li><a th:title="${'25次浏览'}"><i class="el-fire"></i><span
+                                    th:text="25"></span> </a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div th:replace="common/navigation :: navigation-index(blogs)"></div>
     </div>
-    <div class="kecheng whitebg">
-        <h2 class="htitle">
-            <i class="el-tasks"></i>
-            最新课程
-            <small> Latest Courses</small>
-        </h2>
-        <ul>
-            <li>
-                <div class="arcimg ">
-                    <a href="" target="_blank">
-                        <img src="Front-End/images/curriculum/1.jpg">
-                    </a>
-                </div>
-                <div class="arc-right">
-                    <h4 class="blue-text"><a href=""></a>2017IOS开发全套视频教程传智播客oc/swift项目实战</h4>
-                    <p>IOS开发全套视频教程传智播客oc/swift项目实战。适合人群：零基础想从事ios工作的大学生或在职人员，特别是刚开始从事ios的人员</p>
-                    <ul>
-                        <li>
-                            <a th:title="${'发表于04-30 12:00'}">
-                                <i class="el-time"></i>
-                                <span>04-30 12:00</span>
-                            </a>
-                        </li>
-                        <li><a th:title="${'25次浏览'}"><i class="el-fire"></i><span
-                                th:text="25"></span> </a></li>
-                    </ul>
-                </div>
-            </li>
-            <li>
-                <div class="arcimg ">
-                    <a href="" target="_blank">
-                        <img src="Front-End/images/curriculum/2.jpg">
-                    </a>
-                </div>
-                <div class="arc-right">
-                    <h4 class="blue-text"><a href=""></a>SSM大型商城系统项目实战视频教程/前后台分布式架构/Java源代码</h4>
-                    <p>SSM大型商城系统项目实战视频教程/前后台分布式架构/Java源代码</p>
-                    <ul>
-                        <li>
-                            <a th:title="${'发表于04-30 12:00'}">
-                                <i class="el-time"></i>
-                                <span>04-30 12:00</span>
-                            </a>
-                        </li>
-                        <li><a th:title="${'25次浏览'}"><i class="el-fire"></i><span
-                                th:text="25"></span> </a></li>
-                    </ul>
-                </div>
-            </li>
-            <li>
-                <div class="arcimg ">
-                    <a href="" target="_blank">
-                        <img src="Front-End/images/curriculum/3.png">
-                    </a>
-                </div>
-                <div class="arc-right">
-                    <h4 class="blue-text"><a href=""></a>Dubbo/Redis/ZooKeeper/activemq视频教程/电商项目/互联网架构师</h4>
-                    <p>Dubbo/Redis/ZooKeeper/activemq视频教程/电商项目/互联网架构师</p>
-                    <ul>
-                        <li>
-                            <a th:title="${'发表于04-30 12:00'}">
-                                <i class="el-time"></i>
-                                <span>04-30 12:00</span>
-                            </a>
-                        </li>
-                        <li><a th:title="${'25次浏览'}"><i class="el-fire"></i><span
-                                th:text="25"></span> </a></li>
-                    </ul>
-                </div>
-            </li>
-            <li>
-                <div class="arcimg ">
-                    <a href="" target="_blank">
-                        <img src="Front-End/images/curriculum/4.jpg">
-                    </a>
-                </div>
-                <div class="arc-right">
-                    <h4 class="blue-text"><a href=""></a>spring mvc视频教程 mybatis框架 mybatis ssm spring 框架整合</h4>
-                    <p>spring mvc视频教程 mybatis框架 mybatis ssm spring 框架整合</p>
-                    <ul>
-                        <li>
-                            <a th:title="${'发表于04-30 12:00'}">
-                                <i class="el-time"></i>
-                                <span>04-30 12:00</span>
-                            </a>
-                        </li>
-                        <li><a th:title="${'25次浏览'}"><i class="el-fire"></i><span
-                                th:text="25"></span> </a></li>
-                    </ul>
-                </div>
-            </li>
-            <li>
-                <div class="arcimg ">
-                    <a href="" target="_blank">
-                        <img src="Front-End/images/curriculum/5.jpg">
-                    </a>
-                </div>
-                <div class="arc-right">
-                    <h4 class="blue-text"><a href=""></a>Node.js从入门到企业Web开发中的应用视频教程自动发货</h4>
-                    <p>Node.js从入门到企业Web开发中的应用视频教程自动发货</p>
-                    <ul>
-                        <li>
-                            <a th:title="${'发表于04-30 12:00'}">
-                                <i class="el-time"></i>
-                                <span>04-30 12:00</span>
-                            </a>
-                        </li>
-                        <li><a th:title="${'25次浏览'}"><i class="el-fire"></i><span
-                                th:text="25"></span> </a></li>
-                    </ul>
-                </div>
-            </li>
-            <li>
-                <div class="arcimg ">
-                    <a href="" target="_blank">
-                        <img src="Front-End/images/curriculum/6.png">
-                    </a>
-                </div>
-                <div class="arc-right">
-                    <h4 class="blue-text"><a href=""></a>Linux全套视频教程零基础 CentOS UBuntu系统运维开发入门到精通</h4>
-                    <p>Linux全套视频教程零基础 CentOS UBuntu系统运维开发入门到精通</p>
-                    <ul>
-                        <li>
-                            <a th:title="${'发表于04-30 12:00'}">
-                                <i class="el-time"></i>
-                                <span>04-30 12:00</span>
-                            </a>
-                        </li>
-                        <li><a th:title="${'25次浏览'}"><i class="el-fire"></i><span
-                                th:text="25"></span> </a></li>
-                    </ul>
-                </div>
-            </li>
-        </ul>
+    <div class="rbox">
+        <!--点击排行 begin-->
+        <div th:replace="common/common :: paihang"></div>
+        <!--点击排行 end-->
+        <!--站长推荐 begin-->
+        <div th:replace="common/common :: tuijian"></div>
+        <!--站长推荐 end-->
+        <!--广告节点3 begin-->
+        <div th:replace="common/common :: ad3"></div>
+        <!--广告节点3 end-->
+        <!--标签云 begin-->
+        <div th:replace="common/common :: label"></div>
+        <!--标签云 end-->
+        <!--猜你喜欢 begin-->
+        <div th:replace="common/common :: love"></div>
+        <!--猜你喜欢 end-->
+        <!--广告节点4 begin-->
+        <div th:replace="common/common :: ad4"></div>
+        <!--广告节点4 end-->
+        <!--站点统计 begin-->
+        <div th:replace="common/common :: tongji"></div>
+        <!--站点统计 end-->
     </div>
 </article>
 
