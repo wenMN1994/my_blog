@@ -91,6 +91,7 @@ nav { float: left; height: 50px; line-height: 50px; text-align: center; }
 /*!*最新课程*!*/
 .kecheng >ul> li> .arc-right>h4{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px;}
 .kecheng >ul{padding-bottom: 10px;}
+.kecheng ul i {color: #ff6700;}
 .kecheng ul li{background:none;padding:10px 5%;margin-bottom:5px;overflow:hidden;}
 .kecheng ul li { float: left; width: 44.7%; border: #eee 1px solid; overflow: hidden; padding: 20px; -moz-transition: all .5s ease; -webkit-transition: all .5s ease; transition: all .5s ease; }
 .kecheng .arc-right li{border:none;}
