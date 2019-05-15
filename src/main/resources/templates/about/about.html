@@ -1,6 +1,7 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="common/head :: commonHead('关于我-DragonWen个人博客')"></head>
+
 <body>
 <!--top begin-->
 <div th:replace="common/common :: head"></div>
@@ -8,90 +9,365 @@
 <div th:replace="common/common :: search"></div>
 <!--top end-->
 <article>
-    <div class="whitebg about">
-        <div class="ab_box"> <i class="avatar_pic"><img src="Front-End/images/avatar.jpg"></i>
-            <h3>杨青青</h3>
-            <p>一个80后草根女站长！Web前端设计师、网页设计师。</p>
-            <p>天津智尚互联科技有限公司设计总监，青于蓝网络工作室创始人。</p>
+    <div id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+        <!-- Header -->
+
+        <!-- Header -->
+        <div class="copyrights">DragonWen简历 <a href="#" >java工程师</a></div>
+        <!-- Services Section -->
+        <div id="services" class="text-center">
+            <div class="container">
+                <div class="section-title center">
+                    <h2>基本 <strong>资料</strong></h2>
+                    <hr>
+                </div>
+                <div class="space"></div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 service"> <i class="fa fa-laptop"></i>
+                        <h4><strong>个人信息</strong></h4>
+                        <p>
+                            英文名: Dragon &nbsp;性别：男</br>
+                            年龄: 25岁 籍贯：广东
+                        </p>
+                    </div>
+                    <div class="col-md-3 col-sm-6 service"> <i class="fa fa-code"></i>
+                        <h4><strong>专业学历</strong></h4>
+                        <p>
+                            专业：物联网应用技术</br>
+                            学历：大学专科</br>
+
+                        </p>
+                    </div>
+                    <div class="col-md-3 col-sm-6 service"> <i class="fa fa-rocket"></i>
+                        <h4><strong>毕业学校</strong></h4>
+                        <p>
+                            毕业学校：佛山职业技术学院</br>
+                            学习技能：搬砖
+                        </p>
+                    </div>
+                    <div class="col-md-3 col-sm-6 service"> <i class="fa fa-bullseye"></i>
+                        <h4><strong>联系方式</strong></h4>
+                        <p>QQ：920310436</br>
+                            邮箱：18475536452@163.com</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <h2 class="gd_title">内心独白</h2>
-        <p class="ab_dubai">我叫杨青青，我是一个80后草根女站长！09年入行。我一直潜心研究网页前端技术，一边工作一边积累经验，分享一些个人博客模板，以及网站优化等心得。我入行早，大家也亲切的叫我“青姐”。我的个人博客搜索“个人博客”、“博客”，一直都靠前。最有意思的是，我有三年的时间没有去更新它，依然排在前面。虽然期间有很多的不容易，但是我都没有放弃过。选了这一行 ，就深深的喜欢上它。我喜欢一句话“冥冥中该来则来，无处可逃”。我喜欢上了前端设计，喜欢坐在电脑前敲代码，喜欢跟一堆程序员聊天。这辈子，我也逃不出去了，深深的陷了进来。 </p>
-        <span class="ly_button"><a href="http://www.yangqq.com/e/tool/gbook/?bid=1" target="_blank">留言</a></span>
-        <h2 class="gd_title">心路历程</h2>
-        <ul class="xinlu">
-            <li><a href="/" target="_blank"><i><img src="Front-End/images/1.jpg"></i>
-                <p>我是怎么评价自己的？</p>
-                <span>我性格属于好静的，喜欢写写画画，自从读了计算机专业，那就更好静了，我可以两星期都不出门，但是半刻钟也不能离开电脑。</span></a></li>
-            <li><a href="/" target="_blank"><i><img src="Front-End/images/2.jpg"></i>
-                <p>个人博客，属于我的小世界！</p>
-                <span>个人博客，用来做什么？我刚开始就把它当做一个我吐槽心情的地方，也就相当于一个网络记事本，写上一些关于自己生活工作中的小情小事，也会放上一些照片，音乐。每天工作回家后就能访问自己的网站，一边听着音乐，一边写写文章。</span></a></li>
-            <li><a href="/" target="_blank"><i><img src="Front-End/images/3.jpg"></i>
-                <p>【爱设计】安静地做一个爱设计的女子</p>
-                <span>自从入了这行，很多人跟我说可以做网络教程，我也有考虑，但最终没有实现，因为我觉得在这个教程泛滥的时代，直接做一套免费的原创个人博客模板更为实在。</span></a></li>
-            <li><a href="/" target="_blank"><i><img src="Front-End/images/4.jpg"></i>
-                <p>【匆匆那些年】总结个人博客经历的这四年</p>
-                <span>博客从最初的域名购买，到上线已经有四年的时间了，这四年的时间，有笑过，有怨过，有悔过，有执着过，也有放弃过…但最后还是坚持了下来，时间如此匆匆，等再回过头已来不及去弥补</span></a></li>
-            <li><a href="/" target="_blank"><i><img src="Front-End/images/ad.jpg"></i>
-                <p>我是怎么评价自己的？</p>
-                <span>我性格属于好静的，喜欢写写画画，自从读了计算机专业，那就更好静了，我可以两星期都不出门，但是半刻钟也不能离开电脑。</span></a></li>
-            <li><a href="/" target="_blank"><i><img src="Front-End/images/ad02.jpg"></i>
-                <p>个人博客，属于我的小世界！</p>
-                <span>个人博客，用来做什么？我刚开始就把它当做一个我吐槽心情的地方，也就相当于一个网络记事本，写上一些关于自己生活工作中的小情小事，也会放上一些照片，音乐。每天工作回家后就能访问自己的网站，一边听着音乐，一边写写文章。</span></a></li>
-            <li><a href="/" target="_blank"><i><img src="Front-End/images/b01.jpg"></i>
-                <p>【爱设计】安静地做一个爱设计的女子</p>
-                <span>自从入了这行，很多人跟我说可以做网络教程，我也有考虑，但最终没有实现，因为我觉得在这个教程泛滥的时代，直接做一套免费的原创个人博客模板更为实在。</span></a></li>
-            <li><a href="/" target="_blank"><i><img src="Front-End/images/b05.jpg"></i>
-                <p>【匆匆那些年】总结个人博客经历的这四年</p>
-                <span>博客从最初的域名购买，到上线已经有四年的时间了，这四年的时间，有笑过，有怨过，有悔过，有执着过，也有放弃过…但最后还是坚持了下来，时间如此匆匆，等再回过头已来不及去弥补</span></a></li>
-        </ul>
-        <h2 class="gd_title">我的博客</h2>
-        <ul class="myblog">
-            <li><b>创建时间</b>
-                <p>2011年01月12日</p>
-                <p><a href="http://www.yangqq.com" target="_blank" class="buttons">主页</a></p>
-            </li>
-            <li><b>主题模板</b>
-                <p><a href="http://www.yangqq.com" target="_blank">《今夕何夕》</a></p>
-                <p><a href="/" class="buttons">下载</a></p>
-            </li>
-            <li><b>网站程序</b>
-                <p>帝国CMS7.5</p>
-                <p><a href="http://www.yangqq.com" target="_blank" class="buttons">下载</a></p>
-            </li>
-            <li><b>服务器商</b>
-                <p>阿里云服务器</p>
-                <a href="/" class="buttons">1888代金券领取</a></li>
-            <li><b>免费空间</b>
-                <p><a href="http://www.4562.com/?u=3CE3E8" target="_blank">金牛云服</a></p>
-                <a href="/" class="buttons">国内主机免费领</a></li>
-        </ul>
-        <h2 class="gd_title">加入我们</h2>
-        <ul class="qq_join">
-            <li>
-                <section><img src="Front-End/images/qq1.png">
-                    <p>网页设计交流吧①</p>
-                    <p>QQ群号：280998807</p>
-                </section>
-            </li>
-            <li>
-                <section><img src="Front-End/images/qq2.png">
-                    <p>网页设计交流吧②</p>
-                    <p>QQ群号：291195645</p>
-                </section>
-            </li>
-            <li>
-                <section><img src="Front-End/images/joinwx.png">
-                    <p>关注官方<b>微信</b>公众号</p>
-                    <p>掌握最新的模板信息！</p>
-                </section>
-            </li>
-            <li>
-                <section><img src="Front-End/images/joinwxqun.png">
-                    <p>网页设计交流<b>微信群</b></p>
-                    <p>目前只接受群主拉进群</p>
-                </section>
-            </li>
-        </ul>
+        <!-- Portfolio Section -->
+        <div id="works">
+            <div class="container"> <!-- Container -->
+                <div class="section-title text-center center">
+                    <h2>项目 <strong>经验</strong></h2>
+                    <hr>
+                    <div class="clearfix"></div>
+                    <p>主要涉及电商，金融，家装领域，包括PC端，手机端，微信端，移动APP端等等，主要技术是HTML+CSS+JS</p>
+                </div>
+                <div class="categories">
+                    <ul class="cat">
+                        <li>
+                            <ol class="type">
+                                <li><a href="#" data-filter="*" class="active">所有</a></li>
+                                <li><a href="#" data-filter=".web">PC端</a></li>
+                                <li><a href="#" data-filter=".app">移动端</a></li>
+                                <li><a href="#" data-filter=".branding">响应式</a></li>
+                            </ol>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="row">
+                    <div class="portfolio-items">
+
+                        <div class="col-sm-6 col-md-3 col-lg-3 web">
+                            <div class="portfolio-item">
+                                <div class="hover-bg">
+                                    <div class="hover-text">
+                                        <h4><a href='http://www.ymjihe.com' target='_blank' title="欧工商城">欧工商城</a></h4>
+                                        <small>技术：html+css+js</small>
+                                        <div class="clearfix"></div>
+                                        <i class="fa fa-search"></i> </div>
+                                    <img src="Front-End/about/img/portfolio/01.jpg" class="img-responsive" alt="欧工商城"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-3 col-lg-3 web">
+                            <div class="portfolio-item">
+                                <div class="hover-bg">
+                                    <div class="hover-text">
+                                        <h4><a href="http://www.ymjihe.com" target='_blank' title="财树理财">财树理财</a></h4>
+                                        <small>技术：HTML+CSS+JQuery</small>
+                                        <div class="clearfix"></div>
+                                        <i class="fa fa-search"></i> </div>
+                                    <img src="Front-End/about/img/portfolio/02.jpg" class="img-responsive" alt="财树理财"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-3 col-lg-3 web">
+                            <div class="portfolio-item">
+                                <div class="hover-bg">
+                                    <div class="hover-text">
+                                        <h4><a href="http://www.ymjihe.com" target='_blank' title="IT技术之家">IT技术之家</a></h4>
+                                        <small>技术：Bootstrap+JQuery</small>
+                                        <div class="clearfix"></div>
+                                        <i class="fa fa-search"></i> </div>
+                                    <img src="Front-End/about/img/portfolio/03.jpg" class="img-responsive" alt="IT技术之家"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-3 col-lg-3 web">
+                            <div class="portfolio-item">
+                                <div class="hover-bg">
+                                    <div class="hover-text">
+                                        <h4><a href='http://www.ymjihe.com' target='_blank' title="久久基因">久久基因</a></h4>
+                                        <small>技术：Bootstrap+JQuery</small>
+                                        <div class="clearfix"></div>
+                                        <i class="fa fa-search"></i> </div>
+                                    <img src="Front-End/about/img/portfolio/04.jpg" class="img-responsive" alt="久久基因"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3 col-lg-3 web">
+                            <div class="portfolio-item">
+                                <div class="hover-bg">
+                                    <div class="hover-text">
+                                        <h4><a href='http://www.ymjihe.com' target='_blank' title="纵横基因">纵横基因</a></h4>
+                                        <small>技术：HTML+CSS+JQuery</small>
+                                        <div class="clearfix"></div>
+                                        <i class="fa fa-search"></i> </div>
+                                    <img src="Front-End/about/img/portfolio/05.jpg" class="img-responsive" alt="纵横基因">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3 col-lg-3 branding">
+                            <div class="portfolio-item">
+                                <div class="hover-bg">
+                                    <div class="hover-text">
+                                        <h4><a href="http://www.ymjihe.com" target='_blank' title="浙江网新恒天UED">浙江网新恒天UED</a></h4>
+                                        <small>技术：Bootstrap+JQuery</small>
+                                        <div class="clearfix"></div>
+                                        <i class="fa fa-search"></i> </div>
+                                    <img src="Front-End/about/img/portfolio/06.jpg" class="img-responsive" alt="浙江网新恒天UED"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3 col-lg-3 branding app web">
+                            <div class="portfolio-item">
+                                <div class="hover-bg">
+                                    <div class="hover-text">
+                                        <h4><a href="http://www.ymjihe.com" target='_blank' title="个人博客">个人博客</a></h4>
+                                        <small>技术：HTMl+CSS+JS+Wordpress</small>
+                                        <div class="clearfix"></div>
+                                        <i class="fa fa-search"></i> </div>
+                                    <img src="Front-End/about/img/portfolio/07.jpg" class="img-responsive" alt="个人博客"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3 col-lg-3 web app">
+                            <div class="portfolio-item">
+
+                                <div class="hover-bg">
+                                    <div class="hover-text">
+                                        <h4><a href='http://www.ymjihe.com' target='_blank' title="软装大师">软装大师 </a></h4>
+                                        <small>技术：Bootstrap+JQuery</small>
+                                        <div class="clearfix"></div>
+                                        <i class="fa fa-search"></i>
+                                    </div>
+                                    <img src="Front-End/about/img/portfolio/08.jpg" class="img-responsive" alt="软装大师">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About Section -->
+        <div id="about">
+            <div class="container">
+                <div class="section-title text-center center">
+                    <h2><strong>专业</strong> 技能</h2>
+                    <hr>
+                </div>
+                <div class="row">
+                    <div class="col-md-6"> <img src="Front-End/about/img/about.png" class="img-responsive"> </div>
+                    <div class="col-md-6">
+                        <div class="about-text"> <i class="fa fa-users"></i>
+                            <div class="padding-left"><h4>PC端</h4>
+                                <p>熟练使用HTML/CSS技术，精通Javascript/jquery编程,能够熟练使用angularjs，reactjs等前端MVC框架进行模块开发，熟练的使用grunt，gulp等前端工具，了解less，sass，stylus，coffeescript等前端新技术</p></div>
+                            <i class="fa fa-magic"></i>
+                            <div class="padding-left"><h4>移动端</h4>
+                                <p>熟练使用zepto.js，Frozen ui，Amaze ui等移动框架进行移动页面的开发，熟练使用threejs等js引擎进行3d效果和H5游戏的开发.</p></div>
+                            <i class="fa fa-check-square-o"></i>
+                            <div class="padding-left"><h4>其它</h4>
+                                <p>懂网站性能优化，网站百度排名和SEO优化，熟练使用photoshop等切图工具，会常见的UI技巧，懂Java，php等后台语言开发.</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="achivements" class="section dark-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-3">
+                        <div class="achivement-box">
+                            <i class="fa fa-smile-o"></i>
+                            <span class="count">25</span>
+                            <h4>Age Years</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                        <div class="achivement-box">
+                            <i class="fa fa-code"></i>
+                            <span class="count">100000</span>
+                            <h4>Code Amount</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                        <div class="achivement-box">
+                            <i class="fa fa-check-square-o"></i>
+                            <span class="count">4800</span>
+                            <h4>Work Hour</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                        <div class="achivement-box">
+                            <i class="fa fa-trophy"></i>
+                            <span class="count">20</span>
+                            <h4>Projects Amount</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Team Section -->
+        <div id="team" class="text-center">
+            <div class="container">
+                <div class="section-title center">
+                    <h2>人生 <strong>经历</strong></h2>
+                    <hr>
+                    <p>热爱互联网，热爱技术，专注于前端技术开发和用户体验</p>
+                </div>
+                <div id="row">
+
+                    <div class="col-md-3 col-sm-6">
+                        <div class="thumbnail"> <img src="Front-End/about/img/team/02.jpg" alt="浙江理工大学" class="img-circle team-img">
+                            <div class="caption">
+                                <h3>浙江理工大学</h3>
+                                <p>电子信息工程</p>
+                                <p>主要学习编程语言，前端技术，网站制作和开发，大学期间做过很多项目，很喜欢编程</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6">
+                        <div class="thumbnail"> <img src="Front-End/about/img/team/01.jpg" alt="杭州归谷培训中心" class="img-circle team-img">
+                            <div class="caption">
+                                <h3>杭州归谷培训中心</h3>
+                                <p>前端培训</p>
+                                <p>主要培训HTMl，CSS，JS，Jquery技术，还有ajax，ui等基础知识和一些常见的angular，react等MVC框架</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-md-3 col-sm-6">
+                        <div class="thumbnail"> <img src="Front-End/about/img/team/03.jpg" alt="浙大网新" class="img-circle team-img">
+                            <div class="caption">
+                                <h3>浙大网新</h3>
+                                <p>前端工程师</p>
+                                <p>工作时间：2014.5-2015.12，主要从事金融电商行业的网站开发，包括金融管理系统，电商网站，移动端商城等等</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="thumbnail"> <img src="Front-End/about/img/team/04.jpg" alt="欧工国际" class="img-circle team-img">
+                            <div class="caption">
+                                <h3>欧工国际</h3>
+                                <p>前端工程师</p>
+                                <p>工作时间：2015.12-至今，主要从事欧工商城的前端页面开发，和用threejs引擎做网页3d效果包括移动端3d效果</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Testimonials Section -->
+        <div id="testimonials" class="text-center">
+            <div class="container">
+                <div class="section-title center">
+                    <h2>自我 <strong>评价</strong></h2>
+                    <hr>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div id="testimonial" class="owl-carousel owl-theme">
+                            <div class="item">
+                                <p>
+                                    热爱学习,良好的团队合作精神，能迅速融入新的团队。</br>易和人相处，拥有良好的亲和力。
+                                </p>
+                            </div>
+                            <div class="item">
+                                <p>
+                                    有强烈的责任感，工作踏实，性格开朗乐观，积极上进，吃苦耐劳。</br>能在较大的压力下保持良好的工作状态，善于自我调节。
+                                </p>
+                            </div>
+                            <div class="item">
+                                <p>
+                                    非常热爱编程，喜欢钻研新的技术，喜欢接受各种不同的挑战。</br>具有很强的自学能力和良好的学习方法。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div id="contact" class="text-center">
+            <div class="container">
+                <div class="section-title center">
+                    <h2><strong>联系</strong> 方式</h2>
+                    <hr>
+                </div>
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="col-md-4"> <i class="fa fa-map-marker fa-2x"></i>
+                        <p>广东省深圳市南山区蛇口望海路</p>
+                    </div>
+                    <div class="col-md-4"> <i class="fa fa-envelope-o fa-2x"></i>
+                        <p>18475536452@163.com</p>
+                    </div>
+                    <div class="col-md-4"> <i class="fa fa-phone fa-2x"></i>
+                        <p>QQ:920310436</p>
+                    </div>
+                    <hr>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-md-8 col-md-offset-2">
+                    <hr>
+                    <h3>给我发邮件</h3>
+                    <form name="sentMessage" id="contactForm" novalidate>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" id="name" class="form-control" placeholder="姓名" required="required">
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="email" id="email" class="form-control" placeholder="邮箱" required="required">
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" id="message" class="form-control" rows="4" placeholder="内容" required></textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div id="success"></div>
+                        <button type="submit" class="btn btn-default">确认发送</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </article>
 
@@ -100,4 +376,34 @@
 <!--footer end-->
 
 </body>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!--<script type="text/javascript" th:src="@{/Front-End/about/js/jquery.1.11.1.js}"></script>-->
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script type="text/javascript" th:src="@{/Front-End/about/js/bootstrap.js}"></script>
+<script type="text/javascript" th:src="@{/Front-End/about/js/SmoothScroll.js}"></script>
+<script type="text/javascript" th:src="@{/Front-End/about/js/jquery.prettyPhoto.js}"></script>
+<script type="text/javascript" th:src="@{/Front-End/about/js/jquery.isotope.js}"></script>
+<script type="text/javascript" th:src="@{/Front-End/about/js/jquery.counterup.js}"></script>
+<script type="text/javascript" th:src="@{/Front-End/about/js/waypoints.js}"></script>
+<script type="text/javascript" th:src="@{/Front-End/about/js/jqBootstrapValidation.js}"></script>
+<script type="text/javascript" th:src="@{/Front-End/about/js/contact_me.js}"></script>
+<script th:src="@{/Front-End/about/js/owl.carousel.js}"></script>
+
+<!-- Javascripts
+    ================================================== -->
+<script type="text/javascript" th:src="@{/Front-End/about/js/main.js}"></script>
+
+<script>
+    $(function()
+    {
+        var u = navigator.userAgent;
+        if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1||u.indexOf('iPhone') > -1||u.indexOf('Windows Phone') > -1||navigator.userAgent.indexOf("iPad")>-1) {
+            $(".hover-bg .hover-text").css({'opacity':'1'});
+
+            $(".hover-bg .hover-text>h4").css({'opacity':'1','-webkit-transform':'translateY(0)','transform':'translateY(0)'});
+
+            $(".hover-bg .hover-text>i").css({'opacity':'1'});
+        }
+    });
+</script>
 </html>
