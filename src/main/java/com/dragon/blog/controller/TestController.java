@@ -65,7 +65,7 @@ public class TestController {
      * @return
      */
     @RequestMapping("sourcecode")
-    public String resume(){
+    public String sourcecode(){
         return "sourcecode/sourcecode";
     }
 
