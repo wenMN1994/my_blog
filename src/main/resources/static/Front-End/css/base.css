@@ -10,7 +10,7 @@ a:hover { color: #000; text-decoration: none; }
 .clearblank { clear: both; width: 100%; overflow: hidden; }
 .fl { float: left!important; }
 .fr { float: right!important; }
-.box, article { width: 1200px; margin: auto; overflow: hidden }
+.footer_box, article { width: 1200px; margin: auto; overflow: hidden }
 .navbox { width: 1200px; margin: auto; }
 .mt20 { margin-top: 20px; }
 .blue { color: #00C1DE }
