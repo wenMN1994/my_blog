@@ -408,6 +408,24 @@
 
 </body>
 <script>
-
+    function showMoreClickEvent(p_oEvent) {
+        if($('.main').hasClass('eng')){
+            if(($(p_oEvent).hasClass('on'))){
+                $(p_oEvent).removeClass('on').children('span').html('More').next().css('display','none').parent().next().css('display','none');
+            }else{
+                $(p_oEvent).addClass('on').children('span').html('Hide').next().css('display','block').parent().next().css('display','block');
+            }
+        }else{
+            if( ($(p_oEvent).hasClass('on')) && (!$(p_oEvent).parent().parent().hasClass('m1')) ){
+                $(p_oEvent).removeClass('on').children('span').html('更多展开').next().css('display','none').parent().next().css('display','none');
+            }else if( (!$(p_oEvent).hasClass('on')) && (!$(p_oEvent).parent().parent().hasClass('m1')) ){
+                $(p_oEvent).addClass('on').children('span').html('更多收起').next().css('display','block').parent().next().css('display','block');
+            }else if( ($(p_oEvent).hasClass('on')) && ($(p_oEvent).parent().parent().hasClass('m1')) ){
+                $(p_oEvent).removeClass('on').children('em').css('display','none').parent().next().css('display','none');
+            }else{
+                $(p_oEvent).addClass('on').children('em').css('display','block').parent().next().css('display','block');
+            }
+        }
+    }
 </script>
 </html>
