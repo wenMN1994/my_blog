@@ -1,13 +1,10 @@
-html,body,p,form,ul,hr,h1,h2,h3,h4,h5,h6{margin:0;padding:0}
 table{border-collapse:collapse;border-spacing:0}
 th,td{padding:0}
-a{text-decoration:none}
 li{list-style:none}
 img{border:0 none}
 textarea{line-height:20px}
 input,button,textarea{font-size:14px;font-family:"microsoft yahei" !important;outline:0 none;margin:0;padding:0}
 input::-ms-clear{display:none}
-body{line-height:20px;font-size:14px;font-family:"Microsoft YaHei" !important;background-color:#fff}
 
 .icons{display:inline-block;#display:inline;vertical-align:middle;background:url(//img01.51jobcdn.com/im/2016/resume/icon_resume.png) no-repeat;#zoom:1}
 .btnbox{width:100%;text-align:center;padding:15px 0}
