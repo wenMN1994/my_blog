@@ -230,6 +230,59 @@
 </footer>
 <!--底部公共模块 end-->
 
+<!--右侧弹出框 start-->
+<div class="toolbar" th:fragment="toolbar">
+    <div class="toolbar-close"><span id="closed"></span></div>
+    <div class="toolbar-nav">
+        <ul id="toolbar-menu">
+            <li><i class="side-icon-user"></i>
+                <section>
+                    <div class="userinfo">
+                        <form name="login" method="post" action="https://www.yangqq.com/qingyulan/[!--news.url--]e/member/doaction.php">
+                            <input type="hidden" name="enews" value="login">
+                            <input type="hidden" name="ecmsfrom" value="9">
+                            <input name="username" type="text" class="inputText" size="16" placeholder="用户名">
+                            <input name="password" type="password" class="inputText" size="16" placeholder="密码">
+                            <input type="submit" name="Submit" value="登陆" class="inputsub-dl">
+                            <a href="https://www.yangqq.com/qingyulan/[!--news.url--]e/member/register/index.php?tobind=0&amp;groupid=1" class="inputsub-zc">注册</a>
+                        </form>
+                        <!--登陆后状态-->
+                        <!--<div class="clear"></div>
+                          <div class="logged">
+                            <b>青于蓝管理员，您好！</b> <a href="[!--news.url--]e/member/cp/" target="_parent">会员中心</a> <a href="[!--news.url--]e/member/doaction.php?enews=exit&ecmsfrom=9" onclick="return confirm('确认要退出?');">退出</a>
+                          </div>-->
+                    </div>
+                </section>
+            </li>
+            <li><i class="side-icon-qq"></i>
+                <section class="qq-section">
+                    <div class="qqinfo"><a href="https://jq.qq.com/?_wv=1027&amp;k=5EH6xZg">前端设计交流群①</a><a href="https://jq.qq.com/?_wv=1027&amp;k=52fM36y">前端设计交流群②</a><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=476847113&amp;site=qq&amp;menu=yes">站长QQ</a></div>
+                </section>
+            </li>
+            <li><i class="side-icon-weixin"></i>
+                <section class="weixin-section">
+                    <div class="weixin-info">
+                        <p>个人微信扫码</p>
+                        <img src="Front-End/images/wx.png">
+                        <p class="text12">工作时间</p>
+                        <p class="text12">周一至周日 9:00-21:00</p>
+                    </div>
+                </section>
+            </li>
+            <li><i class="side-icon-dashang"></i>
+                <section class="dashang-section">
+                    <p>如果你觉得本站很棒，可以通过扫码支付打赏哦！</p>
+                    <ul>
+                        <li><img src="/common/images/weichartpay.png">微信收款码</li>
+                        <li><img src="/common/images/alipay.png">支付宝收款码</li>
+                    </ul>
+                </section>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--右侧弹出框 end-->
+
 <!--最新博文 start-->
 <div class="whitebg bloglist" th:fragment="bloglist">
     <h2 class="htitle">

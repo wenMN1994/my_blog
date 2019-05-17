@@ -76,6 +76,24 @@ $(document).ready(function() {
         
     });
 
+    //toolbar
+    $(".toolbar-open").click(function(){
+        $(".toolbar-open").addClass("openviewd");
+        $(".toolbar").addClass("closed");
+    });
+
+    $("#closed").click(function(){
+        $(".toolbar-open").removeClass("openviewd");
+        $(".toolbar").removeClass("closed");
+        $("#toolbar-menu li").removeClass("current");
+    });
+
+    $('#toolbar-menu li').click(function(){
+        var i = $(this).index();
+        $(this).addClass('current').siblings().removeClass('current');
+    });
+
+
     //返回顶部
     $(function () {
 

@@ -93,7 +93,7 @@ nav { float: left; height: 50px; line-height: 50px; text-align: center; }
 .kecheng >ul{padding-bottom: 10px;}
 .kecheng ul i {color: #ff6700;}
 .kecheng ul li{background:none;padding:10px 5%;margin-bottom:5px;overflow:hidden;}
-.kecheng ul li { float: left; width: 44.7%; border: #eee 1px solid; overflow: hidden; padding: 20px; -moz-transition: all .5s ease; -webkit-transition: all .5s ease; transition: all .5s ease; }
+.kecheng ul li { float: left; width: 43.7%; border: #eee 1px solid; overflow: hidden; padding: 20px; -moz-transition: all .5s ease; -webkit-transition: all .5s ease; transition: all .5s ease; }
 .kecheng .arc-right li{border:none;}
 .kecheng>ul>li> .arcimg{width:33%;float:left;border-radius:3px;height:33%;-webkit-border-radius:3px;overflow:hidden;border:1px dotted #05b129;}
 .kecheng>ul>li> .arcimg img{width:100%;height:100%;padding:3px;box-sizing:border-box;border-radius:3px;-webkit-border-radius:3px;}
@@ -487,3 +487,40 @@ margin: auto }
 .shang_payselect .pay_item span{ float:left;}
 .shang_info{clear:both;}
 .shang_info p,.shang_info a{color:#C3C3C3;text-align:center;font-size:12px;text-decoration:none;line-height:2em;}
+
+/*toolbar*/
+.toolbar { position: fixed; right: 0; top: 20%; z-index: 999; background: #333; width: 0; min-height: 360px; border-radius: 5px 0 0 5px; transition: all 0.4s; }
+.toolbar .toolbar-close span { background: url(../images/guanbi.png) no-repeat #333 center; background-size: 16px; width: 40px; height: 40px; float: right; position: absolute; left: 0; top: 0; border-radius: 5px 0 0 5px; }
+.toolbar-open { background: url(../images/zhankai.png) no-repeat center #333; background-size: 16px; width: 40px; height: 40px; position: fixed; right: 0; top: 20%; border-radius: 5px 0 0 5px; transition: all 0.4s; }
+.closed { width: 40px; }
+.openviewd { width: 0; transition: all 0.4s; }
+#toolbar-menu>li i { width: 40px; height: 40px; background-size: 22px; }
+#toolbar-menu { margin-top: 80px; }
+#toolbar-menu>li { border-top: #464646 1px solid; border-bottom: #252525 1px solid; cursor: pointer; position: relative }
+#toolbar-menu>li:first-child { border-top: none }
+.toolbar-nav section { display: none; position: absolute; right: 40px; top: 0; background: #fff; border: 1px solid #eee; padding: 30px; box-shadow: -5px 3px 3px rgba(0,0,0,.1); width: max-content; }
+#toolbar-menu>li.current section{ display:block}
+#toolbar-menu>li.current{ background:#000}
+/*.toolbar-nav li:hover section { display: block; }*/
+.side-icon-user { background: url(../images/icon-user.png) no-repeat center; }
+.side-icon-qq { background: url(../images/icon-qq.png) no-repeat center; }
+.side-icon-weixin { background: url(../images/icon-weixin.png) no-repeat center; }
+.side-icon-dashang { background: url(../images/icon-dashang.png) no-repeat center; }
+#toolbar-content { position: absolute; right: 40px; top: 80px; box-shadow: -2px 2px 2px rgba(0,0,0,.1); }
+.userinfo .inputText { line-height: 30px; text-indent: 1em; border-radius: 3px; border: #ddd 1px solid; width: 200px; margin-bottom: 20px; display: block; }
+.userinfo .inputsub-dl { display: inline-block; float: left; background: #2293f7; color: #fff; border: none; line-height: 35px; width: 45%; border-radius: 3px; }
+.userinfo .inputsub-zc { text-align: center; display: inline-block; float: right; background: #02aeb1; color: #fff; border: none; line-height: 35px; width: 45%; border-radius: 3px; }
+.userinfo .logged { text-align: center }
+.userinfo .logged b { color: #f00; font-size: 14px; }
+.userinfo .logged a { display: block; width: 100px; text-align: center; margin: 10px auto; border: #ddd 1px solid; padding: 5px 0; border-radius: 5px; }
+.qq-section, .weixin-section, .dashang-section { padding: 10px !important }
+.qqinfo a { display: block; text-align: center; margin: 0 auto 10px; padding: 5px 0; border-radius: 5px; width: 140px; color: #fff; background: linear-gradient(to right, #2e74e5 0%, #00c1de 100%); }
+.qqinfo a:last-child { margin-bottom: 0 }
+.qqinfo a { display: block; color: #fff; font-size: 14px; }
+.weixin-info { text-align: center }
+.weixin-info img { max-width: 140px; margin: auto }
+.weixin-info .text12 { font-size: 12px; line-height: 24px }
+.dashang-section p { padding: 0 10px 5px }
+.dashang-section ul { text-align: center; }
+.dashang-section ul li { display: inline-block; }
+.dashang-section ul li img { width: 140px !important; height: 140px !important; }
