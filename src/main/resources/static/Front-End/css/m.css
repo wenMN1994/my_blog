@@ -68,8 +68,9 @@
      .kecheng .arc-right>ul li{width: 45%;padding:0;}
      .toolbar-open, .toolbar { top: 45% }
      .toolbar-open { display: none }
+     .box .e{width: 564px;}
 }
- @media only screen and (max-width: 480px) {
+ @media screen and (max-width: 480px) {
      .headline { width: 100% }
      .headline ul { height: auto; padding-bottom: 10px; overflow: hidden }
      .headline ul li { width: 49%; float: left; }
@@ -114,10 +115,39 @@
      .otherlink li{width:100%}
      .arc-bdfx{ width:93%;}
      .kecheng ul li {width: 87%;}
-     .arc-right ul li:last-child{display: none}
+     .arc-right ul li:last-child{display: none;}
+     .box .tab {height: 60px;}
+     .at {white-space: normal;}
+     .box .hd {overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+     .box .fbox .zhi { text-align: left;}
+     .box .con .pp {float: left;}
+     .box .e {width: 225px;}
+     .box .sp {height: 60px;}
+     .box .none {width: 320px;font-size: 13px;}
+     .box .cell span, .box .cell i {width: 305px;}
+     .box .lh i {width: 140px;}
+     .box .sl i {width: 230px;}
+     .box .yb i {width: 70px;}
 }
 
-@media only screen and (max-width: 320px){
+@media screen and (max-width: 380px){
+    .box .tab {height: 86px;}
+    .at {white-space: normal;}
+    .box .hd {overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .box .fbox .zhi { text-align: left;}
+    .box .con .pp {float: left;}
+    .box .e {width: 200px;}
+    .box .e.e3 {min-width: 200px;}
+    .box .e.e2 {width: 200px;}
+    .box .sp {height: 60px;}
+    .box .none {width: 275px;font-size: 11px;}
+    .box .cell span, .box .cell i {width: 265px;}
+    .box .lh i {width: 100px;}
+    .box .sl i {width: 170px;}
+    .box .yb i {width: 50px;}
+}
+
+@media screen and (max-width: 320px){
     .kecheng ul li {width: 85%;}
     .arc-right ul li:last-child{display: none}
 }
