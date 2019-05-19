@@ -10,22 +10,22 @@ input::-ms-clear{display:none}
 .btnbox{width:100%;text-align:center;padding:15px 0}
 
 /*--±à¼­»òÉ¾³ý--*/
-.top_wrap,.edit{position:relative;border:1px solid transparent}
+/*.top_wrap,.edit{position:relative;border:1px solid transparent}*/
 .top_wrap:hover,.edit:hover{border:1px solid #ff6000 !important}
 .top_wrap:hover .ed_icon_blue,.top_wrap:hover .del,.top_wrap:hover .ed_icon_undel{display:inline-block}
-.top_wrap .ed_icon_blue,.top_wrap .ed_icon_yellow,.top_wrap .ed_icon_undel,.top_wrap .del,.top_wrap .undel{position:absolute;display:none;width:20px;height:20px;top:20px;right:30px;background-position:-260px -20px;cursor:pointer}
-.top_wrap .ed_icon_blue:hover,.edit .edi:hover{background-position:-280px -20px}
-.top_wrap .del{background-position:-260px 0}
-.top_wrap .del,.top_wrap .undel{right:0}
+/*.top_wrap .ed_icon_blue,.top_wrap .ed_icon_yellow,.top_wrap .ed_icon_undel,.top_wrap .del,.top_wrap .undel{position:absolute;display:none;width:20px;height:20px;top:20px;right:30px;background-position:-260px -20px;cursor:pointer}*/
+/*.top_wrap .ed_icon_blue:hover,.edit .edi:hover{background-position:-280px -20px}*/
+/*.top_wrap .del{background-position:-260px 0}*/
+/*.top_wrap .del,.top_wrap .undel{right:0}*/
 /*--±à¼­ºÍÉ¾³ý--*/
-.edit:hover .ed_icon{display:inline-block}
-.edit .ed_icon{position:absolute;display:none;width:60px;height:20px;top:20px;right:30px}
-.edit .ed_icon em:first-child{margin-left:0}
-.edit .edi,.edit .del,.edit .unedi,.edit .undel{display:inline-block;width:20px;height:20px;vertical-align:baseline;margin-left:20px;background-position:-260px -20px;cursor:pointer}
-.edit .del,.edit .undel{background-position:-260px 0}
-.edit .del:hover,.top_wrap .del:hover{background-position:-280px 0}
-.top_wrap .ed_icon_undel,.edit .unedi,.top_wrap .undel{background-position:-300px -20px;cursor:auto}
-.edit .undel{background-position:-300px 0;cursor:auto}
+/*.edit:hover .ed_icon{display:inline-block}*/
+/*.edit .ed_icon{position:absolute;display:none;width:60px;height:20px;top:20px;right:30px}*/
+/*.edit .ed_icon em:first-child{margin-left:0}*/
+/*.edit .edi,.edit .del,.edit .unedi,.edit .undel{display:inline-block;width:20px;height:20px;vertical-align:baseline;margin-left:20px;background-position:-260px -20px;cursor:pointer}*/
+/*.edit .del,.edit .undel{background-position:-260px 0}*/
+/*.edit .del:hover,.top_wrap .del:hover{background-position:-280px 0}*/
+/*.top_wrap .ed_icon_undel,.edit .unedi,.top_wrap .undel{background-position:-300px -20px;cursor:auto}*/
+/*.edit .undel{background-position:-300px 0;cursor:auto}*/
 
 /*--¼òÀúÕ¹Ê¾ÓÒ±ß--*/
 .column{float:left;width:100%;#overflow:hidden}
