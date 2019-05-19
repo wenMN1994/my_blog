@@ -11,7 +11,7 @@ public interface BlogSysBlickListMapper {
 
     int deleteByExample(BlogSysBlickListExample example);
 
-    int deleteByPrimaryKey(String blackListId);
+    int deleteByPrimaryKey(Integer blacklistId);
 
     int insert(BlogSysBlickList record);
 
@@ -19,7 +19,7 @@ public interface BlogSysBlickListMapper {
 
     List<BlogSysBlickList> selectByExample(BlogSysBlickListExample example);
 
-    BlogSysBlickList selectByPrimaryKey(String blackListId);
+    BlogSysBlickList selectByPrimaryKey(Integer blacklistId);
 
     int updateByExampleSelective(@Param("record") BlogSysBlickList record, @Param("example") BlogSysBlickListExample example);
 

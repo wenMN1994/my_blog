@@ -11,7 +11,7 @@ public interface BlogSysRoleMapper {
 
     int deleteByExample(BlogSysRoleExample example);
 
-    int deleteByPrimaryKey(String roleId);
+    int deleteByPrimaryKey(Integer roleId);
 
     int insert(BlogSysRole record);
 
@@ -19,7 +19,7 @@ public interface BlogSysRoleMapper {
 
     List<BlogSysRole> selectByExample(BlogSysRoleExample example);
 
-    BlogSysRole selectByPrimaryKey(String roleId);
+    BlogSysRole selectByPrimaryKey(Integer roleId);
 
     int updateByExampleSelective(@Param("record") BlogSysRole record, @Param("example") BlogSysRoleExample example);
 

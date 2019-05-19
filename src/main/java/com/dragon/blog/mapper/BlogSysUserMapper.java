@@ -11,7 +11,7 @@ public interface BlogSysUserMapper {
 
     int deleteByExample(BlogSysUserExample example);
 
-    int deleteByPrimaryKey(String userId);
+    int deleteByPrimaryKey(Integer userId);
 
     int insert(BlogSysUser record);
 
@@ -19,7 +19,7 @@ public interface BlogSysUserMapper {
 
     List<BlogSysUser> selectByExample(BlogSysUserExample example);
 
-    BlogSysUser selectByPrimaryKey(String userId);
+    BlogSysUser selectByPrimaryKey(Integer userId);
 
     int updateByExampleSelective(@Param("record") BlogSysUser record, @Param("example") BlogSysUserExample example);
 

@@ -1,6 +1,7 @@
 package com.dragon.blog.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class BlogSysCodeEditor implements Serializable {
     /**
@@ -29,7 +30,7 @@ public class BlogSysCodeEditor implements Serializable {
      *
      * @mbg.generated
      */
-    private String createTime;
+    private Date createTime;
 
     /**
      * 文件内容
@@ -64,11 +65,11 @@ public class BlogSysCodeEditor implements Serializable {
         this.filename = filename;
     }
 
-    public String getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 

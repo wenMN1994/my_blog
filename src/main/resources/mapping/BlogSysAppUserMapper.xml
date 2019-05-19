@@ -8,14 +8,14 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="rights" jdbcType="VARCHAR" property="rights" />
     <result column="role_id" jdbcType="VARCHAR" property="roleId" />
-    <result column="last_login" jdbcType="VARCHAR" property="lastLogin" />
+    <result column="last_login" jdbcType="TIMESTAMP" property="lastLogin" />
     <result column="ip" jdbcType="VARCHAR" property="ip" />
     <result column="status" jdbcType="VARCHAR" property="status" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="id_card" jdbcType="VARCHAR" property="idCard" />
-    <result column="start_time" jdbcType="VARCHAR" property="startTime" />
-    <result column="end_time" jdbcType="VARCHAR" property="endTime" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
     <result column="number" jdbcType="VARCHAR" property="number" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="years" jdbcType="INTEGER" property="years" />
@@ -121,9 +121,9 @@
       email, years)
     values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, #{rights,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, 
-      #{lastLogin,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{lastLogin,jdbcType=TIMESTAMP}, #{ip,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
       #{remark,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, 
-      #{startTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{number,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{years,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.dragon.blog.model.BlogSysAppUser">
@@ -201,7 +201,7 @@
         #{roleId,jdbcType=VARCHAR},
       </if>
       <if test="lastLogin != null">
-        #{lastLogin,jdbcType=VARCHAR},
+        #{lastLogin,jdbcType=TIMESTAMP},
       </if>
       <if test="ip != null">
         #{ip,jdbcType=VARCHAR},
@@ -219,10 +219,10 @@
         #{idCard,jdbcType=VARCHAR},
       </if>
       <if test="startTime != null">
-        #{startTime,jdbcType=VARCHAR},
+        #{startTime,jdbcType=TIMESTAMP},
       </if>
       <if test="endTime != null">
-        #{endTime,jdbcType=VARCHAR},
+        #{endTime,jdbcType=TIMESTAMP},
       </if>
       <if test="number != null">
         #{number,jdbcType=VARCHAR},
@@ -263,7 +263,7 @@
         role_id = #{record.roleId,jdbcType=VARCHAR},
       </if>
       <if test="record.lastLogin != null">
-        last_login = #{record.lastLogin,jdbcType=VARCHAR},
+        last_login = #{record.lastLogin,jdbcType=TIMESTAMP},
       </if>
       <if test="record.ip != null">
         ip = #{record.ip,jdbcType=VARCHAR},
@@ -281,10 +281,10 @@
         id_card = #{record.idCard,jdbcType=VARCHAR},
       </if>
       <if test="record.startTime != null">
-        start_time = #{record.startTime,jdbcType=VARCHAR},
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.endTime != null">
-        end_time = #{record.endTime,jdbcType=VARCHAR},
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.number != null">
         number = #{record.number,jdbcType=VARCHAR},
@@ -308,14 +308,14 @@
       name = #{record.name,jdbcType=VARCHAR},
       rights = #{record.rights,jdbcType=VARCHAR},
       role_id = #{record.roleId,jdbcType=VARCHAR},
-      last_login = #{record.lastLogin,jdbcType=VARCHAR},
+      last_login = #{record.lastLogin,jdbcType=TIMESTAMP},
       ip = #{record.ip,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=VARCHAR},
       remark = #{record.remark,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
       id_card = #{record.idCard,jdbcType=VARCHAR},
-      start_time = #{record.startTime,jdbcType=VARCHAR},
-      end_time = #{record.endTime,jdbcType=VARCHAR},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
       number = #{record.number,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
       years = #{record.years,jdbcType=INTEGER}
@@ -342,7 +342,7 @@
         role_id = #{roleId,jdbcType=VARCHAR},
       </if>
       <if test="lastLogin != null">
-        last_login = #{lastLogin,jdbcType=VARCHAR},
+        last_login = #{lastLogin,jdbcType=TIMESTAMP},
       </if>
       <if test="ip != null">
         ip = #{ip,jdbcType=VARCHAR},
@@ -360,10 +360,10 @@
         id_card = #{idCard,jdbcType=VARCHAR},
       </if>
       <if test="startTime != null">
-        start_time = #{startTime,jdbcType=VARCHAR},
+        start_time = #{startTime,jdbcType=TIMESTAMP},
       </if>
       <if test="endTime != null">
-        end_time = #{endTime,jdbcType=VARCHAR},
+        end_time = #{endTime,jdbcType=TIMESTAMP},
       </if>
       <if test="number != null">
         number = #{number,jdbcType=VARCHAR},
@@ -384,14 +384,14 @@
       name = #{name,jdbcType=VARCHAR},
       rights = #{rights,jdbcType=VARCHAR},
       role_id = #{roleId,jdbcType=VARCHAR},
-      last_login = #{lastLogin,jdbcType=VARCHAR},
+      last_login = #{lastLogin,jdbcType=TIMESTAMP},
       ip = #{ip,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       id_card = #{idCard,jdbcType=VARCHAR},
-      start_time = #{startTime,jdbcType=VARCHAR},
-      end_time = #{endTime,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
       number = #{number,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       years = #{years,jdbcType=INTEGER}

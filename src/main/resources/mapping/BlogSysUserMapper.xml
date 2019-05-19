@@ -2,19 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dragon.blog.mapper.BlogSysUserMapper">
   <resultMap id="BaseResultMap" type="com.dragon.blog.model.BlogSysUser">
-    <id column="user_id" jdbcType="VARCHAR" property="userId" />
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="login_name" jdbcType="VARCHAR" property="loginName" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_type" jdbcType="VARCHAR" property="userType" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phonenumber" jdbcType="VARCHAR" property="phonenumber" />
+    <result column="sex" jdbcType="CHAR" property="sex" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="salt" jdbcType="VARCHAR" property="salt" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
-    <result column="last_login" jdbcType="VARCHAR" property="lastLogin" />
-    <result column="ip" jdbcType="VARCHAR" property="ip" />
-    <result column="skin" jdbcType="VARCHAR" property="skin" />
-    <result column="number" jdbcType="VARCHAR" property="number" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+    <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+    <result column="login_date" jdbcType="TIMESTAMP" property="loginDate" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -76,8 +81,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    user_id, user_name, password, salt, name, role_id, last_login, ip, skin, number, 
-    email, phone, status, remark
+    user_id, login_name, user_name, user_type, email, phonenumber, sex, avatar, password, 
+    salt, status, del_flag, login_ip, login_date, create_by, create_time, update_by, 
+    update_time, remark
   </sql>
   <select id="selectByExample" parameterType="com.dragon.blog.model.BlogSysUserExample" resultMap="BaseResultMap">
     select
@@ -93,15 +99,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from blog_sys_user
-    where user_id = #{userId,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from blog_sys_user
-    where user_id = #{userId,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.dragon.blog.model.BlogSysUserExample">
     delete from blog_sys_user
@@ -110,16 +116,20 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.dragon.blog.model.BlogSysUser">
-    insert into blog_sys_user (user_id, user_name, password, 
-      salt, name, role_id, 
-      last_login, ip, skin, 
-      number, email, phone, 
-      status, remark)
-    values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{salt,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, 
-      #{lastLogin,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{skin,jdbcType=VARCHAR}, 
-      #{number,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{status,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+    insert into blog_sys_user (user_id, login_name, user_name, 
+      user_type, email, phonenumber, 
+      sex, avatar, password, 
+      salt, status, del_flag, login_ip, 
+      login_date, create_by, create_time, 
+      update_by, update_time, remark
+      )
+    values (#{userId,jdbcType=INTEGER}, #{loginName,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{userType,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phonenumber,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=CHAR}, #{avatar,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{salt,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{delFlag,jdbcType=CHAR}, #{loginIp,jdbcType=VARCHAR}, 
+      #{loginDate,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.dragon.blog.model.BlogSysUser">
     insert into blog_sys_user
@@ -127,8 +137,26 @@
       <if test="userId != null">
         user_id,
       </if>
+      <if test="loginName != null">
+        login_name,
+      </if>
       <if test="userName != null">
         user_name,
+      </if>
+      <if test="userType != null">
+        user_type,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="phonenumber != null">
+        phonenumber,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="avatar != null">
+        avatar,
       </if>
       <if test="password != null">
         password,
@@ -136,32 +164,29 @@
       <if test="salt != null">
         salt,
       </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="roleId != null">
-        role_id,
-      </if>
-      <if test="lastLogin != null">
-        last_login,
-      </if>
-      <if test="ip != null">
-        ip,
-      </if>
-      <if test="skin != null">
-        skin,
-      </if>
-      <if test="number != null">
-        number,
-      </if>
-      <if test="email != null">
-        email,
-      </if>
-      <if test="phone != null">
-        phone,
-      </if>
       <if test="status != null">
         status,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="loginIp != null">
+        login_ip,
+      </if>
+      <if test="loginDate != null">
+        login_date,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
       </if>
       <if test="remark != null">
         remark,
@@ -169,10 +194,28 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="loginName != null">
+        #{loginName,jdbcType=VARCHAR},
       </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenumber != null">
+        #{phonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="avatar != null">
+        #{avatar,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
@@ -180,32 +223,29 @@
       <if test="salt != null">
         #{salt,jdbcType=VARCHAR},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="roleId != null">
-        #{roleId,jdbcType=VARCHAR},
-      </if>
-      <if test="lastLogin != null">
-        #{lastLogin,jdbcType=VARCHAR},
-      </if>
-      <if test="ip != null">
-        #{ip,jdbcType=VARCHAR},
-      </if>
-      <if test="skin != null">
-        #{skin,jdbcType=VARCHAR},
-      </if>
-      <if test="number != null">
-        #{number,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null">
-        #{phone,jdbcType=VARCHAR},
-      </if>
       <if test="status != null">
-        #{status,jdbcType=VARCHAR},
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="loginIp != null">
+        #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loginDate != null">
+        #{loginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
@@ -222,10 +262,28 @@
     update blog_sys_user
     <set>
       <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=VARCHAR},
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.loginName != null">
+        login_name = #{record.loginName,jdbcType=VARCHAR},
       </if>
       <if test="record.userName != null">
         user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userType != null">
+        user_type = #{record.userType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phonenumber != null">
+        phonenumber = #{record.phonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null">
+        sex = #{record.sex,jdbcType=CHAR},
+      </if>
+      <if test="record.avatar != null">
+        avatar = #{record.avatar,jdbcType=VARCHAR},
       </if>
       <if test="record.password != null">
         password = #{record.password,jdbcType=VARCHAR},
@@ -233,32 +291,29 @@
       <if test="record.salt != null">
         salt = #{record.salt,jdbcType=VARCHAR},
       </if>
-      <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.roleId != null">
-        role_id = #{record.roleId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.lastLogin != null">
-        last_login = #{record.lastLogin,jdbcType=VARCHAR},
-      </if>
-      <if test="record.ip != null">
-        ip = #{record.ip,jdbcType=VARCHAR},
-      </if>
-      <if test="record.skin != null">
-        skin = #{record.skin,jdbcType=VARCHAR},
-      </if>
-      <if test="record.number != null">
-        number = #{record.number,jdbcType=VARCHAR},
-      </if>
-      <if test="record.email != null">
-        email = #{record.email,jdbcType=VARCHAR},
-      </if>
-      <if test="record.phone != null">
-        phone = #{record.phone,jdbcType=VARCHAR},
-      </if>
       <if test="record.status != null">
-        status = #{record.status,jdbcType=VARCHAR},
+        status = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.delFlag != null">
+        del_flag = #{record.delFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.loginIp != null">
+        login_ip = #{record.loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginDate != null">
+        login_date = #{record.loginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createBy != null">
+        create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null">
+        update_by = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.remark != null">
         remark = #{record.remark,jdbcType=VARCHAR},
@@ -270,19 +325,24 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update blog_sys_user
-    set user_id = #{record.userId,jdbcType=VARCHAR},
+    set user_id = #{record.userId,jdbcType=INTEGER},
+      login_name = #{record.loginName,jdbcType=VARCHAR},
       user_name = #{record.userName,jdbcType=VARCHAR},
+      user_type = #{record.userType,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      phonenumber = #{record.phonenumber,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=CHAR},
+      avatar = #{record.avatar,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       salt = #{record.salt,jdbcType=VARCHAR},
-      name = #{record.name,jdbcType=VARCHAR},
-      role_id = #{record.roleId,jdbcType=VARCHAR},
-      last_login = #{record.lastLogin,jdbcType=VARCHAR},
-      ip = #{record.ip,jdbcType=VARCHAR},
-      skin = #{record.skin,jdbcType=VARCHAR},
-      number = #{record.number,jdbcType=VARCHAR},
-      email = #{record.email,jdbcType=VARCHAR},
-      phone = #{record.phone,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=CHAR},
+      del_flag = #{record.delFlag,jdbcType=CHAR},
+      login_ip = #{record.loginIp,jdbcType=VARCHAR},
+      login_date = #{record.loginDate,jdbcType=TIMESTAMP},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -291,8 +351,26 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.dragon.blog.model.BlogSysUser">
     update blog_sys_user
     <set>
+      <if test="loginName != null">
+        login_name = #{loginName,jdbcType=VARCHAR},
+      </if>
       <if test="userName != null">
         user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        user_type = #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenumber != null">
+        phonenumber = #{phonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="avatar != null">
+        avatar = #{avatar,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
@@ -300,55 +378,57 @@
       <if test="salt != null">
         salt = #{salt,jdbcType=VARCHAR},
       </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="roleId != null">
-        role_id = #{roleId,jdbcType=VARCHAR},
-      </if>
-      <if test="lastLogin != null">
-        last_login = #{lastLogin,jdbcType=VARCHAR},
-      </if>
-      <if test="ip != null">
-        ip = #{ip,jdbcType=VARCHAR},
-      </if>
-      <if test="skin != null">
-        skin = #{skin,jdbcType=VARCHAR},
-      </if>
-      <if test="number != null">
-        number = #{number,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null">
-        phone = #{phone,jdbcType=VARCHAR},
-      </if>
       <if test="status != null">
-        status = #{status,jdbcType=VARCHAR},
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="loginIp != null">
+        login_ip = #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loginDate != null">
+        login_date = #{loginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where user_id = #{userId,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dragon.blog.model.BlogSysUser">
     update blog_sys_user
-    set user_name = #{userName,jdbcType=VARCHAR},
+    set login_name = #{loginName,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      phonenumber = #{phonenumber,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      avatar = #{avatar,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       salt = #{salt,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
-      role_id = #{roleId,jdbcType=VARCHAR},
-      last_login = #{lastLogin,jdbcType=VARCHAR},
-      ip = #{ip,jdbcType=VARCHAR},
-      skin = #{skin,jdbcType=VARCHAR},
-      number = #{number,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      login_ip = #{loginIp,jdbcType=VARCHAR},
+      login_date = #{loginDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
       remark = #{remark,jdbcType=VARCHAR}
-    where user_id = #{userId,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
   </update>
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>

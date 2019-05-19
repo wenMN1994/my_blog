@@ -7,7 +7,7 @@ import com.dragon.blog.model.BlogSysRoleExample;
 
 /**
 * 降级实现BlogSysRoleService接口
-* Created by Dragon.Wen on 2019/4/12.
+* Created by Dragon.Wen on 2019/5/19.
 */
 public class BlogSysRoleServiceMock extends BaseServiceMock<BlogSysRoleMapper, BlogSysRole, BlogSysRoleExample> implements BlogSysRoleService {
 

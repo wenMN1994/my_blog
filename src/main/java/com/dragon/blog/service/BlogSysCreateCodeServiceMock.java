@@ -7,7 +7,7 @@ import com.dragon.blog.model.BlogSysCreateCodeExample;
 
 /**
 * 降级实现BlogSysCreateCodeService接口
-* Created by Dragon.Wen on 2019/4/12.
+* Created by Dragon.Wen on 2019/5/19.
 */
 public class BlogSysCreateCodeServiceMock extends BaseServiceMock<BlogSysCreateCodeMapper, BlogSysCreateCode, BlogSysCreateCodeExample> implements BlogSysCreateCodeService {
 

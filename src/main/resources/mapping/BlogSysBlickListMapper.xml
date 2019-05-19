@@ -2,10 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dragon.blog.mapper.BlogSysBlickListMapper">
   <resultMap id="BaseResultMap" type="com.dragon.blog.model.BlogSysBlickList">
-    <id column="black_list_id" jdbcType="VARCHAR" property="blackListId" />
-    <result column="ip" jdbcType="VARCHAR" property="ip" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <id column="blacklist_id" jdbcType="INTEGER" property="blacklistId" />
+    <result column="ip_addr" jdbcType="VARCHAR" property="ipAddr" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="last_access_time" jdbcType="TIMESTAMP" property="lastAccessTime" />
+    <result column="last_access_url" jdbcType="VARCHAR" property="lastAccessUrl" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    black_list_id, ip, remark, create_time
+    blacklist_id, ip_addr, description, count, last_access_time, last_access_url, create_by, 
+    create_time, update_by, update_time
   </sql>
   <select id="selectByExample" parameterType="com.dragon.blog.model.BlogSysBlickListExample" resultMap="BaseResultMap">
     select
@@ -82,15 +89,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from blog_sys_blick_list
-    where black_list_id = #{blackListId,jdbcType=VARCHAR}
+    where blacklist_id = #{blacklistId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from blog_sys_blick_list
-    where black_list_id = #{blackListId,jdbcType=VARCHAR}
+    where blacklist_id = #{blacklistId,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.dragon.blog.model.BlogSysBlickListExample">
     delete from blog_sys_blick_list
@@ -99,39 +106,79 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.dragon.blog.model.BlogSysBlickList">
-    insert into blog_sys_blick_list (black_list_id, ip, remark, 
-      create_time)
-    values (#{blackListId,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=VARCHAR})
+    insert into blog_sys_blick_list (blacklist_id, ip_addr, description, 
+      count, last_access_time, last_access_url, 
+      create_by, create_time, update_by, 
+      update_time)
+    values (#{blacklistId,jdbcType=INTEGER}, #{ipAddr,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{count,jdbcType=INTEGER}, #{lastAccessTime,jdbcType=TIMESTAMP}, #{lastAccessUrl,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.dragon.blog.model.BlogSysBlickList">
     insert into blog_sys_blick_list
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="blackListId != null">
-        black_list_id,
+      <if test="blacklistId != null">
+        blacklist_id,
       </if>
-      <if test="ip != null">
-        ip,
+      <if test="ipAddr != null">
+        ip_addr,
       </if>
-      <if test="remark != null">
-        remark,
+      <if test="description != null">
+        description,
+      </if>
+      <if test="count != null">
+        count,
+      </if>
+      <if test="lastAccessTime != null">
+        last_access_time,
+      </if>
+      <if test="lastAccessUrl != null">
+        last_access_url,
+      </if>
+      <if test="createBy != null">
+        create_by,
       </if>
       <if test="createTime != null">
         create_time,
       </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="blackListId != null">
-        #{blackListId,jdbcType=VARCHAR},
+      <if test="blacklistId != null">
+        #{blacklistId,jdbcType=INTEGER},
       </if>
-      <if test="ip != null">
-        #{ip,jdbcType=VARCHAR},
+      <if test="ipAddr != null">
+        #{ipAddr,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="lastAccessTime != null">
+        #{lastAccessTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastAccessUrl != null">
+        #{lastAccessUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
-        #{createTime,jdbcType=VARCHAR},
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -144,17 +191,35 @@
   <update id="updateByExampleSelective" parameterType="map">
     update blog_sys_blick_list
     <set>
-      <if test="record.blackListId != null">
-        black_list_id = #{record.blackListId,jdbcType=VARCHAR},
+      <if test="record.blacklistId != null">
+        blacklist_id = #{record.blacklistId,jdbcType=INTEGER},
       </if>
-      <if test="record.ip != null">
-        ip = #{record.ip,jdbcType=VARCHAR},
+      <if test="record.ipAddr != null">
+        ip_addr = #{record.ipAddr,jdbcType=VARCHAR},
       </if>
-      <if test="record.remark != null">
-        remark = #{record.remark,jdbcType=VARCHAR},
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.count != null">
+        count = #{record.count,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastAccessTime != null">
+        last_access_time = #{record.lastAccessTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastAccessUrl != null">
+        last_access_url = #{record.lastAccessUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createBy != null">
+        create_by = #{record.createBy,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=VARCHAR},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null">
+        update_by = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -163,10 +228,16 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update blog_sys_blick_list
-    set black_list_id = #{record.blackListId,jdbcType=VARCHAR},
-      ip = #{record.ip,jdbcType=VARCHAR},
-      remark = #{record.remark,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=VARCHAR}
+    set blacklist_id = #{record.blacklistId,jdbcType=INTEGER},
+      ip_addr = #{record.ipAddr,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      count = #{record.count,jdbcType=INTEGER},
+      last_access_time = #{record.lastAccessTime,jdbcType=TIMESTAMP},
+      last_access_url = #{record.lastAccessUrl,jdbcType=VARCHAR},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -174,24 +245,48 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.dragon.blog.model.BlogSysBlickList">
     update blog_sys_blick_list
     <set>
-      <if test="ip != null">
-        ip = #{ip,jdbcType=VARCHAR},
+      <if test="ipAddr != null">
+        ip_addr = #{ipAddr,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null">
-        remark = #{remark,jdbcType=VARCHAR},
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="lastAccessTime != null">
+        last_access_time = #{lastAccessTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastAccessUrl != null">
+        last_access_url = #{lastAccessUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
-        create_time = #{createTime,jdbcType=VARCHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where black_list_id = #{blackListId,jdbcType=VARCHAR}
+    where blacklist_id = #{blacklistId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dragon.blog.model.BlogSysBlickList">
     update blog_sys_blick_list
-    set ip = #{ip,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=VARCHAR}
-    where black_list_id = #{blackListId,jdbcType=VARCHAR}
+    set ip_addr = #{ipAddr,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      count = #{count,jdbcType=INTEGER},
+      last_access_time = #{lastAccessTime,jdbcType=TIMESTAMP},
+      last_access_url = #{lastAccessUrl,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where blacklist_id = #{blacklistId,jdbcType=INTEGER}
   </update>
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>

@@ -6,7 +6,7 @@ import com.dragon.blog.model.BlogSysBlickListExample;
 
 /**
 * BlogSysBlickListService接口
-* Created by Dragon.Wen on 2019/4/12.
+* Created by Dragon.Wen on 2019/5/19.
 */
 public interface BlogSysBlickListService extends BaseService<BlogSysBlickList, BlogSysBlickListExample> {
 

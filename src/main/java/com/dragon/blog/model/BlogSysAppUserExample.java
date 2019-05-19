@@ -2,6 +2,7 @@ package com.dragon.blog.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class BlogSysAppUserExample implements Serializable {
@@ -537,62 +538,52 @@ public class BlogSysAppUserExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andLastLoginEqualTo(String value) {
+        public Criteria andLastLoginEqualTo(Date value) {
             addCriterion("last_login =", value, "lastLogin");
             return (Criteria) this;
         }
 
-        public Criteria andLastLoginNotEqualTo(String value) {
+        public Criteria andLastLoginNotEqualTo(Date value) {
             addCriterion("last_login <>", value, "lastLogin");
             return (Criteria) this;
         }
 
-        public Criteria andLastLoginGreaterThan(String value) {
+        public Criteria andLastLoginGreaterThan(Date value) {
             addCriterion("last_login >", value, "lastLogin");
             return (Criteria) this;
         }
 
-        public Criteria andLastLoginGreaterThanOrEqualTo(String value) {
+        public Criteria andLastLoginGreaterThanOrEqualTo(Date value) {
             addCriterion("last_login >=", value, "lastLogin");
             return (Criteria) this;
         }
 
-        public Criteria andLastLoginLessThan(String value) {
+        public Criteria andLastLoginLessThan(Date value) {
             addCriterion("last_login <", value, "lastLogin");
             return (Criteria) this;
         }
 
-        public Criteria andLastLoginLessThanOrEqualTo(String value) {
+        public Criteria andLastLoginLessThanOrEqualTo(Date value) {
             addCriterion("last_login <=", value, "lastLogin");
             return (Criteria) this;
         }
 
-        public Criteria andLastLoginLike(String value) {
-            addCriterion("last_login like", value, "lastLogin");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastLoginNotLike(String value) {
-            addCriterion("last_login not like", value, "lastLogin");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastLoginIn(List<String> values) {
+        public Criteria andLastLoginIn(List<Date> values) {
             addCriterion("last_login in", values, "lastLogin");
             return (Criteria) this;
         }
 
-        public Criteria andLastLoginNotIn(List<String> values) {
+        public Criteria andLastLoginNotIn(List<Date> values) {
             addCriterion("last_login not in", values, "lastLogin");
             return (Criteria) this;
         }
 
-        public Criteria andLastLoginBetween(String value1, String value2) {
+        public Criteria andLastLoginBetween(Date value1, Date value2) {
             addCriterion("last_login between", value1, value2, "lastLogin");
             return (Criteria) this;
         }
 
-        public Criteria andLastLoginNotBetween(String value1, String value2) {
+        public Criteria andLastLoginNotBetween(Date value1, Date value2) {
             addCriterion("last_login not between", value1, value2, "lastLogin");
             return (Criteria) this;
         }
@@ -957,62 +948,52 @@ public class BlogSysAppUserExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andStartTimeEqualTo(String value) {
+        public Criteria andStartTimeEqualTo(Date value) {
             addCriterion("start_time =", value, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andStartTimeNotEqualTo(String value) {
+        public Criteria andStartTimeNotEqualTo(Date value) {
             addCriterion("start_time <>", value, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andStartTimeGreaterThan(String value) {
+        public Criteria andStartTimeGreaterThan(Date value) {
             addCriterion("start_time >", value, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andStartTimeGreaterThanOrEqualTo(String value) {
+        public Criteria andStartTimeGreaterThanOrEqualTo(Date value) {
             addCriterion("start_time >=", value, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andStartTimeLessThan(String value) {
+        public Criteria andStartTimeLessThan(Date value) {
             addCriterion("start_time <", value, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andStartTimeLessThanOrEqualTo(String value) {
+        public Criteria andStartTimeLessThanOrEqualTo(Date value) {
             addCriterion("start_time <=", value, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andStartTimeLike(String value) {
-            addCriterion("start_time like", value, "startTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andStartTimeNotLike(String value) {
-            addCriterion("start_time not like", value, "startTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andStartTimeIn(List<String> values) {
+        public Criteria andStartTimeIn(List<Date> values) {
             addCriterion("start_time in", values, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andStartTimeNotIn(List<String> values) {
+        public Criteria andStartTimeNotIn(List<Date> values) {
             addCriterion("start_time not in", values, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andStartTimeBetween(String value1, String value2) {
+        public Criteria andStartTimeBetween(Date value1, Date value2) {
             addCriterion("start_time between", value1, value2, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andStartTimeNotBetween(String value1, String value2) {
+        public Criteria andStartTimeNotBetween(Date value1, Date value2) {
             addCriterion("start_time not between", value1, value2, "startTime");
             return (Criteria) this;
         }
@@ -1027,62 +1008,52 @@ public class BlogSysAppUserExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeEqualTo(String value) {
+        public Criteria andEndTimeEqualTo(Date value) {
             addCriterion("end_time =", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeNotEqualTo(String value) {
+        public Criteria andEndTimeNotEqualTo(Date value) {
             addCriterion("end_time <>", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeGreaterThan(String value) {
+        public Criteria andEndTimeGreaterThan(Date value) {
             addCriterion("end_time >", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeGreaterThanOrEqualTo(String value) {
+        public Criteria andEndTimeGreaterThanOrEqualTo(Date value) {
             addCriterion("end_time >=", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeLessThan(String value) {
+        public Criteria andEndTimeLessThan(Date value) {
             addCriterion("end_time <", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeLessThanOrEqualTo(String value) {
+        public Criteria andEndTimeLessThanOrEqualTo(Date value) {
             addCriterion("end_time <=", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeLike(String value) {
-            addCriterion("end_time like", value, "endTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andEndTimeNotLike(String value) {
-            addCriterion("end_time not like", value, "endTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andEndTimeIn(List<String> values) {
+        public Criteria andEndTimeIn(List<Date> values) {
             addCriterion("end_time in", values, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeNotIn(List<String> values) {
+        public Criteria andEndTimeNotIn(List<Date> values) {
             addCriterion("end_time not in", values, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeBetween(String value1, String value2) {
+        public Criteria andEndTimeBetween(Date value1, Date value2) {
             addCriterion("end_time between", value1, value2, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeNotBetween(String value1, String value2) {
+        public Criteria andEndTimeNotBetween(Date value1, Date value2) {
             addCriterion("end_time not between", value1, value2, "endTime");
             return (Criteria) this;
         }

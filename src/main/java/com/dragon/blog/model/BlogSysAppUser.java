@@ -1,6 +1,7 @@
 package com.dragon.blog.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class BlogSysAppUser implements Serializable {
     /**
@@ -50,7 +51,7 @@ public class BlogSysAppUser implements Serializable {
      *
      * @mbg.generated
      */
-    private String lastLogin;
+    private Date lastLogin;
 
     /**
      * IP
@@ -92,14 +93,14 @@ public class BlogSysAppUser implements Serializable {
      *
      * @mbg.generated
      */
-    private String startTime;
+    private Date startTime;
 
     /**
      * 服务到期时间
      *
      * @mbg.generated
      */
-    private String endTime;
+    private Date endTime;
 
     /**
      * 编号
@@ -172,11 +173,11 @@ public class BlogSysAppUser implements Serializable {
         this.roleId = roleId;
     }
 
-    public String getLastLogin() {
+    public Date getLastLogin() {
         return lastLogin;
     }
 
-    public void setLastLogin(String lastLogin) {
+    public void setLastLogin(Date lastLogin) {
         this.lastLogin = lastLogin;
     }
 
@@ -220,19 +221,19 @@ public class BlogSysAppUser implements Serializable {
         this.idCard = idCard;
     }
 
-    public String getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 

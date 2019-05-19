@@ -7,7 +7,7 @@
     <result column="object_name" jdbcType="VARCHAR" property="objectName" />
     <result column="table_name" jdbcType="VARCHAR" property="tableName" />
     <result column="field_list" jdbcType="VARCHAR" property="fieldList" />
-    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="title" jdbcType="VARCHAR" property="title" />
   </resultMap>
@@ -108,7 +108,7 @@
       table_name, field_list, create_time, 
       type, title)
     values (#{createCodeId,jdbcType=VARCHAR}, #{packageName,jdbcType=VARCHAR}, #{objectName,jdbcType=VARCHAR}, 
-      #{tableName,jdbcType=VARCHAR}, #{fieldList,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{tableName,jdbcType=VARCHAR}, #{fieldList,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{type,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.dragon.blog.model.BlogSysCreateCode">
@@ -156,7 +156,7 @@
         #{fieldList,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
-        #{createTime,jdbcType=VARCHAR},
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="type != null">
         #{type,jdbcType=VARCHAR},
@@ -191,7 +191,7 @@
         field_list = #{record.fieldList,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=VARCHAR},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.type != null">
         type = #{record.type,jdbcType=VARCHAR},
@@ -211,7 +211,7 @@
       object_name = #{record.objectName,jdbcType=VARCHAR},
       table_name = #{record.tableName,jdbcType=VARCHAR},
       field_list = #{record.fieldList,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
       type = #{record.type,jdbcType=VARCHAR},
       title = #{record.title,jdbcType=VARCHAR}
     <if test="_parameter != null">
@@ -234,7 +234,7 @@
         field_list = #{fieldList,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
-        create_time = #{createTime,jdbcType=VARCHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="type != null">
         type = #{type,jdbcType=VARCHAR},
@@ -251,7 +251,7 @@
       object_name = #{objectName,jdbcType=VARCHAR},
       table_name = #{tableName,jdbcType=VARCHAR},
       field_list = #{fieldList,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
       type = #{type,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR}
     where create_code_id = #{createCodeId,jdbcType=VARCHAR}

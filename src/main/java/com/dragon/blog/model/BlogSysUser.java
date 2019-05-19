@@ -1,6 +1,7 @@
 package com.dragon.blog.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class BlogSysUser implements Serializable {
     /**
@@ -8,14 +9,56 @@ public class BlogSysUser implements Serializable {
      *
      * @mbg.generated
      */
-    private String userId;
+    private Integer userId;
 
     /**
-     * 用户名
+     * 登录账号
+     *
+     * @mbg.generated
+     */
+    private String loginName;
+
+    /**
+     * 用户昵称
      *
      * @mbg.generated
      */
     private String userName;
+
+    /**
+     * 用户类型（00系统用户）
+     *
+     * @mbg.generated
+     */
+    private String userType;
+
+    /**
+     * 用户邮箱
+     *
+     * @mbg.generated
+     */
+    private String email;
+
+    /**
+     * 手机号码
+     *
+     * @mbg.generated
+     */
+    private String phonenumber;
+
+    /**
+     * 用户性别（0男 1女 2未知）
+     *
+     * @mbg.generated
+     */
+    private String sex;
+
+    /**
+     * 头像路径
+     *
+     * @mbg.generated
+     */
+    private String avatar;
 
     /**
      * 密码
@@ -25,77 +68,70 @@ public class BlogSysUser implements Serializable {
     private String password;
 
     /**
-     * 盐
+     * 盐加密
      *
      * @mbg.generated
      */
     private String salt;
 
     /**
-     * 姓名
-     *
-     * @mbg.generated
-     */
-    private String name;
-
-    /**
-     * 角色ID
-     *
-     * @mbg.generated
-     */
-    private String roleId;
-
-    /**
-     * 最后登录时间
-     *
-     * @mbg.generated
-     */
-    private String lastLogin;
-
-    /**
-     * 登录IP地址
-     *
-     * @mbg.generated
-     */
-    private String ip;
-
-    /**
-     * 皮肤
-     *
-     * @mbg.generated
-     */
-    private String skin;
-
-    /**
-     * 编号
-     *
-     * @mbg.generated
-     */
-    private String number;
-
-    /**
-     * 邮箱
-     *
-     * @mbg.generated
-     */
-    private String email;
-
-    /**
-     * 手机
-     *
-     * @mbg.generated
-     */
-    private String phone;
-
-    /**
-     * 状态  （1：激活，2：锁定）
+     * 帐号状态（0正常 1停用）
      *
      * @mbg.generated
      */
     private String status;
 
     /**
-     * 备注信息
+     * 删除标志（0代表存在 2代表删除）
+     *
+     * @mbg.generated
+     */
+    private String delFlag;
+
+    /**
+     * 最后登陆IP
+     *
+     * @mbg.generated
+     */
+    private String loginIp;
+
+    /**
+     * 最后登陆时间
+     *
+     * @mbg.generated
+     */
+    private Date loginDate;
+
+    /**
+     * 创建者
+     *
+     * @mbg.generated
+     */
+    private String createBy;
+
+    /**
+     * 创建时间
+     *
+     * @mbg.generated
+     */
+    private Date createTime;
+
+    /**
+     * 更新者
+     *
+     * @mbg.generated
+     */
+    private String updateBy;
+
+    /**
+     * 更新时间
+     *
+     * @mbg.generated
+     */
+    private Date updateTime;
+
+    /**
+     * 备注
      *
      * @mbg.generated
      */
@@ -103,12 +139,20 @@ public class BlogSysUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public String getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
 
     public String getUserName() {
@@ -117,6 +161,46 @@ public class BlogSysUser implements Serializable {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getPassword() {
@@ -135,76 +219,68 @@ public class BlogSysUser implements Serializable {
         this.salt = salt;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(String roleId) {
-        this.roleId = roleId;
-    }
-
-    public String getLastLogin() {
-        return lastLogin;
-    }
-
-    public void setLastLogin(String lastLogin) {
-        this.lastLogin = lastLogin;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    public String getSkin() {
-        return skin;
-    }
-
-    public void setSkin(String skin) {
-        this.skin = skin;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(String delFlag) {
+        this.delFlag = delFlag;
+    }
+
+    public String getLoginIp() {
+        return loginIp;
+    }
+
+    public void setLoginIp(String loginIp) {
+        this.loginIp = loginIp;
+    }
+
+    public Date getLoginDate() {
+        return loginDate;
+    }
+
+    public void setLoginDate(Date loginDate) {
+        this.loginDate = loginDate;
+    }
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     public String getRemark() {
@@ -222,18 +298,23 @@ public class BlogSysUser implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", userId=").append(userId);
+        sb.append(", loginName=").append(loginName);
         sb.append(", userName=").append(userName);
+        sb.append(", userType=").append(userType);
+        sb.append(", email=").append(email);
+        sb.append(", phonenumber=").append(phonenumber);
+        sb.append(", sex=").append(sex);
+        sb.append(", avatar=").append(avatar);
         sb.append(", password=").append(password);
         sb.append(", salt=").append(salt);
-        sb.append(", name=").append(name);
-        sb.append(", roleId=").append(roleId);
-        sb.append(", lastLogin=").append(lastLogin);
-        sb.append(", ip=").append(ip);
-        sb.append(", skin=").append(skin);
-        sb.append(", number=").append(number);
-        sb.append(", email=").append(email);
-        sb.append(", phone=").append(phone);
         sb.append(", status=").append(status);
+        sb.append(", delFlag=").append(delFlag);
+        sb.append(", loginIp=").append(loginIp);
+        sb.append(", loginDate=").append(loginDate);
+        sb.append(", createBy=").append(createBy);
+        sb.append(", createTime=").append(createTime);
+        sb.append(", updateBy=").append(updateBy);
+        sb.append(", updateTime=").append(updateTime);
         sb.append(", remark=").append(remark);
         sb.append("]");
         return sb.toString();
@@ -252,18 +333,23 @@ public class BlogSysUser implements Serializable {
         }
         BlogSysUser other = (BlogSysUser) that;
         return (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+            && (this.getLoginName() == null ? other.getLoginName() == null : this.getLoginName().equals(other.getLoginName()))
             && (this.getUserName() == null ? other.getUserName() == null : this.getUserName().equals(other.getUserName()))
+            && (this.getUserType() == null ? other.getUserType() == null : this.getUserType().equals(other.getUserType()))
+            && (this.getEmail() == null ? other.getEmail() == null : this.getEmail().equals(other.getEmail()))
+            && (this.getPhonenumber() == null ? other.getPhonenumber() == null : this.getPhonenumber().equals(other.getPhonenumber()))
+            && (this.getSex() == null ? other.getSex() == null : this.getSex().equals(other.getSex()))
+            && (this.getAvatar() == null ? other.getAvatar() == null : this.getAvatar().equals(other.getAvatar()))
             && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
             && (this.getSalt() == null ? other.getSalt() == null : this.getSalt().equals(other.getSalt()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getRoleId() == null ? other.getRoleId() == null : this.getRoleId().equals(other.getRoleId()))
-            && (this.getLastLogin() == null ? other.getLastLogin() == null : this.getLastLogin().equals(other.getLastLogin()))
-            && (this.getIp() == null ? other.getIp() == null : this.getIp().equals(other.getIp()))
-            && (this.getSkin() == null ? other.getSkin() == null : this.getSkin().equals(other.getSkin()))
-            && (this.getNumber() == null ? other.getNumber() == null : this.getNumber().equals(other.getNumber()))
-            && (this.getEmail() == null ? other.getEmail() == null : this.getEmail().equals(other.getEmail()))
-            && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getDelFlag() == null ? other.getDelFlag() == null : this.getDelFlag().equals(other.getDelFlag()))
+            && (this.getLoginIp() == null ? other.getLoginIp() == null : this.getLoginIp().equals(other.getLoginIp()))
+            && (this.getLoginDate() == null ? other.getLoginDate() == null : this.getLoginDate().equals(other.getLoginDate()))
+            && (this.getCreateBy() == null ? other.getCreateBy() == null : this.getCreateBy().equals(other.getCreateBy()))
+            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+            && (this.getUpdateBy() == null ? other.getUpdateBy() == null : this.getUpdateBy().equals(other.getUpdateBy()))
+            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()));
     }
 
@@ -272,18 +358,23 @@ public class BlogSysUser implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
+        result = prime * result + ((getLoginName() == null) ? 0 : getLoginName().hashCode());
         result = prime * result + ((getUserName() == null) ? 0 : getUserName().hashCode());
+        result = prime * result + ((getUserType() == null) ? 0 : getUserType().hashCode());
+        result = prime * result + ((getEmail() == null) ? 0 : getEmail().hashCode());
+        result = prime * result + ((getPhonenumber() == null) ? 0 : getPhonenumber().hashCode());
+        result = prime * result + ((getSex() == null) ? 0 : getSex().hashCode());
+        result = prime * result + ((getAvatar() == null) ? 0 : getAvatar().hashCode());
         result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
         result = prime * result + ((getSalt() == null) ? 0 : getSalt().hashCode());
-        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-        result = prime * result + ((getRoleId() == null) ? 0 : getRoleId().hashCode());
-        result = prime * result + ((getLastLogin() == null) ? 0 : getLastLogin().hashCode());
-        result = prime * result + ((getIp() == null) ? 0 : getIp().hashCode());
-        result = prime * result + ((getSkin() == null) ? 0 : getSkin().hashCode());
-        result = prime * result + ((getNumber() == null) ? 0 : getNumber().hashCode());
-        result = prime * result + ((getEmail() == null) ? 0 : getEmail().hashCode());
-        result = prime * result + ((getPhone() == null) ? 0 : getPhone().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        result = prime * result + ((getDelFlag() == null) ? 0 : getDelFlag().hashCode());
+        result = prime * result + ((getLoginIp() == null) ? 0 : getLoginIp().hashCode());
+        result = prime * result + ((getLoginDate() == null) ? 0 : getLoginDate().hashCode());
+        result = prime * result + ((getCreateBy() == null) ? 0 : getCreateBy().hashCode());
+        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
+        result = prime * result + ((getUpdateBy() == null) ? 0 : getUpdateBy().hashCode());
+        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         return result;
     }

@@ -4,12 +4,18 @@
   <resultMap id="BaseResultMap" type="com.dragon.blog.model.BlogSysMenu">
     <id column="menu_id" jdbcType="INTEGER" property="menuId" />
     <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
-    <result column="menu_url" jdbcType="VARCHAR" property="menuUrl" />
-    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
-    <result column="menu_order" jdbcType="VARCHAR" property="menuOrder" />
-    <result column="menu_icon" jdbcType="VARCHAR" property="menuIcon" />
-    <result column="menu_status" jdbcType="INTEGER" property="menuStatus" />
-    <result column="menu_type" jdbcType="VARCHAR" property="menuType" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="order_num" jdbcType="INTEGER" property="orderNum" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="menu_type" jdbcType="CHAR" property="menuType" />
+    <result column="visible" jdbcType="CHAR" property="visible" />
+    <result column="perms" jdbcType="VARCHAR" property="perms" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,7 +76,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    menu_id, menu_name, menu_url, parent_id, menu_order, menu_icon, menu_status, menu_type
+    menu_id, menu_name, parent_id, order_num, url, menu_type, visible, perms, icon, create_by, 
+    create_time, update_by, update_time, remark
   </sql>
   <select id="selectByExample" parameterType="com.dragon.blog.model.BlogSysMenuExample" resultMap="BaseResultMap">
     select
@@ -103,12 +110,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.dragon.blog.model.BlogSysMenu">
-    insert into blog_sys_menu (menu_id, menu_name, menu_url, 
-      parent_id, menu_order, menu_icon, 
-      menu_status, menu_type)
-    values (#{menuId,jdbcType=INTEGER}, #{menuName,jdbcType=VARCHAR}, #{menuUrl,jdbcType=VARCHAR}, 
-      #{parentId,jdbcType=VARCHAR}, #{menuOrder,jdbcType=VARCHAR}, #{menuIcon,jdbcType=VARCHAR}, 
-      #{menuStatus,jdbcType=INTEGER}, #{menuType,jdbcType=VARCHAR})
+    insert into blog_sys_menu (menu_id, menu_name, parent_id, 
+      order_num, url, menu_type, 
+      visible, perms, icon, 
+      create_by, create_time, update_by, 
+      update_time, remark)
+    values (#{menuId,jdbcType=INTEGER}, #{menuName,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
+      #{orderNum,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{menuType,jdbcType=CHAR}, 
+      #{visible,jdbcType=CHAR}, #{perms,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.dragon.blog.model.BlogSysMenu">
     insert into blog_sys_menu
@@ -119,23 +130,41 @@
       <if test="menuName != null">
         menu_name,
       </if>
-      <if test="menuUrl != null">
-        menu_url,
-      </if>
       <if test="parentId != null">
         parent_id,
       </if>
-      <if test="menuOrder != null">
-        menu_order,
+      <if test="orderNum != null">
+        order_num,
       </if>
-      <if test="menuIcon != null">
-        menu_icon,
-      </if>
-      <if test="menuStatus != null">
-        menu_status,
+      <if test="url != null">
+        url,
       </if>
       <if test="menuType != null">
         menu_type,
+      </if>
+      <if test="visible != null">
+        visible,
+      </if>
+      <if test="perms != null">
+        perms,
+      </if>
+      <if test="icon != null">
+        icon,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="remark != null">
+        remark,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -145,23 +174,41 @@
       <if test="menuName != null">
         #{menuName,jdbcType=VARCHAR},
       </if>
-      <if test="menuUrl != null">
-        #{menuUrl,jdbcType=VARCHAR},
-      </if>
       <if test="parentId != null">
-        #{parentId,jdbcType=VARCHAR},
+        #{parentId,jdbcType=INTEGER},
       </if>
-      <if test="menuOrder != null">
-        #{menuOrder,jdbcType=VARCHAR},
+      <if test="orderNum != null">
+        #{orderNum,jdbcType=INTEGER},
       </if>
-      <if test="menuIcon != null">
-        #{menuIcon,jdbcType=VARCHAR},
-      </if>
-      <if test="menuStatus != null">
-        #{menuStatus,jdbcType=INTEGER},
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
       </if>
       <if test="menuType != null">
-        #{menuType,jdbcType=VARCHAR},
+        #{menuType,jdbcType=CHAR},
+      </if>
+      <if test="visible != null">
+        #{visible,jdbcType=CHAR},
+      </if>
+      <if test="perms != null">
+        #{perms,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -180,23 +227,41 @@
       <if test="record.menuName != null">
         menu_name = #{record.menuName,jdbcType=VARCHAR},
       </if>
-      <if test="record.menuUrl != null">
-        menu_url = #{record.menuUrl,jdbcType=VARCHAR},
-      </if>
       <if test="record.parentId != null">
-        parent_id = #{record.parentId,jdbcType=VARCHAR},
+        parent_id = #{record.parentId,jdbcType=INTEGER},
       </if>
-      <if test="record.menuOrder != null">
-        menu_order = #{record.menuOrder,jdbcType=VARCHAR},
+      <if test="record.orderNum != null">
+        order_num = #{record.orderNum,jdbcType=INTEGER},
       </if>
-      <if test="record.menuIcon != null">
-        menu_icon = #{record.menuIcon,jdbcType=VARCHAR},
-      </if>
-      <if test="record.menuStatus != null">
-        menu_status = #{record.menuStatus,jdbcType=INTEGER},
+      <if test="record.url != null">
+        url = #{record.url,jdbcType=VARCHAR},
       </if>
       <if test="record.menuType != null">
-        menu_type = #{record.menuType,jdbcType=VARCHAR},
+        menu_type = #{record.menuType,jdbcType=CHAR},
+      </if>
+      <if test="record.visible != null">
+        visible = #{record.visible,jdbcType=CHAR},
+      </if>
+      <if test="record.perms != null">
+        perms = #{record.perms,jdbcType=VARCHAR},
+      </if>
+      <if test="record.icon != null">
+        icon = #{record.icon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createBy != null">
+        create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null">
+        update_by = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -207,12 +272,18 @@
     update blog_sys_menu
     set menu_id = #{record.menuId,jdbcType=INTEGER},
       menu_name = #{record.menuName,jdbcType=VARCHAR},
-      menu_url = #{record.menuUrl,jdbcType=VARCHAR},
-      parent_id = #{record.parentId,jdbcType=VARCHAR},
-      menu_order = #{record.menuOrder,jdbcType=VARCHAR},
-      menu_icon = #{record.menuIcon,jdbcType=VARCHAR},
-      menu_status = #{record.menuStatus,jdbcType=INTEGER},
-      menu_type = #{record.menuType,jdbcType=VARCHAR}
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      order_num = #{record.orderNum,jdbcType=INTEGER},
+      url = #{record.url,jdbcType=VARCHAR},
+      menu_type = #{record.menuType,jdbcType=CHAR},
+      visible = #{record.visible,jdbcType=CHAR},
+      perms = #{record.perms,jdbcType=VARCHAR},
+      icon = #{record.icon,jdbcType=VARCHAR},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -223,23 +294,41 @@
       <if test="menuName != null">
         menu_name = #{menuName,jdbcType=VARCHAR},
       </if>
-      <if test="menuUrl != null">
-        menu_url = #{menuUrl,jdbcType=VARCHAR},
-      </if>
       <if test="parentId != null">
-        parent_id = #{parentId,jdbcType=VARCHAR},
+        parent_id = #{parentId,jdbcType=INTEGER},
       </if>
-      <if test="menuOrder != null">
-        menu_order = #{menuOrder,jdbcType=VARCHAR},
+      <if test="orderNum != null">
+        order_num = #{orderNum,jdbcType=INTEGER},
       </if>
-      <if test="menuIcon != null">
-        menu_icon = #{menuIcon,jdbcType=VARCHAR},
-      </if>
-      <if test="menuStatus != null">
-        menu_status = #{menuStatus,jdbcType=INTEGER},
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
       </if>
       <if test="menuType != null">
-        menu_type = #{menuType,jdbcType=VARCHAR},
+        menu_type = #{menuType,jdbcType=CHAR},
+      </if>
+      <if test="visible != null">
+        visible = #{visible,jdbcType=CHAR},
+      </if>
+      <if test="perms != null">
+        perms = #{perms,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
     where menu_id = #{menuId,jdbcType=INTEGER}
@@ -247,12 +336,18 @@
   <update id="updateByPrimaryKey" parameterType="com.dragon.blog.model.BlogSysMenu">
     update blog_sys_menu
     set menu_name = #{menuName,jdbcType=VARCHAR},
-      menu_url = #{menuUrl,jdbcType=VARCHAR},
-      parent_id = #{parentId,jdbcType=VARCHAR},
-      menu_order = #{menuOrder,jdbcType=VARCHAR},
-      menu_icon = #{menuIcon,jdbcType=VARCHAR},
-      menu_status = #{menuStatus,jdbcType=INTEGER},
-      menu_type = #{menuType,jdbcType=VARCHAR}
+      parent_id = #{parentId,jdbcType=INTEGER},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR},
+      menu_type = #{menuType,jdbcType=CHAR},
+      visible = #{visible,jdbcType=CHAR},
+      perms = #{perms,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
     where menu_id = #{menuId,jdbcType=INTEGER}
   </update>
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
