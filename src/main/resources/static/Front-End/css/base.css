@@ -17,6 +17,7 @@ a:hover { color: #000; text-decoration: none; }
 /*header*/
 header { width: 100%; padding: 5px 0; background: #1C2327; height: 50px; }
 header::before { background: #000 linear-gradient(to left, #4cd964, #5ac8fa, #007aff, #34aadc, #5856d6, #ff2d55); content: ""; height: 5px; position: absolute; top: 0; width: 100%; }
+.is-fixed { position: fixed; top: 0; box-shadow: 0px 3px 10px 1px rgba(144, 161, 180, 0.4); z-index: 99; }
 .logo { float: left; margin-right: 60px; line-height: 50px; color: #FFF; font-size: 22px }
 .logo a { color: #FFF }
 .logo img { margin-top: 14px; }

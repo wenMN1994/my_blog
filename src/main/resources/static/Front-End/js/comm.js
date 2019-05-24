@@ -1,4 +1,5 @@
-$(document).ready(function() {
+// $(document).ready(function() {
+jQuery(document).ready(function($){
     //nav     
     var obj = null;
     var As = document.getElementById('starlist').getElementsByTagName('a');
@@ -19,6 +20,19 @@ $(document).ready(function() {
     //searchclose 
     $(".searchclose").click(function() {
         $(".search").removeClass("open");
+    });
+    //
+    $(window).scroll(function() {
+        var h = $("body").height() - window.innerHeight
+        //console.log(h);
+        if ($(window).scrollTop() > 28 && h > 120) {
+            $(".topnav").addClass("is-fixed").find("").fadeOut(400);
+            $(".searchico").hide()
+        } else if ($(window).scrollTop() < 28) {
+            $(".topnav").removeClass("is-fixed").find("").fadeIn(400);
+            $(".searchico").show();
+
+        }
     });
     //banner
     $('#banner').easyFader();
