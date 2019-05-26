@@ -204,6 +204,16 @@ public class ShiroConfig {
     }
 
     /**
+     * 自定义Realm
+     */
+    @Bean
+    public BlogShiroRealm blogShiroRealm(EhCacheManager cacheManager) {
+        BlogShiroRealm blogShiroRealm = new BlogShiroRealm();
+        blogShiroRealm.setCacheManager(cacheManager);
+        return blogShiroRealm;
+    }
+
+    /**
      * cacheManager 缓存 redis实现
      * 使用的是shiro-redis开源插件
      *
