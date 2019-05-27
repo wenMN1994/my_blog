@@ -2,6 +2,7 @@ package com.dragon.client.shiro.realm;
 
 import com.dragon.blog.model.BlogSysUser;
 import com.dragon.blog.service.BlogSysApiService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -65,6 +66,13 @@ public class BlogShiroRealm extends AuthorizingRealm {
         this.getName()  //realm name
         );
         return authenticationInfo;
+    }
+
+    /**
+     * 清理缓存权限
+     */
+    public void clearCachedAuthorizationInfo() {
+        this.clearCachedAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
     }
 
 }
