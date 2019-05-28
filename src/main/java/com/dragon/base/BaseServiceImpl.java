@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.dragon.db.DataSourceEnum;
 import com.dragon.db.DynamicDataSource;
 import com.dragon.utils.SpringContextUtil;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.annotations.Param;
 
 import java.lang.reflect.InvocationTargetException;

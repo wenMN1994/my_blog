@@ -3,7 +3,7 @@ package com.dragon.blog.controller;
 import com.dragon.base.BaseController;
 import com.dragon.common.CustomResultConstant;
 import com.dragon.common.constant.CustomResult;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
