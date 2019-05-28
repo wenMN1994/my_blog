@@ -72,7 +72,7 @@ dependencies {
 	compile group: 'org.apache.shiro', name: 'shiro-ehcache', version: shiroVersion
 	
 	// shiro-redis
-	compile group: 'org.crazycake', name: 'shiro-redis', version: '2.4.2.1-RELEASE'
+//	compile group: 'org.crazycake', name: 'shiro-redis', version: '2.4.2.1-RELEASE'
 
 	// Thymeleaf模板
 	compile "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}"
@@ -97,8 +97,9 @@ dependencies {
 	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
 
 	// redis
-	compile group: 'redis.clients', name: 'jedis', version: '2.9.0'
-
+//	compile group: 'redis.clients', name: 'jedis', version: '2.9.0'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.1.4.RELEASE'
+	
 	// 分页插件
 	compile group: 'com.github.pagehelper', name: 'pagehelper-spring-boot-starter', version: '1.2.10'
 
@@ -122,5 +123,11 @@ dependencies {
 
 	// Google Collections Library
 	compile group: 'com.google.collections', name: 'google-collections', version: '1.0'
+
+	// UserAgentUtils
+	compile group: 'eu.bitwalker', name: 'UserAgentUtils', version: '1.21'
+
+	// 验证码
+	compile group: 'com.github.penggle', name: 'kaptcha', version: '2.3.2'
 
 }
