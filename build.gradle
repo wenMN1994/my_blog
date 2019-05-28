@@ -67,12 +67,8 @@ dependencies {
 	// shiro
 	compile group: 'org.apache.shiro', name: 'shiro-core', version: shiroVersion
 	compile group: 'org.apache.shiro', name: 'shiro-web', version: shiroVersion
-	compile group: 'org.apache.shiro', name: 'shiro-quartz', version: shiroVersion
 	compile group: 'org.apache.shiro', name: 'shiro-spring', version: shiroVersion
 	compile group: 'org.apache.shiro', name: 'shiro-ehcache', version: shiroVersion
-	
-	// shiro-redis
-//	compile group: 'org.crazycake', name: 'shiro-redis', version: '2.4.2.1-RELEASE'
 
 	// Thymeleaf模板
 	compile "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}"
@@ -97,7 +93,6 @@ dependencies {
 	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
 
 	// redis
-//	compile group: 'redis.clients', name: 'jedis', version: '2.9.0'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.1.4.RELEASE'
 	
 	// 分页插件
@@ -107,7 +102,9 @@ dependencies {
 	compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.0.4.RELEASE'
 
 	// commons-lang
-	compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
+//	compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
+
 
 	// commons-io
 	compile group: 'commons-io', name: 'commons-io', version: '2.4'
