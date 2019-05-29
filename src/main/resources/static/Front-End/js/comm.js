@@ -21,7 +21,7 @@ jQuery(document).ready(function($){
     $(".searchclose").click(function() {
         $(".search").removeClass("open");
     });
-    //导航栏锁定
+    //
     $(window).scroll(function() {
         var h = $("body").height() - window.innerHeight
         //console.log(h);
