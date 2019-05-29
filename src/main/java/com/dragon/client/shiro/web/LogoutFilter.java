@@ -15,7 +15,7 @@ import javax.servlet.ServletResponse;
  * @date：Created in 2019/4/26 21:43
  * @description： 退出过滤器
  * @modified By：
- * @version: $version$
+ * @version: 1.0.0
  */
 public class LogoutFilter extends org.apache.shiro.web.filter.authc.LogoutFilter {
 
