@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  * @author Dragon.Wen
  * @date Oct 17, 2018
  */
-public class StringUtils extends org.apache.commons.lang.StringUtils {
+public class StringUtils extends org.apache.commons.lang3.StringUtils {
 
     private static Pattern linePattern = Pattern.compile("_(\\w)");
     private static Pattern humpPattern = Pattern.compile("[A-Z]");
@@ -75,7 +75,7 @@ public class StringUtils extends org.apache.commons.lang.StringUtils {
      * @return
      */
     public static String toLowerCaseFirstOne(String s) {
-        if (org.apache.commons.lang.StringUtils.isBlank(s)) {
+        if (org.apache.commons.lang3.StringUtils.isBlank(s)) {
             return s;
         }
         if (Character.isLowerCase(s.charAt(0))) {
@@ -91,7 +91,7 @@ public class StringUtils extends org.apache.commons.lang.StringUtils {
      * @return
      */
     public static String toUpperCaseFirstOne(String s) {
-        if (org.apache.commons.lang.StringUtils.isBlank(s)) {
+        if (org.apache.commons.lang3.StringUtils.isBlank(s)) {
             return s;
         }
         if (Character.isUpperCase(s.charAt(0))) {
