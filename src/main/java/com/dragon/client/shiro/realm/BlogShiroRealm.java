@@ -1,18 +1,16 @@
 package com.dragon.client.shiro.realm;
 
 import com.dragon.blog.model.BlogSysUser;
-import com.dragon.blog.service.BlogSysApiService;
+import com.dragon.client.shiro.service.LoginService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author：Dragon Wen
@@ -20,14 +18,14 @@ import javax.annotation.Resource;
  * @date：Created in 2019/4/20 17:35
  * @description： 自定义Realm 处理登录 权限
  * @modified By：
- * @version: $version$
+ * @version: 1.0.0
  */
 public class BlogShiroRealm extends AuthorizingRealm {
 
     private final Logger LOGGER = LoggerFactory.getLogger(BlogShiroRealm.class);
 
-    @Resource
-    private BlogSysApiService blogSysApiService;
+    @Autowired
+    private LoginService loginService;
 
     /**
      * 授权
@@ -47,24 +45,21 @@ public class BlogShiroRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken)
             throws AuthenticationException {
         LOGGER.info("---------------- 执行 Shiro 登录认证 ----------------------");
-        //获取用户的输入的账号.
-//        String username = (String)token.getPrincipal();
         UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
         String username = token.getUsername();
         LOGGER.info("token带来的数据：  "+username);
-        //通过username从数据库中查找 User对象，如果找到，没找到.
-        //实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
-        BlogSysUser blogSysUser = blogSysApiService.selectBlogSysUserByUsername(username);
-        LOGGER.info("----->>blogSysUser="+blogSysUser);
-        if(blogSysUser == null){
-            return null;
+        String password = "";
+        if (token.getPassword() != null) {
+            password = new String(token.getPassword());
         }
-        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-                blogSysUser.getUserName(), //用户名
-                blogSysUser.getPassword(), //密码
-                ByteSource.Util.bytes(blogSysUser.getUserName()),// 盐值加密的盐，可以用用户名
-        this.getName()  //realm name
-        );
+        BlogSysUser blogSysUser = null;
+        try {
+            blogSysUser = loginService.login(username,password);
+        } catch (Exception e) {
+            LOGGER.info("对用户[" + username + "]进行登录验证.验证未通过{}", e.getMessage());
+            throw new AuthenticationException(e.getMessage(), e);
+        }
+        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(blogSysUser, password, getName());
         return authenticationInfo;
     }
 
