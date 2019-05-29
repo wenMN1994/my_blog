@@ -105,6 +105,11 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
+  <!--自定义方法-->
+  <insert id="saveOnline" parameterType="com.dragon.blog.model.BlogSysUserOnline">
+      replace into blog_sys_user_online (sessionId, login_name, ipaddr, login_location, browser, os, status, start_timestamp, last_access_time, expire_time)
+      values (#{sessionId}, #{loginName},  #{ipaddr}, #{loginLocation}, #{browser}, #{os}, #{status}, #{startTimestamp}, #{lastAccessTime}, #{expireTime})
+  </insert>
   <insert id="insert" parameterType="com.dragon.blog.model.BlogSysUserOnline">
     insert into blog_sys_user_online (sessionId, login_name, ipaddr, 
       login_location, browser, os, 
