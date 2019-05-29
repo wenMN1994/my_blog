@@ -28,11 +28,18 @@ public interface BaseService<Record, Example> {
     int deleteByExample(Example example);
 
     /**
-     * 根据主键删除记录
+     * 根据主键删除记录——数据类型Integer
      * @param id
      * @return
      */
     int deleteByPrimaryKey(Integer id);
+
+    /**
+     * 根据主键删除记录——数据类型String
+     * @param id
+     * @return
+     */
+    int deleteByPrimaryKey(String id);
 
     /**
      * 插入记录
@@ -113,11 +120,18 @@ public interface BaseService<Record, Example> {
     Record selectFirstByExampleWithBLOBs(Example example);
 
     /**
-     * 根据主键查询记录
+     * 根据主键查询记录——数据类型为——Integer
      * @param id
      * @return
      */
     Record selectByPrimaryKey(Integer id);
+
+    /**
+     * 根据主键查询记录——数据类型为String
+     * @param id
+     * @return
+     */
+    Record selectByPrimaryKey(String id);
 
     /**
      * 根据条件更新有效字段

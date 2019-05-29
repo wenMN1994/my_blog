@@ -78,6 +78,24 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 	}
 
 	@Override
+	public int deleteByPrimaryKey(String id) {
+		try {
+			DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
+			Method deleteByPrimaryKey = mapper.getClass().getDeclaredMethod("deleteByPrimaryKey", id.getClass());
+			Object result = deleteByPrimaryKey.invoke(mapper, id);
+			return Integer.parseInt(String.valueOf(result));
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		}
+		DynamicDataSource.clearDataSource();
+		return 0;
+	}
+
+	@Override
 	public int insert(Record record) {
 		try {
 			DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
@@ -267,6 +285,24 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 
 	@Override
 	public Record selectByPrimaryKey(Integer id) {
+		try {
+			DynamicDataSource.setDataSource(DataSourceEnum.SLAVE.getName());
+			Method selectByPrimaryKey = mapper.getClass().getDeclaredMethod("selectByPrimaryKey", id.getClass());
+			Object result = selectByPrimaryKey.invoke(mapper, id);
+			return (Record) result;
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		}
+		DynamicDataSource.clearDataSource();
+		return null;
+	}
+
+	@Override
+	public Record selectByPrimaryKey(String id) {
 		try {
 			DynamicDataSource.setDataSource(DataSourceEnum.SLAVE.getName());
 			Method selectByPrimaryKey = mapper.getClass().getDeclaredMethod("selectByPrimaryKey", id.getClass());
