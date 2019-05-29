@@ -28,4 +28,6 @@ public interface BlogSysUserOnlineMapper {
     int updateByPrimaryKeySelective(BlogSysUserOnline record);
 
     int updateByPrimaryKey(BlogSysUserOnline record);
+
+    void saveOnline(BlogSysUserOnline online);
 }

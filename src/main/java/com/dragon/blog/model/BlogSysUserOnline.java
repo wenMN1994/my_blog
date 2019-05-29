@@ -1,5 +1,6 @@
 package com.dragon.blog.model;
 
+import com.dragon.blog.model.OnlineSession.OnlineStatus;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -50,8 +51,11 @@ public class BlogSysUserOnline implements Serializable {
      * 在线状态on_line在线off_line离线
      *
      * @mbg.generated
+     * @modified By：Dragon Wen
+     * @description
      */
-    private String status;
+//    private String status;
+    private OnlineStatus status = OnlineStatus.on_line;
 
     /**
      * session创建时间
@@ -73,6 +77,11 @@ public class BlogSysUserOnline implements Serializable {
      * @mbg.generated
      */
     private Integer expireTime;
+
+    /**
+     * 备份的当前用户会话
+     */
+    private OnlineSession session;
 
     private static final long serialVersionUID = 1L;
 
@@ -124,11 +133,18 @@ public class BlogSysUserOnline implements Serializable {
         this.os = os;
     }
 
-    public String getStatus() {
+//    public String getStatus() {
+//        return status;
+//    }
+//
+//    public void setStatus(String status) {
+//        this.status = status;
+//    }
+    public OnlineStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(OnlineStatus status) {
         this.status = status;
     }
 
@@ -154,6 +170,12 @@ public class BlogSysUserOnline implements Serializable {
 
     public void setExpireTime(Integer expireTime) {
         this.expireTime = expireTime;
+    }
+
+    public OnlineSession getSession() { return session; }
+
+    public void setSession(OnlineSession session) {
+        this.session = session;
     }
 
     @Override
