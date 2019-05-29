@@ -16,6 +16,12 @@ server:
   # 服务端口
   port: 8088
 
+# 用户配置
+user:
+  password:
+    # 密码错误{maxRetryCount}次锁定10分钟
+    maxRetryCount: 8
+
 # Spring配置
 spring:
   resources:
