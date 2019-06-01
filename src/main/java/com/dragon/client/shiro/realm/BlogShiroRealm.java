@@ -2,6 +2,9 @@ package com.dragon.client.shiro.realm;
 
 import com.dragon.blog.model.BlogSysUser;
 import com.dragon.client.shiro.service.LoginService;
+import com.dragon.common.exception.user.UserNotExistsException;
+import com.dragon.common.exception.user.UserPasswordNotMatchException;
+import com.dragon.common.exception.user.UserPasswordRetryLimitExceedException;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -55,6 +58,12 @@ public class BlogShiroRealm extends AuthorizingRealm {
         BlogSysUser blogSysUser = null;
         try {
             blogSysUser = loginService.login(username,password);
+        } catch (UserNotExistsException e) {
+            throw new UnknownAccountException(e.getMessage(), e);
+        } catch (UserPasswordNotMatchException e) {
+            throw new IncorrectCredentialsException(e.getMessage(), e);
+        } catch (UserPasswordRetryLimitExceedException e) {
+            throw new ExcessiveAttemptsException(e.getMessage(), e);
         } catch (Exception e) {
             LOGGER.info("对用户[" + username + "]进行登录验证.验证未通过{}", e.getMessage());
             throw new AuthenticationException(e.getMessage(), e);
