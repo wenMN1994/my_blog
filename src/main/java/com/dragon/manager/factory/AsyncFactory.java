@@ -112,6 +112,7 @@ public class AsyncFactory {
                 } else if (Constants.LOGIN_FAIL.equals(status)) {
                     blogSysLoginInfor.setStatus(Constants.FAIL);
                 }
+                blogSysLoginInfor.setLoginTime(DateUtils.getNowDate());
                 // 插入数据
                 SpringContextUtil.getBean(BlogSysLoginInforService.class).insert(blogSysLoginInfor);
             }
