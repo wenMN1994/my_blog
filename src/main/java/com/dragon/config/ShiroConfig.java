@@ -12,14 +12,12 @@ import com.dragon.client.shiro.web.session.OnlineWebSessionManager;
 import com.dragon.client.shiro.web.session.SpringSessionValidationScheduler;
 import com.dragon.utils.StringUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.config.ConfigurationException;
 import org.apache.shiro.io.ResourceUtils;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.SessionListener;
-import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
@@ -27,7 +25,6 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -358,10 +355,11 @@ public class ShiroConfig {
         //前台界面设置允许访问
         filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/my_blog/**", "anon");
+        filterChainDefinitionMap.put("/captcha/captchaImage**", "anon");
         //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
         filterChainDefinitionMap.put("/logout", "logout");
         // 不需要拦截的访问
-        filterChainDefinitionMap.put("/sso/login", "anon");
+        filterChainDefinitionMap.put("/sso/login", "anon,captchaValidate");
 
         Map<String, Filter> filters = new LinkedHashMap<>();
         filters.put("onlineSession", onlineSessionFilter());
@@ -443,45 +441,4 @@ public class ShiroConfig {
         return authorizationAttributeSourceAdvisor;
     }
 
-    @Bean
-    public BlogShiroRealm blogShiroRealm(){
-        BlogShiroRealm blogShiroRealm = new BlogShiroRealm();
-        blogShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
-        return blogShiroRealm;
-    }
-
-    /**
-     * 凭证匹配器
-     * （由于我们的密码校验交给Shiro的SimpleAuthenticationInfo进行处理了
-     * ）
-     * @return
-     */
-    @Bean
-    public HashedCredentialsMatcher hashedCredentialsMatcher(){
-        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
-        hashedCredentialsMatcher.setHashAlgorithmName("md5");//散列算法:这里使用MD5算法;
-        hashedCredentialsMatcher.setHashIterations(1024);//散列的次数，比如散列两次，相当于 md5(md5(""));
-        return hashedCredentialsMatcher;
-    }
-
-    /***
-     * 授权所用配置
-     *
-     * @return
-     */
-    @Bean
-    public DefaultAdvisorAutoProxyCreator getDefaultAdvisorAutoProxyCreator() {
-        DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
-        defaultAdvisorAutoProxyCreator.setProxyTargetClass(true);
-        return defaultAdvisorAutoProxyCreator;
-    }
-
-    /**
-     * Shiro生命周期处理器
-     *
-     */
-    @Bean
-    public static LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
-        return new LifecycleBeanPostProcessor();
-    }
 }
