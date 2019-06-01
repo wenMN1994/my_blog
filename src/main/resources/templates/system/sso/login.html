@@ -51,18 +51,18 @@
                        required autofocus value="admin">
                 <input id="password" type="password" class="form-control  pword m-b" name="password"
                        placeholder="密码" required value="123456">
-                <div class="row m-t">
+                <div class="row m-t" th:if="${captchaEnabled==true}">
                     <div class="col-xs-6">
-                        <input type="text" name="validateCode" class="form-control code" placeholder="验证码" maxlength="5"
+                        <input type="text" id="validateCode" name="validateCode" class="form-control code" placeholder="验证码" maxlength="5"
                                autocomplete="off">
                     </div>
                     <div class="col-xs-6">
                         <a href="javascript:void(0);" title="点击更换验证码">
-                            <img th:src="@{admin/images/captchaImage.jpg}" class="imgcode" width="85%"/>
+                            <img th:src="@{captcha/captchaImage(type=${captchaType})}" class="imgcode" width="85%"/>
                         </a>
                     </div>
                 </div>
-                <div class="checkbox-custom">
+                <div class="checkbox-custom" th:classappend="${captchaEnabled==false} ? 'm-t'">
                     <input type="checkbox" id="rememberme" name="rememberme"> <label for="rememberme">记住我</label>
                 </div>
                 <button id="login-bt" class="btn btn-success btn-block">登录</button>
@@ -75,6 +75,7 @@
         </div>
     </div>
 </div>
+<script th:inline="javascript">var captchaType = [[${captchaType}]]; </script>
 <script src="admin/js/jquery-3.2.1.min.js"></script>
 <script src="admin/h_ui_4.9/js/plugins/validate/jquery.validate.min.js"></script>
 <!-- layer javascript -->

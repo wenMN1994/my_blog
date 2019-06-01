@@ -9,6 +9,11 @@ $(function() {
             validateRule();
         }
     });
+    // 更新验证码
+    $('.imgcode').click(function () {
+        var url = "/captcha/captchaImage?type=" + captchaType + "&s=" + Math.random();
+        $(".imgcode").attr("src", url);
+    });
 });
 
 $.validator.setDefaults({
@@ -47,13 +52,17 @@ function login() {
         type: 'POST',
         data: {
             username: $('#username').val(),
-            password: $('#password').val()
+            password: $('#password').val(),
+            validateCode: $('#validateCode').val(),
+            rememberMe: $('#rememberme').is(':checked')
         },
         success: function (r) {
             if (r.code == 0) {
                 location.href = '/system/index';
             } else {
                 parent.layer.closeAll('loading'); //关闭加载层
+                $('.imgcode').click();
+                $(".code").val("");
                 parent.layer.msg(r.msg);
             }
         },
