@@ -37,7 +37,7 @@ public class BlogSysApiServiceImpl implements BlogSysApiService {
     @Override
     public BlogSysUser selectBlogSysUserByUsername(String username) {
         BlogSysUserExample blogSysUserExample = new BlogSysUserExample();
-        blogSysUserExample.createCriteria().andUserNameEqualTo(username);
+        blogSysUserExample.createCriteria().andLoginNameEqualTo(username);
         List<BlogSysUser> blogSysUsers = blogSysUserMapper.selectByExample(blogSysUserExample);
         if(null != blogSysUsers && blogSysUsers.size() > 0){
             return blogSysUsers.get(0);
