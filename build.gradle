@@ -51,36 +51,59 @@ dependencies {
     /**
      * 这里注意，如果想使用统一定义的版本，要用双引号标注>_<
      */
-	// SpringBoot 核心包
+    // 连接池，redis依赖
+    compile group: 'org.apache.commons', name: 'commons-pool2', version: '2.6.2'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: springBootVersion
+
+    // redis
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.1.4.RELEASE'
+
+    // SpringBoot 核心包
     compile group: 'org.springframework.boot', name: 'spring-boot-starter', version: springBootVersion
-    // SpringBoot Web容器
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
-	// 引入AOP依赖
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: springBootVersion
-    // @test测试使用
+
+    // SpringBoot 测试
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: springBootVersion
 
+    // SpringBoot 拦截器
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: springBootVersion
+
+    // SpringBoot Web容器
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
+	
+	// log4j2
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: springBootVersion
-    // 使用注释处理器生成自己的元数据
+    
+	// 使用注释处理器生成自己的元数据
 	annotationProcessor group: 'org.springframework.boot', name: 'spring-boot-configuration-processor', version: springBootVersion
 
-	// shiro
+	// Shiro核心框架
 	compile group: 'org.apache.shiro', name: 'shiro-core', version: shiroVersion
-	compile group: 'org.apache.shiro', name: 'shiro-web', version: shiroVersion
+    
+    // Shiro使用Srping框架
 	compile group: 'org.apache.shiro', name: 'shiro-spring', version: shiroVersion
+    
+    // Shiro使用EhCache缓存框架
 	compile group: 'org.apache.shiro', name: 'shiro-ehcache', version: shiroVersion
 
-	// Thymeleaf模板
-	compile "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}"
-	compile group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.11.RELEASE'
-	compile group: 'org.thymeleaf', name: 'thymeleaf-spring5', version: '3.0.11.RELEASE'
-	compile group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.2.2'
+    // thymeleaf模板引擎和shiro框架的整合
+    compile group: 'com.github.theborakompanioni', name: 'thymeleaf-extras-shiro', version: '2.0.0'
+
+	// SpringBoot集成thymeleaf模板
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: springBootVersion
+	
+	// 阿里数据库连接池
 	compile group: 'com.alibaba', name: 'druid', version: '1.1.10'
-    // 这里的版本可以在上述定义
+    
+	// Mysql驱动包
 	compile group: 'mysql', name: 'mysql-connector-java', version: mysqlVersion
+	
+    // SpringBoot Web容器
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.1.3.RELEASE'
-	compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '1.3.2'
-	// 让gradle具有内置的compileOnly范围，可用于告诉gradle仅在编译期间添加lombok
+	
+    // SpringBoot集成mybatis框架
+    compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '1.3.2'
+	
+    // 让gradle具有内置的compileOnly范围，可用于告诉gradle仅在编译期间添加lombok
 	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
 
 	// ehcache缓存
@@ -91,21 +114,16 @@ dependencies {
 
 	// httpclient
 	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
-
-	// redis
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.1.4.RELEASE'
-	
+    
 	// 分页插件
 	compile group: 'com.github.pagehelper', name: 'pagehelper-spring-boot-starter', version: '1.2.10'
 
 	// 热部署
 	compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.0.4.RELEASE'
 
-	// commons-lang
-//	compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
+	// 常用工具类 commons-lang
 	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
-
-
+    
 	// commons-io
 	compile group: 'commons-io', name: 'commons-io', version: '2.4'
 
@@ -121,7 +139,7 @@ dependencies {
 	// Google Collections Library
 	compile group: 'com.google.collections', name: 'google-collections', version: '1.0'
 
-	// UserAgentUtils
+	// UserAgentUtils 解析客户端操作系统、浏览器等
 	compile group: 'eu.bitwalker', name: 'UserAgentUtils', version: '1.21'
 
 	// 验证码
