@@ -2,6 +2,8 @@
 ### 前端演示链接 http://dragonwen.wicp.vip/
 ### 后台管理演示链接 http://dragonwen.wicp.vip/sso/login
 
+由于工作原因更新比较缓慢，请见谅。
+
 ### 技术选型
 
 #### 后端技术:
@@ -23,3 +25,5 @@ Gradle | 项目构建管理  | [https://gradle.org](https://gradle.org)
 ----|------|----
 jQuery | 函式库  | [http://jquery.com/](http://jquery.com/)
 Bootstrap | 前端框架  | [http://getbootstrap.com/](http://getbootstrap.com/)
+layui | 前端框架  | [https://www.layui.com/](https://www.layui.com/)
+Thymeleaf | 模板引擎  | [https://www.thymeleaf.org/](https://www.thymeleaf.org/)
