@@ -1,6 +1,7 @@
 package com.dragon.blog.controller;
 
 import com.dragon.base.BaseController;
+import com.dragon.utils.AjaxResult;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * @author：Dragon Wen
@@ -53,7 +55,7 @@ public class SSOController extends BaseController {
      */
     @RequestMapping(value = "login", method = RequestMethod.POST)
     @ResponseBody
-    public Object login(HttpServletRequest request) {
+    public AjaxResult login(HttpServletRequest request, HttpSession session) {
         //获取用户输入的用户名
         String username = request.getParameter("username");
         //获取用户输入的密码
@@ -61,11 +63,13 @@ public class SSOController extends BaseController {
         //获取用户是否选择“记住我”
         String rememberMe = request.getParameter("rememberMe");
 
+        // 使用shiro认证
+        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password,rememberMe);
+        Subject subject = SecurityUtils.getSubject();
+
         try {
-            // 使用shiro认证
-            UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password,rememberMe);
-            Subject subject = SecurityUtils.getSubject();
             subject.login(usernamePasswordToken);
+            session.setAttribute("sessionUser", getSysUser());
             return success();
         } catch (AuthenticationException e) {
             String msg = "用户或密码错误";
