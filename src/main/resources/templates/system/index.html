@@ -38,8 +38,8 @@
                                    src="common/images/wen_50.png"/></span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
-                               <span class="block m-t-xs"><strong class="font-bold">DragonWen</strong></span>
-                                <span class="text-muted text-xs block">超级管理员<b class="caret"></b></span>
+                                    <span class="block m-t-xs"><strong class="font-bold" th:text="${session.sessionUser.loginName}"></strong></span>
+                                    <span class="text-muted text-xs block">超级管理员<b class="caret"></b></span>
                                 </span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
@@ -647,6 +647,9 @@
 
 <!-- 第三方插件 -->
 <script src="admin/h_ui_4.9/js/plugins/pace/pace.min.js"></script>
+
+<script th:inline="javascript">
+</script>
 
 </body>
 
