@@ -1,5 +1,6 @@
 package com.dragon.config;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.dragon.client.shiro.realm.BlogShiroRealm;
 import com.dragon.client.shiro.session.OnlineSessionDAO;
 import com.dragon.client.shiro.session.OnlineSessionFactory;
@@ -337,10 +338,7 @@ public class ShiroConfig {
         // Shiro的核心安全接口,这个属性是必须的
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         // 身份认证失败，则跳转到登录页面的配置
-        // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         shiroFilterFactoryBean.setLoginUrl(loginUrl);
-        // 登录成功后要跳转的链接
-//        shiroFilterFactoryBean.setSuccessUrl("/system/index");
         // 权限认证失败，则跳转到指定页面
         shiroFilterFactoryBean.setUnauthorizedUrl(unauthorizedUrl);
 
@@ -395,8 +393,6 @@ public class ShiroConfig {
         return syncOnlineSessionFilter;
     }
 
-
-
     /**
      * 自定义验证码过滤器
      */
@@ -428,6 +424,14 @@ public class ShiroConfig {
         cookieRememberMeManager.setCookie(rememberMeCookie());
         cookieRememberMeManager.setCipherKey(Base64.decode("fCq+/xW488hMTCD+cmJ3aQ=="));
         return cookieRememberMeManager;
+    }
+
+    /**
+     * thymeleaf模板引擎和shiro框架的整合
+     */
+    @Bean
+    public ShiroDialect shiroDialect() {
+        return new ShiroDialect();
     }
 
     /**
