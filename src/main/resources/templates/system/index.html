@@ -35,7 +35,7 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element">
                         <span><img alt="image" class="img-circle"
-                                   src="common/images/wen_50.png"/></span>
+                                   th:src="(${session.sessionUser.avatar} == '') ? @{/common/images/wen_50.png} : ${session.sessionUser.avatar}"/></span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
                                     <span class="block m-t-xs"><strong class="font-bold" th:text="${session.sessionUser.loginName}"></strong></span>
@@ -65,39 +65,27 @@
                         <i class="fa fa-home"></i>
                         <span class="nav-label">首页</span>
                     </a>
-
                 </li>
-                <li>
+                <li th:each="menu : ${menus}">
                     <a href="#">
-                        <i class="fa fa fa-bar-chart-o"></i>
-                        <span class="nav-label">统计图表</span>
+                        <i class="fa fa fa-bar-chart-o" th:class="${(menu.getIcon())}"></i>
+                        <span class="nav-label" th:text="${(menu.getMenuName())}">统计图表</span>
                         <span class="fa arrow"></span>
                     </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a class="J_menuItem" href="graph_echarts.html">百度ECharts</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="graph_flot.html">Flot</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="graph_morris.html">Morris.js</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="graph_rickshaw.html">Rickshaw</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="graph_peity.html">Peity</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="graph_sparkline.html">Sparkline</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="graph_metrics.html">图表组合</a>
+                    <ul class="nav nav-second-level collapse">
+                        <li th:each="cmenu : ${menu.children}">
+                            <a th:if="${#lists.isEmpty(cmenu.children)}" class="J_menuItem" th:text="${cmenu.menuName}"
+                               th:href="@{${cmenu.url}}">二级菜单</a>
+                            <a th:if="${not #lists.isEmpty(cmenu.children)}" th:text="${cmenu.menuName}" href="#"><span
+                                    class="fa arrow"></span></a>
+                            <ul th:if="${not #lists.isEmpty(cmenu.children)}" class="nav nav-third-level">
+                                <li th:each="emenu : ${cmenu.children}"><a class="J_menuItem" th:text="${emenu.menuName}"
+                                                                           th:href="@{${emenu.url}}">三级菜单</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </li>
-                <li>
+                <!--<li>
                     <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">表单</span><span
                             class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
@@ -152,7 +140,7 @@
                         <li><a class="J_menuItem" href="form_builder.html">表单构建器</a>
                         </li>
                     </ul>
-                </li>
+                </li>-->
 
             </ul>
         </div>
