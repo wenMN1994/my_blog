@@ -44,6 +44,7 @@ public class SystemIndexController extends BaseController {
             return "system/sso/login";
         }
         BlogSysMenuExample blogSysMenuExample = new BlogSysMenuExample();
+        blogSysMenuExample.createCriteria().andMenuTypeNotEqualTo("F");
         List<BlogSysMenu> menusAll = blogSysMenuService.selectByExample(blogSysMenuExample);
         List<BlogSysMenu> menus = TreeUtils.getChildPerms(menusAll, 0);
         model.addAttribute("menus",menus);
