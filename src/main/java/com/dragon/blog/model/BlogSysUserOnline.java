@@ -83,6 +83,14 @@ public class BlogSysUserOnline implements Serializable {
      */
     private OnlineSession session;
 
+    public OnlineSession getSession() {
+        return session;
+    }
+
+    public void setSession(OnlineSession session) {
+        this.session = session;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public String getSessionid() {
@@ -170,12 +178,6 @@ public class BlogSysUserOnline implements Serializable {
 
     public void setExpireTime(Integer expireTime) {
         this.expireTime = expireTime;
-    }
-
-    public OnlineSession getSession() { return session; }
-
-    public void setSession(OnlineSession session) {
-        this.session = session;
     }
 
     @Override

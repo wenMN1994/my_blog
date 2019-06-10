@@ -1,7 +1,9 @@
 package com.dragon.blog.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class BlogSysMenu implements Serializable {
     /**
@@ -101,6 +103,19 @@ public class BlogSysMenu implements Serializable {
      * @mbg.generated
      */
     private String remark;
+
+    /**
+     * 子菜单
+     */
+    private List<BlogSysMenu> children = new ArrayList<BlogSysMenu>();
+
+    public List<BlogSysMenu> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<BlogSysMenu> children) {
+        this.children = children;
+    }
 
     private static final long serialVersionUID = 1L;
 

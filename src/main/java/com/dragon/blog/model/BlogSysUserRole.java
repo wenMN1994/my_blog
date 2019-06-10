@@ -4,6 +4,13 @@ import java.io.Serializable;
 
 public class BlogSysUserRole implements Serializable {
     /**
+     * 用户_角色ID
+     *
+     * @mbg.generated
+     */
+    private Integer userRoleId;
+
+    /**
      * 用户ID
      *
      * @mbg.generated
@@ -18,6 +25,14 @@ public class BlogSysUserRole implements Serializable {
     private Integer roleId;
 
     private static final long serialVersionUID = 1L;
+
+    public Integer getUserRoleId() {
+        return userRoleId;
+    }
+
+    public void setUserRoleId(Integer userRoleId) {
+        this.userRoleId = userRoleId;
+    }
 
     public Integer getUserId() {
         return userId;
@@ -41,6 +56,7 @@ public class BlogSysUserRole implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", userRoleId=").append(userRoleId);
         sb.append(", userId=").append(userId);
         sb.append(", roleId=").append(roleId);
         sb.append("]");
@@ -59,7 +75,8 @@ public class BlogSysUserRole implements Serializable {
             return false;
         }
         BlogSysUserRole other = (BlogSysUserRole) that;
-        return (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+        return (this.getUserRoleId() == null ? other.getUserRoleId() == null : this.getUserRoleId().equals(other.getUserRoleId()))
+            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
             && (this.getRoleId() == null ? other.getRoleId() == null : this.getRoleId().equals(other.getRoleId()));
     }
 
@@ -67,6 +84,7 @@ public class BlogSysUserRole implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((getUserRoleId() == null) ? 0 : getUserRoleId().hashCode());
         result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
         result = prime * result + ((getRoleId() == null) ? 0 : getRoleId().hashCode());
         return result;

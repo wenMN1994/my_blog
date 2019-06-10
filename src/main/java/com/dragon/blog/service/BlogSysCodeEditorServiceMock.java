@@ -7,7 +7,7 @@ import com.dragon.blog.model.BlogSysCodeEditorExample;
 
 /**
 * 降级实现BlogSysCodeEditorService接口
-* Created by Dragon.Wen on 2019/5/19.
+* Created by Dragon.Wen on 2019/6/10.
 */
 public class BlogSysCodeEditorServiceMock extends BaseServiceMock<BlogSysCodeEditorMapper, BlogSysCodeEditor, BlogSysCodeEditorExample> implements BlogSysCodeEditorService {
 

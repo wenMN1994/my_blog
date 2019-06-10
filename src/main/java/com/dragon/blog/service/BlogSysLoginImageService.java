@@ -6,7 +6,7 @@ import com.dragon.blog.model.BlogSysLoginImageExample;
 
 /**
 * BlogSysLoginImageService接口
-* Created by Dragon.Wen on 2019/5/19.
+* Created by Dragon.Wen on 2019/6/10.
 */
 public interface BlogSysLoginImageService extends BaseService<BlogSysLoginImage, BlogSysLoginImageExample> {
 

@@ -4,6 +4,13 @@ import java.io.Serializable;
 
 public class BlogSysRoleMenu implements Serializable {
     /**
+     * 角色_菜单ID
+     *
+     * @mbg.generated
+     */
+    private Integer roleMenuId;
+
+    /**
      * 角色ID
      *
      * @mbg.generated
@@ -18,6 +25,14 @@ public class BlogSysRoleMenu implements Serializable {
     private Integer menuId;
 
     private static final long serialVersionUID = 1L;
+
+    public Integer getRoleMenuId() {
+        return roleMenuId;
+    }
+
+    public void setRoleMenuId(Integer roleMenuId) {
+        this.roleMenuId = roleMenuId;
+    }
 
     public Integer getRoleId() {
         return roleId;
@@ -41,6 +56,7 @@ public class BlogSysRoleMenu implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", roleMenuId=").append(roleMenuId);
         sb.append(", roleId=").append(roleId);
         sb.append(", menuId=").append(menuId);
         sb.append("]");
@@ -59,7 +75,8 @@ public class BlogSysRoleMenu implements Serializable {
             return false;
         }
         BlogSysRoleMenu other = (BlogSysRoleMenu) that;
-        return (this.getRoleId() == null ? other.getRoleId() == null : this.getRoleId().equals(other.getRoleId()))
+        return (this.getRoleMenuId() == null ? other.getRoleMenuId() == null : this.getRoleMenuId().equals(other.getRoleMenuId()))
+            && (this.getRoleId() == null ? other.getRoleId() == null : this.getRoleId().equals(other.getRoleId()))
             && (this.getMenuId() == null ? other.getMenuId() == null : this.getMenuId().equals(other.getMenuId()));
     }
 
@@ -67,6 +84,7 @@ public class BlogSysRoleMenu implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((getRoleMenuId() == null) ? 0 : getRoleMenuId().hashCode());
         result = prime * result + ((getRoleId() == null) ? 0 : getRoleId().hashCode());
         result = prime * result + ((getMenuId() == null) ? 0 : getMenuId().hashCode());
         return result;

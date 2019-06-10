@@ -107,6 +107,66 @@ public class BlogSysRoleMenuExample implements Serializable {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
+        public Criteria andRoleMenuIdIsNull() {
+            addCriterion("role_menu_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleMenuIdIsNotNull() {
+            addCriterion("role_menu_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleMenuIdEqualTo(Integer value) {
+            addCriterion("role_menu_id =", value, "roleMenuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleMenuIdNotEqualTo(Integer value) {
+            addCriterion("role_menu_id <>", value, "roleMenuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleMenuIdGreaterThan(Integer value) {
+            addCriterion("role_menu_id >", value, "roleMenuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleMenuIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("role_menu_id >=", value, "roleMenuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleMenuIdLessThan(Integer value) {
+            addCriterion("role_menu_id <", value, "roleMenuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleMenuIdLessThanOrEqualTo(Integer value) {
+            addCriterion("role_menu_id <=", value, "roleMenuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleMenuIdIn(List<Integer> values) {
+            addCriterion("role_menu_id in", values, "roleMenuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleMenuIdNotIn(List<Integer> values) {
+            addCriterion("role_menu_id not in", values, "roleMenuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleMenuIdBetween(Integer value1, Integer value2) {
+            addCriterion("role_menu_id between", value1, value2, "roleMenuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleMenuIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("role_menu_id not between", value1, value2, "roleMenuId");
+            return (Criteria) this;
+        }
+
         public Criteria andRoleIdIsNull() {
             addCriterion("role_id is null");
             return (Criteria) this;

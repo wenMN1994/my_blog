@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
 * 降级实现BlogSysUserOnlineService接口
-* Created by Dragon.Wen on 2019/5/19.
+* Created by Dragon.Wen on 2019/6/10.
 */
 public class BlogSysUserOnlineServiceMock extends BaseServiceMock<BlogSysUserOnlineMapper, BlogSysUserOnline, BlogSysUserOnlineExample> implements BlogSysUserOnlineService {
 

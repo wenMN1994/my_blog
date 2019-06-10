@@ -7,7 +7,7 @@ import com.dragon.blog.model.BlogSysUserExample;
 
 /**
 * 降级实现BlogSysUserService接口
-* Created by Dragon.Wen on 2019/5/19.
+* Created by Dragon.Wen on 2019/6/10.
 */
 public class BlogSysUserServiceMock extends BaseServiceMock<BlogSysUserMapper, BlogSysUser, BlogSysUserExample> implements BlogSysUserService {
 

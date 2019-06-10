@@ -7,7 +7,7 @@ import com.dragon.blog.model.BlogSysRoleMenuExample;
 
 /**
 * 降级实现BlogSysRoleMenuService接口
-* Created by Dragon.Wen on 2019/5/19.
+* Created by Dragon.Wen on 2019/6/10.
 */
 public class BlogSysRoleMenuServiceMock extends BaseServiceMock<BlogSysRoleMenuMapper, BlogSysRoleMenu, BlogSysRoleMenuExample> implements BlogSysRoleMenuService {
 

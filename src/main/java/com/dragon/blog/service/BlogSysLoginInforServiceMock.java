@@ -7,7 +7,7 @@ import com.dragon.blog.model.BlogSysLoginInforExample;
 
 /**
 * 降级实现BlogSysLoginInforService接口
-* Created by Dragon.Wen on 2019/5/19.
+* Created by Dragon.Wen on 2019/6/10.
 */
 public class BlogSysLoginInforServiceMock extends BaseServiceMock<BlogSysLoginInforMapper, BlogSysLoginInfor, BlogSysLoginInforExample> implements BlogSysLoginInforService {
 

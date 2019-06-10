@@ -11,7 +11,7 @@ public interface BlogSysRoleMenuMapper {
 
     int deleteByExample(BlogSysRoleMenuExample example);
 
-    int deleteByPrimaryKey(@Param("roleId") Integer roleId, @Param("menuId") Integer menuId);
+    int deleteByPrimaryKey(Integer roleMenuId);
 
     int insert(BlogSysRoleMenu record);
 
@@ -19,7 +19,13 @@ public interface BlogSysRoleMenuMapper {
 
     List<BlogSysRoleMenu> selectByExample(BlogSysRoleMenuExample example);
 
+    BlogSysRoleMenu selectByPrimaryKey(Integer roleMenuId);
+
     int updateByExampleSelective(@Param("record") BlogSysRoleMenu record, @Param("example") BlogSysRoleMenuExample example);
 
     int updateByExample(@Param("record") BlogSysRoleMenu record, @Param("example") BlogSysRoleMenuExample example);
+
+    int updateByPrimaryKeySelective(BlogSysRoleMenu record);
+
+    int updateByPrimaryKey(BlogSysRoleMenu record);
 }

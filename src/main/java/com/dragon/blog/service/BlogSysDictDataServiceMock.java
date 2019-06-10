@@ -7,7 +7,7 @@ import com.dragon.blog.model.BlogSysDictDataExample;
 
 /**
 * 降级实现BlogSysDictDataService接口
-* Created by Dragon.Wen on 2019/5/19.
+* Created by Dragon.Wen on 2019/6/10.
 */
 public class BlogSysDictDataServiceMock extends BaseServiceMock<BlogSysDictDataMapper, BlogSysDictData, BlogSysDictDataExample> implements BlogSysDictDataService {
 

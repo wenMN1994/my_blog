@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
 * BlogSysUserOnlineService接口
-* Created by Dragon.Wen on 2019/5/19.
+* Created by Dragon.Wen on 2019/6/10.
 */
 public interface BlogSysUserOnlineService extends BaseService<BlogSysUserOnline, BlogSysUserOnlineExample> {
 

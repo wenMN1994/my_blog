@@ -107,6 +107,66 @@ public class BlogSysUserRoleExample implements Serializable {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
+        public Criteria andUserRoleIdIsNull() {
+            addCriterion("user_role_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserRoleIdIsNotNull() {
+            addCriterion("user_role_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserRoleIdEqualTo(Integer value) {
+            addCriterion("user_role_id =", value, "userRoleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserRoleIdNotEqualTo(Integer value) {
+            addCriterion("user_role_id <>", value, "userRoleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserRoleIdGreaterThan(Integer value) {
+            addCriterion("user_role_id >", value, "userRoleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserRoleIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("user_role_id >=", value, "userRoleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserRoleIdLessThan(Integer value) {
+            addCriterion("user_role_id <", value, "userRoleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserRoleIdLessThanOrEqualTo(Integer value) {
+            addCriterion("user_role_id <=", value, "userRoleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserRoleIdIn(List<Integer> values) {
+            addCriterion("user_role_id in", values, "userRoleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserRoleIdNotIn(List<Integer> values) {
+            addCriterion("user_role_id not in", values, "userRoleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserRoleIdBetween(Integer value1, Integer value2) {
+            addCriterion("user_role_id between", value1, value2, "userRoleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserRoleIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("user_role_id not between", value1, value2, "userRoleId");
+            return (Criteria) this;
+        }
+
         public Criteria andUserIdIsNull() {
             addCriterion("user_id is null");
             return (Criteria) this;

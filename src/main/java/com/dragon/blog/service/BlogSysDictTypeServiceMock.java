@@ -7,7 +7,7 @@ import com.dragon.blog.model.BlogSysDictTypeExample;
 
 /**
 * 降级实现BlogSysDictTypeService接口
-* Created by Dragon.Wen on 2019/5/19.
+* Created by Dragon.Wen on 2019/6/10.
 */
 public class BlogSysDictTypeServiceMock extends BaseServiceMock<BlogSysDictTypeMapper, BlogSysDictType, BlogSysDictTypeExample> implements BlogSysDictTypeService {
 

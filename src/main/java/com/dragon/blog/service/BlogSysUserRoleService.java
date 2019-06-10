@@ -6,7 +6,7 @@ import com.dragon.blog.model.BlogSysUserRoleExample;
 
 /**
 * BlogSysUserRoleService接口
-* Created by Dragon.Wen on 2019/5/19.
+* Created by Dragon.Wen on 2019/6/10.
 */
 public interface BlogSysUserRoleService extends BaseService<BlogSysUserRole, BlogSysUserRoleExample> {
 
