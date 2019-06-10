@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @date：Created in 2019/4/2 14:36
  * @description： 前端Controller
  * @modified By：
- * @version: $version$
+ * @version: 1.0.0
  */
 @Controller
 @RequestMapping({"/","/my_blog"})
