@@ -4,8 +4,6 @@ import com.dragon.utils.text.StrFormatter;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * 
@@ -16,59 +14,52 @@ import java.util.regex.Pattern;
  */
 public class StringUtils extends org.apache.commons.lang3.StringUtils {
 
-    private static Pattern linePattern = Pattern.compile("_(\\w)");
-    private static Pattern humpPattern = Pattern.compile("[A-Z]");
-
     /**
      * 空字符串
      */
     private static final String NULLSTR = "";
 
     /**
-     * 下划线转驼峰
-     * @param str
-     * @return
+     * 下划线
      */
-    public static String lineToHump(String str) {
-        if (null == str || "".equals(str)) {
-            return str;
-        }
-        str = str.toLowerCase();
-        Matcher matcher = linePattern.matcher(str);
-        StringBuffer sb = new StringBuffer();
-        while (matcher.find()) {
-            matcher.appendReplacement(sb, matcher.group(1).toUpperCase());
-        }
-        matcher.appendTail(sb);
-
-        str = sb.toString();
-        str = str.substring(0, 1).toUpperCase() + str.substring(1);
-
-        return str;
-    }
+    private static final char SEPARATOR = '_';
 
     /**
-     * 驼峰转下划线,效率比上面高
-     * @param str
-     * @return
+     * 下划线转驼峰命名
      */
-    public static String humpToLine(String str) {
-        Matcher matcher = humpPattern.matcher(str);
-        StringBuffer sb = new StringBuffer();
-        while (matcher.find()) {
-            matcher.appendReplacement(sb, "_" + matcher.group(0).toLowerCase());
+    public static String toUnderScoreCase(String str) {
+        if (str == null) {
+            return null;
         }
-        matcher.appendTail(sb);
+        StringBuilder sb = new StringBuilder();
+        // 前置字符是否大写
+        boolean preCharIsUpperCase = true;
+        // 当前字符是否大写
+        boolean curreCharIsUpperCase = true;
+        // 下一字符是否大写
+        boolean nexteCharIsUpperCase = true;
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (i > 0) {
+                preCharIsUpperCase = Character.isUpperCase(str.charAt(i - 1));
+            } else {
+                preCharIsUpperCase = false;
+            }
+
+            curreCharIsUpperCase = Character.isUpperCase(c);
+
+            if (i < (str.length() - 1)) {
+                nexteCharIsUpperCase = Character.isUpperCase(str.charAt(i + 1));
+            }
+
+            if (preCharIsUpperCase && curreCharIsUpperCase && !nexteCharIsUpperCase) {
+                sb.append(SEPARATOR);
+            } else if ((i != 0 && !preCharIsUpperCase) && curreCharIsUpperCase) {
+                sb.append(SEPARATOR);
+            }
+            sb.append(Character.toLowerCase(c));
+        }
         return sb.toString();
-    }
-
-    /**
-     * 驼峰转下划线(简单写法，效率低于{@link #humpToLine(String)})
-     * @param str
-     * @return
-     */
-    public static String humpToLine2(String str) {
-        return str.replaceAll("[A-Z]", "_$0").toLowerCase();
     }
 
     /**
