@@ -3,8 +3,14 @@ package com.dragon.base;
 import com.dragon.blog.model.BlogSysUser;
 import com.dragon.utils.AjaxResult;
 import com.dragon.utils.DateUtils;
+import com.dragon.utils.SqlUtil;
 import com.dragon.utils.StringUtils;
+import com.dragon.utils.page.PageDomain;
+import com.dragon.utils.page.TableDataInfo;
+import com.dragon.utils.page.TableSupport;
 import com.dragon.utils.security.ShiroUtils;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.WebDataBinder;
@@ -15,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.beans.PropertyEditorSupport;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 
@@ -55,6 +62,31 @@ public abstract class BaseController {
 				setValue(DateUtils.parseDate(text));
 			}
 		});
+	}
+
+	/**
+	 * 设置请求分页数据
+	 */
+	protected void startPage() {
+		PageDomain pageDomain = TableSupport.buildPageRequest();
+		Integer pageNum = pageDomain.getPageNum();
+		Integer pageSize = pageDomain.getPageSize();
+		if (StringUtils.isNotNull(pageNum) && StringUtils.isNotNull(pageSize)) {
+			String orderBy = SqlUtil.escapeOrderBySql(pageDomain.getOrderBy());
+			PageHelper.startPage(pageNum, pageSize, orderBy);
+		}
+	}
+
+	/**
+	 * 响应请求分页数据
+	 */
+	@SuppressWarnings({"rawtypes", "unchecked"})
+	protected TableDataInfo getDataTable(List<?> list) {
+		TableDataInfo rspData = new TableDataInfo();
+		rspData.setCode(0);
+		rspData.setRows(list);
+		rspData.setTotal(new PageInfo(list).getTotal());
+		return rspData;
 	}
 
 	/**
