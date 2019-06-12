@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header">
+    <base th:href="${#request.getContextPath()}+'/'">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link href="admin/h_ui_4.9/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="admin/h_ui_4.9/css/font-awesome.min.css}" rel="stylesheet" />
+    <!-- bootstrap-table 表格插件样式 -->
+    <link href="admin/h_ui_4.9/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" />
+    <link href="admin/h_ui_4.9/css/plugins/bootstrap-treetable/bootstrap-treetable.css" rel="stylesheet" />
+    <link href="admin/h_ui_4.9/css/plugins/bootstrap-table/extensions/columns/bootstrap-table-fixed-columns.css" rel="stylesheet" />
+    <link href="admin/h_ui_4.9/css/animate.css" rel="stylesheet" />
+    <link href="admin/h_ui_4.9/css/style.css" rel="stylesheet" />
+    <link href="admin/select/select2.css" rel="stylesheet" />
+    <link href="admin/css/ui.css" rel="stylesheet" />
+</head>
+<body>
+    <div th:fragment="footer">
+        <script src="admin/h_ui_4.9/js/jquery.min.js"></script>
+        <script src="admin/h_ui_4.9/js/bootstrap.min.js"></script>
+        <!-- bootstrap-table 表格插件 -->
+        <script src="admin/h_ui_4.9/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+        <script src="admin/h_ui_4.9/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+        <script src="admin/h_ui_4.9/js/plugins/bootstrap-table/extensions/mobile/bootstrap-table-mobile.js"></script>
+        <script src="admin/h_ui_4.9/js/plugins/bootstrap-table/extensions/toolbar/bootstrap-table-toolbar.min.js"></script>
+        <script src="admin/h_ui_4.9/js/plugins/bootstrap-table/extensions/columns/bootstrap-table-fixed-columns.js"></script>
+        <!-- jquery-validate 表单验证插件 -->
+        <script src="admin/h_ui_4.9/js/plugins/validate/jquery.validate.min.js"></script>
+        <script src="admin/h_ui_4.9/js/plugins/validate/additional-methods.min.js"></script>
+        <script src="admin/h_ui_4.9/js/plugins/validate/common2.js"></script>
+        <script src="admin/h_ui_4.9/js/plugins/validate/messages_zh.min.js"></script>
+        <script src="admin/h_ui_4.9/js/plugins/validate/jquery.validate.extend.js"></script>
+        <!-- jquery-validate 表单树插件 -->
+        <script src="admin/h_ui_4.9/js/plugins/bootstrap-treetable/bootstrap-treetable.js"></script>
+        <!-- jquery-export 表格导出插件 -->
+        <script src="admin/h_ui_4.9/js/plugins/bootstrap-table/extensions/export/bootstrap-table-export.js"></script>
+        <script src="admin/h_ui_4.9/js/plugins/bootstrap-table/extensions/export/tableExport.js"></script>
+        <!-- 遮罩层 -->
+        <script src="admin/h_ui_4.9/js/plugins/blockUI/jquery.blockUI.js"></script>
+        <script src="admin/h_ui_4.9/js/plugins/iCheck/icheck.min.js"></script>
+        <script src="admin/h_ui_4.9/js/plugins/layer/layer.min.js"></script>
+        <script src="admin/h_ui_4.9/js/plugins/layui/layui.js"></script>
+        <script src="admin/js/common.js"></script>
+        <script src="admin/js/ui.js"></script>
+
+        <script th:inline="javascript"> var ctx = [[@{
+            /}]]; </script>
+    </div>
+</body>
+</html>
