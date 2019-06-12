@@ -7,3 +7,178 @@
     display: none;
     color: #ccc;
 }
+
+/** 表单查询条件 **/
+ul {
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+li {
+    list-style: none;
+}
+
+.time-input {
+    display: block;
+    width: 100%;
+    padding-left: 10px;
+}
+
+label {
+    font-weight: normal;
+}
+
+.container-div {
+    padding: 10px 35px;
+    height: 100%;
+}
+
+.container-div .row {
+    height: 100%;
+}
+
+.search-collapse, .select-table {
+    width: 100%;
+    background: #fff;
+    border-radius: 6px;
+    margin-top: 10px;
+    padding-top: 5px;
+    padding-bottom: 13px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, .2);
+}
+
+.search-collapse {
+    position: relative;
+}
+
+.search-collapse .col-sm-6 .control-label {
+    color: #333;
+}
+
+@media ( max-width: 768px) {
+    .search-collapse {
+        display: none;
+    }
+}
+
+@media ( min-width: 768px) {
+    .select-list li {
+        float: left;
+    }
+}
+
+.select-list li {
+    color: #333;
+    margin: 5px 15px 5px 0px;
+}
+
+.select-list li input {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: transparent;
+    outline: none;
+    height: 30px;
+    width: 200px;
+    padding-left: 5px;
+}
+
+.select-list li .submit-btn {
+    border: 0px;
+    border-radius: 4px;
+    background: transparent;
+    outline: none;
+    width: 40px;
+    height: 23px;
+}
+
+.select-list li select {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: transparent;
+    outline: none;
+    height: 30px;
+    width: 200px;
+}
+
+.select-list .select-time input {
+    width: 93px;
+}
+
+.select-time label, .select-time span, .select-time input {
+    float: left;
+}
+
+@media (max-width: 767px) {
+    .select-time label, .select-time span, .select-time input {
+        float: none;
+    }
+
+    .select-list .select-time input {
+        width: 200px;
+    }
+}
+
+.select-time label {
+    margin-top: 5px;
+}
+
+.select-time span {
+    display: block;
+    margin: 5px 5px;
+}
+
+.search-btn {
+    background-color: #1ab394;
+    border-color: #1ab394;
+    color: #FFF;
+    margin-bottom: 5px;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 3px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+/** 表格查询数据 **/
+.table-striped {
+    min-height: 75%;
+}
+
+.table-striped .bootstrap-table {
+    border: 0px !important;
+}
+
+.table-striped .table, .fixed-table-container, table, .table-striped .table, .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    border-bottom: 1px solid #e7eaec !important;
+    background-color: transparent !important;
+    border: 0px;
+}
+
+.table-striped .table > thead > tr > th, .table-striped .table > tbody > tr > th {
+    border-bottom: 1px solid #ccc !important;
+    border-top: 0px !important;
+}
+
+.table-striped .table > thead:first-child > tr:first-child > th {
+    font-weight: normal;
+    font-size: 13px
+}
+
+.table-striped table thead {
+    background-color: #eff3f8;
+}
+
+.table-bordered td, .table-bordered th {
+    border: 1px solid #ddd !important
+}
+
+.fixed-table-container thead th > .both {
+    display: inline-block
+}
