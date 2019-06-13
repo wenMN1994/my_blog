@@ -7,6 +7,7 @@ import com.dragon.blog.service.BlogSysUserService;
 import com.dragon.utils.page.TableDataInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,16 +41,24 @@ public class UserController extends BaseController {
 
     /**
      * 获取用户列表
-     * @param blogSysUser
      * @return
      */
     @GetMapping("/list")
     @ResponseBody
-    public TableDataInfo list(BlogSysUser blogSysUser) {
+    public TableDataInfo list() {
         startPage();
         BlogSysUserExample blogSysUserExample = new BlogSysUserExample();
         List<BlogSysUser> list = blogSysUserService.selectByExample(blogSysUserExample);
         return getDataTable(list);
+    }
+
+    /**
+     * 新增用户
+     */
+    @GetMapping("/add")
+    public String add(ModelMap mmap) {
+//        mmap.put("roles", roleService.selectRoleAll());
+        return prefix + "/add";
     }
 
 }
