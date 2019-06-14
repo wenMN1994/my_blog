@@ -36,7 +36,7 @@
                     <div class="dropdown profile-element">
                         <span><img alt="image" class="img-circle"
                                    th:src="(${user.avatar} == '') ? @{/common/images/wen_50.png} : ${user.avatar}"/></span>
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:void(0)">
                                 <span class="clear">
                                     <span class="block m-t-xs"><strong class="font-bold">[[${user.loginName}]]</strong></span>
                                     <span class="text-muted text-xs block">超级管理员<b class="caret"></b></span>
@@ -67,7 +67,7 @@
                     </a>
                 </li>
                 <li th:each="menu : ${menus}">
-                    <a href="#">
+                    <a href="javascript:void(0)">
                         <i class="fa fa fa-bar-chart-o" th:class="${(menu.getIcon())}"></i>
                         <span class="nav-label" th:text="${(menu.getMenuName())}">统计图表</span>
                         <span class="fa arrow"></span>
@@ -104,7 +104,7 @@
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                     <li class="dropdown">
-                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="javascript:void(0)">
                             <i class="fa fa-envelope"></i> <span class="label label-warning">16</span>
                         </a>
                         <ul class="dropdown-menu dropdown-messages">
@@ -148,7 +148,7 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="javascript:void(0)">
                             <i class="fa fa-bell"></i> <span class="label label-primary">8</span>
                         </a>
                         <ul class="dropdown-menu dropdown-alerts">
@@ -308,21 +308,21 @@
                         <div class="title">皮肤选择</div>
                         <div class="setings-item default-skin nb">
                                 <span class="skin-name ">
-                         <a href="#" class="s-skin-0">
+                         <a href="javascript:void(0)" class="s-skin-0">
                              默认皮肤
                          </a>
                     </span>
                         </div>
                         <div class="setings-item blue-skin nb">
                                 <span class="skin-name ">
-                        <a href="#" class="s-skin-1">
+                        <a href="javascript:void(0)" class="s-skin-1">
                             蓝色主题
                         </a>
                     </span>
                         </div>
                         <div class="setings-item yellow-skin nb">
                                 <span class="skin-name ">
-                        <a href="#" class="s-skin-3">
+                        <a href="#javascript:void(0)" class="s-skin-3">
                             黄色/紫色主题
                         </a>
                     </span>
@@ -339,7 +339,7 @@
                     <div>
 
                         <div class="sidebar-message">
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <div class="pull-left text-center">
                                     <img alt="image" class="img-circle message-avatar"
                                          src="admin/h_ui_4.9/img/a1.jpg">
@@ -358,7 +358,7 @@
                             </a>
                         </div>
                         <div class="sidebar-message">
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <div class="pull-left text-center">
                                     <img alt="image" class="img-circle message-avatar"
                                          src="admin/h_ui_4.9/img/a2.jpg">
@@ -371,7 +371,7 @@
                             </a>
                         </div>
                         <div class="sidebar-message">
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <div class="pull-left text-center">
                                     <img alt="image" class="img-circle message-avatar"
                                          src="admin/h_ui_4.9/img/a3.jpg">
@@ -390,7 +390,7 @@
                             </a>
                         </div>
                         <div class="sidebar-message">
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <div class="pull-left text-center">
                                     <img alt="image" class="img-circle message-avatar"
                                          src="admin/h_ui_4.9/img/a4.jpg">
@@ -404,7 +404,7 @@
                             </a>
                         </div>
                         <div class="sidebar-message">
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <div class="pull-left text-center">
                                     <img alt="image" class="img-circle message-avatar"
                                          src="admin/h_ui_4.9/img/a8.jpg">
@@ -418,7 +418,7 @@
                             </a>
                         </div>
                         <div class="sidebar-message">
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <div class="pull-left text-center">
                                     <img alt="image" class="img-circle message-avatar"
                                          src="admin/h_ui_4.9/img/a7.jpg">
@@ -431,7 +431,7 @@
                             </a>
                         </div>
                         <div class="sidebar-message">
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <div class="pull-left text-center">
                                     <img alt="image" class="img-circle message-avatar"
                                          src="admin/h_ui_4.9/img/a3.jpg">
@@ -450,7 +450,7 @@
                             </a>
                         </div>
                         <div class="sidebar-message">
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <div class="pull-left text-center">
                                     <img alt="image" class="img-circle message-avatar"
                                          src="admin/h_ui_4.9/img/a4.jpg">
@@ -474,7 +474,7 @@
 
                     <ul class="sidebar-list">
                         <li>
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <div class="small pull-right m-t-xs">9小时以后</div>
                                 <h4>市场调研</h4> 按要求接收教材；
 
@@ -486,7 +486,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <div class="small pull-right m-t-xs">9小时以后</div>
                                 <h4>可行性报告研究报上级批准 </h4> 编写目的编写本项目进度报告的目的在于更好的控制软件开发的时间,对团队成员的 开发进度作出一个合理的比对
 
@@ -497,7 +497,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <div class="small pull-right m-t-xs">9小时以后</div>
                                 <h4>立项阶段</h4> 东风商用车公司 采购综合综合查询分析系统项目进度阶段性报告武汉斯迪克科技有限公司
 
@@ -508,7 +508,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <span class="label label-primary pull-right">NEW</span>
                                 <h4>设计阶段</h4>
                                 <!--<div class="small pull-right m-t-xs">9小时以后</div>-->
@@ -518,7 +518,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <div class="small pull-right m-t-xs">9小时以后</div>
                                 <h4>拆迁阶段</h4> 科研项目研究进展报告 项目编号: 项目名称: 项目负责人:
 
@@ -530,7 +530,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <div class="small pull-right m-t-xs">9小时以后</div>
                                 <h4>建设阶段 </h4> 编写目的编写本项目进度报告的目的在于更好的控制软件开发的时间,对团队成员的 开发进度作出一个合理的比对
 
@@ -541,7 +541,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <div class="small pull-right m-t-xs">9小时以后</div>
                                 <h4>获证开盘</h4> 编写目的编写本项目进度报告的目的在于更好的控制软件开发的时间,对团队成员的 开发进度作出一个合理的比对
 
