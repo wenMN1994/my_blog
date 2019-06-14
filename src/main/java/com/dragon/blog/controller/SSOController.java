@@ -69,7 +69,6 @@ public class SSOController extends BaseController {
 
         try {
             subject.login(usernamePasswordToken);
-            session.setAttribute("sessionUser", getSysUser());
             return success();
         } catch (AuthenticationException e) {
             String msg = "用户或密码错误";
