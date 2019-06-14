@@ -3,18 +3,17 @@ package com.dragon.blog.controller.system.index;
 import com.dragon.base.BaseController;
 import com.dragon.blog.model.BlogSysMenu;
 import com.dragon.blog.model.BlogSysMenuExample;
+import com.dragon.blog.model.BlogSysUser;
 import com.dragon.blog.service.BlogSysMenuService;
 import com.dragon.utils.TreeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -37,17 +36,16 @@ public class SystemIndexController extends BaseController {
      * 台管理首页跳转
      * @return
      */
-    @RequestMapping("index")
-    public String admin(HttpServletRequest req, Model model){
-        HttpSession session = req.getSession();
-        if(StringUtils.isEmpty(session.getAttribute("sessionUser"))){
-            return "system/sso/login";
-        }
+    @GetMapping("index")
+    public String admin(ModelMap modelMap){
+        // 取身份信息
+        BlogSysUser blogSysUser = getSysUser();
         BlogSysMenuExample blogSysMenuExample = new BlogSysMenuExample();
         blogSysMenuExample.createCriteria().andMenuTypeNotEqualTo("F");
         List<BlogSysMenu> menusAll = blogSysMenuService.selectByExample(blogSysMenuExample);
         List<BlogSysMenu> menus = TreeUtils.getChildPerms(menusAll, 0);
-        model.addAttribute("menus",menus);
+        modelMap.put("menus",menus);
+        modelMap.put("user", blogSysUser);
         return "system/index";
     }
 
