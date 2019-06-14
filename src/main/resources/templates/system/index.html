@@ -35,10 +35,10 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element">
                         <span><img alt="image" class="img-circle"
-                                   th:src="(${session.sessionUser.avatar} == '') ? @{/common/images/wen_50.png} : ${session.sessionUser.avatar}"/></span>
+                                   th:src="(${user.avatar} == '') ? @{/common/images/wen_50.png} : ${user.avatar}"/></span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
-                                    <span class="block m-t-xs"><strong class="font-bold" th:text="${session.sessionUser.loginName}"></strong></span>
+                                    <span class="block m-t-xs"><strong class="font-bold">[[${user.loginName}]]</strong></span>
                                     <span class="text-muted text-xs block">超级管理员<b class="caret"></b></span>
                                 </span>
                         </a>
@@ -85,63 +85,6 @@
                         </li>
                     </ul>
                 </li>
-                <!--<li>
-                    <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">表单</span><span
-                            class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li><a class="J_menuItem" href="form_basic.html">基本表单</a>
-                        </li>
-                        <li><a class="J_menuItem" href="form_validate.html">表单验证</a>
-                        </li>
-                        <li><a class="J_menuItem" href="form_advanced.html">高级插件</a>
-                        </li>
-                        <li><a class="J_menuItem" href="form_wizard.html">表单向导</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-desktop"></i> <span class="nav-label">页面</span><span
-                            class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li><a class="J_menuItem" href="contacts.html">联系人</a>
-                        </li>
-                        <li><a class="J_menuItem" href="profile.html">个人资料</a>
-                        </li>
-                        <li><a class="J_menuItem" href="404.html">404页面</a>
-                        </li>
-                        <li><a class="J_menuItem" href="500.html">500页面</a>
-                        </li>
-                        <li><a class="J_menuItem" href="empty_page.html">空白页</a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="#"><i class="fa fa-table"></i> <span class="nav-label">表格</span><span
-                            class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li><a class="J_menuItem" href="table_basic.html">基本表格</a>
-                        </li>
-                        <li><a class="J_menuItem" href="table_data_tables.html">DataTables</a>
-                        </li>
-                        <li><a class="J_menuItem" href="table_jqgrid.html">jqGrid</a>
-                        </li>
-                        <li><a class="J_menuItem" href="table_foo_table.html">Foo Tables</a>
-                        </li>
-                        <li><a class="J_menuItem" href="table_bootstrap.html">Bootstrap Table
-                            <span class="label label-danger pull-right">推荐</span></a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-cutlery"></i> <span class="nav-label">工具 </span><span
-                            class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li><a class="J_menuItem" href="form_builder.html">表单构建器</a>
-                        </li>
-                    </ul>
-                </li>-->
-
             </ul>
         </div>
     </nav>
