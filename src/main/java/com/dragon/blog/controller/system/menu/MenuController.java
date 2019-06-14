@@ -49,8 +49,6 @@ public class MenuController {
     public List<BlogSysMenu> list(ModelMap modelMap) {
         BlogSysMenuExample blogSysMenuExample = new BlogSysMenuExample();
         List<BlogSysMenu> menuList = blogSysMenuService.selectByExample(blogSysMenuExample);
-        BlogSysDictDataExample blogSysDictDataExample = new BlogSysDictDataExample();
-        modelMap.put("dict",blogSysDictDataService.selectByExample(blogSysDictDataExample));
         return menuList;
     }
 }
