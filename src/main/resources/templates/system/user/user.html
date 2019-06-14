@@ -41,26 +41,27 @@
             </form>
         </div>
 
+        <div class="btn-group-sm" id="toolbar" role="group">
+            <a class="btn btn-success" onclick="$.operate.addTab()" >
+                <i class="fa fa-plus"></i> 新增
+            </a>
+            <a class="btn btn-primary btn-edit disabled" onclick="$.operate.editTab()"
+            >
+                <i class="fa fa-edit"></i> 修改
+            </a>
+            <a class="btn btn-danger btn-del disabled" onclick="$.operate.removeAll()"
+            >
+                <i class="fa fa-remove"></i> 删除
+            </a>
+            <a class="btn btn-info" onclick="$.table.importExcel()" >
+                <i class="fa fa-upload"></i> 导入
+            </a>
+            <a class="btn btn-warning" onclick="$.table.exportExcel()" >
+                <i class="fa fa-download"></i> 导出
+            </a>
+        </div>
+
         <div class="col-sm-12 select-table table-striped">
-            <div class="btn-group-sm" id="toolbar" role="group">
-                <a class="btn btn-success" onclick="$.operate.addTab()" >
-                    <i class="fa fa-plus"></i> 新增
-                </a>
-                <a class="btn btn-primary btn-edit disabled" onclick="$.operate.editTab()"
-                >
-                    <i class="fa fa-edit"></i> 修改
-                </a>
-                <a class="btn btn-danger btn-del disabled" onclick="$.operate.removeAll()"
-                >
-                    <i class="fa fa-remove"></i> 删除
-                </a>
-                <a class="btn btn-info" onclick="$.table.importExcel()" >
-                    <i class="fa fa-upload"></i> 导入
-                </a>
-                <a class="btn btn-warning" onclick="$.table.exportExcel()" >
-                    <i class="fa fa-download"></i> 导出
-                </a>
-            </div>
             <table id="bootstrap-table" data-mobile-responsive="true"></table>
         </div>
     </div>
