@@ -1,8 +1,10 @@
 package com.dragon.blog.controller.system.user;
 
 import com.dragon.base.BaseController;
+import com.dragon.blog.model.BlogSysRoleExample;
 import com.dragon.blog.model.BlogSysUser;
 import com.dragon.blog.model.BlogSysUserExample;
+import com.dragon.blog.service.BlogSysRoleService;
 import com.dragon.blog.service.BlogSysUserService;
 import com.dragon.utils.page.TableDataInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class UserController extends BaseController {
     @Autowired
     private BlogSysUserService blogSysUserService;
 
+    @Autowired
+    private BlogSysRoleService blogSysRoleService;
+
     /**
      * 用户管理界面跳转
      * @return
@@ -56,8 +61,9 @@ public class UserController extends BaseController {
      * 新增用户
      */
     @GetMapping("/add")
-    public String add(ModelMap mmap) {
-//        mmap.put("roles", roleService.selectRoleAll());
+    public String add(ModelMap modelMap) {
+        BlogSysRoleExample blogSysRoleExample = new BlogSysRoleExample();
+        modelMap.put("roles", blogSysRoleService.selectByExample(blogSysRoleExample));
         return prefix + "/add";
     }
 
