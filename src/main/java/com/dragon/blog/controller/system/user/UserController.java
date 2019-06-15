@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -35,6 +36,10 @@ public class UserController extends BaseController {
     @Autowired
     private BlogSysRoleService blogSysRoleService;
 
+    BlogSysUserExample blogSysUserExample = new BlogSysUserExample();
+
+    BlogSysRoleExample blogSysRoleExample = new BlogSysRoleExample();
+
     /**
      * 用户管理界面跳转
      * @return
@@ -52,7 +57,6 @@ public class UserController extends BaseController {
     @ResponseBody
     public TableDataInfo list() {
         startPage();
-        BlogSysUserExample blogSysUserExample = new BlogSysUserExample();
         List<BlogSysUser> list = blogSysUserService.selectByExample(blogSysUserExample);
         return getDataTable(list);
     }
@@ -62,9 +66,18 @@ public class UserController extends BaseController {
      */
     @GetMapping("/add")
     public String add(ModelMap modelMap) {
-        BlogSysRoleExample blogSysRoleExample = new BlogSysRoleExample();
         modelMap.put("roles", blogSysRoleService.selectByExample(blogSysRoleExample));
         return prefix + "/add";
+    }
+
+    /**
+     * 修改用户
+     */
+    @GetMapping("/edit/{userId}")
+    public String edit(@PathVariable("userId") Integer userId, ModelMap modelMap) {
+        modelMap.put("user", blogSysUserService.selectByPrimaryKey(userId));
+        modelMap.put("roles", blogSysRoleService.selectByExample(blogSysRoleExample));
+        return prefix + "/edit";
     }
 
 }
