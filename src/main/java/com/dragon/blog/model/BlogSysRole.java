@@ -88,6 +88,11 @@ public class BlogSysRole implements Serializable {
      */
     private String remark;
 
+    /**
+     * 菜单组
+     */
+    private Integer[] menuIds;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getRoleId() {
@@ -184,6 +189,14 @@ public class BlogSysRole implements Serializable {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public Integer[] getMenuIds() {
+        return menuIds;
+    }
+
+    public void setMenuIds(Integer[] menuIds) {
+        this.menuIds = menuIds;
     }
 
     @Override

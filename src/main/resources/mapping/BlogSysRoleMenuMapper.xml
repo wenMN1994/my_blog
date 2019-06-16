@@ -128,6 +128,14 @@
       </if>
     </trim>
   </insert>
+
+  <insert id="batchRoleMenu">
+    insert into blog_sys_role_menu(role_id, menu_id) values
+    <foreach item="item" index="index" collection="list" separator=",">
+      (#{item.roleId},#{item.menuId})
+    </foreach>
+  </insert>
+
   <select id="countByExample" parameterType="com.dragon.blog.model.BlogSysRoleMenuExample" resultType="java.lang.Long">
     select count(*) from blog_sys_role_menu
     <if test="_parameter != null">

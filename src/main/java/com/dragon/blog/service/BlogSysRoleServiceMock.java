@@ -11,4 +11,23 @@ import com.dragon.blog.model.BlogSysRoleExample;
 */
 public class BlogSysRoleServiceMock extends BaseServiceMock<BlogSysRoleMapper, BlogSysRole, BlogSysRoleExample> implements BlogSysRoleService {
 
+    @Override
+    public int updateRole(BlogSysRole blogSysRole) {
+        return 0;
+    }
+
+    @Override
+    public String checkRoleNameUnique(BlogSysRole blogSysRole) {
+        return null;
+    }
+
+    @Override
+    public String checkRoleKeyUnique(BlogSysRole blogSysRole) {
+        return null;
+    }
+
+    @Override
+    public int insertRole(BlogSysRole blogSysRole) {
+        return 0;
+    }
 }

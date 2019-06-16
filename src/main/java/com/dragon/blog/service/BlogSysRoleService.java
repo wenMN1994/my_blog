@@ -10,4 +10,34 @@ import com.dragon.blog.model.BlogSysRoleExample;
 */
 public interface BlogSysRoleService extends BaseService<BlogSysRole, BlogSysRoleExample> {
 
+    /**
+     * 修改保存角色信息
+     * @param blogSysRole
+     * @return
+     */
+    int updateRole(BlogSysRole blogSysRole);
+
+    /**
+     * 校验角色名称是否唯一
+     *
+     * @param blogSysRole 角色信息
+     * @return 结果
+     */
+    String checkRoleNameUnique(BlogSysRole blogSysRole);
+
+    /**
+     * 校验角色权限是否唯一
+     *
+     * @param blogSysRole 角色信息
+     * @return 结果
+     */
+    String checkRoleKeyUnique(BlogSysRole blogSysRole);
+
+    /**
+     * 新增保存角色信息
+     *
+     * @param blogSysRole 角色信息
+     * @return 结果
+     */
+    int insertRole(BlogSysRole blogSysRole);
 }

@@ -28,4 +28,6 @@ public interface BlogSysRoleMenuMapper {
     int updateByPrimaryKeySelective(BlogSysRoleMenu record);
 
     int updateByPrimaryKey(BlogSysRoleMenu record);
+
+    int batchRoleMenu(List<BlogSysRoleMenu> list);
 }
