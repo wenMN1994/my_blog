@@ -1,8 +1,10 @@
 package com.dragon.blog.controller.system.menu;
 
-import com.dragon.blog.model.*;
-import com.dragon.blog.service.BlogSysDictDataService;
+import com.dragon.blog.model.BlogSysMenu;
+import com.dragon.blog.model.BlogSysMenuExample;
+import com.dragon.blog.model.BlogSysRole;
 import com.dragon.blog.service.BlogSysMenuService;
+import com.dragon.web.domain.Ztree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -28,9 +30,6 @@ public class MenuController {
     @Autowired
     private BlogSysMenuService blogSysMenuService;
 
-    @Autowired
-    private BlogSysDictDataService blogSysDictDataService;
-
     /**
      * 菜单管理页面跳转
      * @return
@@ -50,5 +49,15 @@ public class MenuController {
         BlogSysMenuExample blogSysMenuExample = new BlogSysMenuExample();
         List<BlogSysMenu> menuList = blogSysMenuService.selectByExample(blogSysMenuExample);
         return menuList;
+    }
+
+    /**
+     * 加载角色菜单列表树
+     */
+    @GetMapping("/roleMenuTreeData")
+    @ResponseBody
+    public List<Ztree> roleMenuTreeData(BlogSysRole blogSysRole) {
+        List<Ztree> ztrees = blogSysMenuService.roleMenuTreeData(blogSysRole);
+        return ztrees;
     }
 }
