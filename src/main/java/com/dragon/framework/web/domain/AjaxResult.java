@@ -1,11 +1,11 @@
-package com.dragon.utils;
+package com.dragon.framework.web.domain;
 
 import java.util.HashMap;
 
 /**
  * @author：Dragon Wen
  * @email：18475536452@163.com
- * @date：Created in 2019/5/30 16:24
+ * @date：Created in 2019/6/17 16:27
  * @description： 操作消息提醒
  * @modified By：
  * @version: 1.0.0
