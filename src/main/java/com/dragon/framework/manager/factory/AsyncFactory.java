@@ -1,13 +1,21 @@
-package com.dragon.manager.factory;
+package com.dragon.framework.manager.factory;
 
-import com.dragon.blog.model.*;
-import com.dragon.blog.service.BlogFrontVisitLogService;
-import com.dragon.blog.service.BlogSysLoginInforService;
-import com.dragon.blog.service.BlogSysOperLogService;
-import com.dragon.blog.service.BlogSysUserOnlineService;
 import com.dragon.common.constant.Constants;
-import com.dragon.utils.*;
-import com.dragon.utils.security.ShiroUtils;
+import com.dragon.common.utils.AddressUtils;
+import com.dragon.common.utils.LogUtils;
+import com.dragon.common.utils.ServletUtils;
+import com.dragon.common.utils.SpiderUtils;
+import com.dragon.common.utils.security.ShiroUtils;
+import com.dragon.common.utils.spring.SpringUtils;
+import com.dragon.project.log.logininfor.domain.Logininfor;
+import com.dragon.project.log.logininfor.service.LogininforServiceImpl;
+import com.dragon.project.log.operlog.domain.OperLog;
+import com.dragon.project.log.operlog.service.IOperLogService;
+import com.dragon.project.log.visitorLog.domain.VisitLog;
+import com.dragon.project.log.visitorLog.service.VisitLogService;
+import com.dragon.project.monitor.online.domain.OnlineSession;
+import com.dragon.project.monitor.online.domain.UserOnline;
+import com.dragon.project.monitor.online.service.IUserOnlineService;
 import eu.bitwalker.useragentutils.UserAgent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,15 +25,15 @@ import java.util.TimerTask;
 /**
  * @author：Dragon Wen
  * @email：18475536452@163.com
- * @date：Created in 2019/5/27 13:30
+ * @date：Created in 2019/6/17 16:27
  * @description： 异步工厂（产生任务用）
  * @modified By：
  * @version: 1.0.0
  */
 public class AsyncFactory {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AsyncFactory.class);
-    
+    private static final Logger log = LoggerFactory.getLogger(AsyncFactory.class);
+
     /**
      * 同步session到数据库
      *
@@ -36,19 +44,19 @@ public class AsyncFactory {
         return new TimerTask() {
             @Override
             public void run() {
-                BlogSysUserOnline online = new BlogSysUserOnline();
-                online.setSessionid(String.valueOf(session.getId()));
+                UserOnline online = new UserOnline();
+                online.setSessionId(String.valueOf(session.getId()));
                 online.setLoginName(session.getLoginName());
                 online.setStartTimestamp(session.getStartTimestamp());
                 online.setLastAccessTime(session.getLastAccessTime());
-                online.setExpireTime((int) session.getTimeout());
+                online.setExpireTime(session.getTimeout());
                 online.setIpaddr(session.getHost());
                 online.setLoginLocation(AddressUtils.getRealAddressByIP(session.getHost()));
                 online.setBrowser(session.getBrowser());
                 online.setOs(session.getOs());
                 online.setStatus(session.getStatus());
                 online.setSession(session);
-                SpringContextUtil.getBean(BlogSysUserOnlineService.class).saveOnline(online);
+                SpringUtils.getBean(IUserOnlineService.class).saveOnline(online);
 
             }
         };
@@ -57,16 +65,16 @@ public class AsyncFactory {
     /**
      * 操作日志记录
      *
-     * @param blogSysOperLog 操作日志信息
+     * @param operLog 操作日志信息
      * @return 任务task
      */
-    public static TimerTask recordOper(final BlogSysOperLog blogSysOperLog) {
+    public static TimerTask recordOper(final OperLog operLog) {
         return new TimerTask() {
             @Override
             public void run() {
                 // 远程查询操作地点
-                blogSysOperLog.setOperLocation(AddressUtils.getRealAddressByIP(blogSysOperLog.getOperIp()));
-                SpringContextUtil.getBean(BlogSysOperLogService.class).insert(blogSysOperLog);
+                operLog.setOperLocation(AddressUtils.getRealAddressByIP(operLog.getOperIp()));
+                SpringUtils.getBean(IOperLogService.class).insertOperlog(operLog);
             }
         };
     }
@@ -93,36 +101,35 @@ public class AsyncFactory {
                 s.append(LogUtils.getBlock(status));
                 s.append(LogUtils.getBlock(message));
                 // 打印信息到日志
-                LOGGER.info(s.toString(), args);
+                log.info(s.toString(), args);
                 // 获取客户端操作系统
                 String os = userAgent.getOperatingSystem().getName();
                 // 获取客户端浏览器
                 String browser = userAgent.getBrowser().getName();
                 // 封装对象
-                BlogSysLoginInfor blogSysLoginInfor = new BlogSysLoginInfor();
-                blogSysLoginInfor.setLoginName(username);
-                blogSysLoginInfor.setIpaddr(ip);
-                blogSysLoginInfor.setLoginLocation(AddressUtils.getRealAddressByIP(ip));
-                blogSysLoginInfor.setBrowser(browser);
-                blogSysLoginInfor.setOs(os);
-                blogSysLoginInfor.setMsg(message);
+                Logininfor logininfor = new Logininfor();
+                logininfor.setLoginName(username);
+                logininfor.setIpaddr(ip);
+                logininfor.setLoginLocation(AddressUtils.getRealAddressByIP(ip));
+                logininfor.setBrowser(browser);
+                logininfor.setOs(os);
+                logininfor.setMsg(message);
                 // 日志状态
                 if (Constants.LOGIN_SUCCESS.equals(status) || Constants.LOGOUT.equals(status)) {
-                    blogSysLoginInfor.setStatus(Constants.SUCCESS);
+                    logininfor.setStatus(Constants.SUCCESS);
                 } else if (Constants.LOGIN_FAIL.equals(status)) {
-                    blogSysLoginInfor.setStatus(Constants.FAIL);
+                    logininfor.setStatus(Constants.FAIL);
                 }
-                blogSysLoginInfor.setLoginTime(DateUtils.getNowDate());
                 // 插入数据
-                SpringContextUtil.getBean(BlogSysLoginInforService.class).insert(blogSysLoginInfor);
+                SpringUtils.getBean(LogininforServiceImpl.class).insertLogininfor(logininfor);
             }
         };
     }
 
-    public static TimerTask recordVisitLog(BlogFrontVisitLog visitLog) {
+    public static TimerTask recordVisitLog(VisitLog visitLog) {
         final UserAgent userAgent = UserAgent.parseUserAgentString(ServletUtils.getRequest().getHeader("User-Agent"));
         //获取爬虫类型
-        final String spider = SpiderUtil.parseUserAgent(ServletUtils.getUserAgent());
+        final String spider = SpiderUtils.parseUserAgent(ServletUtils.getUserAgent());
         return new TimerTask() {
             @Override
             public void run() {
@@ -131,7 +138,7 @@ public class AsyncFactory {
                 visitLog.setBrowser(userAgent.getBrowser().getName());
                 visitLog.setLocation(AddressUtils.getRealAddressByIP(visitLog.getIpAddr()));
                 visitLog.setCreateBy(ShiroUtils.getSessionId());
-                SpringContextUtil.getBean(BlogFrontVisitLogService.class).insert(visitLog);
+                SpringUtils.getBean(VisitLogService.class).insertVisitLog(visitLog);
             }
         };
     }
