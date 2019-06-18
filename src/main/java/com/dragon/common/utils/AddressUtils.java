@@ -1,22 +1,21 @@
-package com.dragon.utils;
+package com.dragon.common.utils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.dragon.config.SystemConfig;
-import com.dragon.utils.http.HttpUtils;
+import com.dragon.common.utils.http.HttpUtils;
+import com.dragon.framework.config.SystemConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * @author：Dragon Wen
  * @email：18475536452@163.com
- * @date：Created in 2019/5/27 14:18
+ * @date：Created in 2019/6/17 16:27
  * @description： 获取地址类
  * @modified By：
  * @version: 1.0.0
  */
 public class AddressUtils {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(AddressUtils.class);
+    private static final Logger log = LoggerFactory.getLogger(AddressUtils.class);
 
     public static final String IP_URL = "http://ip.taobao.com/service/getIpInfo.php";
 
@@ -29,7 +28,7 @@ public class AddressUtils {
         if (SystemConfig.isAddressEnabled()) {
             String rspStr = HttpUtils.sendPost(IP_URL, "ip=" + ip);
             if (StringUtils.isEmpty(rspStr)) {
-                LOGGER.error("获取地理位置异常 {}", ip);
+                log.error("获取地理位置异常 {}", ip);
                 return address;
             }
             JSONObject obj = JSONObject.parseObject(rspStr);
