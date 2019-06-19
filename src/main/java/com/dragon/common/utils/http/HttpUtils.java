@@ -1,4 +1,4 @@
-package com.dragon.utils.http;
+package com.dragon.common.utils.http;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,14 +14,14 @@ import java.security.cert.X509Certificate;
 /**
  * @author：Dragon Wen
  * @email：18475536452@163.com
- * @date：Created in 2019/5/27 14:20
+ * @date：Created in 2019/6/17 16:27
  * @description： 通用http发送方法
  * @modified By：
  * @version: 1.0.0
  */
 public class HttpUtils {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(HttpUtils.class);
+    private static final Logger log = LoggerFactory.getLogger(HttpUtils.class);
 
     /**
      * 向指定 URL 发送GET方法的请求
@@ -35,7 +35,7 @@ public class HttpUtils {
         BufferedReader in = null;
         try {
             String urlNameString = url + "?" + param;
-            LOGGER.info("sendGet - {}", urlNameString);
+            log.info("sendGet - {}", urlNameString);
             URL realUrl = new URL(urlNameString);
             URLConnection connection = realUrl.openConnection();
             connection.setRequestProperty("accept", "*/*");
@@ -47,22 +47,22 @@ public class HttpUtils {
             while ((line = in.readLine()) != null) {
                 result.append(line);
             }
-            LOGGER.info("recv - {}", result);
+            log.info("recv - {}", result);
         } catch (ConnectException e) {
-            LOGGER.error("调用HttpUtils.sendGet ConnectException, url=" + url + ",param=" + param, e);
+            log.error("调用HttpUtils.sendGet ConnectException, url=" + url + ",param=" + param, e);
         } catch (SocketTimeoutException e) {
-            LOGGER.error("调用HttpUtils.sendGet SocketTimeoutException, url=" + url + ",param=" + param, e);
+            log.error("调用HttpUtils.sendGet SocketTimeoutException, url=" + url + ",param=" + param, e);
         } catch (IOException e) {
-            LOGGER.error("调用HttpUtils.sendGet IOException, url=" + url + ",param=" + param, e);
+            log.error("调用HttpUtils.sendGet IOException, url=" + url + ",param=" + param, e);
         } catch (Exception e) {
-            LOGGER.error("调用HttpsUtil.sendGet Exception, url=" + url + ",param=" + param, e);
+            log.error("调用HttpsUtil.sendGet Exception, url=" + url + ",param=" + param, e);
         } finally {
             try {
                 if (in != null) {
                     in.close();
                 }
             } catch (Exception ex) {
-                LOGGER.error("调用in.close Exception, url=" + url + ",param=" + param, ex);
+                log.error("调用in.close Exception, url=" + url + ",param=" + param, ex);
             }
         }
         return result.toString();
@@ -81,7 +81,7 @@ public class HttpUtils {
         StringBuilder result = new StringBuilder();
         try {
             String urlNameString = url + "?" + param;
-            LOGGER.info("sendPost - {}", urlNameString);
+            log.info("sendPost - {}", urlNameString);
             URL realUrl = new URL(urlNameString);
             URLConnection conn = realUrl.openConnection();
             conn.setRequestProperty("accept", "*/*");
@@ -99,15 +99,15 @@ public class HttpUtils {
             while ((line = in.readLine()) != null) {
                 result.append(line);
             }
-            LOGGER.info("recv - {}", result);
+            log.info("recv - {}", result);
         } catch (ConnectException e) {
-            LOGGER.error("调用HttpUtils.sendPost ConnectException, url=" + url + ",param=" + param, e);
+            log.error("调用HttpUtils.sendPost ConnectException, url=" + url + ",param=" + param, e);
         } catch (SocketTimeoutException e) {
-            LOGGER.error("调用HttpUtils.sendPost SocketTimeoutException, url=" + url + ",param=" + param, e);
+            log.error("调用HttpUtils.sendPost SocketTimeoutException, url=" + url + ",param=" + param, e);
         } catch (IOException e) {
-            LOGGER.error("调用HttpUtils.sendPost IOException, url=" + url + ",param=" + param, e);
+            log.error("调用HttpUtils.sendPost IOException, url=" + url + ",param=" + param, e);
         } catch (Exception e) {
-            LOGGER.error("调用HttpsUtil.sendPost Exception, url=" + url + ",param=" + param, e);
+            log.error("调用HttpsUtil.sendPost Exception, url=" + url + ",param=" + param, e);
         } finally {
             try {
                 if (out != null) {
@@ -117,7 +117,7 @@ public class HttpUtils {
                     in.close();
                 }
             } catch (IOException ex) {
-                LOGGER.error("调用in.close Exception, url=" + url + ",param=" + param, ex);
+                log.error("调用in.close Exception, url=" + url + ",param=" + param, ex);
             }
         }
         return result.toString();
@@ -127,7 +127,7 @@ public class HttpUtils {
         StringBuilder result = new StringBuilder();
         String urlNameString = url + "?" + param;
         try {
-            LOGGER.info("sendSSLPost - {}", urlNameString);
+            log.info("sendSSLPost - {}", urlNameString);
             SSLContext sc = SSLContext.getInstance("SSL");
             sc.init(null, new TrustManager[]{new TrustAnyTrustManager()}, new java.security.SecureRandom());
             URL console = new URL(urlNameString);
@@ -151,17 +151,17 @@ public class HttpUtils {
                     result.append(new String(ret.getBytes("ISO-8859-1"), "utf-8"));
                 }
             }
-            LOGGER.info("recv - {}", result);
+            log.info("recv - {}", result);
             conn.disconnect();
             br.close();
         } catch (ConnectException e) {
-            LOGGER.error("调用HttpUtils.sendSSLPost ConnectException, url=" + url + ",param=" + param, e);
+            log.error("调用HttpUtils.sendSSLPost ConnectException, url=" + url + ",param=" + param, e);
         } catch (SocketTimeoutException e) {
-            LOGGER.error("调用HttpUtils.sendSSLPost SocketTimeoutException, url=" + url + ",param=" + param, e);
+            log.error("调用HttpUtils.sendSSLPost SocketTimeoutException, url=" + url + ",param=" + param, e);
         } catch (IOException e) {
-            LOGGER.error("调用HttpUtils.sendSSLPost IOException, url=" + url + ",param=" + param, e);
+            log.error("调用HttpUtils.sendSSLPost IOException, url=" + url + ",param=" + param, e);
         } catch (Exception e) {
-            LOGGER.error("调用HttpsUtil.sendSSLPost Exception, url=" + url + ",param=" + param, e);
+            log.error("调用HttpsUtil.sendSSLPost Exception, url=" + url + ",param=" + param, e);
         }
         return result.toString();
     }
