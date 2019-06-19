@@ -1,4 +1,4 @@
-package com.dragon.utils;
+package com.dragon.common.utils;
 
 import com.alibaba.fastjson.JSON;
 import org.apache.shiro.SecurityUtils;
@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * @author：Dragon Wen
  * @email：18475536452@163.com
- * @date：Created in 2019/5/27 15:33
+ * @date：Created in 2019/6/17 16:27
  * @description： 处理并记录日志文件
  * @modified By：
  * @version: 1.0.0
