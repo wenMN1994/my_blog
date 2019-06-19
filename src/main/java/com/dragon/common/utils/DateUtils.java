@@ -1,4 +1,4 @@
-package com.dragon.utils;
+package com.dragon.common.utils;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
 
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author：Dragon Wen
  * @email：18475536452@163.com
- * @date：Created in 2019/5/27 16:52
+ * @date：Created in 2019/6/17 16:27
  * @description： 时间工具类
  * @modified By：
  * @version: 1.0.0
