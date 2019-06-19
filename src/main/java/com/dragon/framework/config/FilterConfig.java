@@ -1,7 +1,7 @@
-package com.dragon.config;
+package com.dragon.framework.config;
 
+import com.dragon.common.utils.StringUtils;
 import com.dragon.common.xss.XssFilter;
-import com.dragon.utils.StringUtils;
 import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -14,10 +14,10 @@ import java.util.Map;
 /**
  * @author：Dragon Wen
  * @email：18475536452@163.com
- * @date：Created in 2019/4/29 13:44
+ * @date：Created in 2019/6/17 16:27
  * @description： Filter配置
  * @modified By：
- * @version: $version$
+ * @version: 1.0.0
  */
 @Configuration
 public class FilterConfig {
