@@ -1,20 +1,18 @@
-package com.dragon.client.shiro.service;
+package com.dragon.framework.shiro.service;
 
-import com.dragon.blog.model.BlogSysUser;
-import com.dragon.blog.service.BlogSysApiService;
-import com.dragon.blog.service.BlogSysUserService;
 import com.dragon.common.constant.Constants;
 import com.dragon.common.constant.ShiroConstants;
 import com.dragon.common.constant.UserConstants;
-import com.dragon.common.exception.user.CaptchaException;
-import com.dragon.common.exception.user.UserNotExistsException;
-import com.dragon.common.exception.user.UserPasswordNotMatchException;
-import com.dragon.manager.AsyncManager;
-import com.dragon.manager.factory.AsyncFactory;
-import com.dragon.utils.DateUtils;
-import com.dragon.utils.MessageUtils;
-import com.dragon.utils.ServletUtils;
-import com.dragon.utils.security.ShiroUtils;
+import com.dragon.common.exception.user.*;
+import com.dragon.common.utils.DateUtils;
+import com.dragon.common.utils.MessageUtils;
+import com.dragon.common.utils.ServletUtils;
+import com.dragon.common.utils.security.ShiroUtils;
+import com.dragon.framework.manager.AsyncManager;
+import com.dragon.framework.manager.factory.AsyncFactory;
+import com.dragon.project.system.user.domain.User;
+import com.dragon.project.system.user.domain.UserStatus;
+import com.dragon.project.system.user.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -22,34 +20,28 @@ import org.springframework.util.StringUtils;
 /**
  * @author：Dragon Wen
  * @email：18475536452@163.com
- * @date：Created in 2019/5/29 14:53
+ * @date：Created in 2019/6/17 16:27
  * @description： 登录校验方法
  * @modified By：
  * @version: 1.0.0
  */
 @Component
 public class LoginService {
-
-    @Autowired
-    private BlogSysApiService blogSysApiService;
-
-    @Autowired
-    private BlogSysUserService blogSysUserService;
-
     @Autowired
     private PasswordService passwordService;
+
+    @Autowired
+    private IUserService userService;
 
     /**
      * 登录
      */
-    public BlogSysUser login(String username, String password) {
-
+    public User login(String username, String password) {
         // 验证码校验
         if (!StringUtils.isEmpty(ServletUtils.getRequest().getAttribute(ShiroConstants.CURRENT_CAPTCHA))) {
             AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.error")));
             throw new CaptchaException();
         }
-
         // 用户名或密码为空 错误
         if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
             AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("not.null")));
@@ -70,27 +62,58 @@ public class LoginService {
         }
 
         // 查询用户信息
-        BlogSysUser blogSysUser = blogSysApiService.selectBlogSysUserByUsername(username);
+        User user = userService.selectUserByLoginName(username);
 
-        if (blogSysUser == null) {
+        if (user == null && maybeMobilePhoneNumber(username)) {
+            user = userService.selectUserByPhoneNumber(username);
+        }
+
+        if (user == null && maybeEmail(username)) {
+            user = userService.selectUserByEmail(username);
+        }
+
+        if (user == null) {
             AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.not.exists")));
             throw new UserNotExistsException();
         }
 
-        passwordService.validate(blogSysUser, password);
+        if (UserStatus.DELETED.getCode().equals(user.getDelFlag())) {
+            AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.password.delete")));
+            throw new UserDeleteException();
+        }
+
+        if (UserStatus.DISABLE.getCode().equals(user.getStatus())) {
+            AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.blocked", user.getRemark())));
+            throw new UserBlockedException();
+        }
+
+        passwordService.validate(user, password);
 
         AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_SUCCESS, MessageUtils.message("user.login.success")));
+        recordLoginInfo(user);
+        return user;
+    }
 
-        recordLoginInfo(blogSysUser);
-        return blogSysUser;
+    private boolean maybeEmail(String username) {
+        if (!username.matches(UserConstants.EMAIL_PATTERN)) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean maybeMobilePhoneNumber(String username) {
+        if (!username.matches(UserConstants.MOBILE_PHONE_NUMBER_PATTERN)) {
+            return false;
+        }
+        return true;
     }
 
     /**
      * 记录登录信息
      */
-    public void recordLoginInfo(BlogSysUser blogSysUser) {
-        blogSysUser.setLoginIp(ShiroUtils.getIp());
-        blogSysUser.setLoginDate(DateUtils.getNowDate());
-        blogSysUserService.updateByPrimaryKey(blogSysUser);
+    public void recordLoginInfo(User user) {
+        user.setLoginIp(ShiroUtils.getIp());
+        user.setLoginDate(DateUtils.getNowDate());
+        userService.updateUserInfo(user);
     }
 }
