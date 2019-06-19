@@ -1,10 +1,10 @@
-package com.dragon.config;
+package com.dragon.framework.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
-import com.dragon.config.properties.DruidProperties;
-import com.dragon.db.DataSourceEnum;
-import com.dragon.db.DynamicDataSource;
+import com.dragon.framework.aspectj.lang.enums.DataSourceType;
+import com.dragon.framework.config.properties.DruidProperties;
+import com.dragon.framework.datasource.DynamicDataSource;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * @author：Dragon Wen
  * @email：18475536452@163.com
- * @date：Created in 2019/4/25 21:04
+ * @date：Created in 2019/6/17 16:27
  * @description： druid 配置多数据源
  * @modified By：
  * @version: 1.0.0
@@ -44,8 +44,8 @@ public class DruidConfig {
     @Primary
     public DynamicDataSource dataSource(DataSource masterDataSource, DataSource slaveDataSource) {
         Map<Object, Object> targetDataSources = new HashMap<>();
-        targetDataSources.put(DataSourceEnum.MASTER.name(), masterDataSource);
-        targetDataSources.put(DataSourceEnum.SLAVE.name(), slaveDataSource);
+        targetDataSources.put(DataSourceType.MASTER.name(), masterDataSource);
+        targetDataSources.put(DataSourceType.SLAVE.name(), slaveDataSource);
         return new DynamicDataSource(masterDataSource, targetDataSources);
     }
 }
