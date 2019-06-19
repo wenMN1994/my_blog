@@ -1,4 +1,4 @@
-package com.dragon.config.properties;
+package com.dragon.framework.config.properties;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.springframework.beans.factory.annotation.Value;
@@ -7,10 +7,10 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @author：Dragon Wen
  * @email：18475536452@163.com
- * @date：Created in 2019/4/25 21:04
+ * @date：Created in 2019/6/17 16:27
  * @description： druid 配置属性
  * @modified By：
- * @version: $version$
+ * @version: 1.0.0
  */
 @Configuration
 public class DruidProperties {
