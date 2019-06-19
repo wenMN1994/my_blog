@@ -1,8 +1,8 @@
-package com.dragon.aspectj;
+package com.dragon.framework.aspectj;
 
-import com.dragon.annotation.DataSource;
-import com.dragon.db.DynamicDataSource;
-import com.dragon.utils.StringUtils;
+import com.dragon.common.utils.StringUtils;
+import com.dragon.framework.aspectj.lang.annotation.DataSource;
+import com.dragon.framework.datasource.DynamicDataSourceContextHolder;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -18,10 +18,10 @@ import java.lang.reflect.Method;
 /**
  * @author：Dragon Wen
  * @email：18475536452@163.com
- * @date：Created in 2019/4/25 21:35
+ * @date：Created in 2019/6/17 16:27
  * @description： 多数据源处理
  * @modified By：
- * @version: $version$
+ * @version: 1.0.0
  */
 @Aspect
 @Order(1)
@@ -29,7 +29,7 @@ import java.lang.reflect.Method;
 public class DataSourceAspect {
     protected Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Pointcut("@annotation(com.dragon.annotation.DataSource)")
+    @Pointcut("@annotation(com.dragon.framework.aspectj.lang.annotation.DataSource)")
     public void dsPointCut() {
 
     }
@@ -43,14 +43,14 @@ public class DataSourceAspect {
         DataSource dataSource = method.getAnnotation(DataSource.class);
 
         if (StringUtils.isNotNull(dataSource)) {
-            DynamicDataSource.setDataSource(dataSource.value().name());
+            DynamicDataSourceContextHolder.setDateSoureType(dataSource.value().name());
         }
 
         try {
             return point.proceed();
         } finally {
             // 销毁数据源 在执行方法之后
-            DynamicDataSource.clearDataSource();
+            DynamicDataSourceContextHolder.clearDateSoureType();
         }
     }
 }
