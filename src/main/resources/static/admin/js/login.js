@@ -48,7 +48,7 @@ function validateRule() {
 function login() {
     parent.layer.load(1, {shade: [0.1,'#fff']});//0.1透明度的白色背景
     $.ajax({
-        url: '/sso/login',
+        url: '/login',
         type: 'POST',
         data: {
             username: $('#username').val(),
@@ -58,7 +58,7 @@ function login() {
         },
         success: function (r) {
             if (r.code == 0) {
-                location.href = '/system/index';
+                location.href = '/index';
             } else {
                 parent.layer.closeAll('loading'); //关闭加载层
                 $('.imgcode').click();
