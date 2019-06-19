@@ -1,4 +1,4 @@
-package com.dragon.utils.bean;
+package com.dragon.common.utils.bean;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 /**
  * @author：Dragon Wen
  * @email：18475536452@163.com
- * @date：Created in 2019/5/27 15:29
+ * @date：Created in 2019/6/17 16:27
  * @description： Bean 工具类
  * @modified By：
  * @version: 1.0.0
