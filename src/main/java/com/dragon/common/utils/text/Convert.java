@@ -1,6 +1,6 @@
-package com.dragon.utils.text;
+package com.dragon.common.utils.text;
 
-import com.dragon.utils.StringUtils;
+import com.dragon.common.utils.StringUtils;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -12,7 +12,7 @@ import java.util.Set;
 /**
  * @author：Dragon Wen
  * @email：18475536452@163.com
- * @date：Created in 2019/5/27 11:28
+ * @date：Created in 2019/6/17 16:27
  * @description： 类型转换器
  * @modified By：
  * @version: 1.0.0
