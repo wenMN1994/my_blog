@@ -1,10 +1,10 @@
-package com.dragon.client.shiro.session;
+package com.dragon.framework.shiro.session;
 
-import com.dragon.blog.model.BlogSysUserOnline;
-import com.dragon.blog.model.OnlineSession;
-import com.dragon.blog.service.BlogSysUserOnlineService;
-import com.dragon.manager.AsyncManager;
-import com.dragon.manager.factory.AsyncFactory;
+import com.dragon.framework.manager.AsyncManager;
+import com.dragon.framework.manager.factory.AsyncFactory;
+import com.dragon.project.monitor.online.domain.OnlineSession;
+import com.dragon.project.monitor.online.domain.UserOnline;
+import com.dragon.project.monitor.online.service.IUserOnlineService;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
@@ -35,7 +35,7 @@ public class OnlineSessionDAO extends EnterpriseCacheSessionDAO {
     private static final String LAST_SYNC_DB_TIMESTAMP = OnlineSessionDAO.class.getName() + "LAST_SYNC_DB_TIMESTAMP";
 
     @Autowired
-    private BlogSysUserOnlineService blogSysUserOnlineService;
+    private IUserOnlineService onlineService;
 
     @Autowired
     private OnlineSessionFactory onlineSessionFactory;
@@ -56,11 +56,11 @@ public class OnlineSessionDAO extends EnterpriseCacheSessionDAO {
      */
     @Override
     protected Session doReadSession(Serializable sessionId) {
-        BlogSysUserOnline blogSysUserOnline = blogSysUserOnlineService.selectByPrimaryKey(String.valueOf(sessionId));
-        if (blogSysUserOnline == null) {
+        UserOnline userOnline = onlineService.selectOnlineById(String.valueOf(sessionId));
+        if (userOnline == null) {
             return null;
         }
-        return onlineSessionFactory.createSession(blogSysUserOnline);
+        return onlineSessionFactory.createSession(userOnline);
     }
 
     @Override
@@ -109,6 +109,6 @@ public class OnlineSessionDAO extends EnterpriseCacheSessionDAO {
             return;
         }
         onlineSession.setStatus(OnlineSession.OnlineStatus.off_line);
-        blogSysUserOnlineService.deleteByPrimaryKey(String.valueOf(onlineSession.getId()));
+        onlineService.deleteOnlineById(String.valueOf(onlineSession.getId()));
     }
 }
