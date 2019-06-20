@@ -1,10 +1,10 @@
-package com.dragon.client.shiro.web.filter.online;
+package com.dragon.framework.shiro.web.filter.online;
 
-import com.dragon.blog.model.BlogSysUser;
-import com.dragon.blog.model.OnlineSession;
-import com.dragon.client.shiro.session.OnlineSessionDAO;
 import com.dragon.common.constant.ShiroConstants;
-import com.dragon.utils.security.ShiroUtils;
+import com.dragon.common.utils.security.ShiroUtils;
+import com.dragon.framework.shiro.session.OnlineSessionDAO;
+import com.dragon.project.monitor.online.domain.OnlineSession;
+import com.dragon.project.system.user.domain.User;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
@@ -19,7 +19,7 @@ import java.io.IOException;
 /**
  * @author：Dragon Wen
  * @email：18475536452@163.com
- * @date：Created in 2019/5/28 13:59
+ * @date：Created in 2019/5/17 16:27
  * @description： 自定义访问控制
  * @modified By：
  * @version: 1.0.0
@@ -28,7 +28,7 @@ public class OnlineSessionFilter extends AccessControlFilter {
     /**
      * 强制退出后重定向的地址
      */
-    @Value("${shiro.paths.loginUrl}")
+    @Value("${shiro.user.loginUrl}")
     private String loginUrl;
 
     @Autowired
@@ -51,10 +51,10 @@ public class OnlineSessionFilter extends AccessControlFilter {
             // 把user对象设置进去
             boolean isGuest = onlineSession.getUserId() == null || onlineSession.getUserId() == 0L;
             if (isGuest == true) {
-                BlogSysUser blogSysUser = ShiroUtils.getSysUser();
-                if (blogSysUser != null) {
-                    onlineSession.setUserId(blogSysUser.getUserId());
-                    onlineSession.setLoginName(blogSysUser.getLoginName());
+                User user = ShiroUtils.getSysUser();
+                if (user != null) {
+                    onlineSession.setUserId(user.getUserId());
+                    onlineSession.setLoginName(user.getLoginName());
                     onlineSession.markAttributeChanged();
                 }
             }
