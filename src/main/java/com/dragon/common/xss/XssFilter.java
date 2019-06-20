@@ -1,6 +1,6 @@
 package com.dragon.common.xss;
 
-import com.dragon.utils.StringUtils;
+import com.dragon.common.utils.StringUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  * @date：Created in 2019/4/29 13:30
  * @description： 防止XSS攻击的过滤器
  * @modified By：
- * @version: $version$
+ * @version: 1.0.0
  */
 public class XssFilter implements Filter {
     /**
