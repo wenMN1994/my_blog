@@ -1,7 +1,7 @@
-package com.dragon.blog.controller.system.captcha;
+package com.dragon.project.system.user.controller;
 
-import com.dragon.base.BaseController;
 import com.dragon.common.constant.CommonConstant;
+import com.dragon.framework.web.controller.BaseController;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 import org.springframework.stereotype.Controller;
@@ -21,7 +21,7 @@ import java.io.IOException;
 /**
  * @author：Dragon Wen
  * @email：18475536452@163.com
- * @date：Created in 2019/5/31 16:30
+ * @date：Created in 2019/5/31 16:27
  * @description： 图片验证码（支持算术形式）
  * @modified By：
  * @version: 1.0.0
