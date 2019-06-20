@@ -1,6 +1,7 @@
-package com.dragon.utils.text;
+package com.dragon.common.utils.text;
 
-import com.dragon.utils.StringUtils;
+import com.dragon.common.utils.StringUtils;
+
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
