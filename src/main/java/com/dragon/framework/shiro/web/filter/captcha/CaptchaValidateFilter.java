@@ -1,9 +1,9 @@
-package com.dragon.client.shiro.web.filter.captcha;
+package com.dragon.framework.shiro.web.filter.captcha;
 
 import com.dragon.common.constant.CommonConstant;
 import com.dragon.common.constant.ShiroConstants;
-import com.dragon.utils.StringUtils;
-import com.dragon.utils.security.ShiroUtils;
+import com.dragon.common.utils.StringUtils;
+import com.dragon.common.utils.security.ShiroUtils;
 import com.google.code.kaptcha.Constants;
 import org.apache.shiro.web.filter.AccessControlFilter;
 
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author：Dragon Wen
  * @email：18475536452@163.com
- * @date：Created in 2019/5/28 14:17
+ * @date：Created in 2019/5/31 16:27
  * @description： 验证码过滤器
  * @modified By：
  * @version: 1.0.0
