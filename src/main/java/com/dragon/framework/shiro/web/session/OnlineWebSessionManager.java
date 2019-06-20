@@ -1,13 +1,11 @@
-package com.dragon.client.shiro.web.session;
+package com.dragon.framework.shiro.web.session;
 
-import com.dragon.blog.model.BlogSysUserOnline;
-import com.dragon.blog.model.BlogSysUserOnlineExample;
-import com.dragon.blog.model.OnlineSession;
-import com.dragon.blog.service.BlogSysUserOnlineService;
-import com.dragon.blog.service.BlogSysUserOnlineServiceMock;
 import com.dragon.common.constant.ShiroConstants;
-import com.dragon.utils.DateUtils;
-import com.dragon.utils.SpringContextUtil;
+import com.dragon.common.utils.spring.SpringUtils;
+import com.dragon.project.monitor.online.domain.OnlineSession;
+import com.dragon.project.monitor.online.domain.UserOnline;
+import com.dragon.project.monitor.online.service.UserOnlineServiceImpl;
+import org.apache.commons.lang3.time.DateUtils;
 import org.apache.shiro.session.ExpiredSessionException;
 import org.apache.shiro.session.InvalidSessionException;
 import org.apache.shiro.session.Session;
@@ -26,14 +24,15 @@ import java.util.List;
 /**
  * @author：Dragon Wen
  * @email：18475536452@163.com
- * @date：Created in 2019/5/27 16:22
+ * @date：Created in 2019/5/27 16:27
  * @description： 主要是在此如果会话的属性修改了 就标识下其修改了 然后方便 OnlineSessionDao同步
  * @modified By：
  * @version: 1.0.0
  */
 public class OnlineWebSessionManager extends DefaultWebSessionManager {
-    private static final Logger LOGGER = LoggerFactory.getLogger(BlogSysUserOnlineServiceMock.class);
-    
+
+    private static final Logger log = LoggerFactory.getLogger(OnlineWebSessionManager.class);
+
     @Override
     public void setSessionListeners(Collection<SessionListener> listeners) {
         super.setSessionListeners(listeners);
@@ -82,57 +81,53 @@ public class OnlineWebSessionManager extends DefaultWebSessionManager {
      */
     @Override
     public void validateSessions() {
-        if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("invalidation sessions...");
+        if (log.isInfoEnabled()) {
+            log.info("invalidation sessions...");
         }
 
         int invalidCount = 0;
 
         int timeout = (int) this.getGlobalSessionTimeout();
         Date expiredDate = DateUtils.addMilliseconds(new Date(), 0 - timeout);
-        BlogSysUserOnlineService blogSysUserOnlineService = SpringContextUtil.getBean(BlogSysUserOnlineService.class);
-//        String lastAccessTime = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD_HH_MM_SS, expiredDate);
-        BlogSysUserOnlineExample blogSysUserOnlineExample = new BlogSysUserOnlineExample();
-        BlogSysUserOnlineExample.Criteria criteria = blogSysUserOnlineExample.createCriteria();
-        criteria.andLastAccessTimeEqualTo(expiredDate);
-        List<BlogSysUserOnline> blogSysUserOnlineList = blogSysUserOnlineService.selectByExample(blogSysUserOnlineExample);
+        UserOnlineServiceImpl userOnlineService = SpringUtils.getBean(UserOnlineServiceImpl.class);
+        List<UserOnline> userOnlineList = userOnlineService.selectOnlineByExpired(expiredDate);
         // 批量过期删除
         List<String> needOfflineIdList = new ArrayList<String>();
-        for (BlogSysUserOnline blogSysUserOnline : blogSysUserOnlineList) {
+        for (UserOnline userOnline : userOnlineList) {
             try {
-                SessionKey key = new DefaultSessionKey(blogSysUserOnline.getSessionid());
+                SessionKey key = new DefaultSessionKey(userOnline.getSessionId());
                 Session session = retrieveSession(key);
                 if (session != null) {
                     throw new InvalidSessionException();
                 }
             } catch (InvalidSessionException e) {
-                if (LOGGER.isDebugEnabled()) {
+                if (log.isDebugEnabled()) {
                     boolean expired = (e instanceof ExpiredSessionException);
-                    String msg = "Invalidated session with id [" + blogSysUserOnline.getSessionid() + "]"
+                    String msg = "Invalidated session with id [" + userOnline.getSessionId() + "]"
                             + (expired ? " (expired)" : " (stopped)");
-                    LOGGER.debug(msg);
+                    log.debug(msg);
                 }
                 invalidCount++;
-                needOfflineIdList.add(blogSysUserOnline.getSessionid());
+                needOfflineIdList.add(userOnline.getSessionId());
             }
 
         }
         if (needOfflineIdList.size() > 0) {
             try {
-                blogSysUserOnlineService.batchDeleteOnline(needOfflineIdList);
+                userOnlineService.batchDeleteOnline(needOfflineIdList);
             } catch (Exception e) {
-                LOGGER.error("batch delete db session error.", e);
+                log.error("batch delete db session error.", e);
             }
         }
 
-        if (LOGGER.isInfoEnabled()) {
+        if (log.isInfoEnabled()) {
             String msg = "Finished invalidation session.";
             if (invalidCount > 0) {
                 msg += " [" + invalidCount + "] sessions were stopped.";
             } else {
                 msg += " No sessions were stopped.";
             }
-            LOGGER.info(msg);
+            log.info(msg);
         }
 
     }
