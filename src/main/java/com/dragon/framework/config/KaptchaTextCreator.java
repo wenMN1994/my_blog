@@ -1,4 +1,4 @@
-package com.dragon.config;
+package com.dragon.framework.config;
 
 import com.google.code.kaptcha.text.impl.DefaultTextCreator;
 
@@ -7,7 +7,7 @@ import java.util.Random;
 /**
  * @author：Dragon Wen
  * @email：18475536452@163.com
- * @date：Created in 2019/5/31 17:55
+ * @date：Created in 2019/6/17 16:27
  * @description： 验证码文本生成器
  * @modified By：
  * @version: 1.0.0
