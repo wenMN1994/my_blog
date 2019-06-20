@@ -12,10 +12,10 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  * @date：Created in 2019/3/18 17:09
  * @description：${description}
  * @modified By：
- * @version: $version$
+ * @version: 1.0.0
  */
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
-@MapperScan(value = "com.dragon.blog.mapper")
+@MapperScan("com.dragon.project.**.mapper")
 public class MyBlogApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
