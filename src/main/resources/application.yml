@@ -12,9 +12,27 @@ dragon:
   addressEnabled: true
 
 # 开发环境配置
+# 开发环境配置
 server:
   # 服务端口
   port: 8088
+  servlet:
+    # 项目contextPath
+    context-path: /
+  tomcat:
+    # tomcat的URI编码
+    uri-encoding: UTF-8
+    # tomcat最大线程数，默认为200
+    max-threads: 800
+    # Tomcat启动初始化的线程数，默认值25
+    min-spare-threads: 30
+
+# 日志配置
+logging:
+  level:
+    com.dragon: debug
+    org.springframework: WARN
+    org.spring.springboot.dao: debug
 
 # 用户配置
 user:
@@ -24,9 +42,7 @@ user:
 
 # Spring配置
 spring:
-  resources:
-    # 静态资源
-    static-locations: classpath:/templates,classpath:/static
+  # 模板引擎
   thymeleaf:
     mode: HTML
     encoding: utf-8
@@ -36,42 +52,50 @@ spring:
   messages:
     # 国际化资源文件路径
     basename: i18n/messages
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
   profiles:
     active: druid
-
+  # 文件上传
+  servlet:
+    multipart:
+      max-file-size:  30MB
+      max-request-size:  30MB
+  # 服务模块
+  devtools:
+    restart:
+      # 热部署开关
+      enabled: true
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 11
+# MyBatis
 mybatis:
   # 搜索指定包别名
-  type-aliases-package: com.dragon.blog.model # 注意：对应实体类的路径
+  typeAliasesPackage: com.dragon.project
   # 配置mapper的扫描，找到所有的mapper.xml映射文件
-  mapper-locations: classpath:mapping/*Mapper.xml #注意：一定要对应mapper映射xml文件的所在路径
+  mapperLocations: classpath:mybatis/**/*Mapper.xml
+  # 加载全局的配置文件
+  configLocation: classpath:mybatis/mybatis-config.xml
 
-# 日志配置
-logging:
-  level:
-    com.dragon: debug
-    org.springframework: WARN
-    org.spring.springboot.dao: debug
-  config: classpath:log4j2-spring.xml
-
-# 分页插件配置
+# PageHelper分页插件
 pagehelper:
-  helper-dialect: mysql
+  helperDialect: mysql
   reasonable: true
-  support-methods-arguments: true
+  supportMethodsArguments: true
   params: count=countSql
 
-# 登录成功回调地址
-blog:
-  sso:
-    successUrl: /system/index
-
-# shiro配置
+# Shiro
 shiro:
-  paths:
+  user:
     # 登录地址
-    loginUrl: /sso/login
+    loginUrl: /login
     # 权限认证失败地址
     unauthorizedUrl: /unauth
+    # 首页地址
+    indexUrl: /index
     # 验证码开关
     captchaEnabled: true
     # 验证码类型 math 数组计算 char 字符
@@ -93,19 +117,6 @@ shiro:
     # 相隔多久检查一次session的有效性，默认就是10分钟
     validationInterval: 10
 
-# redis配置
-redis:
-  # redis 地址
-  ip: 127.0.0.1
-  # redis 端口号
-  port: 6379
-  # redis 密码
-  password: foobared
-  # redis 超时时间
-  timeout: 1800
-  # redis 缓存过期时间
-  expiretime: 1000
-
 # 防止XSS攻击
 xss:
   # 过滤开关
@@ -113,4 +124,4 @@ xss:
   # 排除链接（多个用逗号分隔）
   excludes: /system/notice/*
   # 匹配链接
-  urlPatterns: /system/*
+  urlPatterns: /system/*,/monitor/*,/tool/*

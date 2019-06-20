@@ -1,6 +1,6 @@
 package com.dragon.common.exception.base;
 
-import com.dragon.utils.MessageUtils;
+import com.dragon.common.utils.MessageUtils;
 import org.springframework.util.StringUtils;
 
 /**
