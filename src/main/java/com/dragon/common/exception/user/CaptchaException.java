@@ -8,7 +8,7 @@ package com.dragon.common.exception.user;
  * @modified By：
  * @version: 1.0.0
  */
-public class CaptchaException  extends UserException {
+public class CaptchaException extends UserException {
     private static final long serialVersionUID = 1L;
 
     public CaptchaException() {
