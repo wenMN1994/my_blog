@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletRequestWrapper;
 /**
  * @author：Dragon Wen
  * @email：18475536452@163.com
- * @date：Created in 2019/4/29 13:31
+ * @date：Created in 2019/4/29 13:30
  * @description： XSS过滤处理
  * @modified By：
- * @version: $version$
+ * @version: 1.0.0
  */
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     /**
@@ -37,4 +37,3 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         return super.getParameterValues(name);
     }
 }
-
