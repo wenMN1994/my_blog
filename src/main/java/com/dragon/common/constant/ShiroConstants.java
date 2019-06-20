@@ -5,7 +5,7 @@ package com.dragon.common.constant;
  * @email：18475536452@163.com
  * @date：Created in 2019/5/27 22:06
  * @description： Shiro通用常量
- *  * @modified By：
+ * @modified By：
  * @version: 1.0.0
  */
 public interface ShiroConstants {
