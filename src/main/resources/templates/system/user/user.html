@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="system/common :: header"></head>
-<link th:href="@{/admin/h_ui_4.9/css/plugins/jquery-layout/jquery.layout-latest.css}" rel="stylesheet"/>
-<link th:href="@{/admin/h_ui_4.9/css/plugins/jquery-ztree/3.5/css/metro/zTreeStyle.css}" rel="stylesheet"/>
+<link th:href="@{/admin/plugins/jquery-layout/jquery.layout-latest.css}" rel="stylesheet"/>
+<link th:href="@{/admin/plugins/jquery-ztree/3.5/css/metro/zTreeStyle.css}" rel="stylesheet"/>
 
 <body class="gray-bg">
 <div class="container-div ui-layout-center">
@@ -20,7 +20,11 @@
                             手机号码：<input type="text" name="phonenumber"/>
                         </li>
                         <li>
-                            用户状态：<select name="status"><option value="">所有</option></select>
+                            用户状态：
+                            <select name="status" th:with="type=${@dict.getType('sys_normal_disable')}">
+                                <option value="">所有</option>
+                                <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                            </select>
                         </li>
                         <li class="select-time">
                             <label>创建时间： </label>
@@ -68,9 +72,10 @@
 </div>
 
 <div th:replace="system/common :: footer"></div>
-<script src="admin/h_ui_4.9/js/plugins/jquery-layout/jquery.layout-latest.js"></script>
-<script src="admin/h_ui_4.9/js/plugins/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js"></script>
+<script th:src="@{/admin/plugins/jquery-layout/jquery.layout-latest.js}"></script>
+<script th:src="@{/admin/plugins/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js}"></script>
 <script th:inline="javascript">
+    var datas = [[${@dict.getType('sys_normal_disable')}]];
     var prefix = ctx + "system/user";
 
     $(function () {

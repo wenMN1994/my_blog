@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="system/common :: header"></head>
-<link href="admin/h_ui_4.9/css/plugins/jquery-ztree/3.5/css/metro/zTreeStyle.css" rel="stylesheet"/>
+<link th:href="@{/admin/plugins/jquery-ztree/3.5/css/metro/zTreeStyle.css}" rel="stylesheet"/>
 <body class="white-bg">
 <div class="wrapper wrapper-content animated fadeInRight ibox-content">
     <form class="form-horizontal m" id="form-role-edit" th:object="${role}">
@@ -52,7 +52,7 @@
     </form>
 </div>
 <div th:replace="system/common :: footer"></div>
-<script src="admin/h_ui_4.9/js/plugins/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js"></script>
+<script th:src="@{/admin/plugins/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js}"></script>
 <script type="text/javascript">
     $(function () {
         var url = ctx + "system/menu/roleMenuTreeData?roleId=" + $("#roleId").val();

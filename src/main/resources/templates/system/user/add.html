@@ -118,7 +118,7 @@
 </div>
 
 <div th:replace="system/common :: footer"></div>
-<script src="admin/select/select2.js"></script>
+<script th:src="@{/admin/plugins/select/select2.js}"></script>
 <script>
     var prefix = ctx + "system/user";
 
