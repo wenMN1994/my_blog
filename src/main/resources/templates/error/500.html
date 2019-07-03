@@ -1,46 +1,42 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">
 <head>
-    <base th:href="${#request.getContextPath()}+'/'">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-    <title>博客后台管理系统 - 500错误</title>
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-
-    <link rel="shortcut icon" th:href="@{/common/images/D_Logo.png}">
-    <link href="admin/h_ui_4.9/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="admin/h_ui_4.9/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-
-    <link href="admin/h_ui_4.9/css/animate.css" rel="stylesheet">
-    <link href="admin/h_ui_4.9/css/style.css?v=4.1.0" rel="stylesheet">
+    <title>oops - 500</title>
+    <link th:href="@{/admin/css/error.css}" rel="stylesheet">
+    <script language="JavaScript">
+        if (window != top)
+            top.location.href = location.href;
+    </script>
 
 </head>
-
-<body class="gray-bg">
-
-
-    <div class="middle-box text-center animated fadeInDown">
-        <h1>500</h1>
-        <h3 class="font-bold">服务器内部错误</h3>
-
-        <div class="error-desc">
-            服务器好像出错了...
-            <br/>您可以返回主页看看
-            <br/><a href="index.html" class="btn btn-primary m-t">主页</a>
-        </div>
+<body>
+<div class="not-found parallax">
+    <div class="sky-bg"></div>
+    <div class="wave-7"></div>
+    <div class="wave-6"></div>
+    <a class="wave-island" href="/">
+        <img src="http://res.cloudinary.com/andrewhani/image/upload/v1524501929/404/island.svg" alt="Island">
+    </a>
+    <div class="wave-5"></div>
+    <div class="wave-lost wrp">
+        <span>5</span>
+        <span>0</span>
+        <span>0</span>
     </div>
-
-    <!-- 全局js -->
-    <script src="admin/h_ui_4.9/css/jquery.min.js?v=2.1.4"></script>
-    <script src="admin/h_ui_4.9/css/bootstrap.min.js?v=3.3.6"></script>
-
-    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
-    <!--统计代码，可删除-->
-
+    <div class="wave-4"></div>
+    <div class="wave-boat">
+        <img class="boat" src="http://res.cloudinary.com/andrewhani/image/upload/v1524501894/404/boat.svg" alt="Boat">
+    </div>
+    <div class="wave-3"></div>
+    <div class="wave-2"></div>
+    <div class="wave-1"></div>
+    <div class="wave-message">
+        <p>Some thing warning with server</p>
+        <p>Click on the island to return or try it later</p>
+    </div>
+</div>
 </body>
-
+<script th:src="@{/admin/js/error.js}"></script>
 </html>
