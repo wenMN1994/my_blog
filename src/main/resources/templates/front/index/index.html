@@ -1,11 +1,11 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="common/head :: commonHead('首页-DragonWen个人博客')"></head>
+<head th:replace="front/common/head :: commonHead('首页-DragonWen个人博客')"></head>
 <body>
 <!--top begin-->
-<div th:replace="common/common :: head"></div>
+<div th:replace="front/common/common :: head"></div>
 
-<div th:replace="common/common :: search"></div>
+<div th:replace="front/common/common :: search"></div>
 <!--top end-->
 <article>
     <!--lbox begin-->
@@ -326,7 +326,7 @@
         <!--最新源码 End-->
         <div class="ad whitebg"><a href="https://promotion.aliyun.com/ntms/act/qwbk.html?userCode=l1qstn8f"><img src="Front-End/images/longad.jpg"></a></div>
         <!--最新博文 start-->
-        <div th:replace="common/common :: bloglist"></div>
+        <div th:replace="front/common/common :: bloglist"></div>
         <!--最新博文 end-->
         <!--bloglist end-->
     </div>
@@ -351,39 +351,39 @@
             </ul>
         </div>
         <!--网站公告 start-->
-        <div th:replace="common/common :: website_notice"></div>
+        <div th:replace="front/common/common :: website_notice"></div>
         <!--网站公告 end-->
         <!--点击排行 begin-->
-        <div th:replace="common/common :: paihang"></div>
+        <div th:replace="front/common/common :: paihang"></div>
         <!--点击排行 end-->
         <!--站长推荐 begin-->
-        <div th:replace="common/common :: tuijian"></div>
+        <div th:replace="front/common/common :: tuijian"></div>
         <!--站长推荐 end-->
         <!--广告节点3 begin-->
-        <div th:replace="common/common :: ad3"></div>
+        <div th:replace="front/common/common :: ad3"></div>
         <!--广告节点3 end-->
         <!--猜你喜欢 begin-->
-        <div th:replace="common/common :: love"></div>
+        <div th:replace="front/common/common :: love"></div>
         <!--猜你喜欢 end-->
         <!--广告节点4 begin-->
-        <div th:replace="common/common :: ad4"></div>
+        <div th:replace="front/common/common :: ad4"></div>
         <!--广告节点4 end-->
         <!--站点统计 begin-->
-        <div th:replace="common/common :: tongji"></div>
+        <div th:replace="front/common/common :: tongji"></div>
         <!--站点统计 end-->
         <!--友情链接 start-->
-        <div th:replace="common/common :: friendly_link"></div>
+        <div th:replace="front/common/common :: friendly_link"></div>
         <!--友情链接 end-->
     </div>
 </article>
 
 <!--footer begin-->
-<div th:replace="common/common :: footer"></div>
+<div th:replace="front/common/common :: footer"></div>
 <!--footer end-->
 
 <!--右侧弹出框 start-->
 <div class="toolbar-open"></div>
-<div th:replace="common/common :: toolbar"></div>
+<div th:replace="front/common/common :: toolbar"></div>
 <!--右侧弹出框 end-->
 
 </body>

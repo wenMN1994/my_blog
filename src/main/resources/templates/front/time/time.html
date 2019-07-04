@@ -1,11 +1,11 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="common/head :: commonHead('时间轴-DragonWen个人博客')"></head>
+<head th:replace="front/common/head :: commonHead('时间轴-DragonWen个人博客')"></head>
 <body>
 <!--top begin-->
-<div th:replace="common/common :: head"></div>
+<div th:replace="front/common/common :: head"></div>
 
-<div th:replace="common/common :: search"></div>
+<div th:replace="front/common/common :: search"></div>
 <!--top end-->
 <article>
     <div class="whitebg timebox">
@@ -74,12 +74,12 @@
 </article>
 
 <!--footer begin-->
-<div th:replace="common/common :: footer"></div>
+<div th:replace="front/common/common :: footer"></div>
 <!--footer end-->
 
 <!--右侧弹出框 start-->
 <div class="toolbar-open"></div>
-<div th:replace="common/common :: toolbar"></div>
+<div th:replace="front/common/common :: toolbar"></div>
 <!--右侧弹出框 end-->
 
 </body>

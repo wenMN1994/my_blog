@@ -1,11 +1,11 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="common/head :: commonHead('个人博客日记-DragonWen个人博客')"></head>
+<head th:replace="front/common/head :: commonHead('个人博客日记-DragonWen个人博客')"></head>
 <body>
 <!--top begin-->
-<div th:replace="common/common :: head"></div>
+<div th:replace="front/common/common :: head"></div>
 
-<div th:replace="common/common :: search"></div>
+<div th:replace="front/common/common :: search"></div>
 <!--top end-->
 <article>
     <!--lbox begin-->
@@ -15,41 +15,41 @@
             <p>个人博客日记，记录一些优秀个人站长是如何制作个人博客，建个人博客、以及经营个人网站的，本站还会推荐一些优秀的个人博客站长网站。</p>
         </div>
         <!--最新博文 start-->
-        <div th:replace="common/common :: bloglist"></div>
+        <div th:replace="front/common/common :: bloglist"></div>
         <!--最新博文 end-->
     </div>
     <div class="rbox">
         <!--点击排行 begin-->
-        <div th:replace="common/common :: paihang"></div>
+        <div th:replace="front/common/common :: paihang"></div>
         <!--点击排行 end-->
         <!--站长推荐 begin-->
-        <div th:replace="common/common :: tuijian"></div>
+        <div th:replace="front/common/common :: tuijian"></div>
         <!--站长推荐 end-->
         <!--广告节点3 begin-->
-        <div th:replace="common/common :: ad3"></div>
+        <div th:replace="front/common/common :: ad3"></div>
         <!--广告节点3 end-->
         <!--标签云 begin-->
-        <div th:replace="common/common :: label"></div>
+        <div th:replace="front/common/common :: label"></div>
         <!--标签云 end-->
         <!--猜你喜欢 begin-->
-        <div th:replace="common/common :: love"></div>
+        <div th:replace="front/common/common :: love"></div>
         <!--猜你喜欢 end-->
         <!--广告节点4 begin-->
-        <div th:replace="common/common :: ad4"></div>
+        <div th:replace="front/common/common :: ad4"></div>
         <!--广告节点4 end-->
         <!--站点统计 begin-->
-        <div th:replace="common/common :: tongji"></div>
+        <div th:replace="front/common/common :: tongji"></div>
         <!--站点统计 end-->
     </div>
 </article>
 
 <!--footer begin-->
-<div th:replace="common/common :: footer"></div>
+<div th:replace="front/common/common :: footer"></div>
 <!--footer end-->
 
 <!--右侧弹出框 start-->
 <div class="toolbar-open"></div>
-<div th:replace="common/common :: toolbar"></div>
+<div th:replace="front/common/common :: toolbar"></div>
 <!--右侧弹出框 end-->
 
 </body>
