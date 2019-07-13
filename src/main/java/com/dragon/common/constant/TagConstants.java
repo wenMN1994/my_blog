@@ -4,7 +4,7 @@ package com.dragon.common.constant;
  * @author：Dragon Wen
  * @email：18475536452@163.com
  * @date：Created in 2019/7/10 06:15
- * @description： 分类常量信息
+ * @description： 标签常量信息
  * @modified By：
  * @version: 1.0.0
  */
