@@ -8,7 +8,7 @@ import com.dragon.common.utils.SpiderUtils;
 import com.dragon.common.utils.security.ShiroUtils;
 import com.dragon.common.utils.spring.SpringUtils;
 import com.dragon.project.log.logininfor.domain.Logininfor;
-import com.dragon.project.log.logininfor.service.LogininforServiceImpl;
+import com.dragon.project.log.logininfor.service.impl.LogininforServiceImpl;
 import com.dragon.project.log.operlog.domain.OperLog;
 import com.dragon.project.log.operlog.service.IOperLogService;
 import com.dragon.project.log.visitorLog.domain.VisitLog;
