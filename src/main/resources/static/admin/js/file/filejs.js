@@ -227,7 +227,7 @@ function checkedpaths(pathids,fileids){
 }
 
 /**
- * 改变删除a得href值
+ * 改变删除a的href值
  * @returns
  */
 function changedeletehref(){
