@@ -198,7 +198,7 @@ public class FileServiceImpl implements FileService {
                 for (FileList filelist : files) {
                     fileIds.add(filelist.getFileId());
                 }
-                trashFile(fileIds,2L,null);
+                trashFile(fileIds,1L,null);
             }
             //然后将此文件夹下的文件夹放入回收战
             List<FilePath> filePaths = filePathMapper.selectFilePathByParentId(pathId);
@@ -207,11 +207,11 @@ public class FileServiceImpl implements FileService {
                 for (FilePath filePathTemp : filePaths) {
                     pathIdsNext.add(filePathTemp.getPathId());
                 }
-                trashPath(pathIdsNext,2L,false);
+                trashPath(pathIdsNext,1L,false);
             }
-            if (isFirst) {
-                filePath.setParentId(0L);
-            }
+//            if (isFirst) {
+//                filePath.setParentId(0L);
+//            }
             filePath.setPathIstrash(setIsTrashHowMany);
             filePathMapper.updateFilePath(filePath);
         }

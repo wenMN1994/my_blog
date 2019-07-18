@@ -40,10 +40,10 @@ public interface FilePathMapper {
     /**
      * 根据文件夹名称和文件夹ID查找文件夹
      * @param pathName
-     * @param pathId
+     * @param parentId
      * @return
      */
-    FilePath selectByPathNameAndParentId(@Param("pathName") String pathName, @Param("pathId") Long pathId);
+    FilePath selectByPathNameAndParentId(@Param("pathName") String pathName, @Param("parentId") Long parentId);
 
     /**
      * 根据目录id查询目录

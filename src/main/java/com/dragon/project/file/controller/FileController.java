@@ -99,7 +99,7 @@ public class FileController extends BaseController {
     public String createFolder(@RequestParam("pathId") Long pathId, @RequestParam("pathName") String pathName, Model model) {
         User user = getSysUser();
         log.info("pathId:"+ pathId +"pathName:"+pathName);
-        FilePath filePath = fileService.selectByPathName(user.getLoginName());
+        FilePath filePath = fileService.selectFilePathById(pathId);
         String newName = fileService.onlyName(pathName, filePath, null, 1, false);
         FilePath newFilePath = new FilePath(pathId, newName);
 
