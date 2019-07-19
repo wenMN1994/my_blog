@@ -70,6 +70,7 @@ public class FileAjaxController extends BaseController {
             case "trash":
                 fileLists = fileService.selectFileListByUserIdAndIsTrash(user.getUserId(),1L);
                 filePaths = fileService.selectPathListByUserIdAndIsTrash(user.getUserId(), 1L);
+                model.addAttribute("nowpath", fileService.selectByPathName(user.getLoginName()));
                 model.addAttribute("paths", filePaths);
                 model.addAttribute("files", fileLists);
                 model.addAttribute("istrash", 1);
@@ -89,5 +90,19 @@ public class FileAjaxController extends BaseController {
 
         model.addAttribute("type", type);
         return "file/filetypeload";
+    }
+
+    /**
+     *  移动复制文件树 点击加载
+     * @param mctoid
+     * @param mcpathids
+     * @param model
+     * @return
+     */
+    @RequestMapping("mcloadpath")
+    public String mcloadpath(@RequestParam("mctoid") Long mctoid,@RequestParam("mcpathids") List<Long> mcpathids,Model model){
+        List<FilePath> showsonpaths = fileService.mcpathload(mctoid, mcpathids);
+        model.addAttribute("mcpaths",showsonpaths);
+        return "file/mcpathload";
     }
 }

@@ -209,11 +209,47 @@ public class FileServiceImpl implements FileService {
                 }
                 trashPath(pathIdsNext,1L,false);
             }
-//            if (isFirst) {
-//                filePath.setParentId(0L);
-//            }
             filePath.setPathIstrash(setIsTrashHowMany);
             filePathMapper.updateFilePath(filePath);
         }
+    }
+
+    @Override
+    public void rename(String name, Long renamefp, Long nowPathId, boolean isFile) {
+        if(isFile){
+            //文件名修改
+            FileList fileList = fileListMapper.selectFileListById(renamefp);
+            FilePath filePath = filePathMapper.selectFilePathById(fileList.getPathId());
+            String newName = onlyName(name, filePath, fileList.getFileShuffix(), 1, isFile);
+            fileList.setFileName(newName);
+            fileListMapper.updateFileList(fileList);
+        }else{
+            //文件夹名修改
+            FilePath fp = filePathMapper.selectFilePathById(renamefp);
+            FilePath filePath = filePathMapper.selectFilePathById(nowPathId);
+            String newName = onlyName(name, filePath, null, 1, false);
+            fp.setPathName(newName);
+            filePathMapper.updateFilePath(fp);
+        }
+    }
+
+    @Override
+    public List<FilePath> mcpathload(Long mctoid, List<Long> mcpathids) {
+        List<FilePath> showsonpath = new ArrayList<>();
+        List<FilePath> sonpaths = filePathMapper.selectByParentIdAndPathIstrash(mctoid, 0L);
+
+        for (FilePath sonpath : sonpaths) {
+            boolean nosame = true;
+            for (Long mcpathid : mcpathids) {
+                if(sonpath.getPathId().equals(mcpathid)){
+                    nosame = false;
+                    break;
+                }
+            }
+            if(nosame){
+                showsonpath.add(sonpath);
+            }
+        }
+        return showsonpath;
     }
 }

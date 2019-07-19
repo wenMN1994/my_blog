@@ -158,4 +158,21 @@ public interface FileService {
      * @param isFirst
      */
     void trashPath(List<Long> checkPathIds, Long setIsTrashHowMany, boolean isFirst);
+
+    /**
+     * 重命名
+     * @param name
+     * @param renamefp
+     * @param pathId
+     * @param isFile
+     */
+    void rename(String name, Long renamefp, Long pathId, boolean isFile);
+
+    /**
+     * 移动复制文件树 点击加载
+     * @param mctoid
+     * @param mcpathids
+     * @return
+     */
+    List<FilePath> mcpathload(Long mctoid, List<Long> mcpathids);
 }

@@ -98,7 +98,6 @@ public class FileController extends BaseController {
     @RequestMapping("createfolder")
     public String createFolder(@RequestParam("pathId") Long pathId, @RequestParam("pathName") String pathName, Model model) {
         User user = getSysUser();
-        log.info("pathId:"+ pathId +"pathName:"+pathName);
         FilePath filePath = fileService.selectFilePathById(pathId);
         String newName = fileService.onlyName(pathName, filePath, null, 1, false);
         FilePath newFilePath = new FilePath(pathId, newName);
@@ -107,6 +106,30 @@ public class FileController extends BaseController {
         fileService.save(newFilePath);
         folder(model,pathId);
         return "file/filemanage";
+    }
+
+    /**
+     * 重命名方法
+     * @param name
+     * @param renamefp
+     * @param pathId
+     * @param isFile
+     * @param model
+     * @return
+     */
+    @RequestMapping("rename")
+    public String rename(@RequestParam("name") String name,
+                         @RequestParam("renamefp") Long renamefp,
+                         @RequestParam("pathid") Long pathId,
+                         @RequestParam("isfile") boolean isFile,
+                         Model model){
+
+        //这里调用重命名方法
+        fileService.rename(name, renamefp, pathId, isFile);
+
+        folder(model,pathId);
+        return "file/filemanage";
+
     }
 
     /**
