@@ -39,7 +39,7 @@ public class TestController {
      */
     @RequestMapping("blog")
     public String blog(){
-        return "blog/blog";
+        return "front/blog/blog";
     }
 
     /**
@@ -48,7 +48,7 @@ public class TestController {
      */
     @RequestMapping("classify")
     public String classify(){
-        return "classify/classify";
+        return "front/classify/classify";
     }
 
     /**
@@ -57,7 +57,7 @@ public class TestController {
      */
     @RequestMapping("sourcecode")
     public String sourcecode(){
-        return "sourcecode/sourcecode";
+        return "front/sourcecode/sourcecode";
     }
 
     /**
@@ -66,7 +66,7 @@ public class TestController {
      */
     @RequestMapping("repository")
     public String repository(){
-        return "repository/repository";
+        return "front/repository/repository";
     }
 
     /**
@@ -75,7 +75,7 @@ public class TestController {
      */
     @RequestMapping("about")
     public String about(){
-        return "about/about";
+        return "front/about/about";
     }
 
     /**
@@ -84,7 +84,7 @@ public class TestController {
      */
     @RequestMapping("article")
     public String info(){
-        return "article/article";
+        return "front/article/article";
     }
 
     /**
@@ -93,7 +93,7 @@ public class TestController {
      */
     @RequestMapping("time")
     public String time(){
-        return "time/time";
+        return "front/time/time";
     }
 
 }

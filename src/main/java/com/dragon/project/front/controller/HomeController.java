@@ -19,6 +19,6 @@ public class HomeController extends BaseController {
     @RequestMapping("")
     public String index(ModelMap modelMap){
 
-        return "index/index";
+        return "front/index/index";
     }
 }
