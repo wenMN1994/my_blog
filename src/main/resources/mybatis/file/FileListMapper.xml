@@ -21,6 +21,17 @@
         sfl.upload_time, sfl.file_user_id, sfl.file_istrash, sfl.file_isshare from sys_file_list sfl
     </sql>
 
+    <select id="selectFileList" parameterType="FileList" resultMap="fileListResult">
+        <include refid="Base_Column_List"/>
+        where sfl.file_istrash = '0'
+        <if test="fileName != null and fileName != ''">
+            AND sfl.file_name = #{fileName}
+        </if>
+        <if test="filePath != null and filePath != ''">
+            AND sfl.file_path = #{filePath}
+        </if>
+    </select>
+
     <select id="selectByFilePathAndFileIstrash" parameterType="FileList" resultMap="fileListResult">
         <include refid="Base_Column_List"/>
         where
