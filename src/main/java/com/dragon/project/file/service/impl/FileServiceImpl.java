@@ -89,7 +89,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public Object saveFile(MultipartFile file, User user, FilePath nowPath, boolean isFile) throws IOException {
+    public FileList saveFile(MultipartFile file, User user, FilePath nowPath, boolean isFile) throws IOException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM");
         File root = new File(this.rootPath,simpleDateFormat.format(new Date()));
 
@@ -122,6 +122,13 @@ public class FileServiceImpl implements FileService {
         }else{
             return null;
         }
+    }
+
+    @Override
+    public Long saveFileReturnSrc(MultipartFile file, User user, FilePath nowPath, boolean isFile) throws IOException {
+        FileList fl = saveFile(file,user,nowPath,isFile);
+        FileList fileList = fileListMapper.selectFileList(fl);
+        return fileList.getFileId();
     }
 
     @Override

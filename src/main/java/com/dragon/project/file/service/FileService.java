@@ -80,7 +80,7 @@ public interface FileService {
      * @param isFile
      * @return
      */
-    Object saveFile(MultipartFile file, User user, FilePath nowPath, boolean isFile) throws IOException;
+    FileList saveFile(MultipartFile file, User user, FilePath nowPath, boolean isFile) throws IOException;
 
     /**
      * 根据用户名查找文件路径
@@ -175,4 +175,14 @@ public interface FileService {
      * @return
      */
     List<FilePath> mcpathload(Long mctoid, List<Long> mcpathids);
+
+    /**
+     * 保存博客封面图片
+     * @param file
+     * @param user
+     * @param nowPath
+     * @param isFile
+     * @return
+     */
+    Long saveFileReturnSrc(MultipartFile file, User user, FilePath nowPath, boolean isFile) throws IOException;
 }

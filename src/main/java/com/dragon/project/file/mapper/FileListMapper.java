@@ -88,4 +88,11 @@ public interface FileListMapper {
      * @return
      */
     List<FileList> selectFileListByPathId(@Param("pathId") Long pathId);
+
+    /**
+     * 查找FileList
+     * @param fileList
+     * @return
+     */
+    FileList selectFileList(FileList fileList);
 }
