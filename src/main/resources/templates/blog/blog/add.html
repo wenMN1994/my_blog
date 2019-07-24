@@ -182,6 +182,7 @@
         //初始化分栏
         $('body').layout({initClosed: panehHidden, west__size: 350});
     });
+
     function changeImg() {
         var title = "上传图片";
         var url = "/blog/blog/img";
@@ -219,7 +220,12 @@
             yes: function (index, layero) {
                 var iframeWin = layero.find('iframe')[0];
                 var data = iframeWin.contentWindow.submitHandler();
-                $("#header").attr("src", data);
+                if(data != null){
+                    $("#header").attr("src", data);
+                }else {
+                    var imgSrc = iframeWin.contentWindow.getCurrentUploaderImg();
+                    $("#header").attr("src", imgSrc);
+                }
                 iframeWin.contentWindow.closeLocal();
             },
             cancel: function (index) {
@@ -227,7 +233,7 @@
             }
         });
     }
-    
+
     //获取表单数据
     function getData() {
         var headerImg= $("#header")[0].src;

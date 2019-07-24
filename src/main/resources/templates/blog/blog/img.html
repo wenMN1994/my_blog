@@ -97,6 +97,7 @@
 <script src="/static/admin/plugins/image-picker/image-picker.min.js"
         th:src="@{/admin/plugins/image-picker/image-picker.min.js}"></script>
 <script>
+    var currentUploaderImg;
     $(function () {
         loadImage();
     });
@@ -119,19 +120,24 @@
                 console.log(data)
                 if (data.code == web_status.SUCCESS) {
                     var fileList = data.files;
-                    var select = $("<select class='image-picker' id='imgSelect'></select>");
+                    var select = $("<select class='image-picker masonry show-html' id='imgSelect'></select>");
                     for (var i = 0; i < fileList.length; i++) {
                         var option = $("<option></option>");
                         option.attr("data-img-src", ctx + "imgshow?fileId="+fileList[i].fileId);
                         option.attr("value", ctx + "imgshow?fileId="+fileList[i].fileId);
                         option.addClass("file");
                         select.append(option);
+                        currentUploaderImg = ctx + "imgshow?fileId="+fileList[i].fileId;
                     }
                     $("#localImageView").append(select);
                     $("select").imagepicker();
                 }
             }
         })
+    }
+
+    function getCurrentUploaderImg() {
+        return currentUploaderImg;
     }
 </script>
 
