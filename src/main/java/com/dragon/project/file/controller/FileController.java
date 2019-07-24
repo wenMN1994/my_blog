@@ -1,6 +1,7 @@
 package com.dragon.project.file.controller;
 
 import com.dragon.framework.web.controller.BaseController;
+import com.dragon.framework.web.domain.AjaxResult;
 import com.dragon.project.file.domain.FileList;
 import com.dragon.project.file.domain.FilePath;
 import com.dragon.project.file.service.FileService;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
@@ -77,6 +79,15 @@ public class FileController extends BaseController {
         return "file/filemanage";
     }
 
+    /**
+     * 文件上传
+     * @param file
+     * @param pathId
+     * @param model
+     * @return
+     * @throws IllegalStateException
+     * @throws IOException
+     */
     @RequestMapping("fileupload")
     public String uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("pathId") Long pathId,
                              Model model) throws IllegalStateException, IOException {
@@ -86,6 +97,24 @@ public class FileController extends BaseController {
         fileService.saveFile(file, user, nowPath, true);
         folder(model,pathId);
         return "file/filemanage";
+    }
+
+    /**
+     * 上传博客封面图片
+     * @param file
+     * @return
+     * @throws IllegalStateException
+     * @throws IOException
+     */
+    @RequestMapping("blogfileupload")
+    @ResponseBody
+    public AjaxResult uploadBlogFile(@RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
+        User user = getSysUser();
+        FilePath nowPath = fileService.selectByPathName(user.getUserName());
+        Long fileId = fileService.saveFileReturnSrc(file, user, nowPath, true);
+        String src = "imgshow?fileId=" + fileId;
+        return AjaxResult.success().put("data", src);
+
     }
 
     /**
