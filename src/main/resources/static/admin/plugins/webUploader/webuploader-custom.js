@@ -82,7 +82,7 @@ jQuery(function () {
 
         chunked: true,
         // server: 'http://webuploader.duapp.com/server/fileupload.php',
-        server: '/qiniu/image/upload',
+        server: '/blogfileupload',
         fileNumLimit: 300,
         fileSizeLimit: 5 * 1024 * 1024,    // 200 M
         fileSingleSizeLimit: 1 * 1024 * 1024    // 50 M
@@ -261,12 +261,14 @@ jQuery(function () {
     }
 
     uploader.on('uploadSuccess', function (file, json) {
-        //
-        // // $("#imgUrl").val(json.data);
+
+        // $("#imgUrl").val(json.data);
         // console.log($(".image-picker").val());
         // $(".image-picker").val(json.data);
         // console.log($(".image-picker").val());
-        $("select").imagepicker();
+        // $("#header").attr("src", json.data);
+        // $("select").imagepicker();
+        console.log(json.data);
     });
 
     function updateStatus() {
