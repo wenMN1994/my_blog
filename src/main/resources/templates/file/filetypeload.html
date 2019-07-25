@@ -39,35 +39,35 @@
                     <span th:case="true">
                         <span th:if="${ type } eq 'picture'">
                             <h3 class="box-title" style="font-size: 12px;">图片</h3>
-                            <input class="loadfilestype" name="type" type="hidden" value="${type}"/>
+                            <input class="loadfilestype" name="type" type="hidden" th:value="${type}"/>
                         </span>
                         <span th:if="${ type } eq 'document'">
                             <h3 class="box-title" style="font-size: 12px;">文档</h3>
-                            <input class="loadfilestype" name="type" type="hidden" value="${type}"/>
+                            <input class="loadfilestype" name="type" type="hidden" th:value="${type}"/>
                         </span>
                         <span th:if="${ type } eq 'music'">
                             <h3 class="box-title" style="font-size: 12px;">音乐</h3>
-				            <input class="loadfilestype" name="type" type="hidden" value="${type}"/>
+				            <input class="loadfilestype" name="type" type="hidden" th:value="${type}"/>
                         </span>
                         <span th:if="${ type } eq 'video'">
                             <h3 class="box-title" style="font-size: 12px;">视频</h3>
-				            <input class="loadfilestype" name="type" type="hidden" value="${type}"/>
+				            <input class="loadfilestype" name="type" type="hidden" th:value="${type}"/>
                         </span>
                         <span th:if="${ type } eq 'yasuo'">
                             <h3 class="box-title" style="font-size: 12px;">压缩包</h3>
-				            <input class="loadfilestype" name="type" type="hidden" value="${type}"/>
+				            <input class="loadfilestype" name="type" type="hidden" th:value="${type}"/>
                         </span>
                         <span th:if="${ type } eq 'trash'">
                             <h3 class="box-title" style="font-size: 12px;">回收站</h3>
-				            <input class="loadfilestype" name="type" type="hidden" value="${type}"/>
+				            <input class="loadfilestype" name="type" type="hidden" th:value="${type}"/>
                         </span>
                         <span th:if="${ type } eq 'share'">
                             <h3 class="box-title" style="font-size: 12px;">分享文件</h3>
-				            <input class="loadfilestype" name="type" type="hidden" value="${type}"/>
+				            <input class="loadfilestype" name="type" type="hidden" th:value="${type}"/>
                         </span>
                         <span th:if="${ type } eq 'all'">
                             <h3 class="box-title" style="font-size: 12px;">全部文件查找</h3>
-				            <input class="loadfilestype" name="type" type="hidden" value="${type}"/>
+				            <input class="loadfilestype" name="type" type="hidden" th:value="${type}"/>
                         </span>
                     </span>
                     <span th:case="false">
