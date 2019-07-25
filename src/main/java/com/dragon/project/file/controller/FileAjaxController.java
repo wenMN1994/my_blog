@@ -30,6 +30,11 @@ public class FileAjaxController extends BaseController {
 
     @RequestMapping("filetypeload")
     public String fileTypeLoad(@RequestParam("type") String type, Model model){
+        typeLoad(model,type);
+        return "file/filetypeload";
+    }
+
+    private void typeLoad(Model model, String type){
         User user = getSysUser();
 
         String contentType;
@@ -89,7 +94,6 @@ public class FileAjaxController extends BaseController {
         }
 
         model.addAttribute("type", type);
-        return "file/filetypeload";
     }
 
     /**
@@ -105,4 +109,32 @@ public class FileAjaxController extends BaseController {
         model.addAttribute("mcpaths",showsonpaths);
         return "file/mcpathload";
     }
+
+    /**
+     * 回收站文件删除
+     * @param type
+     * @param checkPathIds
+     * @param checkFileIds
+     * @param model
+     * @return
+     */
+    @RequestMapping("fileloaddeletefile")
+    public String fileLoadDeleteFile(@RequestParam("type") String type,
+                                     @RequestParam(value="checkpathids[]",required=false) List<Long> checkPathIds,
+                                     @RequestParam(value="checkfileids[]",required=false) List<Long> checkFileIds,
+                                     Model model){
+        if (checkFileIds!=null) {
+            // 删除文件
+            fileService.deleteFileByFileId(checkFileIds);
+        }
+        if (checkPathIds!=null) {
+            // 删除文件夹
+            fileService.deletePathByPathId(checkPathIds);
+        }
+
+        typeLoad(model,type);
+        return "file/filetypeload";
+    }
+
+
 }

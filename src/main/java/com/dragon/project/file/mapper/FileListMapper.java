@@ -95,4 +95,10 @@ public interface FileListMapper {
      * @return
      */
     FileList selectFileList(FileList fileList);
+
+    /**
+     * 根据文件id 批量 删除文件  同时删除 数据库以及本地文件
+     * @param fileId
+     */
+    void deleteFileListById(@Param("fileId") Long fileId);
 }

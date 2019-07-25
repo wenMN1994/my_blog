@@ -259,4 +259,44 @@ public class FileServiceImpl implements FileService {
         }
         return showsonpath;
     }
+
+    @Override
+    public void deleteFileByFileId(List<Long> fileIds) {
+        for (Long fileId : fileIds) {
+            FileList filelist = fileListMapper.selectFileListById(fileId);
+
+            File file = new File(this.rootPath,filelist.getFilePath());
+            if(file.exists() && file.isFile()){
+                fileListMapper.deleteFileListById(fileId);
+                file.delete();
+            }
+        }
+    }
+
+    @Override
+    public void deletePathByPathId(List<Long> pathIds) {
+        for (Long pathId : pathIds) {
+            //首先删除此文件夹下的文件
+            List<FileList> files = fileListMapper.selectFileListByPathId(pathId);
+            if(!files.isEmpty()){
+                List<Long> fileIdList= new ArrayList<>();
+                for (FileList fileList : files) {
+                    fileIdList.add(fileList.getFileId());
+                }
+                deleteFileByFileId(fileIdList);
+            }
+
+            //然后删除此文件夹下的文件夹
+            List<FilePath> filePathList = filePathMapper.selectFilePathByParentId(pathId);
+            if(!filePathList.isEmpty()){
+                List<Long> pathIdList = new ArrayList<>();
+                for (FilePath filePath : filePathList) {
+                    pathIdList.add(filePath.getPathId());
+                }
+                deletePathByPathId(pathIdList);
+            }
+
+            filePathMapper.deleteFilePathByPathId(pathId);
+        }
+    }
 }

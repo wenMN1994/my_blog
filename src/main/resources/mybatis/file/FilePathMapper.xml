@@ -125,4 +125,8 @@
         where path_id = #{pathId,jdbcType=INTEGER}
     </update>
 
+    <delete id="deleteFilePathByPathId" parameterType="Long">
+ 		delete from sys_file_path where path_id = #{pathId}
+ 	</delete>
+
 </mapper>

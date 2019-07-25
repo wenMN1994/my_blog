@@ -237,4 +237,8 @@
         where file_id = #{fileId,jdbcType=INTEGER}
     </update>
 
+    <delete id="deleteFileListById" parameterType="Long">
+ 		delete from sys_file_list where file_id = #{fileId}
+ 	</delete>
+
 </mapper>

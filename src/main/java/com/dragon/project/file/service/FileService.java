@@ -185,4 +185,16 @@ public interface FileService {
      * @return
      */
     Long saveFileReturnSrc(MultipartFile file, User user, FilePath nowPath, boolean isFile) throws IOException;
+
+    /**
+     * 根据文件id 批量 删除文件  同时删除 数据库以及本地文件
+     * @param checkFileIds
+     */
+    void deleteFileByFileId(List<Long> checkFileIds);
+
+    /**
+     * 根据文件夹id 批量删除 文件夹  并删除此路径下的所有文件以及文件夹
+     * @param checkPathIds
+     */
+    void deletePathByPathId(List<Long> checkPathIds);
 }
