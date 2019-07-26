@@ -1,8 +1,14 @@
 package com.dragon.project.front.controller;
 
+import com.dragon.framework.aspectj.lang.annotation.VLog;
 import com.dragon.framework.web.controller.BaseController;
+import com.dragon.project.blog.blog.domain.Blog;
+import com.dragon.project.front.service.HomeService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -16,9 +22,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping({"/","/my_blog"})
 public class HomeController extends BaseController {
-    @RequestMapping("")
-    public String index(ModelMap modelMap){
 
+    @Autowired
+    private HomeService homeService;
+
+    @VLog(title = "首页")
+    @RequestMapping("")
+    public String index(Integer pageNum, Model model){
+        setCommonMessage(model);
+        PageHelper.startPage(pageNum == null ? 1 : pageNum, 12, "create_time desc");
+        model.addAttribute("blogs", new PageInfo<>(homeService.selectFrontBlogList(new Blog())));
         return "front/index/index";
+    }
+
+    private void setCommonMessage(Model model) {
     }
 }
