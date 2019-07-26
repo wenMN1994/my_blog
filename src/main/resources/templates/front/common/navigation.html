@@ -9,39 +9,30 @@
         <div class="pagination">
             <div class="list-page">
                 <ul class="post-data">
-                    <li><span class="rows">共46条记录</span></li>
+                    <li><span class="rows" th:text="${'共'+pageInfo.total+'条记录'}"></span></li>
                 </ul>
             </div>
             <ul>
                 <li>
-                    <a class="first" href="?pageNum=1" title="">首页</a>
+                    <a class="first" th:href="${'?pageNum=1'}">首页</a>
                 </li>
                 <li>
-
-                    <a class=" not-allowed prev" title="">上一页</a>
+                    <a th:if="${pageInfo.hasPreviousPage}" class="prev"
+                       th:href="${'?pageNum='+pageInfo.prePage}">上一页</a>
+                    <a th:if="${!pageInfo.hasPreviousPage}" class=" not-allowed prev">上一页</a>
                 </li>
-                <li class="active">
-
-                    <a class="num" href="?pageNum=1" title="">1</a>
-                </li>
-                <li>
-
-                    <a class="num" href="?pageNum=2">2</a>
+                <li th:each="nav:${pageInfo.navigatepageNums}" th:class="${nav == pageInfo.pageNum}?'active':''">
+                    <span th:if="nav == pageInfo.pageNum" th:text="${nav}"></span>
+                    <a th:if="nav != pageInfo.pageNum" class="num" th:href="${'?pageNum='+nav}"
+                       th:text="${nav}"></a>
                 </li>
                 <li>
-
-                    <a class="num" href="?pageNum=3">3</a>
+                    <a th:if="${pageInfo.hasNextPage}" class="next"
+                       th:href="${'?pageNum='+pageInfo.nextPage}">下一页</a>
+                    <a th:if="${!pageInfo.hasNextPage}" class="not-allowed next">下一页</a>
                 </li>
                 <li>
-
-                    <a class="num" href="?pageNum=4">4</a>
-                </li>
-                <li>
-                    <a class="next" href="?pageNum=2">下一页</a>
-
-                </li>
-                <li>
-                    <a class="end" href="?pageNum=4">尾页</a>
+                    <a class="end" th:href="${'?pageNum='+pageInfo.pages}">尾页</a>
                 </li>
             </ul>
         </div>
