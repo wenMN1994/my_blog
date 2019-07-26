@@ -21,7 +21,7 @@ header::before { background: #000 linear-gradient(to left, #4cd964, #5ac8fa, #00
 .logo { float: left; margin-right: 60px; line-height: 50px; color: #FFF; font-size: 22px }
 .logo a { color: #FFF }
 .logo img { margin-top: 14px; }
-.imgscale img { width: 100%; -moz-transition: all .5s ease; -webkit-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease; transition: all 0.5s; }
+.imgscale img { width: 100%; height: 100%; -moz-transition: all .5s ease; -webkit-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease; transition: all 0.5s; }
 .imgscale:hover img { transform: scale(1.1); }
 /*nav*/
 nav { float: left; height: 50px; line-height: 50px; text-align: center; }
@@ -123,7 +123,7 @@ nav { float: left; height: 50px; line-height: 50px; text-align: center; }
 .bloglist li:hover .blogtitle a { color: #337ab7; }
 .blogtitle b { color: #F00 }
 a.viewmore { display: block; right: 10px; bottom: 20px; position: absolute; padding: 3px 10px; background: #12b7de; color: #fff; border-radius: 3px; }
-.blogpic { float: left; width: 23.2%; margin-right: 20px; display: block; overflow: hidden; border-radius: 3px; position: relative }
+.blogpic { float: left; width: 23.2%; height: 100px; margin-right: 20px; display: block; overflow: hidden; border-radius: 3px; position: relative }
 .blogpic i { display: block; position: absolute; top: 0; left: 0; z-index: 9; font-style: normal; padding: 3px 5px; background: rgba(18,182,221,.8); font-size: 14px; }
 .blogpic i a { color: #FFF }
 .bplist { display: block; overflow: hidden }
