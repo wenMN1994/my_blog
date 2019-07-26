@@ -47,10 +47,11 @@ $(".filetypeshare").click(function(){
  * 搜索js
  */
 $(".loadfiletype").on("click",".findfileandpathgo",function(){
-	var findfileandpath = $(".loadfiletype .box-header .findfileandpath").val();
-	var loadtype = $(".loadfiletype .box-header .loadfilestype").val();
-	alert(findfileandpath+loadtype);
-	$(".loadfiletype").load("findfileandpath",{type:loadtype,findfileandpath:findfileandpath});
+	$.modal.alertWarning("功能开发中...");
+	// var findFileAndPath = $(".loadfiletype .box-header .findfileandpath").val();
+	// var loadType = $(".loadfiletype .box-header .loadfilestype").val();
+	// alert(findFileAndPath+loadType);
+	// $(".loadfiletype").load("findfileandpath",{type:loadType,findfileandpath:findFileAndPath});
 });
 
 /**
