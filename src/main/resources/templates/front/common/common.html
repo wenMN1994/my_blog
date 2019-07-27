@@ -205,6 +205,20 @@
 </div>
 <!--友情链接 end-->
 
+<!--文章目录-->
+<div class="catalogue whitebg" id="Catalog_box" th:fragment="blog_catalogue" th:if="${blog!=null}">
+    <h2 class="htitle">
+        <i class="el-paper-clip"></i>
+        文章目录
+        <small> Article Directory</small>
+    </h2>
+    <div style="width: 300px;" class="">
+        <div id="toolbar">
+            <div id="toolbar-c"></div>
+        </div>
+    </div>
+</div>
+
 <!--底部公共模块 begin-->
 <footer th:fragment="footer">
     <div class="footer_box">
@@ -311,16 +325,33 @@
         </li>
         <!--单图-->
         <li th:each="blog:${blogs.list}">
-            <h3 class="blogtitle"><a href="/my_blog/article" target="_blank" th:title="${blog.title}" th:text="${blog.title}"></a></h3>
-            <span class="blogpic imgscale"><i><a href="/my_blog/article">原创模板</a></i><a href="/my_blog/article" title=""><img
-                    th:src="${blog.headerImg}" th:alt="${blog.title}" th:title="${blog.title}"src="Front-End/images/b01.jpg" alt=""></a></span>
+            <h3 class="blogtitle">
+                <a th:href="${'/f/article/'+blog.blogId+'.html'}" target="_blank" th:title="${blog.title}" th:text="${blog.title}"></a>
+            </h3>
+            <span class="blogpic imgscale">
+                <i>
+                    <a th:href="${'/f/article/'+blog.blogId+'.html'}">原创模板</a>
+                </i>
+                <a th:href="${'/f/article/'+blog.blogId+'.html'}">
+                    <img th:src="${blog.headerImg}" th:alt="${blog.title}" th:title="${blog.title}"src="Front-End/images/b01.jpg" alt="">
+                </a>
+            </span>
             <p class="blogtext" th:text="${blog.summary}"></p>
             <p class="bloginfo">
                 <i class="avatar"><img src="Front-End/images/avatar.jpg"></i>
                 <span th:text="${blog.createBy}">DragonWen</span>
-                <span th:text="${#dates.format(blog.createTime, 'yyyy-MM-dd')}"><i class="el-time" ></i> 2018-10-28</span>
-                <span ><i class="el-comment"></i> 0</span>
-                <span th:text="${blog.click}"><i class="el-eye-open"></i> 192</span>
+                <a>
+                    <i class="el-time" ></i>
+                    <span th:text="${#dates.format(blog.createTime, 'yyyy-MM-dd')}"> 2018-10-28</span>
+                </a>
+                <a>
+                    <i class="el-comment"></i>
+                    <span > 0</span>
+                </a>
+                <a>
+                    <i class="el-eye-open"></i>
+                    <span th:text="${blog.click}"> 192</span>
+                </a>
             </p>
             <a href="/my_blog/article" class="viewmore">阅读更多</a>
         </li>
