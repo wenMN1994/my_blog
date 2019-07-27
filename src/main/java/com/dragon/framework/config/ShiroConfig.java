@@ -276,6 +276,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/common/**", "anon");
         filterChainDefinitionMap.put("/Front-End/**", "anon");
         //前台界面设置允许访问
+        filterChainDefinitionMap.put("/f/**", "anon");
         filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/my_blog/**", "anon");
         filterChainDefinitionMap.put("/captcha/captchaImage**", "anon");
