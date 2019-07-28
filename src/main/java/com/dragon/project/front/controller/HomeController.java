@@ -37,6 +37,12 @@ public class HomeController extends BaseController {
     @Autowired
     private CategoryService categoryService;
 
+    /**
+     * 博客首页
+     * @param pageNum
+     * @param model
+     * @return
+     */
     @VLog(title = "首页")
     @RequestMapping("")
     public String index(Integer pageNum, Model model){
@@ -51,14 +57,27 @@ public class HomeController extends BaseController {
         model.addAttribute("categories", categoryService.selectSupportCategoryList());
     }
 
+    /**
+     * 个人博客日记
+     * @param pageNum
+     * @param model
+     * @return
+     */
     @VLog(title = "个人博客")
     @RequestMapping("blog")
     public String blog(Integer pageNum, Model model){
+        setCommonMessage(model);
         PageHelper.startPage(pageNum == null ? 1 : pageNum, 12, "create_time desc");
         model.addAttribute("blogs", new PageInfo<>(homeService.selectFrontBlogList(new Blog())));
         return "front/blog/blog";
     }
 
+    /**
+     * 博客
+     * @param blogId
+     * @param model
+     * @return
+     */
     @VLog(title = "博客")
     @GetMapping("/f/article/{blogId}.html")
     public String article(@PathVariable Integer blogId, Model model) {
@@ -75,6 +94,13 @@ public class HomeController extends BaseController {
         return "front/article/article";
     }
 
+    /**
+     * 随笔分类
+     * @param categoryId
+     * @param pageNum
+     * @param model
+     * @return
+     */
     @VLog(title = "随笔分类")
     @GetMapping({"/f/category/{categoryId}.html"})
     public String category(@PathVariable Integer categoryId, Integer pageNum, Model model) {
@@ -85,5 +111,56 @@ public class HomeController extends BaseController {
         PageHelper.startPage(pageNum == null ? 1 : pageNum, 10, "create_time desc");
         model.addAttribute("blogs", new PageInfo<>(homeService.selectFrontBlogList(blog)));
         return "front/category/category";
+    }
+
+    /**
+     * 源码库
+     * @param pageNum
+     * @param model
+     * @return
+     */
+    @VLog(title = "源码库")
+    @RequestMapping("sourcecode")
+    public String sourcecode(Integer pageNum, Model model){
+        setCommonMessage(model);
+        PageHelper.startPage(pageNum == null ? 1 : pageNum, 10, "create_time desc");
+        model.addAttribute("blogs", new PageInfo<>(homeService.selectFrontBlogList(new Blog())));
+        return "front/sourcecode/sourcecode";
+    }
+
+    /**
+     * 知识库
+     * @param pageNum
+     * @param model
+     * @return
+     */
+    @VLog(title = "知识库")
+    @RequestMapping("repository")
+    public String repository(Integer pageNum, Model model){
+        setCommonMessage(model);
+        PageHelper.startPage(pageNum == null ? 1 : pageNum, 10, "create_time desc");
+        model.addAttribute("blogs", new PageInfo<>(homeService.selectFrontBlogList(new Blog())));
+        return "front/repository/repository";
+    }
+
+    /**
+     * 关于我
+     * @return
+     */
+    @VLog(title = "关于我")
+    @RequestMapping("about")
+    public String about(Model model){
+        setCommonMessage(model);
+        return "front/about/about";
+    }
+
+    /**
+     * 时间轴
+     * @return
+     */
+    @RequestMapping("time")
+    public String time(Model model){
+        setCommonMessage(model);
+        return "front/time/time";
     }
 }
