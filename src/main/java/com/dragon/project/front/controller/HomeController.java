@@ -5,6 +5,7 @@ import com.dragon.framework.aspectj.lang.annotation.VLog;
 import com.dragon.framework.web.controller.BaseController;
 import com.dragon.project.blog.blog.domain.Blog;
 import com.dragon.project.blog.blog.service.BlogService;
+import com.dragon.project.blog.category.service.CategoryService;
 import com.dragon.project.front.service.HomeService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -33,6 +34,9 @@ public class HomeController extends BaseController {
     @Autowired
     private BlogService blogService;
 
+    @Autowired
+    private CategoryService categoryService;
+
     @VLog(title = "首页")
     @RequestMapping("")
     public String index(Integer pageNum, Model model){
@@ -43,6 +47,8 @@ public class HomeController extends BaseController {
     }
 
     private void setCommonMessage(Model model) {
+        //获取分类下拉项中的分类
+        model.addAttribute("categories", categoryService.selectSupportCategoryList());
     }
 
     @VLog(title = "博客")

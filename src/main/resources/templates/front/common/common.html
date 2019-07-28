@@ -16,13 +16,17 @@
                 <li><a href="/my_blog/blog">个人博客日记</a></li>
                 <li class="menu"><a href="/my_blog/classify">随笔分类</a>
                     <ul class="sub">
-                        <li><a href="/">编程语言</a></li>
-                        <li><a href="/">软件设计</a></li>
+                        <li th:each="category:${categories}">
+                            <a th:href="${'/f/category/'+category.categoryId+'.html'}"
+                               th:text="${category.categoryTitle}"></a>
+                        </li>
+                        <!--<li><a href="/">软件设计</a></li>
                         <li><a href="/">Web前端</a></li>
                         <li><a href="/">数据库技术</a></li>
-                        <li><a href="/">其他分类</a></li>
+                        <li><a href="/">其他分类</a></li>-->
                     </ul>
-                    <span></span></li>
+                    <span></span>
+                </li>
                 <li><a href="/my_blog/sourcecode">源码库</a></li>
                 <li><a href="/my_blog/repository">知识库</a></li>
                 <li><a href="/my_blog/about">关于我</a></li>
