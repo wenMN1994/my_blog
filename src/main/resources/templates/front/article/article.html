@@ -162,11 +162,11 @@
                 <div class="nextinfo">
                     <p>上一篇：
                         <a th:if="${previousBlog != null}" th:href="${'/f/article/'+previousBlog.blogId+'.html'}" th:text="${previousBlog.title}"></a>
-                        <a th:if="${previousBlog == null}" href="##">没有了</a>
+                        <a th:if="${previousBlog == null}" href="javascrip:;">没有了</a>
                     </p>
                     <p>下一篇：
                         <a th:if="${nextBlog !=null }" th:href="${'/f/article/'+nextBlog.blogId+'.html'}" th:text="${nextBlog.title}"></a>
-                        <a th:if="${ nextBlog==null }" href="##">没有了</a>
+                        <a th:if="${ nextBlog==null }" href="javascrip:;">没有了</a>
                     </p>
                 </div>
             </div>
