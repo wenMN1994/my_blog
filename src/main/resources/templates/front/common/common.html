@@ -330,9 +330,9 @@
             </h3>
             <span class="blogpic imgscale">
                 <i>
-                    <a th:href="${'/f/article/'+blog.blogId+'.html'}">原创模板</a>
+                    <a th:href="${'/f/article/'+blog.blogId+'.html'}" target="_blank">原创模板</a>
                 </i>
-                <a th:href="${'/f/article/'+blog.blogId+'.html'}">
+                <a th:href="${'/f/article/'+blog.blogId+'.html'}" target="_blank">
                     <img th:src="${blog.headerImg}" th:alt="${blog.title}" th:title="${blog.title}"src="Front-End/images/b01.jpg" alt="">
                 </a>
             </span>
@@ -353,7 +353,7 @@
                     <span th:text="${blog.click}"> 192</span>
                 </a>
             </p>
-            <a href="/my_blog/article" class="viewmore">阅读更多</a>
+            <a th:href="${'/f/article/'+blog.blogId+'.html'}" class="viewmore" target="_blank">阅读更多</a>
         </li>
         <div th:replace="front/common/navigation :: navigation-index(${blogs})"></div>
     </ul>
