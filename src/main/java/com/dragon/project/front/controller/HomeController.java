@@ -51,6 +51,14 @@ public class HomeController extends BaseController {
         model.addAttribute("categories", categoryService.selectSupportCategoryList());
     }
 
+    @VLog(title = "个人博客")
+    @RequestMapping("blog")
+    public String blog(Integer pageNum, Model model){
+        PageHelper.startPage(pageNum == null ? 1 : pageNum, 12, "create_time desc");
+        model.addAttribute("blogs", new PageInfo<>(homeService.selectFrontBlogList(new Blog())));
+        return "front/blog/blog";
+    }
+
     @VLog(title = "博客")
     @GetMapping("/f/article/{blogId}.html")
     public String article(@PathVariable Integer blogId, Model model) {
