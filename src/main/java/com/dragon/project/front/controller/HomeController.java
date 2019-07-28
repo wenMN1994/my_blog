@@ -66,4 +66,16 @@ public class HomeController extends BaseController {
         model.addAttribute("randBlogList", blogService.selectRandBlogList());
         return "front/article/article";
     }
+
+    @VLog(title = "随笔分类")
+    @GetMapping({"/f/category/{categoryId}.html"})
+    public String category(@PathVariable Integer categoryId, Integer pageNum, Model model) {
+        setCommonMessage(model);
+        model.addAttribute("category", categoryService.selectCategoryById(categoryId));
+        Blog blog = new Blog();
+        blog.setCategoryId(categoryId);
+        PageHelper.startPage(pageNum == null ? 1 : pageNum, 10, "create_time desc");
+        model.addAttribute("blogs", new PageInfo<>(homeService.selectFrontBlogList(blog)));
+        return "front/category/category";
+    }
 }
