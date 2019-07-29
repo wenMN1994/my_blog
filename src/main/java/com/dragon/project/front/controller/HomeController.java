@@ -66,6 +66,8 @@ public class HomeController extends BaseController {
         model.addAttribute("tags", tagService.selectTagList(new Tag()));
         //查询文章排行
         model.addAttribute("blogRanking", blogService.selectBlogRanking());
+        //查询推荐博文
+        model.addAttribute("supportBlog", blogService.selectSupportBlog());
     }
 
     /**
