@@ -155,12 +155,12 @@ public class HomeController extends BaseController {
     }
 
     /**
-     * 时间轴
+     * 归档
      * @return
      */
-    @RequestMapping("time")
-    public String time(Model model){
+    @RequestMapping("archives")
+    public String archives(Model model){
         setCommonMessage(model);
-        return "front/time/time";
+        return "front/archives/archives";
     }
 }
