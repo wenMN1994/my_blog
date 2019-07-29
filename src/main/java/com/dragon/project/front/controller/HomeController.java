@@ -6,6 +6,8 @@ import com.dragon.framework.web.controller.BaseController;
 import com.dragon.project.blog.blog.domain.Blog;
 import com.dragon.project.blog.blog.service.BlogService;
 import com.dragon.project.blog.category.service.CategoryService;
+import com.dragon.project.blog.tag.domain.Tag;
+import com.dragon.project.blog.tag.service.TagService;
 import com.dragon.project.front.service.HomeService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -15,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * @author：Dragon Wen
@@ -37,6 +41,9 @@ public class HomeController extends BaseController {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    TagService tagService;
+
     /**
      * 博客首页
      * @param pageNum
@@ -55,6 +62,8 @@ public class HomeController extends BaseController {
     private void setCommonMessage(Model model) {
         //获取分类下拉项中的分类
         model.addAttribute("categories", categoryService.selectSupportCategoryList());
+        //查询所有的标签
+        model.addAttribute("tags", tagService.selectTagList(new Tag()));
     }
 
     /**
@@ -162,5 +171,23 @@ public class HomeController extends BaseController {
     public String archives(Model model){
         setCommonMessage(model);
         return "front/archives/archives";
+    }
+
+    /**
+     * 标签
+     * @param tagId
+     * @param pageNum
+     * @param model
+     * @return
+     */
+    @VLog(title = "标签")
+    @GetMapping("/f/tag/{tagId}.html")
+    public String tag(@PathVariable Integer tagId, Integer pageNum, Model model) {
+        setCommonMessage(model);
+        PageHelper.startPage(pageNum == null ? 1 : pageNum, 10, "b.create_time desc");
+        List<Blog> blogs = blogService.selectBlogListByTagId(tagId);
+        model.addAttribute("blogs", new PageInfo(blogs));
+        model.addAttribute("tag", tagService.selectTagById(tagId));
+        return "front/tag/tag";
     }
 }
