@@ -259,23 +259,8 @@ list2.html
 #lc_weixin i { display: block; position: absolute; bottom: 40px; right: 0; box-shadow: #e9eaed 1px 1px 5px; }
 #lc_weixin i img { height: 100px; display: none }
 #lc_weixin:hover i img { display: block }
-/*cloud*/
-.cloud ul a { line-height: 24px; height: 24px; display: block; background: #999; float: left; padding: 3px 10px; margin: 10px 5px 0 0; border-radius: 3px; -moz-transition: all 0.5s; -webkit-transition: all 0.5s; -o-transition: all 0.5s; transition: all 0.5s; color: #FFF }
-.cloud ul a:nth-child(8n-7) { background: #8A9B0F }
-.cloud ul a:nth-child(8n-6) { background: #EB6841 }
-.cloud ul a:nth-child(8n-5) { background: #3FB8AF }
-.cloud ul a:nth-child(8n-4) { background: #FE4365 }
-.cloud ul a:nth-child(8n-3) { background: #FC9D9A }
-.cloud ul a:nth-child(8n-2) { background: #EDC951 }
-.cloud ul a:nth-child(8n-1) { background: #C8C8A9 }
-.cloud ul a:nth-child(8n) { background: #83AF9B }
-.cloud ul a:first-child { background: #036564 }
-.cloud ul a:last-child { background: #3299BB }
-.cloud ul a:hover { border-radius: 0; text-shadow: #000 1px 1px 1px }
 /*
-
 daohang.html
-
 */
 .site_tj { overflow: hidden; padding-top: 20px }
 .site_tj li { width: 16.6%; float: left; text-align: center; line-height: 30px; margin-bottom: 10px; }
@@ -573,3 +558,19 @@ hr {width:90%;margin: 20px auto; border: 0;border-top: 1px solid #eeeeee;border-
 .dashang-section ul { text-align: center; }
 .dashang-section ul li { display: inline-block; }
 .dashang-section ul li img { width: 140px !important; height: 140px !important; }
+
+/*标签云*/
+.cloud ul {width:95%;margin:auto;overflow:hidden;}
+.cloud ul li {padding:0.1em 0.5em 0.1em 0.5em;float:left;text-align:center; border-radius:0.5em;margin:0.3em 1% 0.3em 1%;-moz-transition: all 0.5s; -webkit-transition: all 0.5s; -o-transition: all 0.5s; transition: all 0.5s; }
+.cloud ul li a { color: #FFF;font-size:12px;}
+.cloud ul li:hover { border-radius: 0; text-shadow: #000 1px 1px 1px }
+.cloud ul li:nth-child(8n-4) { background: #20a8fe }
+.cloud ul li:nth-child(8n-3) { background: #EB6841 }
+.cloud ul li:nth-child(8n-2) { background: #3FB8AF }
+.cloud ul li:nth-child(8n-1) { background: #FE4365 }
+.cloud ul li:nth-child(8n-5) { background: #FC9D9A }
+.cloud ul li:nth-child(8n-6) { background: #EDC951 }
+.cloud ul li:nth-child(8n-7) { background: #C8C8A9 }
+.cloud ul li:nth-child(8n) { background: #83AF9B }
+.cloud ul li:first-child { background: #036564 }
+.cloud ul li:last-child { background: #3299BB }

@@ -140,7 +140,11 @@
         <small> Tags Clouds</small>
     </h2>
     <ul>
-        <a href="" target="_blank">个人博客模板</a> <a href="" target="_blank">css动画</a> <a href="" target="_blank">布局</a> <a href="" target="_blank">今夕何夕</a> <a href="" target="_blank">SEO</a> <a href="" target="_blank">女程序员</a> <a href="" target="_blank">小世界</a> <a href="" target="_blank">个人博客</a> <a href="" target="_blank">网页设计</a>
+        <li th:each="tag,tagStat:${tags}">
+            <a th:class="${'tstyle-'+tagStat.count%4+1}" th:href="${'/f/tag/'+tag.tagId+'.html'}"
+               th:title="${'标签：'+tag.tagTitle}" th:text="${tag.tagTitle+' ('+tag.count+')'}" target="_blank">
+            </a>
+        </li>
     </ul>
 </div>
 <!--标签云 end-->
