@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="front/common/head :: commonHead('随笔分类-DragonWen个人博客')"></head>
+<head th:replace="front/common/head :: commonHead(${category.categoryTitle}+'分类-DragonWen个人博客')"></head>
 <body>
 <!--top begin-->
 <div th:replace="front/common/common :: head"></div>
@@ -15,7 +15,7 @@
             <p>博客网站制作，本栏目主要是分享关于域名选择、空间购买，个人博客网站模板制作，网站后期维护运营，优化等相关文章，以及提供帝国cms建站过程中遇到问题的解决办法。</p>
         </div>
         <div class="whitebg bloglist">
-            <h2 class="htitle"><span class="hnav"><a href="/">推荐工具</a><a href="/">JS经典实例</a><a href="/">网站建设</a><a href="/">CSS3|Html5</a><a href="/">心得笔记</a><a href="/">帝国cms教程</a></span>博客网站制作</h2>
+            <h2 class="htitle" th:text="${category.categoryTitle}"></h2>
             <ul>
                 <!--多图模式 置顶设计-->
                 <li>
