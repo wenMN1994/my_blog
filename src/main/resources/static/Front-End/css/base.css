@@ -182,21 +182,20 @@ a.iconfont.icon-weixin { color: #07AF12;    background: url(../images/c04.png) n
 .topnews span { bottom: 0; position: absolute; bottom: 30%; left: 0; right: 0; color: #FFF; text-align: center; font-size: 15px; padding: 0 40px; overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2; line-height: 22px; }
 .topnews:hover img { opacity: .9; transform: scale(1.1); }
 /*paihang*/
-.paihang ul { overflow: hidden }
-.paihang ul li { height: 30px; line-height: 30px; margin-bottom: 10px; padding-left: 5px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
-.paihang ul li:nth-child(even) { background: #f6f6f6 }
-.paihang ul li i { display: block; width: 16px; height: 16px; background: #B1B1B1; float: left; margin-top: 8px; margin-right: 10px; position: relative; font-style: normal }
-.paihang ul li i::before { position: absolute; left: 0; top: 0; font-size: 9px; color: #fff; line-height: 16px; width: 16px; text-align: center }
-.paihang ul li:first-child i, .paihang ul li:nth-child(2) i, .paihang ul li:nth-child(3) i { background: #FF6600; }
-.paihang ul li:first-child i::before { content: "1"; }
-.paihang ul li:nth-child(2) i::before { content: "2"; }
-.paihang ul li:nth-child(3) i::before { content: "3"; }
-.paihang ul li:nth-child(4) i::before { content: "4"; }
-.paihang ul li:nth-child(5) i::before { content: "5"; }
-.paihang ul li:nth-child(6) i::before { content: "6"; }
-.paihang ul li:nth-child(7) i::before { content: "7"; }
-.paihang ul li:nth-child(8) i::before { content: "8"; }
-.paihang ul li:hover { -moz-transition: all .2s ease; -webkit-transition: all .2s ease; transition: all .2s ease; }
+.paihang-ul{width:90%;margin:auto;margin-top:10px;}
+.paihang-ul li{width:100%;padding:15px 0;border-bottom:1px dashed #ccc;overflow:hidden;    position: relative;}
+.paihang-ul li:last-child{border:none;}
+.paihang-ul li span:before{display:inline-block;width:20px;height:23px;border-radius:5px;-webkit-border-radius:5px;text-align:center;font-size:12px;margin-right:10px;}
+.paihang-ul li:nth-of-type(1) span:before{content:'1';background:#e71555;color:#fff;}
+.paihang-ul li:nth-of-type(2) span:before{content:'2';background:#16d083;color:#fff;}
+.paihang-ul li:nth-of-type(3) span:before{content:'3';background:#ff6700;color:#fff;}
+.paihang-ul li:nth-of-type(4) span:before{content:'4';background:#857479;color:#fff;}
+.paihang-ul li:nth-of-type(5) span:before{content:'5';background:#d092a4;color:#fff;}
+.paihang-ul li:nth-of-type(6) span:before{content:'6';background: rgba(39, 133, 0, 0.33);color:#fff;}
+.paihang-ul li a{font-size:13px;color:#777;}
+.paihang-ul li a b{color:#999;font-weight:normal;font-size:12px;    position: absolute;right: 0px;}
+.mytab ul li a{transition:all 0.5s;-webkit-transition:all 0.5s;line-height: 15px; display: inline-block;width: 65%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+.mytab ul li a:hover{text-shadow:0 0px 3px #000;color:#fff;}
 /*tuijian*/
 .tuijian ul { overflow: hidden; padding-top: 10px }
 .tuijian li { overflow: hidden; margin-bottom: 10px; height: 60px; }
