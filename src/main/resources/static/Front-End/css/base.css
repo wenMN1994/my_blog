@@ -4,8 +4,9 @@
 body { font: 15px "Microsoft YaHei", Arial, Helvetica, sans-serif; color: #333; background: #E9EAED; line-height: 1.5; overflow-x: hidden; }
 img { border: 0; display: block }
 ul, li { list-style: none; }
-a { text-decoration: none; color: #333; }
-a:hover { color: #000; text-decoration: none; }
+a { text-decoration: none; color:inherit; }
+a:hover { color:inherit; text-decoration: none; }
+i{color:#ff6700;margin-right:5px;}
 .clear { clear: both; width: 100%; overflow: hidden; height: 20px }
 .clearblank { clear: both; width: 100%; overflow: hidden; }
 .fl { float: left!important; }
@@ -116,6 +117,20 @@ nav { float: left; height: 50px; line-height: 50px; text-align: center; }
 .arc-right ul li{float:left;overflow:hidden;padding:0 5px;font-size:12px;color:#888; max-width: 150px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 .arc-right ul li:last-child{float:right;}
 
+/*!*文章详细*!*/
+.article-push{margin-top:30px;}
+.article-push >ul> li> .arc-right>h4{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px;}
+.article-push >ul{padding-bottom: 10px;}
+.article-push ul li{background:none;padding:10px 0px;margin-bottom:5px;overflow:hidden;}
+.article-push ul li:last-child{border:none;}
+.article-push>ul>li> .arcimg{width:33%;float:left;border-radius:3px;height:83px;-webkit-border-radius:3px;overflow:hidden;border:1px dotted #05b129;}
+.article-push>ul>li> .arcimg img{width:100%;height:100%;padding:3px;box-sizing:border-box;border-radius:3px;-webkit-border-radius:3px;}
+.article-push>ul>li> .arc-right{width:62%;}
+.article-push>ul>li> .arc-right p{height:37px;font-size:12px;}
+.article-push >ul>li>ul{width:100%;}
+.article-push .arc-right>ul li{padding:0;}
+.article-push >ul> li:hover{background:#f9fffc;}
+
 /*最新博客列表*/
 .bloglist ul { padding: 10px 0 0 }
 .bloglist li { overflow: hidden; margin-bottom: 20px; border-bottom: #eee 1px dashed; padding-bottom: 20px; position: relative; min-height: 120px; }
@@ -138,6 +153,7 @@ a.viewmore { display: block; right: 10px; bottom: 20px; position: absolute; padd
 .avatar { position: relative; float: left; width: 30px; height: 30px; border-radius: 100%; padding: 2px; display: block; background: -webkit-linear-gradient(bottom left, rgba(0,153,255,.9), rgba(42,228,197,.7)); background: -o-linear-gradient(bottom left, rgba(0,153,255,.9), rgba(42,228,197,.7)); background: linear-gradient(to top right, rgba(0,153,255,.9), rgba(42,228,197,.7)); }
 .avatar img { width: 100%; border-radius: 50%; }
 .avatar::after { content: ""; position: absolute; background: url(../images/v.png) no-repeat; background-size: 12px; width: 12px; height: 12px; right: 0; bottom: 0 }
+
 /*links*/
 .sqlink { float: right; margin-right: 10px; font-size: 14px }
 .sqlink a { color: #666 }
@@ -146,6 +162,7 @@ a.viewmore { display: block; right: 10px; bottom: 20px; position: absolute; padd
 .links li { display: inline-block; width: 50%; float: left; line-height: 30px; text-align: center }
 .links li a { display: block; }
 .links li:hover { background: #f7f7f7 }
+
 /*rbox*/
 .rbox { width: 23.5%; float: right; overflow: hidden; }
 .card { box-shadow: 0px 1px 0px rgba(255,255,255,.1), inset 0px 1px 1px rgba(0,0,0,.7); border-radius: 3px; background: url(../images/quote-bg.png) no-repeat top right rgba(42,42,42,1); height: 260px; overflow: hidden; margin-bottom: 20px }
@@ -163,6 +180,7 @@ a.iconfont.icon-weixin { color: #07AF12;    background: url(../images/c04.png) n
 #weixin i { display: block; position: absolute; bottom: 55px; right: 0 }
 #weixin i img { height: 100px; display: none }
 #weixin:hover i img { display: block }
+
 /*htitle*/
 .htitle { font-size: 14px; line-height: 40px; border-bottom: 1px solid #eee; color: #0181da; font-weight: normal; position: relative; margin-bottom: 10px; }
 .htitle i {color: #ff6700;}
@@ -171,16 +189,19 @@ a.iconfont.icon-weixin { color: #07AF12;    background: url(../images/c04.png) n
 .htitle:hover:after { width: 80px; }
 .hnav { float: right }
 .hnav a { display: block; margin-right: 10px; padding-right: 10px; float: left; position: relative }
+
 /*notice*/
 .notice ul { padding-top: 18px }
 .notice li { font-size: 12px; line-height: 30px; margin-bottom: 12px; display: block; -moz-border-radius: 4px; border-radius: 4px; background: #f6f6f6; padding: 4px 12px 4px 30px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; position: relative; -moz-transition: all .2s ease; -webkit-transition: all .2s ease; transition: all .2s ease; }
 .notice li:before { position: absolute; content: ""; width: 3px; height: 3px; background: #000; border-radius: 10px; left: 15px; top: 20px }
 .notice li:hover { background: #f2f2f2; box-shadow: 0 0 10px #ccc; -moz-transition: all .2s ease; -webkit-transition: all .2s ease; transition: all .2s ease; }
+
 /*topnews*/
 .topnews { display: block; margin: 20px 0; background: #000; position: relative; overflow: hidden; border-radius: 3px; max-height: 110px; }
 .topnews img { opacity: .7; }
 .topnews span { bottom: 0; position: absolute; bottom: 30%; left: 0; right: 0; color: #FFF; text-align: center; font-size: 15px; padding: 0 40px; overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2; line-height: 22px; }
 .topnews:hover img { opacity: .9; transform: scale(1.1); }
+
 /*paihang*/
 .paihang-ul{width:90%;margin:auto;margin-top:10px;}
 .paihang-ul li{width:100%;padding:15px 0;border-bottom:1px dashed #ccc;overflow:hidden;    position: relative;}
@@ -196,25 +217,21 @@ a.iconfont.icon-weixin { color: #07AF12;    background: url(../images/c04.png) n
 .paihang-ul li a b{color:#999;font-weight:normal;font-size:12px;    position: absolute;right: 0px;}
 .mytab ul li a{transition:all 0.5s;-webkit-transition:all 0.5s;line-height: 15px; display: inline-block;width: 65%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
 .mytab ul li a:hover{text-shadow:0 0px 3px #000;color:#fff;}
-/*tuijian*/
-.tuijian ul { overflow: hidden; padding-top: 10px }
-.tuijian li { overflow: hidden; margin-bottom: 10px; height: 60px; }
-.tuijian li i { width: 70px; height: 70px; margin-right: 10px; overflow: hidden; display: block; float: left; }
-.tuijian li i img { height: 100%; max-width: 100%; min-width: 100%; -moz-transition: all .5s ease; -webkit-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease; transition: all 0.5s; }
-.tuijian li p { margin-top: 10px; line-height: 20px; max-height: 40px; overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2; font-size: 14px; }
-.tuijian li:hover { background: #f6f6f6; }
-.tuijian li:hover img { transform: scale(1.1); }
+
 /*ad*/
 .ad ul { overflow: hidden; border-radius: 3px; }
+
 /*wenzi*/
 .wenzi li { line-height: 22px; margin-bottom: 10px; position: relative; padding-left: 15px }
 .wenzi li:before { position: absolute; content: ""; width: 3px; height: 3px; background: #000; border-radius: 10px; left: 0px; top: 10px; }
+
 /*tongji*/
 .tongji li { margin-bottom: 8px }
 .tongji li a { color: #096 }
 .tongji li a:hover { text-decoration: underline; color: #000 }
 .tongji_gzh { width: 80%; margin: auto; overflow: hidden; }
 .tongji_gzh img { width: 100% }
+
 /*footer*/
 footer { background: #373D41; width: 100%; border-top: #00C1DE 10px solid; padding: 30px 0; color: #73777a; font-size: 14px; }
 .wxbox { overflow: hidden; float: left; margin-right: 20px }
@@ -237,15 +254,13 @@ footer a:hover { color: #00C1DE }
     z-index:12;
     display:none;
 }
-/*
-list.html
-*/
+
+/*list.html*/
 .lanmu img { height: 100px; float: left; margin-right: 20px }
 .lanmu h1 { font-size: 22px; margin-bottom: 15px }
 .lanmu p { color: #666 }
-/*
-list2.html
-*/
+
+/*list2.html*/
 .liucheng ul { overflow: hidden; margin-top: 20px }
 .liucheng li { width: 33.3%; float: left; padding-bottom: 20px }
 .liucheng li section { display: block; margin: 0 15px; box-shadow: #e9eaed 1px 1px 5px; }
@@ -258,19 +273,15 @@ list2.html
 #lc_weixin i { display: block; position: absolute; bottom: 40px; right: 0; box-shadow: #e9eaed 1px 1px 5px; }
 #lc_weixin i img { height: 100px; display: none }
 #lc_weixin:hover i img { display: block }
-/*
-daohang.html
-*/
+
+/*daohang.html*/
 .site_tj { overflow: hidden; padding-top: 20px }
 .site_tj li { width: 16.6%; float: left; text-align: center; line-height: 30px; margin-bottom: 10px; }
 .site_tj li a { border-radius: 3px; display: block; border: 1px solid #EBEBEB; margin: 0 5px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
 .site_tj li:hover a { box-shadow: 0 4px 10px -4px rgba(48, 63, 107, 0.20); background: #222; color: #fff }
 .site_yx li:nth-child(30n) { margin-bottom: 60px }
-/*
 
-about
-
-*/
+/*about*/
 .about { overflow: hidden; background: url(../images/abbg.png) no-repeat right top #fff; padding: 20px 40px }
 .ab_box { overflow: hidden; margin: 20px 0; }
 .ab_box h3 { margin: 10px 0 10px; font-size: 18px; }
@@ -303,11 +314,8 @@ about
 .qq_join li img { width: 90%; margin: auto; background: -webkit-linear-gradient(bottom left, rgba(0,153,255,.9), rgba(42,228,197,.7)); background: -o-linear-gradient(bottom left, rgba(0,153,255,.9), rgba(42,228,197,.7)); background: linear-gradient(to top right, rgba(0,153,255,.9), rgba(42,228,197,.7)); display: block; padding: 5px; }
 .qq_join li p { margin: 10px; }
 .qq_join li b { color: #019881; margin: 0 5px; }
-/*
 
-	article.html
-
-*/
+/*article.html*/
 .con_tilte { font-size: 22px; margin-top: 20px }
 .con_nav { float: right; font-size: 14px; color: #666 }
 .con_nav a { color: #666 }
@@ -318,8 +326,7 @@ about
 .con_text a { color: #09C;word-break: break-all; }
 .con_text a:hover { text-decoration: underline }
 .con_text p { margin: 15px 0; }
-.con_text img { display: block; max-width: 100% !important; height: 100% !important;
-margin: auto }
+.con_text img { display: block; max-width: 100% !important; height: 100% !important; margin: auto }
 .price_info ul { padding-top: 15px; position: relative; overflow: hidden }
 .price_info p { margin-bottom: 5px }
 .price_info img { position: absolute; right: 20px; top: 0; width: 120px }
@@ -501,6 +508,7 @@ hr {width:90%;margin: 20px auto; border: 0;border-top: 1px solid #eeeeee;border-
 .shang_payselect .pay_item span{ float:left;}
 .shang_info{clear:both;}
 .shang_info p,.shang_info a{color:#C3C3C3;text-align:center;font-size:12px;text-decoration:none;line-height:2em;}
+
 /*手机端打赏*/
 .shang_box_wap{padding:10px;background-color:#fff;border-radius:10px;position:fixed;z-index:1000;left:50%;top:50%;margin-left:-151px;margin-top:-190px;border:1px dotted #dedede;display:none;}
 .shang_box_wap img{border:none;border-width:0;}
