@@ -223,8 +223,8 @@ a.iconfont.icon-weixin { color: #07AF12;    background: url(../images/c04.png) n
 .ad ul { overflow: hidden; border-radius: 3px; }
 
 /*wenzi*/
-.wenzi li { line-height: 22px; margin-bottom: 10px; position: relative; padding-left: 15px }
-.wenzi li:before { position: absolute; content: ""; width: 3px; height: 3px; background: #000; border-radius: 10px; left: 0px; top: 10px; }
+/*.wenzi li { line-height: 22px; margin-bottom: 10px; position: relative; padding-left: 15px }*/
+/*.wenzi li:before { position: absolute; content: ""; width: 3px; height: 3px; background: #000; border-radius: 10px; left: 0px; top: 10px; }*/
 
 /*tongji*/
 .tongji li { margin-bottom: 8px }

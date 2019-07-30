@@ -189,7 +189,7 @@
     </select>
 
     <select id="selectRandBlogListLimit" resultType="com.dragon.project.blog.blog.domain.Blog">
-        select blog_id,title,header_img from bg_blog  where status=1 order by rand() limit #{i}
+        select blog_id,title,summary, click,create_time,header_img from bg_blog  where status=1 order by rand() limit #{i}
     </select>
     <select id="selectBlogsByTagId" resultType="com.dragon.project.blog.blog.domain.Blog">
         SELECT b.blog_id,

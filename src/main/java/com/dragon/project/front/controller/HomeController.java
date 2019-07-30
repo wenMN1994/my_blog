@@ -68,6 +68,8 @@ public class HomeController extends BaseController {
         model.addAttribute("blogRanking", blogService.selectBlogRanking());
         //查询推荐博文
         model.addAttribute("supportBlog", blogService.selectSupportBlog());
+        //查询你喜欢的文章
+        model.addAttribute("randBlogList", blogService.selectRandBlogList());
     }
 
     /**
