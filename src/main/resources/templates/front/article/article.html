@@ -325,13 +325,13 @@
     jQuery(document).ready(function ($) {
         //处理目录
         $.CateNav('.article-body', '#Catalog_box');
-        $('#Catalog_box').height($('#Catalog_box').height());
+        $('#Catalog_box').height($('#Catalog_box').height() - 120);
 
         $('#toolbar-c').height($('#odl').height() / 4);
 
         console.log($('#Catalog_box').offset().top);
         $('#toolbar').height($('#Catalog_box').height());
-        处理固定元素
+        //处理固定元素
         //aside
         var $sticky = $('#Catalog_box');
         $sticky.hcSticky({
