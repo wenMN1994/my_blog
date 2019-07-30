@@ -9,6 +9,7 @@ import com.dragon.project.blog.category.service.CategoryService;
 import com.dragon.project.blog.tag.domain.Tag;
 import com.dragon.project.blog.tag.service.TagService;
 import com.dragon.project.front.service.HomeService;
+import com.dragon.project.link.service.LinkService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,10 @@ public class HomeController extends BaseController {
     private CategoryService categoryService;
 
     @Autowired
-    TagService tagService;
+    private TagService tagService;
+
+    @Autowired
+    private LinkService linkService;
 
     /**
      * 博客首页
@@ -70,6 +74,8 @@ public class HomeController extends BaseController {
         model.addAttribute("supportBlog", blogService.selectSupportBlog());
         //查询你喜欢的文章
         model.addAttribute("randBlogList", blogService.selectRandBlogList());
+        //获取友链信息
+        model.addAttribute("links", linkService.selectLinkListFront());
     }
 
     /**
@@ -195,5 +201,16 @@ public class HomeController extends BaseController {
         model.addAttribute("blogs", new PageInfo(blogs));
         model.addAttribute("tag", tagService.selectTagById(tagId));
         return "front/tag/tag";
+    }
+
+    /**
+     * 友链跳转
+     */
+    @VLog(title = "友链跳转")
+    @GetMapping("/f/linkRedirect")
+    public String redirectTo(String ref, Integer id) {
+        //增加点击量
+        linkService.incrementLinkClickById(id);
+        return redirect(ref);
     }
 }

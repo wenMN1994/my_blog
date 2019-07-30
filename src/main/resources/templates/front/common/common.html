@@ -218,13 +218,19 @@
 
 <!--友情链接 start-->
 <div class="links whitebg" th:fragment="friendly_link">
-    <h2 class="htitle"><span class="sqlink"><a href="/"><i class="el-plus"></i> 申请</a></span>
+    <h2 class="htitle">
+        <span class="sqlink">
+            <a href="/"><i class="el-plus"></i> 申请</a>
+        </span>
         <i class="el-paper-clip"></i>
         友情链接
         <small> Friendly Link</small>
     </h2>
     <ul>
-        <li><a href="http://www.yangqq.com" target="_blank">杨青青个人博客</a></li>
+        <li th:each="link:${links}">
+            <a th:href="${'/f/linkRedirect?ref='+link.url+'&id='+link.linkId}"
+               target="_blank" th:title="${link.title}" th:text="${link.title}"></a>
+        </li>
     </ul>
 </div>
 <!--友情链接 end-->
