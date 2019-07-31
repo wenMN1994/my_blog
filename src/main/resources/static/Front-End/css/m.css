@@ -19,7 +19,7 @@
     .search { width: 80% }
     .navbox { width: 100% }
     .searchbox { width: 100%; position: fixed; top: 50px; z-index: 99; background: rgba(0,0,0,.8); }
-    .logo { margin-left: 0; line-height: 56px;    float: none;    text-align: center;    margin-right: 0px; }
+    .logo { margin-left: 0; line-height: 47px;    float: none;    text-align: center;    margin-right: 0px; }
     #mnavh { overflow: hidden; position: absolute; }
     #mnavh { display: block; }
     #starlist { display: none; width: 100%;/* top: 30px; */ }
@@ -35,7 +35,7 @@
     .menu:before { right: 20px; }
     /**/
     .footer_box, article { width: 96% }
-    article { padding-top: 80px; }
+    article { padding-top: 60px; }
     .lbox { width: 100% }
     .rbox { display: none }
     .qq_join li section { margin: 0 10px }
@@ -47,8 +47,6 @@
     .rows{display:none}
     .pagination>ul>li> .first{display:none;}
     .pagination>ul>li> .end{display:none;}
-
-    /*.kecheng ul li {width: 36%;}*/
 
     /*返回顶部按钮*/
     .top{width:30px;height:30px;background-size:100%;right:10px;}
@@ -64,7 +62,7 @@
      .site_tj li { width: 20% }
      .hnav a { font-size: 12px }
      .muban li section { margin: 0 5px; height: 260px; overflow: hidden }
-     .kecheng ul li {width: 43%;}
+     .kecheng ul li {width: 50%;}
      .kecheng .arc-right>ul li{width: 45%;padding:0;}
      .toolbar-open, .toolbar { top: 45% }
      .toolbar-open { display: none }
@@ -72,7 +70,7 @@
 }
  @media screen and (max-width: 480px) {
      .headline { width: 100% }
-     .headline ul { height: auto; padding-bottom: 10px; overflow: hidden }
+     .headline ul { height: auto; overflow: hidden }
      .headline ul li { width: 49%; float: left; }
      .headline ul li:last-child { float: right }
      .headline ul li span { padding: 0 20px }
@@ -114,7 +112,7 @@
      .fader .slide img { height: 200px; }
      .otherlink li{width:100%}
      .arc-bdfx{ width:93%;}
-     .kecheng ul li {width: 87%;}
+     .kecheng ul li {width: 100%;}
      .arc-right ul li:last-child{display: none;}
      .box .tab {height: 60px;}
      .at {white-space: normal;}
@@ -148,6 +146,6 @@
 }
 
 @media screen and (max-width: 320px){
-    .kecheng ul li {width: 85%;}
+    .kecheng ul li {width: 100%;}
     .arc-right ul li:last-child{display: none}
 }
