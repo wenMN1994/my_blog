@@ -214,7 +214,7 @@ a.iconfont.icon-weixin { color: #07AF12;    background: url(../images/c04.png) n
 .paihang-ul li:nth-of-type(5) span:before{content:'5';background:#d092a4;color:#fff;}
 .paihang-ul li:nth-of-type(6) span:before{content:'6';background: rgba(39, 133, 0, 0.33);color:#fff;}
 .paihang-ul li a{font-size:13px;color:#777;}
-.paihang-ul li a b{color:#999;font-weight:normal;font-size:12px;    position: absolute;right: 0px;}
+.paihang-ul li a b{color:#999;font-weight:normal;font-size:12px; position: absolute;right: 0px;}
 .mytab ul li a{transition:all 0.5s;-webkit-transition:all 0.5s;line-height: 15px; display: inline-block;width: 65%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
 .mytab ul li a:hover{text-shadow:0 0px 3px #000;color:#fff;}
 

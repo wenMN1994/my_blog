@@ -10,6 +10,7 @@ import com.dragon.project.blog.tag.domain.Tag;
 import com.dragon.project.blog.tag.service.TagService;
 import com.dragon.project.front.service.HomeService;
 import com.dragon.project.link.service.LinkService;
+import com.dragon.project.system.notice.service.INoticeService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,9 @@ public class HomeController extends BaseController {
     @Autowired
     private LinkService linkService;
 
+    @Autowired
+    private INoticeService noticeService;
+
     /**
      * 博客首页
      * @param pageNum
@@ -66,6 +70,8 @@ public class HomeController extends BaseController {
     private void setCommonMessage(Model model) {
         //获取分类下拉项中的分类
         model.addAttribute("categories", categoryService.selectSupportCategoryList());
+        //查询通知
+        model.addAttribute("notices", noticeService.selectNoticeListDisplay());
         //查询所有的标签
         model.addAttribute("tags", tagService.selectTagList(new Tag()));
         //查询文章排行

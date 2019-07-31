@@ -59,10 +59,9 @@
         <small> Website Notice</small>
     </h2>
     <ul>
-        <li><a href="/">十条设计原则教你学会如何设计网页布局!</a></li>
-        <li><a href="/">用js+css3来写一个手机栏目导航</a></li>
-        <li><a href="/">6条网页设计配色原则,让你秒变配色高手</a></li>
-        <li><a href="/">三步实现滚动条触动css动画效果</a></li>
+        <li th:each="notice:${notices}">
+            <a th:text="${notice.noticeTitle}"></a>
+        </li>
     </ul>
 </div>
 <!--网站公告 end-->
