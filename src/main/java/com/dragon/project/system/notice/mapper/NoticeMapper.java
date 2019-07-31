@@ -60,4 +60,11 @@ public interface NoticeMapper {
      * @return 结果
      */
     public int deleteNoticeByIds(String[] noticeIds);
+
+    /**
+     * 获取显示的notice
+     *
+     * @return notice集合
+     */
+    List<Notice> selectNoticeDisplay();
 }

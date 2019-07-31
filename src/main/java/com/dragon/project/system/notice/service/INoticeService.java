@@ -52,4 +52,11 @@ public interface INoticeService {
      * @return 结果
      */
     public int deleteNoticeByIds(String ids);
+
+    /**
+     * 获取显示的Notice
+     *
+     * @return notic集合
+     */
+    List<Notice> selectNoticeListDisplay();
 }

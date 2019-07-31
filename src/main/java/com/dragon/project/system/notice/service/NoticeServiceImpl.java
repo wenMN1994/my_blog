@@ -80,4 +80,14 @@ public class NoticeServiceImpl implements INoticeService {
     {
         return noticeMapper.deleteNoticeByIds(Convert.toStrArray(ids));
     }
+
+    /**
+     * 获取显示的Notice
+     *
+     * @return notic集合
+     */
+    @Override
+    public List<Notice> selectNoticeListDisplay() {
+        return noticeMapper.selectNoticeDisplay();
+    }
 }
