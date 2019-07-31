@@ -59,8 +59,8 @@
         <small> Website Notice</small>
     </h2>
     <ul>
-        <li id="affiche" th:each="notice:${notices}" class="btn btn-primary" data-toggle="modal" data-target="#myModal6">
-            <a class="affiche_text" th:text="${notice.noticeTitle}"></a>
+        <li th:each="notice:${notices}" class="btn btn-primary" data-toggle="modal" data-target="#myModal6">
+            <a th:text="${notice.noticeTitle}"></a>
         </li>
         <div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-sm">
