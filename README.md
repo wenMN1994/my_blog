@@ -1,10 +1,8 @@
 ### my_blog 是基于SpringBoot2搭建的个人博客系统。
 ### 前端演示链接 http://dragonwen.wicp.vip/
-### 后台管理演示链接 http://dragonwen.wicp.vip/sso/login
+### 后台管理演示链接 http://dragonwen.wicp.vip/login
 #### 账号：admin/test  
 #### 密码：123456
-
-由于工作原因更新比较缓慢，请见谅。
 
 ### 技术选型
 
