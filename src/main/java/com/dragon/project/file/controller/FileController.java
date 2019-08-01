@@ -1,12 +1,12 @@
 package com.dragon.project.file.controller;
 
+import com.dragon.common.utils.file.FileUtils;
 import com.dragon.framework.web.controller.BaseController;
 import com.dragon.framework.web.domain.AjaxResult;
 import com.dragon.project.file.domain.FileList;
 import com.dragon.project.file.domain.FilePath;
 import com.dragon.project.file.service.FileService;
 import com.dragon.project.system.user.domain.User;
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -213,39 +211,9 @@ public class FileController extends BaseController {
      * @param fileId
      */
     @RequestMapping("imgshow")
-    public void imgshow(HttpServletResponse response, @RequestParam("fileId") Long fileId) {
+    public void imgShow(HttpServletResponse response, @RequestParam("fileId") Long fileId) {
         FileList filelist = fileService.selectFileListById(fileId);
         File file = fileService.getFile(filelist.getFilePath());
-        writeFile(response, file);
-    }
-
-    /**
-     * 写文件 方法
-     * @param response
-     * @param file
-     */
-    private void writeFile(HttpServletResponse response, File file) {
-        ServletOutputStream servletOutputStream = null;
-        FileInputStream fileInputStream = null;
-        try {
-            fileInputStream = new FileInputStream(file);
-            servletOutputStream = response.getOutputStream();
-            // 读取文件问字节码
-            byte[] data = new byte[(int) file.length()];
-            IOUtils.readFully(fileInputStream, data);
-            // 将文件流输出到浏览器
-            IOUtils.write(data, servletOutputStream);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }finally{
-            try {
-                servletOutputStream.close();
-                fileInputStream.close();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
+        FileUtils.writeFile(response, file);
     }
 }
