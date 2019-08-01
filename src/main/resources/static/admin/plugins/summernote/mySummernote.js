@@ -72,7 +72,7 @@ function initSummernote() {
                             fileUrl: imgSrc
                         },
                         type: "DELETE",
-                        url: "/qiniu/image/remove",
+                        url: "/remove",
                         dataType: "json",
                         success: function (data) {
                         }
@@ -87,7 +87,7 @@ function sendFile($summernote, file) {
     var formData = new FormData();
     formData.append("file", file);
     $.ajax({
-        url: "/qiniu/image/upload",
+        url: "/blogfileupload",
         data: formData,
         cache: false,
         contentType: false,
