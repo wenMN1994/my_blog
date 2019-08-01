@@ -197,4 +197,11 @@ public interface FileService {
      * @param checkPathIds
      */
     void deletePathByPathId(List<Long> checkPathIds);
+
+    /**
+     * 根据文件id 删除文件
+     * @param fileId
+     * @return
+     */
+    boolean deleteFileByFileId(Long fileId);
 }

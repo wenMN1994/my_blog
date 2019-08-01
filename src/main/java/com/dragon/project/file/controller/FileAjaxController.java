@@ -1,5 +1,7 @@
 package com.dragon.project.file.controller;
 
+import com.dragon.framework.aspectj.lang.annotation.Log;
+import com.dragon.framework.aspectj.lang.enums.BusinessType;
 import com.dragon.framework.web.controller.BaseController;
 import com.dragon.project.file.domain.FileList;
 import com.dragon.project.file.domain.FilePath;
@@ -8,8 +10,10 @@ import com.dragon.project.system.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -136,5 +140,21 @@ public class FileAjaxController extends BaseController {
         return "file/filetypeload";
     }
 
+    /**
+     * 删除富文本编辑器中添加的图片
+     * @param fileUrl
+     * @return
+     */
+    @DeleteMapping("/remove")
+    @Log(title = "图片管理", businessType = BusinessType.DELETE)
+    @ResponseBody
+    public boolean remove(@RequestParam("fileUrl")String fileUrl) {
+        boolean isSuccess = false;
+        if(fileUrl.contains("imgshow?fileId")){
+            Long fileId = Long.valueOf(fileUrl.substring(fileUrl.indexOf("=")+1));
+            isSuccess = fileService.deleteFileByFileId(fileId);
+        }
+        return isSuccess;
+    }
 
 }

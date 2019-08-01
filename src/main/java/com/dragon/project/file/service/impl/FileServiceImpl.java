@@ -299,4 +299,17 @@ public class FileServiceImpl implements FileService {
             filePathMapper.deleteFilePathByPathId(pathId);
         }
     }
+
+    @Override
+    public boolean deleteFileByFileId(Long fileId) {
+        FileList fileList = fileListMapper.selectFileListById(fileId);
+        File file = new File(this.rootPath,fileList.getFilePath());
+        int isDelete = fileListMapper.deleteFileListById(fileId);
+        boolean b = file.delete();
+        if(isDelete == 1 && b){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
