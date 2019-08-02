@@ -238,7 +238,12 @@
             yes: function (index, layero) {
                 var iframeWin = layero.find('iframe')[0];
                 var data = iframeWin.contentWindow.submitHandler();
-                $("#header").attr("src", data);
+                if(data != null){
+                    $("#header").attr("src", data);
+                }else {
+                    var imgSrc = iframeWin.contentWindow.getCurrentUploaderImg();
+                    $("#header").attr("src", imgSrc);
+                }
                 iframeWin.contentWindow.closeLocal();
             },
             cancel: function (index) {

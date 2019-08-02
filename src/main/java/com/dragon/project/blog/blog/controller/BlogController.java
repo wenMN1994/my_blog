@@ -1,7 +1,6 @@
 package com.dragon.project.blog.blog.controller;
 
 import com.dragon.common.constant.BlogConstants;
-import com.dragon.common.utils.file.FileUtils;
 import com.dragon.framework.aspectj.lang.annotation.Log;
 import com.dragon.framework.aspectj.lang.enums.BusinessType;
 import com.dragon.framework.web.controller.BaseController;
@@ -11,7 +10,6 @@ import com.dragon.project.blog.blog.domain.Blog;
 import com.dragon.project.blog.blog.service.BlogService;
 import com.dragon.project.blog.category.domain.Category;
 import com.dragon.project.blog.category.service.CategoryService;
-import com.dragon.project.file.domain.FileList;
 import com.dragon.project.file.service.FileService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.util.List;
 
 /**
@@ -122,15 +118,4 @@ public class BlogController extends BaseController {
         return toAjax(blogService.deleteBlogById(ids));
     }
 
-    /**
-     * 图片预览
-     * @param response
-     * @param fileId
-     */
-    @RequestMapping("imgshow")
-    public void imgShow(HttpServletResponse response, @RequestParam("fileId") Long fileId) {
-        FileList filelist = fileService.selectFileListById(fileId);
-        File file = fileService.getFile(filelist.getFilePath());
-        FileUtils.writeFile(response, file);
-    }
 }

@@ -96,8 +96,8 @@ function sendFile($summernote, file) {
         success: function (result) {
             console.log(result)
             if (result.code == web_status.SUCCESS) {
-                $summernote.summernote('insertImage', result.data, function ($image) {
-                    $image.attr('src', result.data);
+                $summernote.summernote('insertImage', ctx + result.data, function ($image) {
+                    $image.attr('src', ctx + result.data);
                 });
             } else {
                 $.modal.alertError(result.msg);
