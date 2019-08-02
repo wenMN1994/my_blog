@@ -278,6 +278,7 @@ public class ShiroConfig {
         //前台界面设置允许访问
         filterChainDefinitionMap.put("/f/**", "anon");
         filterChainDefinitionMap.put("/", "anon");
+        filterChainDefinitionMap.put("/imgshow", "anon");
         filterChainDefinitionMap.put("/my_blog/**", "anon");
         filterChainDefinitionMap.put("/captcha/captchaImage**", "anon");
         //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
