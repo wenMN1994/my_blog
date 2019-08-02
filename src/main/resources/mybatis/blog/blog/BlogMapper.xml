@@ -157,6 +157,7 @@
         b.category_id,
         b.title,
         b.summary,
+        b.status,
         b.click,
         b.header_img,
         b.create_by,
