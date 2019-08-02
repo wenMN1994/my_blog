@@ -112,6 +112,9 @@
                     <span th:text="${blog.click} + '人已围观'">109990人已围观</span>
                 </a>
             </p>
+            <div align="center">
+                <img style="border: 0;display: block;width: 60%;height: auto;" th:src="${blog.headerImg}">
+            </div>
             <p class="con_info" ><b>简介:</b>[[${blog.summary}]]</p>
             <div class="con_text">
                 <!--文章正文-->
