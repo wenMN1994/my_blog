@@ -81,7 +81,7 @@
 
     <!--通过主键修改数据-->
     <update id="updateCarouselMap">
-        update test.bg_carousel_map
+        update bg_carousel_map
         <set>
             <if test="imgUrl != null and imgUrl != ''">
                 img_url = #{imgUrl},
@@ -117,7 +117,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteCarouselMapByIds">
-        delete from test.bg_carousel_map where carousel_id in
+        delete from bg_carousel_map where carousel_id in
         <foreach collection="array" item="carouselId" open="(" separator="," close=")">
             #{carouselId}
         </foreach>
