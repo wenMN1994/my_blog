@@ -10,6 +10,7 @@ import com.dragon.project.blog.tag.domain.Tag;
 import com.dragon.project.blog.tag.service.TagService;
 import com.dragon.project.front.service.HomeService;
 import com.dragon.project.link.service.LinkService;
+import com.dragon.project.system.carouselMap.service.CarouselMapService;
 import com.dragon.project.system.notice.service.INoticeService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -52,6 +53,9 @@ public class HomeController extends BaseController {
     @Autowired
     private INoticeService noticeService;
 
+    @Autowired
+    private CarouselMapService carouselMapService;
+
     /**
      * 博客首页
      * @param pageNum
@@ -64,6 +68,8 @@ public class HomeController extends BaseController {
         setCommonMessage(model);
         PageHelper.startPage(pageNum == null ? 1 : pageNum, 12, "create_time desc");
         model.addAttribute("blogs", new PageInfo<>(homeService.selectFrontBlogList(new Blog())));
+        //放置轮播图
+        model.addAttribute("carouselMaps", carouselMapService.selectCarouselMapListFront());
         return "front/index/index";
     }
 
@@ -82,6 +88,19 @@ public class HomeController extends BaseController {
         model.addAttribute("randBlogList", blogService.selectRandBlogList());
         //获取友链信息
         model.addAttribute("links", linkService.selectLinkListFront());
+    }
+
+    /**
+     * 轮播图点击量
+     * @param carouselId
+     * @param url
+     * @return
+     */
+    @GetMapping("/f/carouselMap/{carouselId}")
+    public String carouselMapI(@PathVariable Integer carouselId, String url) {
+        //增加点击量
+        carouselMapService.incrementCarouselClickById(carouselId);
+        return redirect(url);
     }
 
     /**
