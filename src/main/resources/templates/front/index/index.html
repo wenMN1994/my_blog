@@ -14,10 +14,13 @@
         <div class="banbox">
             <div class="banner">
                 <div id="banner" class="fader">
-                    <li class="slide"><a href="https://github.com/wenMN1994/my_blog" target="_blank"><img src="Front-End/images/1.jpg"><span>GitHub</span></a></li>
-                    <li class="slide"><a href="https://github.com/wenMN1994/my_blog" target="_blank"><img src="Front-End/images/2.jpg"><span>推荐</span></a></li>
-                    <li class="slide"><a href="https://github.com/wenMN1994/my_blog" target="_blank"><img src="Front-End/images/3.jpg"><span>广告</span></a></li>
-                    <li class="slide"><a href="https://github.com/wenMN1994/my_blog" target="_blank"><img src="Front-End/images/4.jpg"><span>独家</span></a></li>
+                    <li class="slide" th:each="carouselMap:${carouselMaps}">
+                        <a th:target="${(carouselMap.target!='1')?'_blank':''}"
+                           th:href="${'/f/carouselMap/'+carouselMap.carouselId+'?url='+carouselMap.url}">
+                            <img th:src="${carouselMap.imgUrl}">
+                            <span th:text="${carouselMap.subTitle}"></span>
+                        </a>
+                    </li>
                     <div class="fader_controls">
                         <div class="page prev" data-target="prev"></div>
                         <div class="page next" data-target="next"></div>
