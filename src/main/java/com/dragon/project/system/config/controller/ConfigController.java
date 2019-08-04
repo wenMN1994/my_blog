@@ -118,4 +118,13 @@ public class ConfigController extends BaseController {
     public String checkConfigKeyUnique(Config config) {
         return configService.checkConfigKeyUnique(config);
     }
+
+    /**
+     * 图片选择
+     * @return
+     */
+    @GetMapping("/img")
+    public String img() {
+        return "system/selectImageCommon/selectImageCommon";
+    }
 }
