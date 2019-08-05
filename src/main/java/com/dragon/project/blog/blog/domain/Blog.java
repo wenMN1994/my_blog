@@ -49,7 +49,7 @@ public class Blog extends BaseEntity {
     private Integer weight;
 
     /**
-     * 是否推荐，Y表示推荐，N表示不推荐
+     * 是否推荐，1表示推荐，0表示不推荐
      */
     private String support;
 
@@ -67,6 +67,11 @@ public class Blog extends BaseEntity {
      * 博文类型，1表示markdown，2表示富文本
      */
     private String type;
+
+    /**
+     * 所属模块，1表示文章，2表示视频课程，3表示项目源码
+     */
+    private String module;
 
     /**
      * 博文正文内容
@@ -170,6 +175,14 @@ public class Blog extends BaseEntity {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getModule() {
+        return module;
+    }
+
+    public void setModule(String module) {
+        this.module = module;
     }
 
     public String getContent() {

@@ -78,6 +78,19 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class=" control-label">所属模块:</label>
+                        <div class="">
+                            <div class="input-group" style="width: 100%">
+                                <select name="module" class="form-control m-b">
+                                    <option value="">请选择所属模块</option>
+                                    <option th:text="${'文章'}" th:value="${1}"></option>
+                                    <option th:text="${'课程'}" th:value="${2}"></option>
+                                    <option th:text="${'源码'}" th:value="${3}"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -150,6 +163,9 @@
                 categoryId: {
                     required: true
                 },
+                module: {
+                    required: true
+                },
             },
             messages: {
                 "headerImg": {
@@ -172,6 +188,9 @@
                 },
                 "categoryId": {
                     required: "请选择分类",
+                },
+                "module": {
+                    required: "请选择所属模块",
                 },
             },
         });
@@ -242,6 +261,7 @@
         var tags = $("#tags").val();
         var weight = $("input[name='weight']").val();
         var categoryId = $("select[name='categoryId']").val();
+        var module = $("select[name='module']").val();
         var content = $("#summernote").summernote("code");
         var tagsArray = new Array();
         console.log(tags);
@@ -251,6 +271,7 @@
             summary: summary,
             tags: tags,
             categoryId: categoryId,
+            module: module,
             weight: weight,
             content: content
         }

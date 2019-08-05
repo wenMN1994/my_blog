@@ -13,6 +13,7 @@
         <result column="click" property="click" jdbcType="INTEGER"/>
         <result column="header_img" property="headerImg" jdbcType="VARCHAR"/>
         <result column="type" property="type" jdbcType="CHAR"/>
+        <result column="module" property="module" jdbcType="CHAR"/>
         <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_by" property="updateBy" jdbcType="VARCHAR"/>
@@ -25,7 +26,7 @@
 
     <sql id="selectBlogVo">
         select blog_id, category_id, title, summary, status,
-        weight, support, click, header_img, type,
+        weight, support, click, header_img, type, module,
         create_by, create_time, update_by, update_time
         from bg_blog
     </sql>
@@ -40,6 +41,7 @@
         <if test="weight != null and weight != ''">weight,</if>
         <if test="support != null and support != ''">support,</if>
         <if test="headerImg != null and headerImg != ''">header_img,</if>
+        <if test="module != null and module != ''">module,</if>
         <if test="content != null and content != ''">content,</if>
         <if test="createBy != null and createBy != ''">create_by,</if>
         create_time
@@ -52,6 +54,7 @@
         <if test="weight != null and weight != ''">#{weight},</if>
         <if test="support != null and support != ''">#{support},</if>
         <if test="headerImg != null and headerImg != ''">#{headerImg},</if>
+        <if test="module != null and module != ''">#{module},</if>
         <if test="content != null and content != ''">#{content},</if>
         <if test="createBy != null and createBy != ''">#{createBy},</if>
         sysdate()
@@ -69,6 +72,7 @@
             <if test="headerImg != null and headerImg != ''">header_img = #{headerImg},</if>
             <if test="content != null and content != ''">content = #{content},</if>
             <if test="type != null and type != ''">type = #{type},</if>
+            <if test="module != null and module != ''">module = #{module},</if>
             <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
             update_time = sysdate()
         </set>
@@ -101,7 +105,7 @@
     </delete>
 
     <select id="selectBlogList" resultType="com.dragon.project.blog.blog.domain.Blog">
-        select blog_id, title, status, weight, support, click, type,
+        select blog_id, title, status, weight, support, click, type, module,
         create_time, update_time
         from bg_blog
         <where>
@@ -120,6 +124,9 @@
             <if test="categoryId != null and categoryId != ''">
                 AND category_id = #{categoryId}
             </if>
+            <if test="module != null and module != ''">
+                AND module = #{module}
+            </if>
             <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
                 AND date_format(create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
             </if>
@@ -132,7 +139,7 @@
 
     <select id="selectBlogById" resultType="com.dragon.project.blog.blog.domain.Blog">
          select blog_id, category_id, title, summary, status,
-        weight, support, header_img,
+        weight, support, header_img, module,
         create_by, create_time, update_by, update_time
         from bg_blog where blog_id=#{blogId}
     </select>
@@ -147,7 +154,7 @@
     </select>
     <select id="selectBlogWithTextById" resultType="com.dragon.project.blog.blog.domain.Blog">
           select blog_id, category_id, title, summary, status,
-        weight, support, click, header_img, type,content,
+        weight, support, click, header_img, type, module, content,
         create_by, create_time, update_by, update_time
         from bg_blog where blog_id=#{blogId}
     </select>
@@ -159,6 +166,7 @@
         b.summary,
         b.click,
         b.header_img,
+        b.module,
         b.create_by,
         b.create_time,
         b.support,
@@ -168,6 +176,9 @@
         where status=1
         <if test="categoryId !=null and categoryId !=''">
             and b.category_id =#{categoryId}
+        </if>
+        <if test="module !=null and module !=''">
+            and b.module =#{module}
         </if>
 
     </select>
