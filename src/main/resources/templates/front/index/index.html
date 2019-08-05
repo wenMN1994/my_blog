@@ -387,10 +387,7 @@
             <p th:text="${'网名：' + @config.getKey('sys.user.netName')}"></p>
             <p th:text="${'职业：' + @config.getKey('sys.user.occupation')}"></p>
             <p th:text="${'现居：' + @config.getKey('sys.user.address')}"></p>
-            <p>
-                Email：
-                <a th:text="${@config.getKey('sys.user.email')}" href="mailto:18475536452@163.com?subject='my_blog 系统反馈'" target="_blank" style="color: #d0d2d4"></a>
-            </p>
+            <p th:text="${'Email：'+ @config.getKey('sys.user.NeteaseMail')}"></p>
             <ul class="linkmore">
                 <li>
                     <a href="/index" target="_blank" class="iconfont icon-zhuye" title="后台管理"></a>
@@ -399,12 +396,11 @@
                     <a th:href="${@config.getKey('sys.user.github')}" target="_blank" class="iconfont icon-github" title="我的GitHub"></a>
                 </li>
                 <li>
-                    <a href="http://wpa.qq.com/msgrd?v=3&uin=920310436&site=qq&menu=yes" target="_blank" class="iconfont icon-qq" title="QQ联系我">
-                    </a>
+                    <a th:href="'http://wpa.qq.com/msgrd?v=3&uin='+ ${@config.getKey('sys.user.qq')} + '&site=qq&menu=yes'" target="_blank" class="iconfont icon-qq" title="QQ联系我"></a>
                 </li>
                 <li id="weixin">
-                    <a href="#" target="_blank" class="iconfont icon-weixin" title="关注我的微信"></a>
-                    <i><img src="Front-End/images/wx.png"></i>
+                    <a href="" class="iconfont icon-weixin" title="关注我的微信"></a>
+                    <i><img th:src="${@config.getKey('sys.user.wechat')}"></i>
                 </li>
             </ul>
         </div>
