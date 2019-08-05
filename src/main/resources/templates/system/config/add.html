@@ -77,10 +77,10 @@
 	            $.operate.save(prefix + "/add", $('#form-config-add').serialize());
 	        }
 	    }
-	    
-	    function selectImage() {
+
+        function selectImage() {
             var title = "上传图片";
-            var url = "/system/config/img";
+            var url = "/system/common/selectImage";
             var width = $(window).width() / 1.5;
             var height = $(window).height() / 1.2;
             //如果是移动端，就使用自适应大小弹窗
