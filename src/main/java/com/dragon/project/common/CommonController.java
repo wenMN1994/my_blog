@@ -110,4 +110,13 @@ public class CommonController {
         }
         return filename;
     }
+
+    /**
+     * 图片选择
+     * @return
+     */
+    @GetMapping("/system/common/selectImage")
+    public String img() {
+        return "system/selectImageCommon/selectImageCommon";
+    }
 }
