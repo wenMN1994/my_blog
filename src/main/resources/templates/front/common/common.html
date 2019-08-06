@@ -328,7 +328,7 @@
                 <section class="weixin-section">
                     <div class="weixin-info">
                         <p>个人微信扫码</p>
-                        <img src="Front-End/images/wx.png">
+                        <img th:src="${ @config.getKey('sys.user.wechat') }">
                         <p class="text12">工作时间</p>
                         <p class="text12">周一至周日 9:00-21:00</p>
                     </div>
@@ -338,8 +338,8 @@
                 <section class="dashang-section">
                     <p>如果你觉得本站很棒，可以通过扫码支付打赏哦！</p>
                     <ul>
-                        <li><img src="/common/images/weichartpay.png">微信收款码</li>
-                        <li><img src="/common/images/alipay.png">支付宝收款码</li>
+                        <li><img th:src="${ @config.getKey('sys.play.weichartpay') }">微信收款码</li>
+                        <li><img th:src="${ @config.getKey('sys.pay.alipay') }">支付宝收款码</li>
                     </ul>
                 </section>
             </li>
