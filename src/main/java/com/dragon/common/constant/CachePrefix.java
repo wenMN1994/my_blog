@@ -26,6 +26,14 @@ public class CachePrefix {
      */
     public static final String FRONT_NEWEST_UPDATE_BLOG = "front_newest_update_blog_cache_";
     /**
+     * 前台缓存到最近更新的SourceCode
+     */
+    public static final String FRONT_NEWEST_UPDATE_SOURCE_CODE = "front_newest_update_source_code_cache_";
+    /**
+     * 前台缓存到最近更新的Repository
+     */
+    public static final String FRONT_NEWEST_UPDATE_REPOSITORY = "front_newest_update_repository_cache_";
+    /**
      * 前台缓存的tag
      */
     public static final String FRONT_TAG = "front_tag_cache";
