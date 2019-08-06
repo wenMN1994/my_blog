@@ -87,11 +87,12 @@
                         <label class=" control-label">所属模块:</label>
                         <div class="">
                             <div class="input-group" style="width: 100%">
-                                <select name="module" class="form-control m-b">
+                                <select name="module" class="form-control m-b" th:with="type=${@dict.getType('blog_blog_module')}">
                                     <option value="">请选择所属模块</option>
-                                    <option th:text="${'文章'}" th:value="${1}" th:field="*{blog.module}"></option>
-                                    <option th:text="${'课程'}" th:value="${2}" th:field="*{blog.module}"></option>
-                                    <option th:text="${'源码'}" th:value="${3}" th:field="*{blog.module}"></option>
+                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                            th:value="${dict.dictValue}" th:field="*{blog.module}">
+
+                                    </option>
                                 </select>
                             </div>
                         </div>
