@@ -113,6 +113,20 @@ public interface BlogMapper {
     List<Blog> selectNewestUpdateBlog(int i);
 
     /**
+     * 获取最近更新的SourceCode,限制i条
+     *
+     * @return
+     */
+    List<Blog> selectNewestUpdateSourceCode(int i);
+
+    /**
+     * 获取最近更新的Repository,限制i条
+     *
+     * @return
+     */
+    List<Blog> selectNewestUpdateRepository(int i);
+
+    /**
      * 获取最近i条排行blog
      *
      * @param i 限制条数

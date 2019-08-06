@@ -96,6 +96,20 @@ public interface BlogService {
     List<Blog> selectNewestUpdateBlog();
 
     /**
+     * 获取最新更新的SourceCode
+     *
+     * @return 最近更新的SourceCode的列表
+     */
+    List<Blog> selectNewestUpdateSourceCode();
+
+    /**
+     * 获取最新更新的Repository
+     *
+     * @return 最近更新的Repository的列表
+     */
+    List<Blog> selectNewestUpdateRepository();
+
+    /**
      * 获取文章排行
      *
      * @return 文章排行列表

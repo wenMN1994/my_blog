@@ -68,6 +68,10 @@ public class HomeController extends BaseController {
         setCommonMessage(model);
         PageHelper.startPage(pageNum == null ? 1 : pageNum, 12, "create_time desc");
         model.addAttribute("blogs", new PageInfo<>(homeService.selectFrontBlogList(new Blog())));
+        //最新课程
+        model.addAttribute("repositoryList", blogService.selectNewestUpdateRepository());
+        //最新源码
+        model.addAttribute("sourceCodeList", blogService.selectNewestUpdateSourceCode());
         //放置轮播图
         model.addAttribute("carouselMaps", carouselMapService.selectCarouselMapListFront());
         return "front/index/index";
@@ -76,6 +80,10 @@ public class HomeController extends BaseController {
     private void setCommonMessage(Model model) {
         //获取分类下拉项中的分类
         model.addAttribute("categories", categoryService.selectSupportCategoryList());
+        //查询最新更新的源码
+
+        //查询最新更新的课程
+
         //查询通知
         model.addAttribute("notices", noticeService.selectNoticeListDisplay());
         //查询所有的标签
@@ -169,8 +177,10 @@ public class HomeController extends BaseController {
     @RequestMapping("sourcecode")
     public String sourcecode(Integer pageNum, Model model){
         setCommonMessage(model);
+        Blog blog = new Blog();
+        blog.setModule("3");
         PageHelper.startPage(pageNum == null ? 1 : pageNum, 10, "create_time desc");
-        model.addAttribute("blogs", new PageInfo<>(homeService.selectFrontBlogList(new Blog())));
+        model.addAttribute("blogs", new PageInfo<>(homeService.selectFrontBlogList(blog)));
         return "front/sourcecode/sourcecode";
     }
 
@@ -184,8 +194,10 @@ public class HomeController extends BaseController {
     @RequestMapping("repository")
     public String repository(Integer pageNum, Model model){
         setCommonMessage(model);
+        Blog blog = new Blog();
+        blog.setModule("1");
         PageHelper.startPage(pageNum == null ? 1 : pageNum, 10, "create_time desc");
-        model.addAttribute("blogs", new PageInfo<>(homeService.selectFrontBlogList(new Blog())));
+        model.addAttribute("blogs", new PageInfo<>(homeService.selectFrontBlogList(blog)));
         return "front/repository/repository";
     }
 

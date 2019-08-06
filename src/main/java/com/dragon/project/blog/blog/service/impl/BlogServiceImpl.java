@@ -142,6 +142,18 @@ public class BlogServiceImpl implements BlogService {
         return blogMapper.selectNewestUpdateBlog(4);
     }
 
+    @Cacheable(value = CachePrefix.FRONT_NEWEST_UPDATE_SOURCE_CODE)
+    @Override
+    public List<Blog> selectNewestUpdateSourceCode() {
+        return blogMapper.selectNewestUpdateSourceCode(6);
+    }
+
+    @Cacheable(value = CachePrefix.FRONT_NEWEST_UPDATE_REPOSITORY)
+    @Override
+    public List<Blog> selectNewestUpdateRepository() {
+        return blogMapper.selectNewestUpdateRepository(6);
+    }
+
     @Cacheable(value = CachePrefix.FRONT_BLOG_RANKING)
     @Override
     public List<Blog> selectBlogRanking() {
