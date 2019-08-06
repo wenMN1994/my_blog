@@ -68,10 +68,10 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
                         </button>
-                        <h4 class="modal-title">窗口标题</h4>
+                        <h4 class="modal-title">通知公告</h4>
                     </div>
                     <div class="modal-body">
-                        <p><strong>RuoYi</strong>是一个完全响应式，基于Bootstrap3.3.6最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术，她提供了诸多的强大的可以重新组合的UI组件，并集成了最新的jQuery版本(v2.1.1)，当然，也集成了很多功能强大，用途广泛的jQuery插件，她可以用于所有的Web应用程序，如网站管理后台，网站会员中心，CMS，CRM，OA等等，当然，您也可以对她进行深度定制，以做出更强系统。</p>
+                        <p><strong>Admin</strong>功能开发中。。。</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
@@ -271,17 +271,22 @@
         <div class="wxbox">
             <ul>
                 <li><img src="Front-End/images/wxgzh.jpg"><span>微信公众号</span></li>
-                <li><img src="Front-End/images/wx.png"><span>我的微信</span></li>
+                <li><img th:src="${@config.getKey('sys.user.wechat')}"><span>我的微信</span></li>
             </ul>
         </div>
         <div class="endnav">
             <p><b>站点声明：</b></p>
             <p>1、本站个人博客模板，参考杨青青个人博客改编，个人可以使用，但是未经许可不得用于任何商业目的。</p>
-            <p>2、所有文章未经授权禁止转载、摘编、复制或建立镜像，如有违反，追究法律责任。举报邮箱：<a
-                    target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=0uvg4uHj4ubh5JKjo-yxvb8"
-                    style="text-decoration:none;">920310436@qq.com</a>
-            <p>Copyright © <a href="http://dragonwen.wicp.vip/" target="_blank">www.dragonwen.wicp.vip</a> All Rights Reserved.
-                备案号：<a href="http://www.miitbeian.gov.cn/" target="_blank">粤ICP备11002373号-1</a></p>
+            <p>2、所有文章未经授权禁止转载、摘编、复制或建立镜像，如有违反，追究法律责任。举报邮箱：
+                <a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=0uvg4uHj4ubh5JKjo-yxvb8"
+                    style="text-decoration:none;" th:text="${@config.getKey('sys.user.QQMail')}">
+                </a>
+            </p>
+            <p>Copyright ©
+                <a href="http://dragonwen.wicp.vip/" target="_blank">www.dragonwen.wicp.vip</a> All Rights Reserved.
+                备案号：
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">粤ICP备11002373号-1</a>
+            </p>
         </div>
     </div>
     <a href="#">
@@ -352,7 +357,7 @@
     </h2>
     <ul>
         <!--多图模式 置顶设计-->
-        <li>
+        <!--<li>
             <h3 class="blogtitle"><a href="/" target="_blank"><b>【顶】</b>别让这些闹心的套路，毁了你的网页设计!</a></h3>
             <span class="bplist"><a href="/"> <img src="Front-End/images/b02.jpg" alt=""></a> <a href="/"><img
                     src="Front-End/images/b03.jpg" alt=""></a> <a href="/"><img src="Front-End/images/b04.jpg"
@@ -368,7 +373,7 @@
                 <span><i class="el-eye-open"></i> 192</span>
             </p>
             <a href="/my_blog/article" class="viewmore">阅读更多</a></li>
-        </li>
+        </li>-->
         <!--单图-->
         <li th:each="blog:${blogs.list}">
             <h3 class="blogtitle">
