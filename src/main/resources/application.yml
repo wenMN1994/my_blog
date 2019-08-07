@@ -12,7 +12,6 @@ dragon:
   addressEnabled: true
 
 # 开发环境配置
-# 开发环境配置
 server:
   # 服务端口
   port: 8088
