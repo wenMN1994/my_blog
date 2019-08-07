@@ -2,6 +2,7 @@ package com.dragon.project.front.service.impl;
 
 import com.dragon.project.blog.blog.domain.Blog;
 import com.dragon.project.blog.blog.mapper.BlogMapper;
+import com.dragon.project.front.domain.Archives;
 import com.dragon.project.front.service.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,14 @@ public class HomeServiceImpl implements HomeService {
     public List<Blog> selectFrontBlogList(Blog blog) {
         List<Blog> blogList = blogMapper.selectFrontBlogList(blog);
         return blogList;
+    }
+
+    @Override
+    public List<Archives> selectArchives() {
+        List<Archives> archives = blogMapper.selectArchivesDateAndCount();
+        for (Archives archive : archives) {
+            archive.setBlogs(blogMapper.selectBlogByCreateTime(archive.getDate()));
+        }
+        return archives;
     }
 }

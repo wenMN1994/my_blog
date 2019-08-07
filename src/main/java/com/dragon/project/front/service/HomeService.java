@@ -1,6 +1,7 @@
 package com.dragon.project.front.service;
 
 import com.dragon.project.blog.blog.domain.Blog;
+import com.dragon.project.front.domain.Archives;
 
 import java.util.List;
 
@@ -19,4 +20,11 @@ public interface HomeService {
      * @return 获取最新的blog集合
      */
     List<Blog> selectFrontBlogList(Blog blog);
+
+    /**
+     * 获取归档信息
+     *
+     * @return 归档集合
+     */
+    List<Archives> selectArchives();
 }

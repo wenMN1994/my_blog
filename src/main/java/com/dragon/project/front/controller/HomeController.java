@@ -168,6 +168,17 @@ public class HomeController extends BaseController {
     }
 
     /**
+     * 归档
+     */
+    @VLog(title = "归档")
+    @GetMapping("archives")
+    public String archives(Model model) {
+        setCommonMessage(model);
+        model.addAttribute("archives", homeService.selectArchives());
+        return "front/archives/archives";
+    }
+
+    /**
      * 源码库
      * @param pageNum
      * @param model
@@ -210,16 +221,6 @@ public class HomeController extends BaseController {
     public String about(Model model){
         setCommonMessage(model);
         return "front/about/about";
-    }
-
-    /**
-     * 归档
-     * @return
-     */
-    @RequestMapping("archives")
-    public String archives(Model model){
-        setCommonMessage(model);
-        return "front/archives/archives";
     }
 
     /**
