@@ -1,6 +1,51 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="front/common/head :: commonHead('时间轴-DragonWen个人博客')"></head>
+<style>
+    .page-content {
+        position: relative;
+        min-height: 500px;
+        margin: 50px 0;
+    }
+
+    .mod-archive-list li {
+        line-height: 30px;
+        margin-bottom: 2px;
+        list-style: disc
+    }
+
+    .mod-archive-list li span {
+        color: #848484;
+        font-size: 12px;
+        float: right
+    }
+
+    .archive-time-title {
+        color: #19B5FE;
+        font-family: Courier, Menlo, Monaco, Consolas, "Courier New", monospace;
+        font-size: 25px
+    }
+
+    .archive-time {
+        color: #666;
+        font-size: 14px;
+        margin-right: 10px
+    }
+
+    .mod-archive-list {
+        padding-left: 30px;
+        padding-top: 10px;
+        padding-bottom: 30px
+    }
+
+    .archive-title {
+        color: #666;
+        font-size: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
 <body>
 <!--top begin-->
 <div th:replace="front/common/common :: head"></div>
@@ -10,65 +55,26 @@
 <article>
     <div class="whitebg timebox">
         <h2 class="htitle">往期文章</h2>
-        <ul id="list2">
-            <li><span>2019-03-12</span><i><a href="https://www.yangqq.com/qiyewangzhanzhizuo/975.html" target="_blank">企业网站制作多少钱报价是合适的？</a></i>
-            </li>
-            <li><span>2019-03-12</span><i><a href="https://www.yangqq.com/qiyewangzhanzhizuo/974.html" target="_blank">企业网站建设便宜的价格真的好吗？</a></i>
-            </li>
-            <li><span>2019-03-12</span><i><a href="https://www.yangqq.com/qiyewangzhanzhizuo/973.html" target="_blank">为什么企业网站建设的价格不一样？</a></i>
-            </li>
-            <li><span>2019-03-08</span><i><a href="https://www.yangqq.com/qiyewangzhanzhizuo/972.html" target="_blank">一般企业网站建设价格是多少？企业网站制作需要多少钱？</a></i>
-            </li>
-            <li><span>2019-03-06</span><i><a href="https://www.yangqq.com/jstt/web/971.html" target="_blank">帝国cms调用自定义分类</a></i>
-            </li>
-            <li><span>2019-03-05</span><i><a href="https://www.yangqq.com/jstt/web/970.html" target="_blank">个人网站制作简单的二维码收款</a></i>
-            </li>
-            <li><span>2019-03-04</span><i><a href="https://www.yangqq.com/qiyewangzhanzhizuo/969.html" target="_blank">企业网站建设前期，公司该做什么样的网站？要看企业如何定位自身</a></i>
-            </li>
-            <li><span>2019-03-04</span><i><a href="https://www.yangqq.com/qiyewangzhanzhizuo/968.html" target="_blank">如果没有企业网站，客户都找不到你！</a></i>
-            </li>
-            <li><span>2019-03-04</span><i><a href="https://www.yangqq.com/qiyewangzhanzhizuo/967.html" target="_blank">企业网站建设到运营投资到底需要多少钱?</a></i>
-            </li>
-            <li><span>2019-02-28</span><i><a href="https://www.yangqq.com/qiyewangzhanzhizuo/965.html" target="_blank">如何制作一个简单又大气的企业网站？</a></i>
-            </li>
-            <li><span>2019-02-28</span><i><a href="https://www.yangqq.com/qiyewangzhanzhizuo/964.html" target="_blank">企业网站模板建站的特点</a></i>
-            </li>
-            <li><span>2019-02-28</span><i><a href="https://www.yangqq.com/qiyewangzhanmuban/963.html" target="_blank">蓝色企业网站模板超实用，完美符合SEO优化，适合企业公司建站的模板</a></i>
-            </li>
-            <li><span>2019-02-28</span><i><a href="https://www.yangqq.com/qiyewangzhanzhizuo/962.html" target="_blank">如何提升企业网站价值，企业建站过程应该注意什么？</a></i>
-            </li>
-            <li><span>2019-02-28</span><i><a href="https://www.yangqq.com/qiyewangzhanzhizuo/961.html" target="_blank">企业网站，建站流程是什么？</a></i>
-            </li>
-            <li><span>2019-02-27</span><i><a href="https://www.yangqq.com/qiyewangzhanmuban/960.html" target="_blank">免费紫色婚庆公司企业网站模板</a></i>
-            </li>
-            <li><span>2019-02-27</span><i><a href="https://www.yangqq.com/qiyewangzhanmuban/959.html" target="_blank">蓝色集团公司企业网站模板</a></i>
-            </li>
-            <li><span>2019-02-27</span><i><a href="https://www.yangqq.com/qiyewangzhanmuban/958.html" target="_blank">门户类型装修公司企业网站模板</a></i>
-            </li>
-            <li><span>2019-02-27</span><i><a href="https://www.yangqq.com/qiyewangzhanmuban/957.html" target="_blank">实用大气的装修公司企业网站模板</a></i>
-            </li>
-            <li><span>2019-02-15</span><i><a href="https://www.yangqq.com/jstt/web/956.html" target="_blank">帝国cms，自定义列表实现首页分页</a></i>
-            </li>
-            <li><span>2019-02-15</span><i><a href="https://www.yangqq.com/jstt/web/955.html" target="_blank">帝国cms灵动标签循环调用栏目文章</a></i>
-            </li>
-            <li><span>2019-02-12</span><i><a href="https://www.yangqq.com/jstt/web/954.html" target="_blank">帝国cms
-                增加网站客服</a></i></li>
-            <li><span>2019-01-11</span><i><a href="https://www.yangqq.com/jstt/web/948.html" target="_blank">帝国cms 自定义页面
-                调用分类方法</a></i></li>
-            <li><span>2019-01-08</span><i><a href="https://www.yangqq.com/jinniu.html" target="_blank">【金牛云服】服务器新购满100减88，域名注册18元！</a></i>
-            </li>
-            <li><span>2019-01-02</span><i><a href="https://www.yangqq.com/jstt/web/946.html" target="_blank">阿里云如何申请配置ssl证书</a></i>
-            </li>
-            <li><span>2019-01-02</span><i><a href="https://www.yangqq.com/jstt/web/945.html" target="_blank">阿里云如何解析域名，搭建云服务器环境</a></i>
-            </li>
-            <div class="pagelist mt20"><a class="allpage"><b>394</b>篇文章</a>&nbsp;&nbsp;<a href="#topnew"
-                                                                                       class="curPage">1</a>&nbsp;&nbsp;<a
-                    href="#topnew" onclick="page(2)">2</a>&nbsp;&nbsp;<a href="#topnew" onclick="page(3)">3</a>&nbsp;&nbsp;<a
-                    href="#topnew" onclick="page(4)">4</a>&nbsp;&nbsp;<a href="#topnew" onclick="page(5)">5</a>&nbsp;&nbsp;<a
-                    href="#topnew" onclick="page(6)">6</a>&nbsp;&nbsp;<a href="#topnew" onclick="page(2)">&gt;&gt;</a>
+        <section class="mysection">
+            <div class="page-content">
+                <div class="mod-archive">
+                    <div th:each="archive:${archives}">
+                        <div class="archive-time-title" th:text="${archive.date}"></div>
+                        <ul class="mod-archive-list">
+                            <li th:each="item:${archive.blogs}">
+                                <time class="archive-time" th:text="${#dates.format(item.createTime,'yyyy-MM-dd')}">
+                                    01.06
+                                </time>
+                                <a class="archive-title"
+                                    th:href="${'/f/article/'+item.blogId+'.html'}"
+                                    th:title="${item.title}"
+                                    th:text="${item.title}"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </ul>
-        <div class="clear"></div>
+        </section>
     </div>
 </article>
 
