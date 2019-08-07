@@ -250,7 +250,7 @@ footer a:hover { color: #00C1DE }
 }
 
 /*list.html*/
-.lanmu img { height: 100px; float: left; margin-right: 20px }
+.lanmu img { height: 100px; float: left; margin-right: 20px; margin-top: 6px; }
 .lanmu h1 { font-size: 22px; margin-bottom: 15px }
 .lanmu p { color: #666 }
 
