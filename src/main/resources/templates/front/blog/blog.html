@@ -10,9 +10,9 @@
 <article>
     <!--lbox begin-->
     <div class="lbox">
-        <div class="whitebg lanmu"> <img src="Front-End/images/lm01.jpg">
+        <div class="whitebg lanmu"> <img th:src="${@config.getKey('sys.ui.blogdiary')}">
             <h1>个人博客日记</h1>
-            <p>个人博客日记，记录一些优秀个人站长是如何制作个人博客，建个人博客、以及经营个人网站的，本站还会推荐一些优秀的个人博客站长网站。</p>
+            <p th:text="${@config.getRemark('sys.ui.blogdiary')}"></p>
         </div>
         <!--最新博文 start-->
         <div th:replace="front/common/common :: bloglist"></div>

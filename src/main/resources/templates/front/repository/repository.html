@@ -9,9 +9,9 @@
 <!--top end-->
 <article>
     <div class="lbox">
-        <div class="whitebg lanmu"> <img src="Front-End/images/lm05.jpg">
+        <div class="whitebg lanmu"> <img th:src="${@config.getKey('sys.ui.repository')}">
             <h1>知识库</h1>
-            <p>知识库，本栏目主要是教学视频资源分享。主要有AngularJS、BootStrap、python3.X全栈、Node.js + MongoDB、Java、C/C++、Linux、主流数据库、大数据。。。</p>
+            <p th:text="${@config.getRemark('sys.ui.repository')}"></p>
         </div>
         <!--最新课程 start-->
         <div class="whitebg bloglist">
