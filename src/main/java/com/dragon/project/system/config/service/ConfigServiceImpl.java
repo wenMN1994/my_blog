@@ -52,6 +52,20 @@ public class ConfigServiceImpl implements IConfigService {
     }
 
     /**
+     * 根据键名查询参数配置信息备注
+     *
+     * @param configKey 参数名称
+     * @return 参数键值
+     */
+    @Override
+    public String selectConfigRemarkByKey(String configKey) {
+        Config config = new Config();
+        config.setConfigKey(configKey);
+        Config retConfig = configMapper.selectConfig(config);
+        return StringUtils.isNotNull(retConfig) ? retConfig.getRemark() : "";
+    }
+
+    /**
      * 查询参数配置列表
      *
      * @param config 参数配置信息

@@ -27,4 +27,8 @@ public class ConfigService {
         return configService.selectConfigByKey(configKey);
     }
 
+    public String getRemark(String configKey){
+        return configService.selectConfigRemarkByKey(configKey);
+    }
+
 }

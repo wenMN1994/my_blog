@@ -30,6 +30,14 @@ public interface IConfigService {
     public String selectConfigByKey(String configKey);
 
     /**
+     * 根据键名查询参数配置信息备注
+     *
+     * @param configKey 参数键名
+     * @return 参数键值
+     */
+    public String selectConfigRemarkByKey(String configKey);
+
+    /**
      * 查询参数配置列表
      *
      * @param config 参数配置信息
