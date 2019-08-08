@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="front/common/head :: commonHead(${blog.title}+'-DragonWen个人博客')"></head>
+<head th:replace="front/common/head :: commonHead(${blog.title}+'-'+ ${@config.getKey('sys.user.netName')} +'个人博客')"></head>
 <link rel="stylesheet" href="static/Front-End/plugin/hightlight/xcode.css"
       th:href="@{/Front-End/plugin/hightlight/xcode.css}"/>
 <script src="static/Front-End/plugin/hightlight/highlight.pack.js"

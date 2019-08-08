@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="front/common/head :: commonHead(${category.categoryTitle}+'分类-DragonWen个人博客')"></head>
+<head th:replace="front/common/head :: commonHead(${category.categoryTitle}+'分类-'+ ${@config.getKey('sys.user.netName')} +'个人博客')"></head>
 <body>
 <!--top begin-->
 <div th:replace="front/common/common :: head"></div>
@@ -10,9 +10,9 @@
 <article>
     <!--lbox begin-->
     <div class="lbox">
-        <div class="whitebg lanmu"> <img src="Front-End/images/lm03.jpg">
-            <h1>博客网站制作</h1>
-            <p>博客网站制作，本栏目主要是分享关于域名选择、空间购买，个人博客网站模板制作，网站后期维护运营，优化等相关文章，以及提供帝国cms建站过程中遇到问题的解决办法。</p>
+        <div class="whitebg lanmu"> <img th:src="${@config.getKey('sys.ui.category')}">
+            <h1 th:text="${category.categoryTitle}"></h1>
+            <p th:text="${category.description}"></p>
         </div>
         <div class="whitebg bloglist">
             <h2 class="htitle" th:text="${category.categoryTitle}"></h2>

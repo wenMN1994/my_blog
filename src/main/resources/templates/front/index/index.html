@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="front/common/head :: commonHead('首页-DragonWen个人博客')"></head>
+<head th:replace="front/common/head :: commonHead('首页-'+ ${@config.getKey('sys.user.netName')} +'个人博客')"></head>
 <body>
 <!--top begin-->
 <div th:replace="front/common/common :: head"></div>
