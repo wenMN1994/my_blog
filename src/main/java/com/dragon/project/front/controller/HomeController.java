@@ -251,4 +251,24 @@ public class HomeController extends BaseController {
         linkService.incrementLinkClickById(id);
         return redirect(ref);
     }
+
+    /**
+     * 搜索
+     * @param keyWord
+     * @param pageNum
+     * @param model
+     * @return
+     */
+    @VLog(title = "搜索")
+    @GetMapping("/f/search/{keyWord}.html")
+    public String search(@PathVariable String keyWord, Integer pageNum, Model model) {
+        setCommonMessage(model);
+        PageHelper.startPage(pageNum == null ? 1 : pageNum, 10, "create_time desc");
+        Blog blog = new Blog();
+        blog.setTitle(keyWord);
+        List<Blog> blogs = blogService.selectBlogList(blog);
+        model.addAttribute("blogs", new PageInfo<>(blogs));
+        model.addAttribute("keyWord", keyWord);
+        return "front/search/search";
+    }
 }
