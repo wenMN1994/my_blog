@@ -74,7 +74,7 @@
      .headline ul li { width: 49%; float: left; }
      .headline ul li:last-child { float: right }
      .headline ul li span { padding: 0 20px }
-     .banbox { width: 100% }
+     .banbox { width: 100%; margin-top: 10px; }
      .fader { height: 200px; }
      .ad { padding: 5px }
      .blogtitle { font-size: 16px }
