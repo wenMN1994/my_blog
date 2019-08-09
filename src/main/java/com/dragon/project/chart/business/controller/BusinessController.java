@@ -3,6 +3,7 @@ package com.dragon.project.chart.business.controller;
 import com.dragon.framework.web.controller.BaseController;
 import com.dragon.framework.web.domain.AjaxResult;
 import com.dragon.project.blog.blog.service.BlogService;
+import com.dragon.project.chart.business.domain.Business;
 import com.dragon.project.dashboard.domain.BusinessCommonData;
 import com.dragon.project.log.visitorLog.service.VisitLogService;
 import com.dragon.project.system.carouselMap.service.CarouselMapService;
@@ -47,7 +48,8 @@ public class BusinessController extends BaseController {
     @GetMapping("/carouselMapData")
     @ResponseBody
     public AjaxResult carouselMapData() {
-        return AjaxResult.success().put("data", carouselMapService.selectCarouselMapData());
+        List<Business> businesses = carouselMapService.selectCarouselMapData();
+        return AjaxResult.success().put("data", businesses);
     }
 
     @GetMapping("/spiderData")
