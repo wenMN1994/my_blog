@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-    <span th:if="${ mcpaths != null}">
+    <span th:if="${ mcpaths != null and mcpaths.size() gt 0}">
         <div class="pathidcompare" th:each="path:${mcpaths}" th:pathId="${path.pathId}">
             <div class="box-header no-padding">
                 <span class="btn btn-default btn-xs des mm">
@@ -21,7 +21,7 @@
 
             </ul>
         </div>
-        <div th:unless="${ mcpaths == null }" style="padding-left:15px;">此文件夹为空</div>
     </span>
+    <div th:if="${ mcpaths.size() eq 0}" style="padding-left:15px;">此文件夹为空</div>
 </body>
 </html>
