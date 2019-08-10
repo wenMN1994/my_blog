@@ -204,4 +204,14 @@ public interface FileService {
      * @return
      */
     boolean deleteFileByFileId(Long fileId);
+
+    /**
+     * 复制和移动
+     * @param mcfileids
+     * @param mcpathids
+     * @param mctoid
+     * @param fromWhere true为复制， false为移动
+     * @param user
+     */
+    void moveAndCopy(List<Long> mcfileids, List<Long> mcpathids, Long mctoid, boolean fromWhere, User user);
 }

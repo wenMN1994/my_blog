@@ -13,8 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -310,6 +309,150 @@ public class FileServiceImpl implements FileService {
             return true;
         }else{
             return false;
+        }
+    }
+
+    @Override
+    public void moveAndCopy(List<Long> mcfileids, List<Long> mcpathids, Long toPathId, boolean fromWhere, User user) {
+        FilePath topath = filePathMapper.selectFilePathById(toPathId);
+        if(fromWhere){
+            System.out.println("这里是移动！！~~");
+            if(!mcfileids.isEmpty()){
+                System.out.println("fileid is not null");
+                for (Long mcfileid : mcfileids) {
+                    FileList filelist = fileListMapper.selectFileListById(mcfileid);
+                    String filename = onlyName(filelist.getFileName(),topath,filelist.getFileShuffix(),1,true);
+                    filelist.setPathId(topath.getPathId());
+                    filelist.setFileName(filename);
+                    fileListMapper.updateFileList(filelist);
+                }
+            }
+            if(!mcpathids.isEmpty()){
+                System.out.println("pathid is not null");
+                for (Long mcpathid : mcpathids) {
+                    FilePath filepath = filePathMapper.selectFilePathById(mcpathid);
+                    String name = onlyName(filepath.getPathName(), topath, null, 1, false);
+                    filepath.setParentId(toPathId);
+                    filepath.setPathName(name);
+                    filePathMapper.updateFilePath(filepath);
+                }
+            }
+        }else{
+            System.out.println("这里是复制！！~~");
+            if(!mcfileids.isEmpty()){
+                System.out.println("fileid is not null");
+                for (Long mcfileid : mcfileids) {
+                    FileList filelist = fileListMapper.selectFileListById(mcfileid);
+                    copyfile(filelist,topath,true, user);
+                }
+            }
+            if(!mcpathids.isEmpty()){
+                System.out.println("pathid is not null");
+                for (Long mcpathid : mcpathids) {
+                    copypath(mcpathid, toPathId, true, user);
+                }
+            }
+        }
+    }
+
+    public void copypath(Long mcpathid,Long toPathId,boolean isfirst,User user){
+        FilePath filepath = filePathMapper.selectFilePathById(mcpathid);
+
+        //第一个文件夹的复制
+        FilePath copypath = new FilePath();
+        copypath.setParentId(toPathId);
+        String copypathname = filepath.getPathName();
+        if(isfirst){
+            copypathname = "拷贝 "+filepath.getPathName().replace("拷贝 ", "");
+        }
+        copypath.setPathName(copypathname);
+        copypath.setPathUserId(user.getUserId());
+        copypath = filePathMapper.updateFilePath(copypath);
+
+        //这一个文件夹下的文件的复制
+        List<FileList> filelists = fileListMapper.selectByFilePathAndFileIstrash(filepath.getPathId(), 0L);
+        for (FileList fileList : filelists) {
+            copyfile(fileList,copypath,false, user);
+        }
+
+        List<FilePath> filepathsons = filePathMapper.selectByParentIdAndPathIstrash(filepath.getPathId(), 0L);
+
+        if(!filepathsons.isEmpty()){
+            for (FilePath filepathson : filepathsons) {
+                copypath(filepathson.getPathId(),copypath.getPathId(),false,user);
+            }
+        }
+
+    }
+
+    /**
+     * 文件复制
+     * @param filelist
+     */
+    public void copyfile(FileList filelist,FilePath topath,boolean isfilein, User user){
+        File s = getFile(filelist.getFilePath());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM");
+        File root = new File(this.rootPath,simpleDateFormat.format(new Date()));
+        File savepath = new File(root,user.getUserName());
+
+        if (!savepath.exists()) {
+            savepath.mkdirs();
+        }
+
+        String shuffix = filelist.getFileShuffix();
+//        log.info("shuffix:{}",shuffix);
+        String newFileName = UUID.randomUUID().toString().toLowerCase()+"."+shuffix;
+        File t = new File(savepath,newFileName);
+
+        copyfileio(s,t);
+
+        FileList filelist1 = new FileList();
+        String filename="";
+        if(isfilein){
+            filename = "拷贝 "+filelist.getFileName().replace("拷贝 ", "");
+        }else{
+            filename = filelist.getFileName();
+        }
+        filename = onlyName(filename,topath,shuffix,1,true);
+        filelist1.setFileName(filename);
+        filelist1.setFilePath(t.getAbsolutePath().replace("\\", "/").replace(this.rootPath, ""));
+        filelist1.setFileShuffix(shuffix);
+        filelist1.setFileSize(filelist.getFileSize());
+        filelist1.setUploadTime(new Date());
+        filelist1.setPathId(topath.getPathId());
+        filelist1.setContentType(filelist.getContentType());
+        filelist1.setFileUserId(user.getUserId());
+        fileListMapper.updateFileList(filelist1);
+
+    }
+    /**
+     * 本地文件复制
+     * @param s
+     * @param t
+     */
+    public void copyfileio(File s,File t){
+        InputStream fis = null;
+        OutputStream fos = null;
+
+        try {
+            fis = new BufferedInputStream(new FileInputStream(s));
+            fos = new BufferedOutputStream(new FileOutputStream(t));
+            byte[] buf = new byte[2048];
+            int i ;
+            while((i = fis.read(buf)) != -1){
+                fos.write(buf, 0, i);
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            try {
+                fis.close();
+                fos.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
     }
 }

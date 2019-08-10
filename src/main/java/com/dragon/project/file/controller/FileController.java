@@ -160,6 +160,32 @@ public class FileController extends BaseController {
     }
 
     /**
+     * 移动和复制
+     * @param mctoid
+     * @param model
+     * @return
+     */
+    @RequestMapping("mcto")
+    public String mcto(@RequestParam("morc") boolean morc,
+                       @RequestParam("mctoid") Long mctoid,
+                       @RequestParam("pathid") Long pathId,
+                       @RequestParam("mcfileids")List<Long> mcfileids,
+                       @RequestParam("mcpathids")List<Long> mcpathids,
+                       Model model){
+        User user = getSysUser();
+        if(morc){
+            // 复制
+            fileService.moveAndCopy(mcfileids, mcpathids, mctoid,true, user);
+        }else{
+            // 移动
+            fileService.moveAndCopy(mcfileids, mcpathids, mctoid,false, user);
+        }
+
+        folder(model,pathId);
+        return "file/filemanage";
+    }
+
+    /**
      * 删除前台选择的文件以及文件夹
      * @param pathId
      * @param checkPathIds
