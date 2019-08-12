@@ -1,5 +1,6 @@
 package com.dragon.project.file.service.impl;
 
+import com.dragon.framework.web.domain.Ztree;
 import com.dragon.project.file.domain.FileList;
 import com.dragon.project.file.domain.FilePath;
 import com.dragon.project.file.mapper.FileListMapper;
@@ -257,6 +258,26 @@ public class FileServiceImpl implements FileService {
             }
         }
         return showsonpath;
+    }
+
+    @Override
+    public List<Ztree> pathTreeData() {
+        List<FilePath> filePathList = filePathMapper.selectByPathIsTrash(0L);
+        List<Ztree> ztrees = initZtree(filePathList);
+        return ztrees;
+    }
+
+    public List<Ztree> initZtree(List<FilePath> filePathList){
+        List<Ztree> ztrees = new ArrayList<Ztree>();
+        for (FilePath filePath : filePathList){
+            Ztree ztree = new Ztree();
+            ztree.setId(filePath.getPathId());
+            ztree.setpId(filePath.getParentId());
+            ztree.setName(filePath.getPathName());
+            ztree.setTitle(filePath.getPathName());
+            ztrees.add(ztree);
+        }
+        return ztrees;
     }
 
     @Override

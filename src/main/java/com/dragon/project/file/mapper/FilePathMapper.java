@@ -22,6 +22,8 @@ public interface FilePathMapper {
      */
     int insertFilePath(FilePath filePathNew);
 
+    List<FilePath> selectByPathIsTrash(@Param("isTrash") Long isTrash);
+
     /**
      * 根据登录的用户名查找文件路径
      * @param pathName

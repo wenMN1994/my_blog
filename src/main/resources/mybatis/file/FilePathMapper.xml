@@ -14,6 +14,14 @@
         from sys_file_path sfp
     </sql>
 
+    <select id="selectByPathIsTrash" parameterType="FilePath" resultMap="filePathResult">
+        <include refid="Base_Column_List"/>
+        where
+        <if test="isTrash != null">
+            sfp.path_istrash = #{isTrash}
+        </if>
+    </select>
+
     <select id="selectFilePathByPathName" parameterType="String" resultMap="filePathResult">
         <include refid="Base_Column_List"/>
         where sfp.path_name = #{pathName}

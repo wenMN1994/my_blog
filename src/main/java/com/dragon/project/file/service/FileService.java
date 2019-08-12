@@ -1,5 +1,6 @@
 package com.dragon.project.file.service;
 
+import com.dragon.framework.web.domain.Ztree;
 import com.dragon.project.file.domain.FileList;
 import com.dragon.project.file.domain.FilePath;
 import com.dragon.project.system.user.domain.User;
@@ -175,6 +176,8 @@ public interface FileService {
      * @return
      */
     List<FilePath> mcpathload(Long mctoid, List<Long> mcpathids);
+
+    List<Ztree> pathTreeData();
 
     /**
      * 保存博客封面图片
