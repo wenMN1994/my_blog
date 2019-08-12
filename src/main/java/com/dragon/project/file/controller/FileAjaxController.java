@@ -3,6 +3,7 @@ package com.dragon.project.file.controller;
 import com.dragon.framework.aspectj.lang.annotation.Log;
 import com.dragon.framework.aspectj.lang.enums.BusinessType;
 import com.dragon.framework.web.controller.BaseController;
+import com.dragon.framework.web.domain.Ztree;
 import com.dragon.project.file.domain.FileList;
 import com.dragon.project.file.domain.FilePath;
 import com.dragon.project.file.service.FileService;
@@ -112,6 +113,17 @@ public class FileAjaxController extends BaseController {
         List<FilePath> showsonpaths = fileService.mcpathload(mctoid, mcpathids);
         model.addAttribute("mcpaths",showsonpaths);
         return "file/mcpathload";
+    }
+
+    /**
+     * 移动复制文件树
+     * @return
+     */
+    @RequestMapping("pathTreeData")
+    @ResponseBody
+    public List<Ztree> pathTreeData(){
+        List<Ztree> ztrees = fileService.pathTreeData();
+        return ztrees;
     }
 
     /**
