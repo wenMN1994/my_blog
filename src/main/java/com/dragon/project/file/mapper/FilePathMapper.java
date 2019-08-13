@@ -72,6 +72,7 @@ public interface FilePathMapper {
     /**
      * 根据文件夹对象更新文件夹信息
      * @param filePath
+     * @return
      */
     FilePath updateFilePath(FilePath filePath);
 

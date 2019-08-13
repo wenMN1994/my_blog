@@ -161,24 +161,24 @@ public class FileController extends BaseController {
 
     /**
      * 移动和复制
-     * @param mctoid
+     * @param moveOrCopyToId
      * @param model
      * @return
      */
-    @RequestMapping("mcto")
-    public String mcto(@RequestParam("morc") boolean morc,
-                       @RequestParam("mctoid") Long mctoid,
-                       @RequestParam("pathid") Long pathId,
-                       @RequestParam("mcfileids")List<Long> mcfileids,
-                       @RequestParam("mcpathids")List<Long> mcpathids,
+    @RequestMapping("moveOrCopyTo")
+    public String moveOrCopy(@RequestParam("moveOrCopy") boolean moveOrCopy,
+                       @RequestParam("moveOrCopyToId") Long moveOrCopyToId,
+                       @RequestParam("pathId") Long pathId,
+                       @RequestParam("moveOrCopyFileIds")List<Long> moveOrCopyFileIds,
+                       @RequestParam("moveOrCopyPathIds")List<Long> moveOrCopyPathIds,
                        Model model){
         User user = getSysUser();
-        if(morc){
+        if(moveOrCopy){
             // 复制
-            fileService.moveAndCopy(mcfileids, mcpathids, mctoid,true, user);
+            fileService.moveAndCopy(moveOrCopyFileIds, moveOrCopyPathIds, moveOrCopyToId,true, user);
         }else{
             // 移动
-            fileService.moveAndCopy(mcfileids, mcpathids, mctoid,false, user);
+            fileService.moveAndCopy(moveOrCopyFileIds, moveOrCopyPathIds, moveOrCopyToId,false, user);
         }
 
         folder(model,pathId);
