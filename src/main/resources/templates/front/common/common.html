@@ -256,7 +256,7 @@
 </div>
 <!--友情链接 end-->
 
-<!--文章目录-->
+<!--文章目录 start-->
 <div class="catalogue directory " id="Catalog_box" th:fragment="blog_catalogue" th:if="${blog!=null}">
     <h2 class="htitle">
         <i class="el-paper-clip"></i>
@@ -269,6 +269,151 @@
         </div>
     </div>
 </div>
+<!--文章目录 end-->
+
+<!--评论模块 Start-->
+<div th:fragment="comment">
+    <div id="comment-list" class="comment-list">
+        <div>
+            <form class="new-comment">
+                <a class="avatar"><img th:src="@{ /common/images/D_Logo.png }" /></a>
+                <div class="sign-container" style="display: none;">
+                    <a href="" class="btn btn-sign">登录</a>
+                    <span>后发表评论</span>
+                </div>
+                <textarea onclick="showCommentTool()" placeholder="写下你的评论..."></textarea>
+                <div id="comment-tool" class="write-function-block" style="display: none">
+                    <div class="emoji-modal-wrap">
+                        <a class="emoji"><i class="iconfont el-smiley"></i></a>
+                    </div>
+                    <div class="hint">
+                        Ctrl+Enter 发表
+                    </div>
+                    <a class="btn btn-send">发送</a>
+                    <a class="cancel" onclick="hideCommentTool()">取消</a>
+                </div>
+            </form>
+        </div>
+        <div id="normal-comment-list" class="normal-comment-list">
+            <div>
+                <div>
+                    <div class="top-title">
+                        <span>3条评论</span>
+                        <a class="author-only">只看作者</a>
+                        <a class="close-btn" style="display: none;">关闭评论</a>
+                        <div class="pull-right">
+                            <a class="active">按时间倒序</a>
+                            <a class="">按时间正序</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="comment-31929953" class="comment">
+                    <div>
+                        <div class="author">
+                            <div class="v-tooltip-container" style="z-index: 0;">
+                                <div class="v-tooltip-content">
+                                    <a href="" target="_blank" class="avatar"><img th:src="@{ /common/images/D_Logo.png }" /></a>
+                                </div>
+                            </div>
+                            <div class="info">
+                                <a href="" target="_blank" class="name">欣然妈妈</a>
+                                <div class="meta">
+                                    <span>2楼 &middot; 2018.12.08 21:09</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-wrap">
+                            <p>对，到什么时候都要记住自己的身份</p>
+                            <div class="tool-group">
+                                <a id="like-button-31929953" class="like-button"><i class="iconfont el-thumbs-up"></i><span>赞</span></a>
+                                <a class="" onclick="showReply()"><i class="iconfont el-comment"></i> <span>回复</span></a>
+                                <a class="report"><span>举报</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sub-comment-list">
+                        <div class="sub-comment">
+                            <p></p>
+                            <div class="v-tooltip-container" style="z-index: 0;">
+                                <div class="v-tooltip-content">
+                                    <a href="https://www.jianshu.com/u/d4fcd2b4bef0" target="_blank">星辉哥哥</a>：
+                                </div>
+                            </div>
+                            <span><a href="https://www.jianshu.com/u/94f0fadc82ce" class="maleskine-author" target="_blank" data-user-slug="94f0fadc82ce">@欣然妈妈</a> 毕业好复杂</span>
+                            <p></p>
+                            <div class="sub-tool-group">
+                                <span>2018.12.08 21:17</span>
+                                <a class="" onclick="showReply()"><i class="iconfont el-comment"></i> <span>回复</span></a>
+                                <a class="report"><span>举报</span></a>
+                            </div>
+                        </div>
+                        <div class="sub-comment">
+                            <p></p>
+                            <div class="v-tooltip-container" style="z-index: 0;">
+                                <div class="v-tooltip-content">
+                                    <a href="" target="_blank">欣然妈妈</a>：
+                                </div>
+                            </div>
+                            <span><a href="" class="maleskine-author" target="_blank" data-user-slug="d4fcd2b4bef0">@帅哥星辉</a> 总得面对</span>
+                            <p></p>
+                            <div class="sub-tool-group">
+                                <span>2018.12.08 21:49</span>
+                                <a class="" onclick="showReply()"><i class="iconfont el-comment"></i> <span>回复</span></a>
+                                <a class="report"><span>举报</span></a>
+                            </div>
+                        </div>
+                        <div class="sub-comment more-comment">
+                            <a class="add-comment-btn" onclick="showReply()"><i class="iconfont el-pencil-alt"></i> <span>添加新评论</span></a>
+                        </div>
+                        <div id="reply" style="display: none">
+                            <form class="new-comment">
+                                <textarea placeholder="写下你的评论..."></textarea>
+                                <div class="write-function-block">
+                                    <div class="emoji-modal-wrap">
+                                        <a class="emoji"><i class="iconfont el-smiley"></i></a>
+                                    </div>
+                                    <div class="hint">
+                                        Ctrl+Enter 发表
+                                    </div>
+                                    <a class="btn btn-send">发送</a>
+                                    <a class="cancel" onclick="hideReply()">取消</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function showCommentTool() {
+            var commentTool = document.getElementById("comment-tool");
+            var commentToolCss = window.getComputedStyle(commentTool, null).getPropertyValue("display");
+            if(commentToolCss == 'none'){
+                document.getElementById("comment-tool").style.display = "block";
+            }
+        }
+
+        function hideCommentTool() {
+            document.getElementById("comment-tool").style.display = "none";
+        }
+
+        function showReply() {
+            var reply = document.getElementById("reply");
+            var replyCss = window.getComputedStyle(reply, null).getPropertyValue("display");
+            if(replyCss == 'none'){
+                document.getElementById("reply").style.display = "block";
+            } else {
+                document.getElementById("reply").style.display = "none";
+            }
+        }
+
+        function hideReply() {
+            document.getElementById("reply").style.display = "none";
+        }
+    </script>
+</div>
+<!--评论模块 End-->
 
 <!--底部公共模块 begin-->
 <footer th:fragment="footer">

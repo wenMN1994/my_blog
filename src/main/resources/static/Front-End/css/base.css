@@ -572,7 +572,6 @@ hr {width:90%;margin: 20px auto; border: 0;border-top: 1px solid #eeeeee;border-
 .cloud ul li:last-child { background: #3299BB }
 
 /*可能喜欢*/
-
 .maybe-love{margin-bottom:30px;overflow:hidden;}
 .maybe-love h4{}
 .maybe-love ul{text-align:center;margin-left: -1.5%;margin-right: -1.5%;overflow:hidden;}
@@ -580,3 +579,423 @@ hr {width:90%;margin: 20px auto; border: 0;border-top: 1px solid #eeeeee;border-
 .maybe-love ul li img{width:100%;height:150px;border:1px solid #ddd;box-sizing:border-box;border-radius:5px;-webkit-border-radius:5px;padding:5px;}
 .maybe-love ul li span{font-size:13px;display:inline-block;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#00a2ff;width:100%;}
 .maybe-love ul li:hover img{border:1px solid #fff;}
+
+/*评论*/
+.comment-list {
+    padding-top: 20px
+}
+
+.comment-list a:hover {
+    cursor:pointer
+}
+
+.comment-list .new-comment {
+    position: relative;
+    margin-left: 48px
+}
+
+.comment-list .new-comment .avatar {
+    position: absolute;
+    left: -48px
+}
+
+.comment-list .new-comment .sign-container, .comment-list .new-comment textarea {
+    padding: 10px 15px;
+    width: 100%;
+    height: 80px;
+    font-size: 13px;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    background-color: hsla(0,0%,71%,.1);
+    resize: none;
+    display: inline-block;
+    vertical-align: top;
+    outline-style: none
+}
+
+.comment-list .new-comment .sign-container {
+    text-align: center
+}
+
+.comment-list .new-comment .btn-sign {
+    width: 78px;
+    margin: 11px 10px 0 0;
+    padding: 7px 18px;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    color: #fff!important;
+    background-color: #3194d0;
+    outline: none
+}
+
+.comment-list .new-comment .btn-sign:hover {
+    background-color: #187cb7
+}
+
+.comment-list .new-comment .write-function-block {
+    height: 50px
+}
+
+.comment-list .new-comment .write-function-block .emoji-modal {
+    left: -48px
+}
+
+.comment-list .new-comment .emoji {
+    float: left;
+    margin-top: 14px
+}
+
+.comment-list .new-comment .emoji i {
+    font-size: 20px;
+    color: #969696
+}
+
+.comment-list .new-comment .emoji i:hover {
+    color: #2f2f2f
+}
+
+.comment-list .new-comment .emoji-modal:after, .comment-list .new-comment .emoji-modal:before {
+    left: 48px
+}
+
+.comment-list .new-comment .hint {
+    float: left;
+    margin: 20px 0 0 20px;
+    font-size: 13px;
+    color: #969696
+}
+
+.comment-list .new-comment .btn-send {
+    float: right;
+    width: 78px;
+    margin: 10px 0;
+    padding: 8px 18px;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    color: #fff!important;
+    background-color: #42c02e;
+    cursor: pointer;
+    outline: none;
+    display: block
+}
+
+.comment-list .new-comment .btn-send:hover {
+    background-color: #3db922
+}
+
+.comment-list .new-comment .cancel {
+    float: right;
+    margin: 18px 30px 0 0;
+    font-size: 16px;
+    color: #969696
+}
+
+.comment-list .new-comment .cancel:hover {
+    color: #2f2f2f
+}
+
+.comment-list .new-comment span {
+    font-size: 14px;
+    vertical-align: -7px
+}
+
+.comment-list .top-title {
+    padding-bottom: 20px;
+    font-size: 17px;
+    font-weight: 700;
+    border-bottom: 1px solid #f0f0f0
+}
+
+.comment-list .top-title span {
+    vertical-align: middle
+}
+
+.comment-list .comment {
+    padding: 20px 0 30px;
+    border-bottom: 1px solid #f0f0f0
+}
+
+.comment-list .comment:last-child {
+    border-bottom: none
+}
+
+.comment-list .comment p {
+    font-size: 16px
+}
+
+.comment-list .author {
+    margin-bottom: 15px
+}
+
+.comment-list .avatar {
+    margin-right: 5px;
+    width: 38px;
+    height: 38px;
+    vertical-align: middle;
+    display: inline-block
+}
+
+.comment-list .comment-wrap .comment-delete, .comment-list .comment-wrap .report {
+    float: right;
+    margin: 12px 0 0 10px;
+    display: none
+}
+
+.comment-list .comment-wrap:hover .comment-delete, .comment-list .comment-wrap:hover .report {
+    display: inherit
+}
+
+.comment-list p {
+    margin: 10px 0;
+    line-height: 1.5;
+    font-size: 16px;
+    word-break: break-word!important;
+    word-break: break-all
+}
+
+.comment-list p a,.comment-list p a:hover {
+    color: #3194d0
+}
+
+.comment-list .info {
+    display: inline-block;
+    vertical-align: middle
+}
+
+.comment-list .name {
+    font-size: 15px;
+    color: #333
+}
+
+.comment-list .name:hover {
+    color: #2f2f2f
+}
+
+.comment-list .author-tag {
+    margin-left: 2px;
+    padding: 0 2px;
+    font-size: 12px;
+    color: #ea6f5a;
+    border: 1px solid #ea6f5a;
+    border-radius: 3px;
+    vertical-align: middle
+}
+
+.comment-list .meta {
+    font-size: 12px;
+    color: #969696
+}
+
+.comment-list .meta span {
+    margin-right: 6px
+}
+
+.comment-list .tool-group a {
+    margin-right: 10px;
+    font-size: 0;
+    color: #969696;
+    display: inline-block
+}
+
+.comment-list .tool-group a:hover {
+    color: #333
+}
+
+body.reader-night-mode .comment-list .tool-group a:hover {
+    color: #c8c8c8
+}
+
+.comment-list .tool-group a i {
+    margin-right: 5px;
+    font-size: 18px;
+    vertical-align: middle
+}
+
+.comment-list .tool-group a span {
+    vertical-align: middle;
+    font-size: 14px
+}
+
+.comment-list .normal-comment-list {
+    margin-top: 30px
+}
+
+.comment-list .normal-comment-list .top-title .author-only {
+    margin-left: 10px;
+    padding: 4px 8px;
+    font-size: 12px;
+    color: #969696;
+    border: 1px solid #e1e1e1;
+    border-radius: 12px
+}
+
+.comment-list .normal-comment-list .top-title .author-only.active {
+    color: #fff;
+    border: 1px solid #ea6f5a;
+    background-color: #ea6f5a
+}
+
+.comment-list .normal-comment-list .top-title .close-btn {
+    margin-left: 10px;
+    font-size: 12px;
+    color: #969696
+}
+
+.comment-list .normal-comment-list .top-title .pull-right a {
+    margin-left: 10px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #969696;
+    display: inline-block
+}
+
+.comment-list .normal-comment-list .top-title .pull-right .active, .comment-list .normal-comment-list .top-title .pull-right a:hover {
+    color: #2f2f2f
+}
+
+.comment-list .normal-comment-list .close-comment,.comment-list .normal-comment-list .no-author-comment, .comment-list .normal-comment-list .no-comment {
+    width: 226px;
+    height: 92px;
+    margin: 30px auto 20px;
+    background: url(//cdn2.jianshu.io/assets/web/icon_comment_no-1b12627d360515e52c3c4dfc2f6b0eb7.png) no-repeat;
+    background-size: contain
+}
+
+.comment-list .normal-comment-list .close-comment {
+    background: url(//cdn2.jianshu.io/assets/web/icon_comment_close-1977c458f0eb7900b53b422cac10c713.png) no-repeat;
+    background-size: contain
+}
+
+.comment-list .normal-comment-list .no-author-comment {
+    background: url(//cdn2.jianshu.io/assets/web/icon_comment_no_writer-511f994389aa2409f189d680b13ff5ed.png) no-repeat;
+    background-size: contain
+}
+
+.comment-list .normal-comment-list .text {
+    margin-bottom: 50px;
+    text-align: center;
+    font-size: 12px;
+    color: #969696
+}
+
+.comment-list .normal-comment-list .text a, .comment-list .normal-comment-list .text a:hover {
+    color: #3194d0
+}
+
+.comment-list .normal-comment-list .open-block {
+    padding: 30px 0 50px;
+    text-align: center;
+    border-top: 1px solid #f0f0f0
+}
+
+.comment-list .normal-comment-list .open-block .open-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #969696;
+    border: 1px solid #dcdcdc;
+    border-radius: 20px
+}
+
+.comment-list .sub-comment-list {
+    margin-top: 20px;
+    padding: 5px 0 5px 20px;
+    border-left: 2px solid #d9d9d9
+}
+
+.comment-list .sub-comment-list p {
+    margin: 0 0 5px;
+    font-size: 14px;
+    line-height: 1.5
+}
+
+.comment-list .sub-comment-list a,.comment-list .sub-comment-list a:hover {
+    color: #3194d0
+}
+
+.comment-list .sub-comment-list .new-comment {
+    margin: 0
+}
+
+.comment-list .sub-comment-list .new-comment .sign-container, .comment-list .sub-comment-list .new-comment textarea {
+    width: 100%
+}
+
+.comment-list .sub-comment-list .new-comment .emoji {
+    margin: 15px 0 0
+}
+
+.comment-list .sub-comment-list .emoji-modal-wrap .emoji-modal {
+    left: -48px
+}
+
+.comment-list .sub-comment {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #f0f0f0
+}
+
+.comment-list .sub-comment:last-child {
+    margin: 0;
+    padding: 0;
+    border: none
+}
+
+.comment-list .sub-comment .report, .comment-list .sub-comment .subcomment-delete {
+    float: right;
+    margin: 1px 0 0 10px;
+    display: none
+}
+
+.comment-list .sub-comment:hover .report, .comment-list .sub-comment:hover .subcomment-delete {
+    display: inherit
+}
+
+.comment-list .sub-tool-group {
+    font-size: 12px;
+    color: #969696
+}
+
+.comment-list .sub-tool-group a {
+    margin-left: 10px;
+    color: #969696
+}
+
+.comment-list .sub-tool-group a:hover {
+    color: #333
+}
+
+.comment-list .sub-tool-group a i {
+    margin-right: 5px;
+    font-size: 14px;
+    vertical-align: middle
+}
+
+.comment-list .sub-tool-group a span {
+    vertical-align: middle
+}
+
+.comment-list .more-comment {
+    font-size: 14px;
+    color: #969696;
+    border: none
+}
+
+.comment-list .sub-comment-list .add-comment-btn {
+    color: #969696
+}
+
+.comment-list .sub-comment-list .add-comment-btn:hover {
+    color: #333
+}
+
+.comment-list .sub-comment-list .add-comment-btn i {
+    margin-right: 5px
+}
+
+.comment-list .line-warp {
+    margin-left: 10px;
+    padding-left: 10px;
+    border-left: 1px solid #d9d9d9
+}

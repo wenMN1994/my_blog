@@ -56,6 +56,7 @@
      .bplist a img { width: 96% }
      .xinlu li a { padding: 5px; margin: 0 5px; }
      .myblog li { width: 33.3%; }
+     .maybe-love ul li img {height: 100px}
      .qq_join li section { margin: 0 5px; padding: 5px; }
      .qq_join li p { margin: 10px 0; font-size: 12px }
      .endnav p:last-child { text-align: center; margin-top: 20px; }
@@ -94,6 +95,7 @@
      .ly_button { float: none; display: block; }
      .xinlu li { width: 50% }
      .myblog li, .xiangsi li { width: 50% }
+     .maybe-love ul li img {height: 100px}
      .qq_join li { width: 50%; margin-bottom: 20px }
      /*底部微信图片样式*/
      .wxbox ul { overflow: hidden; text-align: center }
@@ -142,9 +144,11 @@
     .box .lh i {width: 100px;}
     .box .sl i {width: 170px;}
     .box .yb i {width: 50px;}
+    .maybe-love ul li img {height: 100px}
 }
 
 @media screen and (max-width: 320px){
     .kecheng ul li {width: 100%;}
     .arc-right ul li:last-child{display: none}
+    .maybe-love ul li img {height: 100px}
 }
