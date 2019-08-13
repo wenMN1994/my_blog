@@ -6,6 +6,7 @@
 <link th:href="@{/admin/css/iconfont.css}" rel="stylesheet"/>
 <link th:href="@{/admin/css/file/filebox.css}" rel="stylesheet"/>
 <link th:href="@{/admin/css/file/filemodal.css}" rel="stylesheet"/>
+<link th:href="@{/admin/plugins/jquery-ztree/3.5/css/metro/zTreeStyle.css}" rel="stylesheet"/>
 <style type="text/css">
     a {
         color: black;
@@ -161,45 +162,19 @@
                     <div class="box-header">
                         <h3 class="box-title mc-title" style="font-size:15px;"></h3>
                     </div>
-                    <div class="box-body no-padding">
-                        <div class="box-header" style="padding:3px 0 3px 0;">
-                                <span class="btn btn-default btn-xs des mm">
-                                    <i class="glyphicon-minus"></i>
-                                </span>
-                            <div class="mcflooropen"></div>
-                            <h3 class="box-title" style="font-size:12px;">[[${userrootpath.pathName}]]</h3>
-                            <input class="mctopathid" type="hidden" th:value="${userrootpath.pathId}" />
-                        </div>
-                        <ul class="nav nav-pills nav-stacked mm" style="padding-left:15px;">
-                            <div class="pathidcompare" th:each="path:${mcpaths}" th:pathId="${path.pathId}">
-                                <div class="box-header no-padding">
-                                            <span class="btn btn-default btn-xs des mm">
-                                                <i class="jiajian glyphicon-plus"></i>
-                                            </span>
-                                    <span class="openpath modalajax">
-                                                <div class="mcflooropen"></div>
-                                                <h3 class="box-title" style="font-size:12px;">[[${path.pathName}]]</h3>
-                                                <input class="mctopathid" type="hidden" th:value="${path.pathId}" />
-                                            </span>
-                                </div>
-                                <ul class="nav nav-pills nav-stacked mm modalajaxdata" style="padding-left:15px;display:none;">
-
-                                </ul>
-                            </div>
-                        </ul>
+                    <div class="ui-layout-content">
+                        <div id="tree" class="ztree"></div>
                     </div>
                     <div class="box-footer" style="text-align:right;">
                         <input class="userrootpath" type="hidden" name="userrootpath" th:value="${userrootpath.pathId}"/>
-                        <form action="mcto" method="get">
-                            <input class="mctoid" type="hidden" name="mctoid" th:value="${userrootpath.pathId}"/>
-                            <input class="mcfileids" type="hidden" name="mcfileids" value=""/>
-                            <input class="mcpathids" type="hidden" name="mcpathids" value=""/>
-                            <input type="hidden" name="pathid" th:value="${nowpath.pathId}"/>
-                            <input class="morc" type="hidden" name="morc" value=""/>
-                            <button type="submit" class="btn btn-primary"
-                            >确定</button>
-                            <button type="button" class="btn btn-default mcmodalcancle"
-                                    data-dismiss="modal">取消</button>
+                        <form action="moveOrCopyTo" method="get">
+                            <input class="moveOrCopyToId" type="hidden" name="moveOrCopyToId" th:value="${userrootpath.pathId}"/>
+                            <input class="moveOrCopyFileIds" type="hidden" name="moveOrCopyFileIds" value=""/>
+                            <input class="moveOrCopyPathIds" type="hidden" name="moveOrCopyPathIds" value=""/>
+                            <input type="hidden" name="pathId" th:value="${nowpath.pathId}"/>
+                            <input class="moveOrCopy" type="hidden" name="moveOrCopy" value=""/>
+                            <button type="submit" class="btn btn-primary">确定</button>
+                            <button type="button" class="btn btn-default mcmodalcancle" data-dismiss="modal">取消</button>
                         </form>
                     </div>
                 </div>
@@ -212,8 +187,11 @@
 <script th:src="@{/admin/js/iconfont.js}"></script>
 <script th:src="@{/admin/js/file/filejs.js}"></script>
 <script th:src="@{/admin/js/file/fileajax.js}"></script>
+<script th:src="@{/admin/plugins/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js}"></script>
 <script type="text/javascript">
     $(function() {
+
+        queryPathTree();
 
         /*
          * 收縮
@@ -251,6 +229,21 @@
         });
 
     });
+
+    function queryPathTree()
+    {
+        var url = ctx + "pathTreeData";
+        var options = {
+            url: url,
+            expandLevel: 2,
+            onClick : zOnClick
+        };
+        $.tree.init(options);
+
+        function zOnClick(event, treeId, treeNode) {
+            $(".box-footer .moveOrCopyToId").val(treeNode.id);
+        }
+    }
 
 </script>
 </html>

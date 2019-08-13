@@ -17,7 +17,6 @@ $(".loadfiletype").on("mouseover mouseout",".file-one",function(event){
  * .file-box .file-check"
  */
 $(".loadfiletype").on("click",".file-check",function(){
-	console.log("ssss");
 	if($(this).parent(".file-one").hasClass("file-one-check")){
 		$(this).parent(".file-one").removeClass("file-one-check");
 	}else{
@@ -113,13 +112,11 @@ $(document).click(function(e){
  * $(".loadfiletype").on("click",".menurename",function(){
  */
 $(".loadfiletype").on("click",".menurename",function(){
-	console.log("重命名！~~");
 	var checked =$(".loadfiletype .file-one.file-one-check");
 	checked.find(".filename").addClass("diplaynone");
 	checked.find(".rename").removeClass("diplaynone");
 });
 $(".loadfiletype").on("click",".cansalcreate",function(){
-	console.log("2312");
 	var checked =$(".loadfiletype .file-one.file-one-check");
 	checked.find(".rename").addClass("diplaynone");
 	checked.find(".filename").removeClass("diplaynone");
@@ -132,23 +129,21 @@ $(".loadfiletype").on("click",".cansalcreate",function(){
  * 这里是移动
  */
 $(".menu .movefile").click(function(){
-	console.log("进入移动模态框点击！~~");
 	$("#thismodal").modal("toggle");
 	$('#thismodal .modal-body').css('display', 'block');
 	$("#thismodal .mc-title").html("移动到");
-	$("#thismodal .morc").val(true);
+	$("#thismodal .moveOrCopy").val(true);
 	
-	var checkfileids = new Array();
-	var checkpathids = new Array();
-	checkedpaths(checkpathids,checkfileids);
-	$("#thismodal .mcfileids").val(checkfileids);
-	$("#thismodal .mcpathids").val(checkpathids);
+	var checkFileIds = new Array();
+	var checkPathIds = new Array();
+	checkedpaths(checkPathIds,checkFileIds);
+	$("#thismodal .moveOrCopyFileIds").val(checkFileIds);
+	$("#thismodal .moveOrCopyPathIds").val(checkPathIds);
 	
 	$("#thismodal .pathidcompare").each(function(){
 		console.log($(this).attr("pathId"));
-		for(var i=0;i<checkpathids.length;i++){
-			if($(this).attr("pathId") == checkpathids[i]){
-				console.log("is com!~~~");
+		for(var i=0;i<checkPathIds.length;i++){
+			if($(this).attr("pathId") == checkPathIds[i]){
 				$(this).addClass("diplaynone");
 				return;
 			}
@@ -159,23 +154,20 @@ $(".menu .movefile").click(function(){
  * 这里是复制
  */
 $(".menu .copyfile").click(function(){
-	console.log("进入复制模态框点击！~~");
 	$("#thismodal").modal("toggle");
 	$('#thismodal .modal-body').css('display', 'block');
 	$("#thismodal .mc-title").html("复制到");
-	$("#thismodal .morc").val(false);
+	$("#thismodal .moveOrCopy").val(false);
 	
-	var checkfileids = new Array();
-	var checkpathids = new Array();
-	checkedpaths(checkpathids,checkfileids);
-	$("#thismodal .mcfileids").val(checkfileids);
-	$("#thismodal .mcpathids").val(checkpathids);
+	var checkFileIds = new Array();
+	var checkPathIds = new Array();
+	checkedpaths(checkPathIds,checkFileIds);
+	$("#thismodal .moveOrCopyFileIds").val(checkFileIds);
+	$("#thismodal .moveOrCopyPathIds").val(checkPathIds);
 	
 	$("#thismodal .pathidcompare").each(function(){
-		console.log($(this).attr("pathId"));
-		for(var i=0;i<checkpathids.length;i++){
-			if($(this).attr("pathId") == checkpathids[i]){
-				console.log("is com!~~~");
+		for(var i=0;i<checkPathIds.length;i++){
+			if($(this).attr("pathId") == checkPathIds[i]){
 				$(this).addClass("diplaynone");
 				return;
 			}
@@ -188,7 +180,7 @@ $(".menu .copyfile").click(function(){
 $("#thismodal .box-footer").on("click",".mcmodalcancle",function(){
 	console.log("dianle quxiao");
 	$("#thismodal .pathidcompare").removeClass("diplaynone");
-	$("#thismodal .box-footer .mctoid").val($("#thismodal .box-footer .userrootpath").val());
+	$("#thismodal .box-footer .moveOrCopyToId").val($("#thismodal .box-footer .userrootpath").val());
 });
 
 /**

@@ -2,20 +2,10 @@
  * 复制移动选择目标文件文件夹并ajax加载选择文件加下的文件夹
  */
 $("#thismodal .box-body").on("click",".openpath",function(){
-	
-	var mctoid = $(this).find(".mctopathid").val();
-	
-	var mcpathids = $("#thismodal .box-footer .mcpathids").val();
-	
-	$(".box-footer .mctoid").val(mctoid);
-	
 	if($(this).hasClass("modalajax")){
-		console.log("modalajax");
 		var $ul = $(this).parents(".box-header").next();
 		$(this).parents(".box-header").find(".jiajian").addClass("glyphicon-minus").removeClass("glyphicon-plus");
 		$ul.css("display","block");
-		
-		$ul.load("mcloadpath",{mctoid:mctoid,mcpathids:mcpathids});
 	}else{
 		console.log("box-header");
 	}
@@ -84,13 +74,13 @@ $(".loadfiletype").on("click",".loadokshare",function(){
  * 回收战load js
  */
 $(".loadfiletype").on("click",".loadtrash",function(){
-	var checkpathids = new Array();
-	var checkfileids = new Array();
-	checkedpaths2(checkpathids,checkfileids);
+	var checkPathIds = new Array();
+	var checkFileIds = new Array();
+	checkedpaths2(checkPathIds,checkFileIds);
 	
 	var loadtype = $(".loadfiletype .box-header .loadfilestype").val();
 	
-	$(".loadfiletype").load("fileloadtrashfile",{type:loadtype,'checkpathids[]':checkpathids,'checkfileids[]':checkfileids});
+	$(".loadfiletype").load("fileloadtrashfile",{type:loadtype,'checkPathIds[]':checkPathIds,'checkFileIds[]':checkFileIds});
 });
 
 $(".loadfiletype").on("click",".filereturnback",function(){
@@ -115,14 +105,14 @@ $(".loadfiletype").on("click",".okfilerename",function(){
 	var renamefp = checkedfile.find(".renamefp").val();
 	var creatpathinput = checkedfile.find(".creatpathinput").val();
 	var isfile = checkedfile.find(".isfile").val();
-	var pathid = checkedfile.find(".pathid").val();
+	var pathId = checkedfile.find(".pathId").val();
 	
 	console.log(renamefp);
 	console.log(creatpathinput);
 	console.log(isfile);
-	console.log(pathid);
+	console.log(pathId);
 	
-	$(".loadfiletype").load("fileloadrename",{type:loadtype,renamefp:renamefp,creatpathinput:creatpathinput,isfile:isfile,pathid:pathid})
+	$(".loadfiletype").load("fileloadrename",{type:loadtype,renamefp:renamefp,creatpathinput:creatpathinput,isfile:isfile,pathId:pathId})
 });
 
 
