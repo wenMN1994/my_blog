@@ -335,15 +335,14 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public void moveAndCopy(List<Long> mcfileids, List<Long> mcpathids, Long toPathId, boolean fromWhere, User user) {
-        FilePath topath = filePathMapper.selectFilePathById(toPathId);
+        FilePath toPath = filePathMapper.selectFilePathById(toPathId);
         if(fromWhere){
             System.out.println("这里是移动！！~~");
             if(!mcfileids.isEmpty()){
-                System.out.println("fileid is not null");
                 for (Long mcfileid : mcfileids) {
                     FileList filelist = fileListMapper.selectFileListById(mcfileid);
-                    String filename = onlyName(filelist.getFileName(),topath,filelist.getFileShuffix(),1,true);
-                    filelist.setPathId(topath.getPathId());
+                    String filename = onlyName(filelist.getFileName(),toPath,filelist.getFileShuffix(),1,true);
+                    filelist.setPathId(toPath.getPathId());
                     filelist.setFileName(filename);
                     fileListMapper.updateFileList(filelist);
                 }
@@ -352,7 +351,7 @@ public class FileServiceImpl implements FileService {
                 System.out.println("pathid is not null");
                 for (Long mcpathid : mcpathids) {
                     FilePath filepath = filePathMapper.selectFilePathById(mcpathid);
-                    String name = onlyName(filepath.getPathName(), topath, null, 1, false);
+                    String name = onlyName(filepath.getPathName(), toPath, null, 1, false);
                     filepath.setParentId(toPathId);
                     filepath.setPathName(name);
                     filePathMapper.updateFilePath(filepath);
@@ -361,46 +360,43 @@ public class FileServiceImpl implements FileService {
         }else{
             System.out.println("这里是复制！！~~");
             if(!mcfileids.isEmpty()){
-                System.out.println("fileid is not null");
                 for (Long mcfileid : mcfileids) {
                     FileList filelist = fileListMapper.selectFileListById(mcfileid);
-                    copyfile(filelist,topath,true, user);
+                    copyFile(filelist,toPath,true, user);
                 }
             }
             if(!mcpathids.isEmpty()){
-                System.out.println("pathid is not null");
                 for (Long mcpathid : mcpathids) {
-                    copypath(mcpathid, toPathId, true, user);
+                    copyPath(mcpathid, toPathId, true, user);
                 }
             }
         }
     }
 
-    public void copypath(Long mcpathid,Long toPathId,boolean isfirst,User user){
-        FilePath filepath = filePathMapper.selectFilePathById(mcpathid);
+    public void copyPath(Long copyPathId,Long toPathId,boolean isFirst,User user){
+        FilePath filepath = filePathMapper.selectFilePathById(copyPathId);
 
         //第一个文件夹的复制
-        FilePath copypath = new FilePath();
-        copypath.setParentId(toPathId);
+        FilePath copyPath = new FilePath();
+        copyPath.setParentId(toPathId);
         String copypathname = filepath.getPathName();
-        if(isfirst){
+        if(isFirst){
             copypathname = "拷贝 "+filepath.getPathName().replace("拷贝 ", "");
         }
-        copypath.setPathName(copypathname);
-        copypath.setPathUserId(user.getUserId());
-        copypath = filePathMapper.updateFilePathReturn(copypath);
-
+        copyPath.setPathName(copypathname);
+        copyPath.setPathUserId(user.getUserId());
+        filePathMapper.insertFilePath(copyPath);
         //这一个文件夹下的文件的复制
-        List<FileList> filelists = fileListMapper.selectByFilePathAndFileIstrash(filepath.getPathId(), 0L);
-        for (FileList fileList : filelists) {
-            copyfile(fileList,copypath,false, user);
+        List<FileList> fileLists = fileListMapper.selectByFilePathAndFileIstrash(filepath.getPathId(), 0L);
+        for (FileList fileList : fileLists) {
+            copyFile(fileList,copyPath,false, user);
         }
 
         List<FilePath> filepathsons = filePathMapper.selectByParentIdAndPathIstrash(filepath.getPathId(), 0L);
 
         if(!filepathsons.isEmpty()){
             for (FilePath filepathson : filepathsons) {
-                copypath(filepathson.getPathId(),copypath.getPathId(),false,user);
+                copyPath(filepathson.getPathId(),copyPath.getPathId(),false,user);
             }
         }
 
@@ -408,42 +404,41 @@ public class FileServiceImpl implements FileService {
 
     /**
      * 文件复制
-     * @param filelist
+     * @param fileList
      */
-    public void copyfile(FileList filelist,FilePath topath,boolean isfilein, User user){
-        File s = getFile(filelist.getFilePath());
+    public void copyFile(FileList fileList,FilePath toPath,boolean isFileIn, User user){
+        File s = getFile(fileList.getFilePath());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM");
         File root = new File(this.rootPath,simpleDateFormat.format(new Date()));
-        File savepath = new File(root,user.getUserName());
+        File savePath = new File(root,user.getUserName());
 
-        if (!savepath.exists()) {
-            savepath.mkdirs();
+        if (!savePath.exists()) {
+            savePath.mkdirs();
         }
 
-        String shuffix = filelist.getFileShuffix();
-//        log.info("shuffix:{}",shuffix);
-        String newFileName = UUID.randomUUID().toString().toLowerCase()+"."+shuffix;
-        File t = new File(savepath,newFileName);
+        String suffix = fileList.getFileShuffix();
+        String newFileName = UUID.randomUUID().toString().toLowerCase()+"."+suffix;
+        File t = new File(savePath,newFileName);
 
-        copyfileio(s,t);
+        copyFileIo(s,t);
 
-        FileList filelist1 = new FileList();
-        String filename="";
-        if(isfilein){
-            filename = "拷贝 "+filelist.getFileName().replace("拷贝 ", "");
+        FileList fileListNew = new FileList();
+        String fileName = "";
+        if(isFileIn){
+            fileName = "拷贝 "+fileList.getFileName().replace("拷贝 ", "");
         }else{
-            filename = filelist.getFileName();
+            fileName = fileList.getFileName();
         }
-        filename = onlyName(filename,topath,shuffix,1,true);
-        filelist1.setFileName(filename);
-        filelist1.setFilePath(t.getAbsolutePath().replace("\\", "/").replace(this.rootPath, ""));
-        filelist1.setFileShuffix(shuffix);
-        filelist1.setFileSize(filelist.getFileSize());
-        filelist1.setUploadTime(new Date());
-        filelist1.setPathId(topath.getPathId());
-        filelist1.setContentType(filelist.getContentType());
-        filelist1.setFileUserId(user.getUserId());
-        fileListMapper.updateFileList(filelist1);
+        fileName = onlyName(fileName,toPath,suffix,1,true);
+        fileListNew.setFileName(fileName);
+        fileListNew.setFilePath(t.getAbsolutePath().replace("\\", "/").replace(this.rootPath, ""));
+        fileListNew.setFileShuffix(suffix);
+        fileListNew.setFileSize(fileList.getFileSize());
+        fileListNew.setUploadTime(new Date());
+        fileListNew.setPathId(toPath.getPathId());
+        fileListNew.setContentType(fileList.getContentType());
+        fileListNew.setFileUserId(user.getUserId());
+        fileListMapper.insertFileList(fileListNew);
 
     }
     /**
@@ -451,7 +446,7 @@ public class FileServiceImpl implements FileService {
      * @param s
      * @param t
      */
-    public void copyfileio(File s,File t){
+    public void copyFileIo(File s,File t){
         InputStream fis = null;
         OutputStream fos = null;
 

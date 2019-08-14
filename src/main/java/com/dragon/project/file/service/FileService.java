@@ -210,11 +210,11 @@ public interface FileService {
 
     /**
      * 复制和移动
-     * @param mcfileids
-     * @param mcpathids
-     * @param mctoid
+     * @param moveOrCopyFileIds
+     * @param moveOrCopyPathIds
+     * @param moveOrCopyToId
      * @param fromWhere true为复制， false为移动
      * @param user
      */
-    void moveAndCopy(List<Long> mcfileids, List<Long> mcpathids, Long mctoid, boolean fromWhere, User user);
+    void moveAndCopy(List<Long> moveOrCopyFileIds, List<Long> moveOrCopyPathIds, Long moveOrCopyToId, boolean fromWhere, User user);
 }

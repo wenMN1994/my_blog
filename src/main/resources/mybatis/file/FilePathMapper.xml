@@ -76,7 +76,8 @@
         </if>
     </select>
 
-    <insert id="insertFilePath" parameterType="com.dragon.project.file.domain.FilePath">
+    <insert id="insertFilePath" parameterType="com.dragon.project.file.domain.FilePath" keyProperty="pathId"
+            useGeneratedKeys="true">
         insert into sys_file_path
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="pathId != null">
@@ -115,25 +116,6 @@
     </insert>
 
     <update id="updateFilePath" parameterType="com.dragon.project.file.domain.FilePath">
-        update sys_file_path
-        <set>
-            <if test="parentId != null">
-                parent_id = #{parentId,jdbcType=INTEGER},
-            </if>
-            <if test="pathName != null">
-                path_name = #{pathName,jdbcType=VARCHAR},
-            </if>
-            <if test="pathUserId != null">
-                path_user_id = #{pathUserId,jdbcType=INTEGER},
-            </if>
-            <if test="pathIstrash != null">
-                path_istrash = #{pathIstrash,jdbcType=INTEGER},
-            </if>
-        </set>
-        where path_id = #{pathId,jdbcType=INTEGER}
-    </update>
-
-    <update id="updateFilePathReturn" parameterType="com.dragon.project.file.domain.FilePath">
         update sys_file_path
         <set>
             <if test="parentId != null">
