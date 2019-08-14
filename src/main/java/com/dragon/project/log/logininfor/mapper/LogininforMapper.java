@@ -44,5 +44,9 @@ public interface LogininforMapper {
      */
     public int cleanLogininfor();
 
+    /**
+     * 获取最近3条登录信息
+     * @return
+     */
     List<LogMessage> selectLoginInforData();
 }
