@@ -133,6 +133,25 @@
         where path_id = #{pathId,jdbcType=INTEGER}
     </update>
 
+    <update id="updateFilePathReturn" parameterType="com.dragon.project.file.domain.FilePath">
+        update sys_file_path
+        <set>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=INTEGER},
+            </if>
+            <if test="pathName != null">
+                path_name = #{pathName,jdbcType=VARCHAR},
+            </if>
+            <if test="pathUserId != null">
+                path_user_id = #{pathUserId,jdbcType=INTEGER},
+            </if>
+            <if test="pathIstrash != null">
+                path_istrash = #{pathIstrash,jdbcType=INTEGER},
+            </if>
+        </set>
+        where path_id = #{pathId,jdbcType=INTEGER}
+    </update>
+
     <delete id="deleteFilePathByPathId" parameterType="Long">
  		delete from sys_file_path where path_id = #{pathId}
  	</delete>

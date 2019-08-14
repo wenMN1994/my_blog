@@ -388,7 +388,7 @@ public class FileServiceImpl implements FileService {
         }
         copypath.setPathName(copypathname);
         copypath.setPathUserId(user.getUserId());
-        copypath = filePathMapper.updateFilePath(copypath);
+        copypath = filePathMapper.updateFilePathReturn(copypath);
 
         //这一个文件夹下的文件的复制
         List<FileList> filelists = fileListMapper.selectByFilePathAndFileIstrash(filepath.getPathId(), 0L);
