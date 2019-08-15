@@ -42,7 +42,7 @@
         </where>
     </select>
     <select id="selectLoginInforData" resultType="com.dragon.project.dashboard.domain.LogMessage">
-        select login_time as date,login_name as message  from sys_logininfor order by login_time desc limit 3
+        select login_time as date,login_name as message  from sys_logininfor order by login_time desc limit 100
     </select>
 
     <delete id="deleteLogininforByIds" parameterType="String">
