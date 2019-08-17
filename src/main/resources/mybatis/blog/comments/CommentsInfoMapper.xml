@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dragon.project.blog.comments.mapper.CommentsInfoMapper">
+  <resultMap id="BaseResultMap" type="com.dragon.project.blog.comments.domain.CommentsInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="owner_id" jdbcType="INTEGER" property="ownerId" />
+    <result column="from_id" jdbcType="VARCHAR" property="fromId" />
+    <result column="from_qq" jdbcType="VARCHAR" property="fromQq" />
+    <result column="from_name" jdbcType="VARCHAR" property="fromName" />
+    <result column="from_avatar" jdbcType="VARCHAR" property="fromAvatar" />
+    <result column="like_num" jdbcType="INTEGER" property="likeNum" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>
