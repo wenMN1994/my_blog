@@ -64,26 +64,9 @@
         <small> Website Notice</small>
     </h2>
     <ul>
-        <li th:each="notice:${notices}" class="btn btn-primary" data-toggle="modal" data-target="#myModal6">
+        <li th:each="notice:${notices}">
             <a th:text="${notice.noticeTitle}"></a>
         </li>
-        <div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-                        </button>
-                        <h4 class="modal-title">通知公告</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p><strong>Admin</strong>功能开发中。。。</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </ul>
 </div>
 <!--网站公告 end-->
@@ -272,24 +255,26 @@
 <!--文章目录 end-->
 
 <!--评论模块 Start-->
-<div th:fragment="comment">
+<div th:fragment="comment" id="comment-body">
     <div id="comment-list" class="comment-list">
         <div>
             <form class="new-comment">
-                <a class="avatar"><img th:src="@{ /common/images/D_Logo.png }" /></a>
-                <div class="sign-container" style="display: none;">
+                <a class="avatar"><img id="comment-avatar" th:src="@{ /common/images/D_Logo.png }" /></a>
+                <!--<div class="sign-container" style="display: none;">
                     <a href="" class="btn btn-sign">登录</a>
                     <span>后发表评论</span>
-                </div>
-                <textarea onclick="showCommentTool()" placeholder="写下你的评论..."></textarea>
+                </div>-->
+                <textarea class="input-comment" onclick="showCommentTool()" placeholder="写下你的评论..."></textarea>
                 <div id="comment-tool" class="write-function-block" style="display: none">
                     <div class="emoji-modal-wrap">
                         <a class="emoji"><i class="iconfont el-smiley"></i></a>
                     </div>
                     <div class="hint">
-                        Ctrl+Enter 发表
+                        <!--<span>Ctrl+Enter 发表</span>-->
+                        <input name="commentQQNum" type="text" id="commentQQNum" class="inputText" value="" size="16" placeholder="请输入你的QQ账号(必填)">
+                        <input name="commentName" type="text" id="commentName" class="inputText" value="" size="16" placeholder="自动获取QQ昵称(必填)">
                     </div>
-                    <a class="btn btn-send">发送</a>
+                    <a class="btn btn-send send-comment">发送</a>
                     <a class="cancel" onclick="hideCommentTool()">取消</a>
                 </div>
             </form>
@@ -367,15 +352,17 @@
                         </div>
                         <div id="reply" style="display: none">
                             <form class="new-comment">
-                                <textarea placeholder="写下你的评论..."></textarea>
+<!--                                <a class="avatar"><img id="reply-avatar" th:src="@{ /common/images/D_Logo.png }" /></a>-->
+                                <textarea class="input-reply" placeholder="写下你的评论..."></textarea>
                                 <div class="write-function-block">
                                     <div class="emoji-modal-wrap">
                                         <a class="emoji"><i class="iconfont el-smiley"></i></a>
                                     </div>
                                     <div class="hint">
-                                        Ctrl+Enter 发表
+                                        <input name="replyQQNum" type="text" id="replyQQNum" class="inputText" value="" size="16" placeholder="请输入你的QQ账号(必填)">
+                                        <input name="replyName" type="text" id="replyName" class="inputText" value="" size="16" placeholder="自动获取QQ昵称(必填)">
                                     </div>
-                                    <a class="btn btn-send">发送</a>
+                                    <a class="btn btn-send send-reply">发送</a>
                                     <a class="cancel" onclick="hideReply()">取消</a>
                                 </div>
                             </form>
@@ -386,6 +373,131 @@
         </div>
     </div>
     <script>
+
+        function checkForm() {
+            if ($(".comment-list .new-comment #commentQQNum").val().trim() == "") {
+                layer.msg('QQ不能为空', {icon: 2});
+                return false;
+            }
+
+            if ($(".comment-list .new-comment #commentName").val().trim() == "") {
+                layer.msg('昵称不能为空', {icon: 2});
+                return false;
+            }
+            var content = $(".comment-list .new-comment .input-comment").val().trim();
+            if (content == "" || content.length < 2) {
+                layer.msg('亲啥都没写喔，或者内容太少啦！', {icon: 5});
+                return false;
+            }
+            return true;
+        }
+
+        /*评论*/
+        $(".comment-list").on("blur", "#commentQQNum", function () {
+            var qqNumStr = $('#commentQQNum').val();
+            if (qqNumStr == "") {
+                return false;
+            }
+            var data = {qqNum: qqNumStr}
+            layer.msg('正在获取QQ信息..', {
+                icon: 16
+                ,shade: 0.01
+            });
+            $.ajax({
+                type: "GET",
+                url: "/f/qqInfo",
+                data: data,
+                success: function (data, textStatus) {
+                    if (data.code == 0) {
+                        layer.close(layer.index);
+                        $('.comment-list #commentName').val(data.qqInfo.nickname);
+                        $(".comment-list .avatar #comment-avatar").attr("src", data.qqInfo.avatar);
+                    } else {
+                        layer.close(layer.index);
+                        layer.msg("QQ账号错误..", {icon: 2});
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    layer.msg("QQ账号错误..", {icon: 2});
+                }
+            });
+        })
+
+        $(".comment-list").on("click",".send-comment",function(){
+            if (!checkForm()) {
+                return;
+            }
+            var data = {
+                ownerId: $(".blogId").val(),
+                content: $(".comment-list .new-comment .input-comment").val(),
+                fromQq: $(".comment-list .new-comment #commentQQNum").val(),
+                fromName: $(".comment-list .new-comment #commentName").val(),
+                fromAvatar: $(".comment-list .new-comment .avatar #comment-avatar")[0].src
+            };
+            $.ajax({
+                type: "POST",
+                url: "/f/comments",
+                data: data,
+                success: function (data) {
+                    if (data.code == 0) {
+                        //刷新当前评论框
+                        layer.msg("评论成功!", {icon: 1});
+                        $.ajax({
+                            type: "Get",
+                            data: {blogId: $(".blogId").val()},
+                            url: "/f/comments",
+                            success: function (data) {
+                                $("#comment-body").html(data);
+                            }
+                        })
+                    } else {
+                        layer.msg(data.msg, {icon: 2});
+                    }
+                }
+            });
+        });
+
+        /*回复*/
+        $(".comment-list").on("blur", "#replyQQNum", function () {
+            var qqNumStr = $('#replyQQNum').val();
+            if (qqNumStr == "") {
+                return false;
+            }
+            var data = {qqNum: qqNumStr}
+            layer.msg('正在获取QQ信息..', {
+                icon: 16
+                ,shade: 0.01
+            });
+            $.ajax({
+                type: "GET",
+                url: "/f/qqInfo",
+                data: data,
+                success: function (data, textStatus) {
+                    if (data.code == 0) {
+                        // $('#nickname').val(data.qqInfo.nickname);
+                        // $('#email').val(data.qqInfo.email);
+                        layer.close(layer.index);
+                        // $(".comment-list .avatar #reply-avatar").attr("src", data.qqInfo.avatar);
+                    } else {
+                        // $("#ajaxloading").hide();
+                        // $("#error").html('qq账号错误').show().fadeOut(4000);
+                        layer.close(layer.index);
+                        layer.msg("QQ账号错误..", {icon: 2});
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    // $("#ajaxloading").hide();
+                    // $("#error").html('qq账号错误').show().fadeOut(4000);
+                    layer.msg("QQ账号错误..", {icon: 2});
+                }
+            });
+        })
+
+        $(".comment-list").on("click",".send-reply",function(){
+            alert("功能开发中...")
+            // $(".comment-list").load("savecomment",{type:loadType,findfileandpath:findFileAndPath});
+        });
+        
         function showCommentTool() {
             var commentTool = document.getElementById("comment-tool");
             var commentToolCss = window.getComputedStyle(commentTool, null).getPropertyValue("display");

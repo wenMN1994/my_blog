@@ -643,7 +643,7 @@ hr {width:90%;margin: 20px auto; border: 0;border-top: 1px solid #eeeeee;border-
 
 .comment-list .new-comment .emoji {
     float: left;
-    margin-top: 14px
+    margin-top: 20px
 }
 
 .comment-list .new-comment .emoji i {
@@ -664,6 +664,15 @@ hr {width:90%;margin: 20px auto; border: 0;border-top: 1px solid #eeeeee;border-
     margin: 20px 0 0 20px;
     font-size: 13px;
     color: #969696
+}
+
+.comment-list .new-comment .hint .inputText {
+    line-height: 30px;
+    text-indent: 1em;
+    border-radius: 3px;
+    border: #ddd 1px solid;
+    width: 200px;
+    margin-bottom: 20px;
 }
 
 .comment-list .new-comment .btn-send {
@@ -773,16 +782,6 @@ hr {width:90%;margin: 20px auto; border: 0;border-top: 1px solid #eeeeee;border-
     color: #2f2f2f
 }
 
-.comment-list .author-tag {
-    margin-left: 2px;
-    padding: 0 2px;
-    font-size: 12px;
-    color: #ea6f5a;
-    border: 1px solid #ea6f5a;
-    border-radius: 3px;
-    vertical-align: middle
-}
-
 .comment-list .meta {
     font-size: 12px;
     color: #969696
@@ -855,24 +854,6 @@ body.reader-night-mode .comment-list .tool-group a:hover {
     color: #2f2f2f
 }
 
-.comment-list .normal-comment-list .close-comment,.comment-list .normal-comment-list .no-author-comment, .comment-list .normal-comment-list .no-comment {
-    width: 226px;
-    height: 92px;
-    margin: 30px auto 20px;
-    background: url(//cdn2.jianshu.io/assets/web/icon_comment_no-1b12627d360515e52c3c4dfc2f6b0eb7.png) no-repeat;
-    background-size: contain
-}
-
-.comment-list .normal-comment-list .close-comment {
-    background: url(//cdn2.jianshu.io/assets/web/icon_comment_close-1977c458f0eb7900b53b422cac10c713.png) no-repeat;
-    background-size: contain
-}
-
-.comment-list .normal-comment-list .no-author-comment {
-    background: url(//cdn2.jianshu.io/assets/web/icon_comment_no_writer-511f994389aa2409f189d680b13ff5ed.png) no-repeat;
-    background-size: contain
-}
-
 .comment-list .normal-comment-list .text {
     margin-bottom: 50px;
     text-align: center;
@@ -922,14 +903,6 @@ body.reader-night-mode .comment-list .tool-group a:hover {
     width: 100%
 }
 
-.comment-list .sub-comment-list .new-comment .emoji {
-    margin: 15px 0 0
-}
-
-.comment-list .sub-comment-list .emoji-modal-wrap .emoji-modal {
-    left: -48px
-}
-
 .comment-list .sub-comment {
     margin-bottom: 15px;
     padding-bottom: 15px;
@@ -942,13 +915,13 @@ body.reader-night-mode .comment-list .tool-group a:hover {
     border: none
 }
 
-.comment-list .sub-comment .report, .comment-list .sub-comment .subcomment-delete {
+.comment-list .sub-comment .report {
     float: right;
     margin: 1px 0 0 10px;
     display: none
 }
 
-.comment-list .sub-comment:hover .report, .comment-list .sub-comment:hover .subcomment-delete {
+.comment-list .sub-comment:hover .report {
     display: inherit
 }
 
@@ -992,10 +965,4 @@ body.reader-night-mode .comment-list .tool-group a:hover {
 
 .comment-list .sub-comment-list .add-comment-btn i {
     margin-right: 5px
-}
-
-.comment-list .line-warp {
-    margin-left: 10px;
-    padding-left: 10px;
-    border-left: 1px solid #d9d9d9
 }

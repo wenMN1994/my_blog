@@ -96,6 +96,7 @@
                     <a th:href="${'/f/category/'+blog.category.categoryId+'.html'}" th:text="${blog.category.categoryTitle}"></a>&gt;正文
                 </span>[[${blog.title}]]
             </h2>
+            <input class="blogId" type="hidden" name="blogId" th:value="${blog.blogId}">
             <h1 class="con_tilte" th:text="${blog.title}"></h1>
             <p class="bloginfo">
                 <i class="avatar">
