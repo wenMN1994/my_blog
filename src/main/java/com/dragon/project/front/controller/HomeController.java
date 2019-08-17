@@ -1,11 +1,14 @@
 package com.dragon.project.front.controller;
 
 import com.dragon.common.constant.CommonConstant;
+import com.dragon.common.utils.QQUtil;
 import com.dragon.framework.aspectj.lang.annotation.VLog;
 import com.dragon.framework.web.controller.BaseController;
+import com.dragon.framework.web.domain.AjaxResult;
 import com.dragon.project.blog.blog.domain.Blog;
 import com.dragon.project.blog.blog.service.BlogService;
 import com.dragon.project.blog.category.service.CategoryService;
+import com.dragon.project.blog.comments.domain.CommentsInfo;
 import com.dragon.project.blog.tag.domain.Tag;
 import com.dragon.project.blog.tag.service.TagService;
 import com.dragon.project.front.service.HomeService;
@@ -14,14 +17,15 @@ import com.dragon.project.system.carouselMap.service.CarouselMapService;
 import com.dragon.project.system.notice.service.INoticeService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author：Dragon Wen
@@ -34,6 +38,8 @@ import java.util.List;
 @Controller
 @RequestMapping({"/","/my_blog"})
 public class HomeController extends BaseController {
+
+    private static Logger logger = LoggerFactory.getLogger(HomeController.class);
 
     @Autowired
     private HomeService homeService;
@@ -270,5 +276,39 @@ public class HomeController extends BaseController {
         model.addAttribute("blogs", new PageInfo<>(blogs));
         model.addAttribute("keyWord", keyWord);
         return "front/search/search";
+    }
+
+    /**
+     * 添加评论
+     */
+    @PostMapping("/f/comments")
+    @ResponseBody
+    public AjaxResult comments(CommentsInfo commentsInfo) {
+        logger.info("需要保存的评论参数："+commentsInfo.getOwnerId()+":"+commentsInfo.getContent()+":"+commentsInfo.getFromQq());
+        return AjaxResult.success();
+    }
+
+    /**
+     * 刷新当前评论框
+     */
+    @GetMapping("/f/comments")
+    public String commentSync(Long blogId, Model model) {
+        logger.info("返回信息："+blogId);
+        return "front/common/common :: comment";
+    }
+
+    /**
+     * 根据QQ账号获取用户信息
+     * @param qqNum
+     * @return
+     */
+    @GetMapping("/f/qqInfo")
+    @ResponseBody
+    public AjaxResult qqInfo(Long qqNum) {
+        QQUtil.QQInfo qqByQQNum = QQUtil.getQQByQQNum(qqNum);
+        if (Objects.nonNull(qqByQQNum)) {
+            return AjaxResult.success().put("qqInfo", qqByQQNum);
+        }
+        return AjaxResult.error();
     }
 }
