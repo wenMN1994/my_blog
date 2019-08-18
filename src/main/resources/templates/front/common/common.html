@@ -292,26 +292,26 @@
                         </div>
                     </div>
                 </div>
-                <div id="comment-31929953" class="comment">
+                <div id="comment-31929953" class="comment" th:each="commentsInfo:${commentsInfoList}">
                     <div>
                         <div class="author">
                             <div class="v-tooltip-container" style="z-index: 0;">
                                 <div class="v-tooltip-content">
-                                    <a href="" target="_blank" class="avatar"><img th:src="@{ /common/images/D_Logo.png }" /></a>
+                                    <a href="" target="_blank" class="avatar"><img th:id="${'avatar-' + commentsInfo.id}" th:src="${commentsInfo.fromAvatar}" /></a>
                                 </div>
                             </div>
                             <div class="info">
-                                <a href="" target="_blank" class="name">欣然妈妈</a>
+                                <a href="" target="_blank" class="name" th:text="${commentsInfo.fromName}"></a>
                                 <div class="meta">
-                                    <span>2楼 &middot; 2018.12.08 21:09</span>
+                                    <span th:text="${'1楼 &middot; ' + #dates.format(commentsInfo.createTime, 'yyyy-MM-dd HH:mm')}">1楼 &middot; 2018.12.08 21:09</span>
                                 </div>
                             </div>
                         </div>
                         <div class="comment-wrap">
-                            <p>对，到什么时候都要记住自己的身份</p>
+                            <p th:text="${commentsInfo.content}">对，到什么时候都要记住自己的身份</p>
                             <div class="tool-group">
-                                <a id="like-button-31929953" class="like-button"><i class="iconfont el-thumbs-up"></i><span>赞</span></a>
-                                <a class="" onclick="showReply()"><i class="iconfont el-comment"></i> <span>回复</span></a>
+                                <a th:id="${'like-button-' + commentsInfo.id}" class="like-button"><i class="iconfont el-thumbs-up"></i><span th:text="${commentsInfo.likeNum + '赞'}">赞</span></a>
+                                <a class="" th:onclick="showReply([[${commentsInfo.id}]], [[${commentsInfo.fromId}]], [[${commentsInfo.fromName}]], [[${commentsInfo.fromAvatar}]])"><i class="iconfont el-comment"></i> <span>回复</span></a>
                                 <a class="report"><span>举报</span></a>
                             </div>
                         </div>
@@ -324,46 +324,34 @@
                                     <a href="" target="_blank">星辉哥哥</a>：
                                 </div>
                             </div>
-                            <span><a href="" class="maleskine-author" target="_blank" data-user-slug="94f0fadc82ce">@欣然妈妈</a> 毕业好复杂</span>
+                            <span><a href="" class="maleskine-author" target="_blank">@欣然妈妈</a> 毕业好复杂</span>
                             <p></p>
                             <div class="sub-tool-group">
                                 <span>2018.12.08 21:17</span>
-                                <a class="" onclick="showReply()"><i class="iconfont el-comment"></i> <span>回复</span></a>
-                                <a class="report"><span>举报</span></a>
-                            </div>
-                        </div>
-                        <div class="sub-comment">
-                            <p></p>
-                            <div class="v-tooltip-container" style="z-index: 0;">
-                                <div class="v-tooltip-content">
-                                    <a href="" target="_blank">欣然妈妈</a>：
-                                </div>
-                            </div>
-                            <span><a href="" class="maleskine-author" target="_blank" data-user-slug="d4fcd2b4bef0">@帅哥星辉</a> 总得面对</span>
-                            <p></p>
-                            <div class="sub-tool-group">
-                                <span>2018.12.08 21:49</span>
-                                <a class="" onclick="showReply()"><i class="iconfont el-comment"></i> <span>回复</span></a>
+                                <a class="" th:onclick="showReply([[${commentsInfo.id}]], '')"><i class="iconfont el-comment"></i> <span>回复</span></a>
                                 <a class="report"><span>举报</span></a>
                             </div>
                         </div>
                         <div class="sub-comment more-comment">
-                            <a class="add-comment-btn" onclick="showReply()"><i class="iconfont el-pencil-alt"></i> <span>添加新评论</span></a>
+                            <a class="add-comment-btn" th:onclick="showReply([[${commentsInfo.id}]], [[${commentsInfo.fromName}]], '')"><i class="iconfont el-pencil-alt"></i> <span>添加新评论</span></a>
                         </div>
-                        <div id="reply" style="display: none">
+                        <div th:id="${'reply' + commentsInfo.id}" style="display: none">
                             <form class="new-comment">
-<!--                                <a class="avatar"><img id="reply-avatar" th:src="@{ /common/images/D_Logo.png }" /></a>-->
-                                <textarea class="input-reply" placeholder="写下你的评论..."></textarea>
+                                <a class="avatar" style="display: none"><img th:id="${'reply-avatar-' + commentsInfo.id}" th:src="@{ /common/images/D_Logo.png }" /></a>
+                                <textarea th:id="${'input-reply-' + commentsInfo.id}" placeholder="写下你的评论..."></textarea>
                                 <div class="write-function-block">
                                     <div class="emoji-modal-wrap">
                                         <a class="emoji"><i class="iconfont el-smiley"></i></a>
                                     </div>
                                     <div class="hint">
-                                        <input name="replyQQNum" type="text" id="replyQQNum" class="inputText" value="" size="16" placeholder="请输入你的QQ账号(必填)">
-                                        <input name="replyName" type="text" id="replyName" class="inputText" value="" size="16" placeholder="自动获取QQ昵称(必填)">
+                                        <input th:onblur="getQqInfo([[${commentsInfo.id}]])" th:id="${'replyQQNum-' + commentsInfo.id}" name="replyQQNum" type="text" class="inputText" value="" size="16" placeholder="请输入你的QQ账号(必填)">
+                                        <input th:id="${'replyName-' + commentsInfo.id}"name="replyName" type="text" class="inputText" value="" size="16" placeholder="自动获取QQ昵称(必填)">
+                                        <input id="toReplId" type="hidden" value="">
+                                        <input id="toReplName" type="hidden" value="">
+                                        <input id="toReplAvatar" type="hidden" value="">
                                     </div>
-                                    <a class="btn btn-send send-reply">发送</a>
-                                    <a class="cancel" onclick="hideReply()">取消</a>
+                                    <a th:id="${'send-reply-' + commentsInfo.id}" class="btn btn-send" th:onclick="replyComment([[${commentsInfo.id}]])">发送</a>
+                                    <a class="cancel" th:onclick="hideReply([[${commentsInfo.id}]])">取消</a>
                                 </div>
                             </form>
                         </div>
@@ -374,7 +362,7 @@
     </div>
     <script>
 
-        function checkForm() {
+        function checkCommentForm() {
             if ($(".comment-list .new-comment #commentQQNum").val().trim() == "") {
                 layer.msg('QQ不能为空', {icon: 2});
                 return false;
@@ -424,10 +412,11 @@
         })
 
         $(".comment-list").on("click",".send-comment",function(){
-            if (!checkForm()) {
+            if (!checkCommentForm()) {
                 return;
             }
             var data = {
+                type: '2',
                 ownerId: $(".blogId").val(),
                 content: $(".comment-list .new-comment .input-comment").val(),
                 fromQq: $(".comment-list .new-comment #commentQQNum").val(),
@@ -458,8 +447,9 @@
         });
 
         /*回复*/
-        $(".comment-list").on("blur", "#replyQQNum", function () {
-            var qqNumStr = $('#replyQQNum').val();
+        function getQqInfo(id){
+            var qqNumStr = $('#replyQQNum-' + id).val();
+            console.log(qqNumStr)
             if (qqNumStr == "") {
                 return false;
             }
@@ -474,30 +464,55 @@
                 data: data,
                 success: function (data, textStatus) {
                     if (data.code == 0) {
-                        // $('#nickname').val(data.qqInfo.nickname);
-                        // $('#email').val(data.qqInfo.email);
                         layer.close(layer.index);
-                        // $(".comment-list .avatar #reply-avatar").attr("src", data.qqInfo.avatar);
+                        $('.comment-list #replyName-' + id).val(data.qqInfo.nickname);
+                        $(".comment-list .avatar #reply-avatar-" + id).attr("src", data.qqInfo.avatar);
                     } else {
-                        // $("#ajaxloading").hide();
-                        // $("#error").html('qq账号错误').show().fadeOut(4000);
                         layer.close(layer.index);
                         layer.msg("QQ账号错误..", {icon: 2});
                     }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    // $("#ajaxloading").hide();
-                    // $("#error").html('qq账号错误').show().fadeOut(4000);
                     layer.msg("QQ账号错误..", {icon: 2});
                 }
             });
-        })
+        }
 
-        $(".comment-list").on("click",".send-reply",function(){
-            alert("功能开发中...")
-            // $(".comment-list").load("savecomment",{type:loadType,findfileandpath:findFileAndPath});
-        });
-        
+        function replyComment(id){
+            var data = {
+                commentId: id,
+                fromQq: $(".comment-list .new-comment #replyQQNum-" + id).val(),
+                fromName: $(".comment-list .new-comment #replyName-" + id).val(),
+                fromAvatar: $(".comment-list .new-comment .avatar #reply-avatar-" + id)[0].src,
+                toId: $(".comment-list .new-comment #toReplId").val(),
+                toName: $(".comment-list .new-comment #toReplName").val(),
+                toAvatar: $(".comment-list .new-comment #toReplAvatar").val(),
+                content: $(".comment-list .new-comment #input-reply-" + id).val()
+            };
+            $.ajax({
+                type: "POST",
+                url: "/f/reply",
+                data: data,
+                success: function (data) {
+                    if (data.code == 0) {
+                        //刷新当前评论框
+                        layer.msg("回复成功!", {icon: 1});
+                        $.ajax({
+                            type: "Get",
+                            data: {blogId: $(".blogId").val()},
+                            url: "/f/comments",
+                            success: function (data) {
+                                $("#comment-body").html(data);
+                            }
+                        })
+                    } else {
+                        layer.msg(data.msg, {icon: 2});
+                    }
+                }
+            });
+        }
+
+        /*显示评论操作功能栏*/
         function showCommentTool() {
             var commentTool = document.getElementById("comment-tool");
             var commentToolCss = window.getComputedStyle(commentTool, null).getPropertyValue("display");
@@ -506,22 +521,28 @@
             }
         }
 
+        /*显示评论操作功能栏*/
         function hideCommentTool() {
             document.getElementById("comment-tool").style.display = "none";
         }
 
-        function showReply() {
-            var reply = document.getElementById("reply");
+        /*显示回复输入框*/
+        function showReply(id, toId, toName, toAvatar) {
+            var reply = document.getElementById("reply"+id);
             var replyCss = window.getComputedStyle(reply, null).getPropertyValue("display");
             if(replyCss == 'none'){
-                document.getElementById("reply").style.display = "block";
+                document.getElementById("reply"+id).style.display = "block";
+                $('#toReplId').val(toId);
+                $('#toReplName').val(toName);
+                $('#toReplAvatar').val(toAvatar);
             } else {
-                document.getElementById("reply").style.display = "none";
+                document.getElementById("reply"+id).style.display = "none";
             }
         }
 
-        function hideReply() {
-            document.getElementById("reply").style.display = "none";
+        /*隐藏回复输入框*/
+        function hideReply(id) {
+            document.getElementById("reply"+id).style.display = "none";
         }
     </script>
 </div>
@@ -545,15 +566,13 @@
                 </a>
             </p>
             <p>Copyright ©
-                <a href="http://dragonwen.wicp.vip/" target="_blank">www.dragonwen.wicp.vip</a> All Rights Reserved.
+                <a href="http://dragonwen.top/" target="_blank">www.dragonwen.wicp.vip</a> All Rights Reserved.
                 备案号：
                 <a href="http://www.miitbeian.gov.cn/" target="_blank">粤ICP备11002373号-1</a>
             </p>
         </div>
     </div>
-    <a href="#">
-        <div class="top"></div>
-    </a>
+    <a><div class="top"></div></a>
 </footer>
 <!--底部公共模块 end-->
 
