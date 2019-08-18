@@ -12,25 +12,25 @@ import com.dragon.framework.web.domain.BaseEntity;
  */
 public class CommentsReply extends BaseEntity {
     /**
-     * 回复id
+     * 回复主键id
      *
      * @mbg.generated
      */
-    private Long id;
+    private Integer id;
 
     /**
      * 评论主表id
      *
      * @mbg.generated
      */
-    private Long commentId;
+    private Integer commentId;
 
     /**
      * 评论者id
      *
      * @mbg.generated
      */
-    private Long fromId;
+    private String fromId;
 
     /**
      * 评论者QQ
@@ -58,7 +58,7 @@ public class CommentsReply extends BaseEntity {
      *
      * @mbg.generated
      */
-    private Long toId;
+    private String toId;
 
     /**
      * 被评论者名字
@@ -83,27 +83,27 @@ public class CommentsReply extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getCommentId() {
+    public Integer getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(Long commentId) {
+    public void setCommentId(Integer commentId) {
         this.commentId = commentId;
     }
 
-    public Long getFromId() {
+    public String getFromId() {
         return fromId;
     }
 
-    public void setFromId(Long fromId) {
+    public void setFromId(String fromId) {
         this.fromId = fromId;
     }
 
@@ -131,11 +131,11 @@ public class CommentsReply extends BaseEntity {
         this.fromAvatar = fromAvatar;
     }
 
-    public Long getToId() {
+    public String getToId() {
         return toId;
     }
 
-    public void setToId(Long toId) {
+    public void setToId(String toId) {
         this.toId = toId;
     }
 
@@ -198,17 +198,17 @@ public class CommentsReply extends BaseEntity {
         }
         CommentsReply other = (CommentsReply) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getCommentId() == null ? other.getCommentId() == null : this.getCommentId().equals(other.getCommentId()))
-            && (this.getFromId() == null ? other.getFromId() == null : this.getFromId().equals(other.getFromId()))
-            && (this.getFromQq() == null ? other.getFromQq() == null : this.getFromQq().equals(other.getFromQq()))
-            && (this.getFromName() == null ? other.getFromName() == null : this.getFromName().equals(other.getFromName()))
-            && (this.getFromAvatar() == null ? other.getFromAvatar() == null : this.getFromAvatar().equals(other.getFromAvatar()))
-            && (this.getToId() == null ? other.getToId() == null : this.getToId().equals(other.getToId()))
-            && (this.getToName() == null ? other.getToName() == null : this.getToName().equals(other.getToName()))
-            && (this.getToAvatar() == null ? other.getToAvatar() == null : this.getToAvatar().equals(other.getToAvatar()))
-            && (this.getContent() == null ? other.getContent() == null : this.getContent().equals(other.getContent()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
+                && (this.getCommentId() == null ? other.getCommentId() == null : this.getCommentId().equals(other.getCommentId()))
+                && (this.getFromId() == null ? other.getFromId() == null : this.getFromId().equals(other.getFromId()))
+                && (this.getFromQq() == null ? other.getFromQq() == null : this.getFromQq().equals(other.getFromQq()))
+                && (this.getFromName() == null ? other.getFromName() == null : this.getFromName().equals(other.getFromName()))
+                && (this.getFromAvatar() == null ? other.getFromAvatar() == null : this.getFromAvatar().equals(other.getFromAvatar()))
+                && (this.getToId() == null ? other.getToId() == null : this.getToId().equals(other.getToId()))
+                && (this.getToName() == null ? other.getToName() == null : this.getToName().equals(other.getToName()))
+                && (this.getToAvatar() == null ? other.getToAvatar() == null : this.getToAvatar().equals(other.getToAvatar()))
+                && (this.getContent() == null ? other.getContent() == null : this.getContent().equals(other.getContent()))
+                && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+                && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
     }
 
     @Override
