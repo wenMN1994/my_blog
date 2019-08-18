@@ -72,7 +72,6 @@ public final class QQUtil {
      */
     public static QQInfo getQQByQQNum(long QQNum) {
         String json = HttpUtils.sendGet(QQ_QUERY_URL, "uins=" + QQNum);
-        //String json = "portraitCallBack({\"726567707\":[\"http://qlogo4.store.qq.com/qzone/726567707/726567707/100\",52779,-1,0,0,0,\"Dimple\",0]})";
         QQInfo qqInfo = null;
         if (!StringUtils.isEmpty(json)) {
             json = json.replaceAll("portraitCallBack|\\\\s*|\\t|\\r|\\n", "");
