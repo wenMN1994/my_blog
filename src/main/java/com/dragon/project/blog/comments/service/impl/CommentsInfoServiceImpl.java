@@ -1,7 +1,12 @@
 package com.dragon.project.blog.comments.service.impl;
 
+import com.dragon.project.blog.comments.domain.CommentsInfo;
+import com.dragon.project.blog.comments.mapper.CommentsInfoMapper;
 import com.dragon.project.blog.comments.service.CommentsInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author：Dragon Wen
@@ -13,4 +18,17 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CommentsInfoServiceImpl implements CommentsInfoService {
+
+    @Autowired
+    CommentsInfoMapper commentsInfoMapper;
+
+    @Override
+    public int insertCommentInfo(CommentsInfo commentsInfo) {
+        return commentsInfoMapper.insertCommentInfo(commentsInfo);
+    }
+
+    @Override
+    public List<CommentsInfo> selectCommentsInfoByOwnerId(Integer ownerId) {
+        return commentsInfoMapper.selectCommentsInfoByOwnerId(ownerId);
+    }
 }

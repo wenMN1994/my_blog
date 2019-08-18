@@ -1,5 +1,7 @@
 package com.dragon.project.blog.comments.mapper;
 
+import com.dragon.project.blog.comments.domain.CommentsReply;
+
 /**
  * @author：Dragon Wen
  * @email：18475536452@163.com
@@ -9,4 +11,10 @@ package com.dragon.project.blog.comments.mapper;
  * @version: 1.0.0
  */
 public interface CommentsReplyMapper {
+    /**
+     * 插入回复信息数据
+     * @param commentsReply
+     * @return
+     */
+    int insertCommentReply(CommentsReply commentsReply);
 }

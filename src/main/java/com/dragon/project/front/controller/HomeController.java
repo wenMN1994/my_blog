@@ -9,6 +9,9 @@ import com.dragon.project.blog.blog.domain.Blog;
 import com.dragon.project.blog.blog.service.BlogService;
 import com.dragon.project.blog.category.service.CategoryService;
 import com.dragon.project.blog.comments.domain.CommentsInfo;
+import com.dragon.project.blog.comments.domain.CommentsReply;
+import com.dragon.project.blog.comments.service.CommentsInfoService;
+import com.dragon.project.blog.comments.service.CommentsReplyService;
 import com.dragon.project.blog.tag.domain.Tag;
 import com.dragon.project.blog.tag.service.TagService;
 import com.dragon.project.front.service.HomeService;
@@ -26,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * @author：Dragon Wen
@@ -61,6 +65,12 @@ public class HomeController extends BaseController {
 
     @Autowired
     private CarouselMapService carouselMapService;
+
+    @Autowired
+    private CommentsInfoService commentsInfoService;
+
+    @Autowired
+    private CommentsReplyService commentsReplyService;
 
     /**
      * 博客首页
@@ -151,6 +161,7 @@ public class HomeController extends BaseController {
         model.addAttribute("nextBlog", blogService.selectNextBlogById(blogId));
         model.addAttribute("previousBlog", blogService.selectPreviousBlogById(blogId));
         model.addAttribute("randBlogList", blogService.selectRandBlogList());
+        model.addAttribute("commentsInfoList", commentsInfoService.selectCommentsInfoByOwnerId(blogId));
         return "front/article/article";
     }
 
@@ -284,16 +295,35 @@ public class HomeController extends BaseController {
     @PostMapping("/f/comments")
     @ResponseBody
     public AjaxResult comments(CommentsInfo commentsInfo) {
-        logger.info("需要保存的评论参数："+commentsInfo.getOwnerId()+":"+commentsInfo.getContent()+":"+commentsInfo.getFromQq());
-        return AjaxResult.success();
+        commentsInfo.setFromId(UUID.randomUUID().toString().replaceAll("-", ""));
+        int i = commentsInfoService.insertCommentInfo(commentsInfo);
+        if (i==1){
+            return AjaxResult.success();
+        }
+        return AjaxResult.error();
+    }
+
+    /**
+     * 添加评论
+     */
+    @PostMapping("/f/reply")
+    @ResponseBody
+    public AjaxResult reply(CommentsReply commentsReply) {
+        commentsReply.setFromId(UUID.randomUUID().toString().replaceAll("-", ""));
+        int i = commentsReplyService.insertCommentReply(commentsReply);
+        if (i==1){
+            return AjaxResult.success();
+        }
+        return AjaxResult.error();
     }
 
     /**
      * 刷新当前评论框
      */
     @GetMapping("/f/comments")
-    public String commentSync(Long blogId, Model model) {
+    public String commentSync(Integer blogId, Model model) {
         logger.info("返回信息："+blogId);
+        model.addAttribute("commentsInfoList", commentsInfoService.selectCommentsInfoByOwnerId(blogId));
         return "front/common/common :: comment";
     }
 

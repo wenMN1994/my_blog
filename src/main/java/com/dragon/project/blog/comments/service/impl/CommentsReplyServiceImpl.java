@@ -1,6 +1,9 @@
 package com.dragon.project.blog.comments.service.impl;
 
+import com.dragon.project.blog.comments.domain.CommentsReply;
+import com.dragon.project.blog.comments.mapper.CommentsReplyMapper;
 import com.dragon.project.blog.comments.service.CommentsReplyService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,4 +16,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CommentsReplyServiceImpl implements CommentsReplyService {
+
+    @Autowired
+    CommentsReplyMapper commentsReplyMapper;
+
+    @Override
+    public int insertCommentReply(CommentsReply commentsReply) {
+        return commentsReplyMapper.insertCommentReply(commentsReply);
+    }
 }

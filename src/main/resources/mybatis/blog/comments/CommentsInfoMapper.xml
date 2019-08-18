@@ -15,5 +15,85 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
 
+  <sql id="Base_Column_List">
+    id, type, owner_id, from_id, from_qq, from_name, from_avatar, like_num, content,
+    create_time, update_time
+  </sql>
+
+  <select id="selectCommentsInfoByOwnerId" resultType="com.dragon.project.blog.comments.domain.CommentsInfo">
+      select
+      <include refid="Base_Column_List" />
+       from bg_comments_info
+       where
+       <if test="ownerId != null">
+        owner_id = #{ownerId}
+      </if>
+       order by create_time
+  </select>
+
+  <insert id="insertCommentInfo" parameterType="com.dragon.project.blog.comments.domain.CommentsInfo">
+    insert into bg_comments_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="ownerId != null">
+        owner_id,
+      </if>
+      <if test="fromId != null">
+        from_id,
+      </if>
+      <if test="fromQq != null">
+        from_qq,
+      </if>
+      <if test="fromName != null">
+        from_name,
+      </if>
+      <if test="fromAvatar != null">
+        from_avatar,
+      </if>
+      <if test="likeNum != null">
+        like_num,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+        create_time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="ownerId != null">
+        #{ownerId,jdbcType=INTEGER},
+      </if>
+      <if test="fromId != null">
+        #{fromId,jdbcType=VARCHAR},
+      </if>
+      <if test="fromQq != null">
+        #{fromQq,jdbcType=VARCHAR},
+      </if>
+      <if test="fromName != null">
+        #{fromName,jdbcType=VARCHAR},
+      </if>
+      <if test="fromAvatar != null">
+        #{fromAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="likeNum != null">
+        #{likeNum,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+        sysdate()
+    </trim>
+  </insert>
+
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>
