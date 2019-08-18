@@ -67,9 +67,9 @@
                         <p th:text="${ repository.summary }"></p>
                         <ul>
                             <li>
-                                <a th:title="${ '发表于' + #dates.format(repository.createTime, 'yyyy-MM-dd hh:mm') }" target="_blank">
+                                <a th:title="${ '发表于' + #dates.format(repository.createTime, 'yyyy-MM-dd HH:mm') }" target="_blank">
                                     <i class="el-time"></i>
-                                    <span th:text="${ #dates.format(repository.createTime, 'yyyy-MM-dd hh:mm') }"></span>
+                                    <span th:text="${ #dates.format(repository.createTime, 'yyyy-MM-dd HH:mm') }"></span>
                                 </a>
                             </li>
                             <li>
@@ -108,9 +108,9 @@
                         <p th:text="${ sourceCode.summary }"></p>
                         <ul>
                             <li>
-                                <a th:title="${ '发表于' + #dates.format(sourceCode.createTime, 'yyyy-MM-dd hh:mm') }" target="_blank">
+                                <a th:title="${ '发表于' + #dates.format(sourceCode.createTime, 'yyyy-MM-dd HH:mm') }" target="_blank">
                                     <i class="el-time"></i>
-                                    <span th:text="${ #dates.format(sourceCode.createTime, 'yyyy-MM-dd hh:mm') }"></span>
+                                    <span th:text="${ #dates.format(sourceCode.createTime, 'yyyy-MM-dd HH:mm') }"></span>
                                 </a>
                             </li>
                             <li>
