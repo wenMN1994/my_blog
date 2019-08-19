@@ -28,7 +28,7 @@
        <if test="ownerId != null">
         owner_id = #{ownerId}
       </if>
-       order by create_time
+       order by create_time desc
   </select>
 
   <insert id="insertCommentInfo" parameterType="com.dragon.project.blog.comments.domain.CommentsInfo">

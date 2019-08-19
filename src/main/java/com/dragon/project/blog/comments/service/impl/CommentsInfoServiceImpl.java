@@ -1,7 +1,9 @@
 package com.dragon.project.blog.comments.service.impl;
 
 import com.dragon.project.blog.comments.domain.CommentsInfo;
+import com.dragon.project.blog.comments.domain.CommentsReply;
 import com.dragon.project.blog.comments.mapper.CommentsInfoMapper;
+import com.dragon.project.blog.comments.mapper.CommentsReplyMapper;
 import com.dragon.project.blog.comments.service.CommentsInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,9 @@ public class CommentsInfoServiceImpl implements CommentsInfoService {
     @Autowired
     CommentsInfoMapper commentsInfoMapper;
 
+    @Autowired
+    CommentsReplyMapper commentsReplyMapper;
+
     @Override
     public int insertCommentInfo(CommentsInfo commentsInfo) {
         return commentsInfoMapper.insertCommentInfo(commentsInfo);
@@ -29,6 +34,11 @@ public class CommentsInfoServiceImpl implements CommentsInfoService {
 
     @Override
     public List<CommentsInfo> selectCommentsInfoByOwnerId(Integer ownerId) {
-        return commentsInfoMapper.selectCommentsInfoByOwnerId(ownerId);
+        List<CommentsInfo> commentsInfoList = commentsInfoMapper.selectCommentsInfoByOwnerId(ownerId);
+        for (int i = 0; i < commentsInfoList.size(); i++) {
+            List<CommentsReply> commentsReplyList = commentsReplyMapper.selectCommentsReplyByCommentId(commentsInfoList.get(i).getId());
+            commentsInfoList.get(i).setCommentsReplyList(commentsReplyList);
+        }
+        return commentsInfoList;
     }
 }

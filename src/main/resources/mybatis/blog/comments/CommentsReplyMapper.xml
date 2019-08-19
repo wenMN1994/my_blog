@@ -21,6 +21,17 @@
     content, create_time, update_time
   </sql>
 
+  <select id="selectCommentsReplyByCommentId" resultType="com.dragon.project.blog.comments.domain.CommentsReply">
+    select
+    <include refid="Base_Column_List" />
+    from bg_comments_reply
+    where
+    <if test="commentId != null">
+      comment_id = #{commentId}
+    </if>
+    order by create_time
+  </select>
+
   <insert id="insertCommentReply" parameterType="com.dragon.project.blog.comments.domain.CommentsReply">
     insert into bg_comments_reply
     <trim prefix="(" suffix=")" suffixOverrides=",">

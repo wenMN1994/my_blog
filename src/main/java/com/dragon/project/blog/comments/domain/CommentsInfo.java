@@ -2,6 +2,8 @@ package com.dragon.project.blog.comments.domain;
 
 import com.dragon.framework.web.domain.BaseEntity;
 
+import java.util.List;
+
 /**
  * @author：Dragon Wen
  * @email：18475536452@163.com
@@ -73,6 +75,8 @@ public class CommentsInfo extends BaseEntity {
      * @mbg.generated
      */
     private String content;
+
+    private List<CommentsReply> commentsReplyList;
 
     private static final long serialVersionUID = 1L;
 
@@ -146,6 +150,14 @@ public class CommentsInfo extends BaseEntity {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public List<CommentsReply> getCommentsReplyList() {
+        return commentsReplyList;
+    }
+
+    public void setCommentsReplyList(List<CommentsReply> commentsReplyList) {
+        this.commentsReplyList = commentsReplyList;
     }
 
     @Override

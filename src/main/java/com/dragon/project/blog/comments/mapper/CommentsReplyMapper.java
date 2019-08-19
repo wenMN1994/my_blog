@@ -1,6 +1,9 @@
 package com.dragon.project.blog.comments.mapper;
 
 import com.dragon.project.blog.comments.domain.CommentsReply;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author：Dragon Wen
@@ -17,4 +20,12 @@ public interface CommentsReplyMapper {
      * @return
      */
     int insertCommentReply(CommentsReply commentsReply);
+
+    /**
+     * 根据评论主表ID查询回复内容
+     * @param commentId
+     * @return
+     */
+    List<CommentsReply> selectCommentsReplyByCommentId(@Param("commentId") Integer commentId);
+
 }
