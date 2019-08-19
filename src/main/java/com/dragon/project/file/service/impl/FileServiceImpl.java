@@ -241,26 +241,6 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public List<FilePath> mcpathload(Long mctoid, List<Long> mcpathids) {
-        List<FilePath> showsonpath = new ArrayList<>();
-        List<FilePath> sonpaths = filePathMapper.selectByParentIdAndPathIstrash(mctoid, 0L);
-
-        for (FilePath sonpath : sonpaths) {
-            boolean nosame = true;
-            for (Long mcpathid : mcpathids) {
-                if(sonpath.getPathId().equals(mcpathid)){
-                    nosame = false;
-                    break;
-                }
-            }
-            if(nosame){
-                showsonpath.add(sonpath);
-            }
-        }
-        return showsonpath;
-    }
-
-    @Override
     public List<Ztree> pathTreeData() {
         List<FilePath> filePathList = filePathMapper.selectByPathIsTrash(0L);
         List<Ztree> ztrees = initZtree(filePathList);

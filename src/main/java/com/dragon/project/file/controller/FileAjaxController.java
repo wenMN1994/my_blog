@@ -102,20 +102,6 @@ public class FileAjaxController extends BaseController {
     }
 
     /**
-     *  移动复制文件树 点击加载
-     * @param mctoid
-     * @param mcpathids
-     * @param model
-     * @return
-     */
-    @RequestMapping("mcloadpath")
-    public String mcloadpath(@RequestParam("mctoid") Long mctoid,@RequestParam("mcpathids") List<Long> mcpathids,Model model){
-        List<FilePath> showsonpaths = fileService.mcpathload(mctoid, mcpathids);
-        model.addAttribute("mcpaths",showsonpaths);
-        return "file/mcpathload";
-    }
-
-    /**
      * 移动复制文件树
      * @return
      */

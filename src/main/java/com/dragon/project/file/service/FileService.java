@@ -171,12 +171,7 @@ public interface FileService {
 
     /**
      * 移动复制文件树 点击加载
-     * @param mctoid
-     * @param mcpathids
-     * @return
      */
-    List<FilePath> mcpathload(Long mctoid, List<Long> mcpathids);
-
     List<Ztree> pathTreeData();
 
     /**
