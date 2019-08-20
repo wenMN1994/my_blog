@@ -68,6 +68,9 @@
      .toolbar-open, .toolbar { top: 45% }
      .toolbar-open { display: none }
      .box .e{width: 564px;}
+     .comment-list .new-comment .hint .inputText {
+         width: 100%; }
+     .sub-comment-list .reply-form { height: 280px; }
 }
  @media screen and (max-width: 480px) {
      .headline { width: 100% }
@@ -127,6 +130,9 @@
      .box .lh i {width: 140px;}
      .box .sl i {width: 230px;}
      .box .yb i {width: 70px;}
+     .comment-list .new-comment .hint .inputText {
+         width: 100%; }
+     .sub-comment-list .reply-form { height: 280px; }
 }
 
 @media screen and (max-width: 380px){
@@ -145,10 +151,16 @@
     .box .sl i {width: 170px;}
     .box .yb i {width: 50px;}
     .maybe-love ul li img {height: 100px}
+    .comment-list .new-comment .hint .inputText {
+        width: 100%; }
+    .sub-comment-list .reply-form { height: 280px; }
 }
 
 @media screen and (max-width: 320px){
     .kecheng ul li {width: 100%;}
     .arc-right ul li:last-child{display: none}
     .maybe-love ul li img {height: 100px}
+    .comment-list .new-comment .hint .inputText {
+        width: 100%; }
+    .sub-comment-list .reply-form { height: 280px; }
 }

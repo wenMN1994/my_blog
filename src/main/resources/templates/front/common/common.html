@@ -270,12 +270,11 @@
                         <a class="emoji"><i class="iconfont el-smiley"></i></a>
                     </div>
                     <div class="hint">
-                        <!--<span>Ctrl+Enter 发表</span>-->
-                        <input name="commentQQNum" type="text" id="commentQQNum" class="inputText" value="" size="16" placeholder="请输入你的QQ账号(必填)">
-                        <input name="commentName" type="text" id="commentName" class="inputText" value="" size="16" placeholder="自动获取QQ昵称(必填)">
+                        <input type="text" id="commentQQNum" class="inputText" value="" size="16" placeholder="请输入你的QQ账号(必填)">
+                        <input type="text" id="commentName" class="inputText" value="" size="16" placeholder="自动获取QQ昵称(必填)">
+                        <a class="btn btn-send send-comment">发送</a>
+                        <a class="cancel" onclick="hideCommentTool()">取消</a>
                     </div>
-                    <a class="btn btn-send send-comment">发送</a>
-                    <a class="cancel" onclick="hideCommentTool()">取消</a>
                 </div>
             </form>
         </div>
@@ -338,7 +337,7 @@
                         <div class="sub-comment more-comment">
                             <a class="add-comment-btn" th:onclick="showReply([[${commentsInfo.id}]], [[${commentsInfo.fromId}]], [[${commentsInfo.fromName}]], [[${commentsInfo.fromAvatar}]])"><i class="iconfont el-pencil-alt"></i> <span>添加新评论</span></a>
                         </div>
-                        <div th:id="${'reply' + commentsInfo.id}" style="display: none">
+                        <div th:id="${'reply' + commentsInfo.id}" class="reply-form" style="display: none">
                             <form class="new-comment">
                                 <a class="avatar" style="display: none"><img th:id="${'reply-avatar-' + commentsInfo.id}" th:src="@{ /common/images/D_Logo.png }" /></a>
                                 <textarea th:id="${'input-reply-' + commentsInfo.id}" placeholder="写下你的评论..."></textarea>
@@ -347,14 +346,14 @@
                                         <a class="emoji"><i class="iconfont el-smiley"></i></a>
                                     </div>
                                     <div class="hint">
-                                        <input th:onblur="getQqInfo([[${commentsInfo.id}]])" th:id="${'replyQQNum-' + commentsInfo.id}" name="replyQQNum" type="text" class="inputText" value="" size="16" placeholder="请输入你的QQ账号(必填)">
-                                        <input th:id="${'replyName-' + commentsInfo.id}"name="replyName" type="text" class="inputText" value="" size="16" placeholder="自动获取QQ昵称(必填)">
-                                        <input id="toReplId" type="hidden" value="">
-                                        <input id="toReplName" type="hidden" value="">
-                                        <input id="toReplAvatar" type="hidden" value="">
+                                        <input th:onblur="getQqInfo([[${commentsInfo.id}]])" th:id="${'replyQQNum-' + commentsInfo.id}" type="text" class="inputText" value="" size="16" placeholder="请输入你的QQ账号(必填)">
+                                        <input th:id="${'replyName-' + commentsInfo.id}" type="text" class="inputText" value="" size="16" placeholder="自动获取QQ昵称(必填)">
+                                        <input th:id="${'toReplId-' + commentsInfo.id}" type="hidden" value="">
+                                        <input th:id="${'toReplName-' + commentsInfo.id}" type="hidden" value="">
+                                        <input th:id="${'toReplAvatar-' + commentsInfo.id}" type="hidden" value="">
+                                        <a th:id="${'send-reply-' + commentsInfo.id}" class="btn btn-send" th:onclick="replyComment([[${commentsInfo.id}]])">发送</a>
+                                        <a class="cancel" th:onclick="hideReply([[${commentsInfo.id}]])">取消</a>
                                     </div>
-                                    <a th:id="${'send-reply-' + commentsInfo.id}" class="btn btn-send" th:onclick="replyComment([[${commentsInfo.id}]])">发送</a>
-                                    <a class="cancel" th:onclick="hideReply([[${commentsInfo.id}]])">取消</a>
                                 </div>
                             </form>
                         </div>
@@ -364,7 +363,7 @@
         </div>
     </div>
     <script>
-
+        /*评论*/
         function checkCommentForm() {
             if ($(".comment-list .new-comment #commentQQNum").val().trim() == "") {
                 layer.msg('QQ不能为空', {icon: 2});
@@ -383,7 +382,6 @@
             return true;
         }
 
-        /*评论*/
         $(".comment-list").on("blur", "#commentQQNum", function () {
             var qqNumStr = $('#commentQQNum').val();
             if (qqNumStr == "") {
@@ -450,9 +448,26 @@
         });
 
         /*回复*/
+        function checkReplyForm(id) {
+            if ($(".comment-list .new-comment #replyQQNum-" + id).val().trim() == "") {
+                layer.msg('QQ不能为空', {icon: 2});
+                return false;
+            }
+
+            if ($(".comment-list .new-comment #replyName-" + id).val().trim() == "") {
+                layer.msg('昵称不能为空', {icon: 2});
+                return false;
+            }
+            var content = $(".comment-list .new-comment #input-reply-" + id).val().trim();
+            if (content == "" || content.length < 2) {
+                layer.msg('亲啥都没写喔，或者内容太少啦！', {icon: 5});
+                return false;
+            }
+            return true;
+        }
+
         function getQqInfo(id){
             var qqNumStr = $('#replyQQNum-' + id).val();
-            console.log(qqNumStr)
             if (qqNumStr == "") {
                 return false;
             }
@@ -482,14 +497,17 @@
         }
 
         function replyComment(id){
+            if (!checkReplyForm(id)) {
+                return;
+            }
             var data = {
                 commentId: id,
                 fromQq: $(".comment-list .new-comment #replyQQNum-" + id).val(),
                 fromName: $(".comment-list .new-comment #replyName-" + id).val(),
                 fromAvatar: $(".comment-list .new-comment .avatar #reply-avatar-" + id)[0].src,
-                toId: $(".comment-list .new-comment #toReplId").val(),
-                toName: $(".comment-list .new-comment #toReplName").val(),
-                toAvatar: $(".comment-list .new-comment #toReplAvatar").val(),
+                toId: $(".comment-list .new-comment #toReplId-" + id).val(),
+                toName: $(".comment-list .new-comment #toReplName-" + id).val(),
+                toAvatar: $(".comment-list .new-comment #toReplAvatar-" + id).val(),
                 content: $(".comment-list .new-comment #input-reply-" + id).val()
             };
             $.ajax({
@@ -535,9 +553,9 @@
             var replyCss = window.getComputedStyle(reply, null).getPropertyValue("display");
             if(replyCss == 'none'){
                 document.getElementById("reply"+id).style.display = "block";
-                $('#toReplId').val(toId);
-                $('#toReplName').val(toName);
-                $('#toReplAvatar').val(toAvatar);
+                $('#toReplId-' + id).val(toId);
+                $('#toReplName-' + id).val(toName);
+                $('#toReplAvatar-' + id).val(toAvatar);
             } else {
                 document.getElementById("reply"+id).style.display = "none";
             }
