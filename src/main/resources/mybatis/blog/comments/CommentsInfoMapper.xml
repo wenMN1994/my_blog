@@ -95,5 +95,43 @@
     </trim>
   </insert>
 
+  <update id="updateCommentsInfo" parameterType="com.dragon.project.blog.comments.domain.CommentsInfo"
+          keyProperty="id" useGeneratedKeys="true">
+    update bg_comments_info
+    <set>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="ownerId != null">
+        owner_id = #{ownerId,jdbcType=INTEGER},
+      </if>
+      <if test="fromId != null">
+        from_id = #{fromId,jdbcType=VARCHAR},
+      </if>
+      <if test="fromQq != null">
+        from_qq = #{fromQq,jdbcType=VARCHAR},
+      </if>
+      <if test="fromName != null">
+        from_name = #{fromName,jdbcType=VARCHAR},
+      </if>
+      <if test="fromAvatar != null">
+        from_avatar = #{fromAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="likeNum != null">
+        like_num = #{likeNum,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>

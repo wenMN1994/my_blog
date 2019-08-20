@@ -291,7 +291,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="comment-31929953" class="comment" th:each="commentsInfo:${commentsInfoList}">
+                <div class="comment" th:each="commentsInfo:${commentsInfoList}">
                     <div>
                         <div class="author">
                             <div class="v-tooltip-container" style="z-index: 0;">
@@ -309,8 +309,8 @@
                         <div class="comment-wrap">
                             <p th:text="${commentsInfo.content}">对，到什么时候都要记住自己的身份</p>
                             <div class="tool-group">
-                                <a th:id="${'like-button-' + commentsInfo.id}" class="like-button"><i class="iconfont el-thumbs-up"></i><span th:text="${commentsInfo.likeNum + '赞'}">赞</span></a>
-                                <a class="" th:onclick="showReply([[${commentsInfo.id}]], [[${commentsInfo.fromId}]], [[${commentsInfo.fromName}]], [[${commentsInfo.fromAvatar}]])"><i class="iconfont el-comment"></i> <span>回复</span></a>
+                                <a th:onclick="commentLike([[${commentsInfo.id}]], [[${commentsInfo.likeNum}]])" th:id="${'like-button-' + commentsInfo.id}" class="like-button"><i class="iconfont el-thumbs-up"></i><span th:id="${'likeNumText-' + commentsInfo.id}" th:text="${commentsInfo.likeNum + '赞'}">赞</span></a>
+                                <a th:onclick="showReply([[${commentsInfo.id}]], [[${commentsInfo.fromId}]], [[${commentsInfo.fromName}]], [[${commentsInfo.fromAvatar}]])"><i class="iconfont el-comment"></i> <span>回复</span></a>
                                 <a class="report"><span>举报</span></a>
                             </div>
                         </div>
@@ -528,6 +528,27 @@
                         })
                     } else {
                         layer.msg(data.msg, {icon: 2});
+                    }
+                }
+            });
+        }
+        
+        /*点赞*/
+        function commentLike(id, likeNum) {
+            var data = {
+                id: id,
+                likeNum: likeNum + 1
+            };
+            $.ajax({
+                type: "POST",
+                url: "/f/commentLike",
+                data: data,
+                success: function (data) {
+                    if (data.code == 0) {
+                        layer.msg("点赞成功!", {icon: 1});
+                        $("#likeNumText-" + id).html(data.likeNum + "赞");
+                    } else {
+                        layer.msg("点赞失败!", {icon: 2});
                     }
                 }
             });

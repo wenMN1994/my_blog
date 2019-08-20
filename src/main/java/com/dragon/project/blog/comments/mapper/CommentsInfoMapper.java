@@ -27,4 +27,11 @@ public interface CommentsInfoMapper {
      * @return
      */
     List<CommentsInfo> selectCommentsInfoByOwnerId(@Param("ownerId") Integer ownerId);
+
+    /**
+     * 根据id更新评论信息
+     * @param commentsInfo
+     * @return
+     */
+    int updateCommentsInfo(CommentsInfo commentsInfo);
 }

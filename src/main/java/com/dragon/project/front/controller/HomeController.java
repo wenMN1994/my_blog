@@ -318,6 +318,20 @@ public class HomeController extends BaseController {
     }
 
     /**
+     * 刷新当前点赞数
+     */
+    @PostMapping("/f/commentLike")
+    @ResponseBody
+    public AjaxResult commentLike(CommentsInfo commentsInfo) {
+        int isSuccess = commentsInfoService.updateCommentsInfo(commentsInfo);
+        if(isSuccess == 1){
+            return AjaxResult.success().put("likeNum", commentsInfo.getLikeNum());
+        }
+        return AjaxResult.error();
+    }
+
+
+    /**
      * 刷新当前评论框
      */
     @GetMapping("/f/comments")
