@@ -83,9 +83,11 @@ Gradle 5.3
 
 1、前往GitHub下载页面(https://github.com/wenMN1994/my_blog)下载解压到工作目录。
 2、导入到IDEA，IDEA会自动加载Gradle 依赖包，初次加载会比较慢（根据自身网络情况而定）
-3、创建数据库dragon_blog并导入数据脚本dragon_blog.sql
-4、打开运行`com.dragon.MyBlogApplication`
-5、打开浏览器，输入博客前端地址：[http://localhost:8088](http://localhost/8088) 
+3、创建数据库dragon_blog并导入数据脚本dragon_blog.sql（路径：BlogDesigner文件夹里）
+4、按照"必要配置"修改相关配置信息
+5、将项目所需的图片（路径：BlogDesigner/blog文件夹里）拷贝到你的PC的D盘根目录下
+6、打开运行`com.dragon.MyBlogApplication`
+7、打开浏览器，输入博客前端地址：[http://localhost:8088](http://localhost/8088) 
 
 博客后台管理地址：http://localhost:8088/login（后台管理默认账户 `admin/123456`）
 若能正确展示前端页面，并能成功登录，菜单及页面展示正常，则表明环境搭建成功
