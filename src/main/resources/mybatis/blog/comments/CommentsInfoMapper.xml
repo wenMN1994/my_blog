@@ -49,6 +49,10 @@
        </if>
     </select>
 
+  <select id="commentsInfoCount" parameterType="Integer" resultType="Integer">
+    select count(*) from  bg_comments_info
+  </select>
+
   <insert id="insertCommentInfo" parameterType="com.dragon.project.blog.comments.domain.CommentsInfo">
     insert into bg_comments_info
     <trim prefix="(" suffix=")" suffixOverrides=",">

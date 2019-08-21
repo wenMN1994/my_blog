@@ -98,10 +98,6 @@ public class HomeController extends BaseController {
     private void setCommonMessage(Model model) {
         //获取分类下拉项中的分类
         model.addAttribute("categories", categoryService.selectSupportCategoryList());
-        //查询最新更新的源码
-
-        //查询最新更新的课程
-
         //查询通知
         model.addAttribute("notices", noticeService.selectNoticeListDisplay());
         //查询所有的标签
@@ -112,6 +108,10 @@ public class HomeController extends BaseController {
         model.addAttribute("supportBlog", blogService.selectSupportBlog());
         //查询你喜欢的文章
         model.addAttribute("randBlogList", blogService.selectRandBlogList());
+        //查询文章总数
+        model.addAttribute("articleCounts",blogService.selectBlogCountByStatus(1));
+        //查询评论总数
+        model.addAttribute("commentCounts", commentsInfoService.commentsInfoCount());
         //获取友链信息
         model.addAttribute("links", linkService.selectLinkListFront());
     }
@@ -165,7 +165,7 @@ public class HomeController extends BaseController {
         model.addAttribute("nextBlog", blogService.selectNextBlogById(blogId));
         model.addAttribute("previousBlog", blogService.selectPreviousBlogById(blogId));
         model.addAttribute("randBlogList", blogService.selectRandBlogList());
-        model.addAttribute("likeNum",commentsInfoService.commentsInfoCountByOwnerId(blogId));
+        model.addAttribute("commentCounts",commentsInfoService.commentsInfoCountByOwnerId(blogId));
         model.addAttribute("commentsInfoList", commentsInfoService.selectCommentsInfoByOwnerId(blogId));
         return "front/article/article";
     }

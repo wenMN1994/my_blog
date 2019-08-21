@@ -47,4 +47,10 @@ public interface CommentsInfoService {
      * @return
      */
     int commentsInfoCountByOwnerId(Integer ownerId);
+
+    /**
+     * 查询总评论数
+     * @return
+     */
+    int commentsInfoCount();
 }

@@ -208,13 +208,13 @@
         <small> Site Information</small>
     </h2>
     <ul>
-        <li><b>建站时间</b>：2018-10-24</li>
+        <li><b>建站时间</b>：2019-01-01</li>
         <li><b>网站程序</b>：博客管理系统</li>
         <li><b>主题模板</b>：<a href="http://www.yangqq.com" target="_blank">《今夕何夕》</a></li>
-        <li><b>文章统计</b>：<a href="/my_blog/archives" target="_blank">395</a>篇文章</li>
-        <li><b>文章评论</b>：490条</li>
+        <li><b>文章统计</b>：<a href="/my_blog/archives" target="_blank" th:text="${ articleCounts }">395</a>篇文章</li>
+        <li><b>文章评论</b>：[[${ articleCounts }]]条</li>
         <li><b>统计数据</b>：<a href="/">百度统计</a></li>
-        <li><b>微信公众号</b>：扫描二维码，关注我们</li>
+        <li><b>微信公众号</b>：扫描二维码，关注我</li>
         <img src="Front-End/images/wxgzh.jpg" class="tongji_gzh">
     </ul>
 </div>
@@ -369,7 +369,7 @@
     <div class="footer_box">
         <div class="wxbox">
             <ul>
-                <li><img src="Front-End/images/wxgzh.jpg"><span>微信公众号</span></li>
+                <li><img th:src="${@config.getKey('sys.user.qq.QR')}"><span>我的QQ</span></li>
                 <li><img th:src="${@config.getKey('sys.user.wechat')}"><span>我的微信</span></li>
             </ul>
         </div>
@@ -382,7 +382,7 @@
                 </a>
             </p>
             <p>Copyright ©
-                <a href="http://dragonwen.top/" target="_blank">www.dragonwen.wicp.vip</a> All Rights Reserved.
+                <a href="http://dragonwen.top/" target="_blank">www.dragonwen.top</a> All Rights Reserved.
                 备案号：
                 <a href="http://www.miitbeian.gov.cn/" target="_blank">粤ICP备11002373号-1</a>
             </p>

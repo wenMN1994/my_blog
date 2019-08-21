@@ -48,4 +48,10 @@ public interface CommentsInfoMapper {
      * @return
      */
     Integer commentsInfoCountByOwnerId(@Param("ownerId") Integer ownerId);
+
+    /**
+     * 查询总评论数
+     * @return
+     */
+    int commentsInfoCount();
 }
