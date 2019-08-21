@@ -41,6 +41,14 @@
        order by create_time desc
   </select>
 
+  <select id="commentsInfoCountByOwnerId" parameterType="Integer" resultType="Integer">
+       select count(*) from  bg_comments_info
+       where
+       <if test="ownerId != null">
+        owner_id = #{ownerId}
+       </if>
+    </select>
+
   <insert id="insertCommentInfo" parameterType="com.dragon.project.blog.comments.domain.CommentsInfo">
     insert into bg_comments_info
     <trim prefix="(" suffix=")" suffixOverrides=",">

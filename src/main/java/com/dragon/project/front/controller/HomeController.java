@@ -161,6 +161,7 @@ public class HomeController extends BaseController {
         model.addAttribute("nextBlog", blogService.selectNextBlogById(blogId));
         model.addAttribute("previousBlog", blogService.selectPreviousBlogById(blogId));
         model.addAttribute("randBlogList", blogService.selectRandBlogList());
+        model.addAttribute("likeNum",commentsInfoService.commentsInfoCountByOwnerId(blogId));
         model.addAttribute("commentsInfoList", commentsInfoService.selectCommentsInfoByOwnerId(blogId));
         return "front/article/article";
     }
@@ -345,10 +346,7 @@ public class HomeController extends BaseController {
      */
     @GetMapping("/f/refreshLike")
     @ResponseBody
-    public AjaxResult refreshLike(Integer id, Model model) {
-//        model.addAttribute("commentsInfo", commentsInfoService.selectCommentsInfoById(id));
-//        String temp = "front/common/common :: comment-like-" + id;
-//        return temp;
+    public AjaxResult refreshLike(Integer id) {
         return AjaxResult.success().put("commentsInfo",commentsInfoService.selectCommentsInfoById(id));
     }
 

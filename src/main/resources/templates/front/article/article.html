@@ -107,7 +107,10 @@
                     <i class="el-time" ></i>
                     <span th:text="${#dates.format(blog.createTime, 'yyyy-MM-dd')}">2018-10-28</span>
                 </a>
-                <span>【<a href="/">程序人生</a>】</span>
+                <a>
+                    <i class="iconfont el-comment"></i>
+                    <span th:text="${ likeNum }"></span>
+                </a>
                 <a>
                     <i class="el-eye-open"></i>
                     <span th:text="${blog.click} + '人已围观'">109990人已围观</span>

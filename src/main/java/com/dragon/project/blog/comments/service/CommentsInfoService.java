@@ -40,4 +40,11 @@ public interface CommentsInfoService {
      * @return
      */
     CommentsInfo selectCommentsInfoById(Integer id);
+
+    /**
+     * 根据文章id统计评论个数
+     * @param ownerId
+     * @return
+     */
+    int commentsInfoCountByOwnerId(Integer ownerId);
 }

@@ -51,4 +51,9 @@ public class CommentsInfoServiceImpl implements CommentsInfoService {
     public CommentsInfo selectCommentsInfoById(Integer id) {
         return commentsInfoMapper.selectCommentsInfoById(id);
     }
+
+    @Override
+    public int commentsInfoCountByOwnerId(Integer ownerId) {
+        return commentsInfoMapper.commentsInfoCountByOwnerId(ownerId);
+    }
 }

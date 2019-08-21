@@ -41,4 +41,11 @@ public interface CommentsInfoMapper {
      * @return
      */
     CommentsInfo selectCommentsInfoById(@Param("id") Integer id);
+
+    /**
+     *根据文章id统计评论个数
+     * @param ownerId
+     * @return
+     */
+    Integer commentsInfoCountByOwnerId(@Param("ownerId") Integer ownerId);
 }
