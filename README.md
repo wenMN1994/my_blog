@@ -4,6 +4,8 @@
 #### 账号：admin/test  
 #### 密码：123456
 
+## 如需Maven版本请移步https://github.com/wenMN1994/my_blog_maven
+
 ## 开发文档
 
 ### 简介
