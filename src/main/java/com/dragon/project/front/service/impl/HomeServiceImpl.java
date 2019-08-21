@@ -2,6 +2,7 @@ package com.dragon.project.front.service.impl;
 
 import com.dragon.project.blog.blog.domain.Blog;
 import com.dragon.project.blog.blog.mapper.BlogMapper;
+import com.dragon.project.blog.comments.mapper.CommentsInfoMapper;
 import com.dragon.project.front.domain.Archives;
 import com.dragon.project.front.service.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,15 @@ public class HomeServiceImpl implements HomeService {
     @Autowired
     private BlogMapper blogMapper;
 
+    @Autowired
+    private CommentsInfoMapper commentsInfoMapper;
+
     @Override
     public List<Blog> selectFrontBlogList(Blog blog) {
         List<Blog> blogList = blogMapper.selectFrontBlogList(blog);
+        for (Blog blogTemp : blogList) {
+            blogTemp.setCommentCount(commentsInfoMapper.commentsInfoCountByOwnerId(blogTemp.getBlogId()));
+        }
         return blogList;
     }
 

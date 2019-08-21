@@ -91,7 +91,15 @@ public class Blog extends BaseEntity {
      */
     private String categoryTitle;
 
+    /**
+     * 分类对象
+     */
     private Category category;
+
+    /**
+     * 评论总数
+     */
+    private Integer commentCount;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -223,5 +231,13 @@ public class Blog extends BaseEntity {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Integer getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
     }
 }

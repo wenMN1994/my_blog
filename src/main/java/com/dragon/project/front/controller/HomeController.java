@@ -82,8 +82,10 @@ public class HomeController extends BaseController {
     @RequestMapping("")
     public String index(Integer pageNum, Model model){
         setCommonMessage(model);
+        Blog blog = new Blog();
+        blog.setModule("1");
         PageHelper.startPage(pageNum == null ? 1 : pageNum, 12, "create_time desc");
-        model.addAttribute("blogs", new PageInfo<>(homeService.selectFrontBlogList(new Blog())));
+        model.addAttribute("blogs", new PageInfo<>(homeService.selectFrontBlogList(blog)));
         //最新课程
         model.addAttribute("repositoryList", blogService.selectNewestUpdateRepository());
         //最新源码
@@ -137,8 +139,10 @@ public class HomeController extends BaseController {
     @RequestMapping("blog")
     public String blog(Integer pageNum, Model model){
         setCommonMessage(model);
-        PageHelper.startPage(pageNum == null ? 1 : pageNum, 12, "create_time desc");
-        model.addAttribute("blogs", new PageInfo<>(homeService.selectFrontBlogList(new Blog())));
+        Blog blog = new Blog();
+        blog.setModule("1");
+        PageHelper.startPage(pageNum == null ? 1 : pageNum, 15, "create_time desc");
+        model.addAttribute("blogs", new PageInfo<>(homeService.selectFrontBlogList(blog)));
         return "front/blog/blog";
     }
 
@@ -180,7 +184,7 @@ public class HomeController extends BaseController {
         model.addAttribute("category", categoryService.selectCategoryById(categoryId));
         Blog blog = new Blog();
         blog.setCategoryId(categoryId);
-        PageHelper.startPage(pageNum == null ? 1 : pageNum, 10, "create_time desc");
+        PageHelper.startPage(pageNum == null ? 1 : pageNum, 15, "create_time desc");
         model.addAttribute("blogs", new PageInfo<>(homeService.selectFrontBlogList(blog)));
         return "front/category/category";
     }
@@ -208,7 +212,7 @@ public class HomeController extends BaseController {
         setCommonMessage(model);
         Blog blog = new Blog();
         blog.setModule("3");
-        PageHelper.startPage(pageNum == null ? 1 : pageNum, 10, "create_time desc");
+        PageHelper.startPage(pageNum == null ? 1 : pageNum, 15, "create_time desc");
         model.addAttribute("blogs", new PageInfo<>(homeService.selectFrontBlogList(blog)));
         return "front/sourcecode/sourcecode";
     }
@@ -224,8 +228,8 @@ public class HomeController extends BaseController {
     public String repository(Integer pageNum, Model model){
         setCommonMessage(model);
         Blog blog = new Blog();
-        blog.setModule("1");
-        PageHelper.startPage(pageNum == null ? 1 : pageNum, 10, "create_time desc");
+        blog.setModule("2");
+        PageHelper.startPage(pageNum == null ? 1 : pageNum, 15, "create_time desc");
         model.addAttribute("blogs", new PageInfo<>(homeService.selectFrontBlogList(blog)));
         return "front/repository/repository";
     }
