@@ -185,10 +185,19 @@ function commentLike(id, likeNum) {
         data: data,
         success: function (data) {
             if (data.code == 0) {
+                //刷新当前评论框
                 layer.msg("点赞成功!", {icon: 1});
-                $("#likeNumText-" + id).html(data.likeNum + "赞");
+                $.ajax({
+                    type: "Get",
+                    data: {id: id},
+                    url: "/f/refreshLike",
+                    success: function (data) {
+                        $("#like-button-" + id).attr("onclick", "commentLike("+data.commentsInfo.id+","+ data.commentsInfo.likeNum+")");
+                        $("#likeNumText-" + id).html(data.commentsInfo.likeNum + '赞');
+                    }
+                })
             } else {
-                layer.msg("点赞失败!", {icon: 2});
+                layer.msg(data.msg, {icon: 2});
             }
         }
     });

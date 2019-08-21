@@ -34,4 +34,11 @@ public interface CommentsInfoMapper {
      * @return
      */
     int updateCommentsInfo(CommentsInfo commentsInfo);
+
+    /**
+     * 根据评论ID查询评论信息
+     * @param id
+     * @return
+     */
+    CommentsInfo selectCommentsInfoById(@Param("id") Integer id);
 }

@@ -305,7 +305,6 @@
                         <div class="comment-wrap">
                             <p th:text="${commentsInfo.content}">对，到什么时候都要记住自己的身份</p>
                             <div class="tool-group">
-                                <canvas style="display: none" class="hearts-canvas"></canvas>
                                 <a th:onclick="commentLike([[${commentsInfo.id}]], [[${commentsInfo.likeNum}]])" th:id="${'like-button-' + commentsInfo.id}" class="like-button">
                                     <i class="iconfont el-thumbs-up"></i>
                                     <span th:id="${'likeNumText-' + commentsInfo.id}" th:text="${commentsInfo.likeNum + '赞'}">赞</span>

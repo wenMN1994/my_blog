@@ -46,4 +46,9 @@ public class CommentsInfoServiceImpl implements CommentsInfoService {
     public int updateCommentsInfo(CommentsInfo commentsInfo) {
         return commentsInfoMapper.updateCommentsInfo(commentsInfo);
     }
+
+    @Override
+    public CommentsInfo selectCommentsInfoById(Integer id) {
+        return commentsInfoMapper.selectCommentsInfoById(id);
+    }
 }

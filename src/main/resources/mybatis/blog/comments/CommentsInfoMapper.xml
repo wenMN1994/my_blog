@@ -20,6 +20,16 @@
     create_time, update_time
   </sql>
 
+  <select id="selectCommentsInfoById" resultType="com.dragon.project.blog.comments.domain.CommentsInfo">
+    select
+    <include refid="Base_Column_List" />
+    from bg_comments_info
+    where
+    <if test="id != null">
+      id = #{id}
+    </if>
+  </select>
+
   <select id="selectCommentsInfoByOwnerId" resultType="com.dragon.project.blog.comments.domain.CommentsInfo">
       select
       <include refid="Base_Column_List" />
