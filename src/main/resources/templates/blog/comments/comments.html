@@ -9,10 +9,10 @@
                     <div class="select-list">
                         <ul>
                             <li>
-                                评论用户：<input type="text" name="commentName"/>
+                                评论者QQ：<input type="text" name="fromQq"/>
                             </li>
                             <li>
-                                关键字：<input type="text" name="keyword"/>
+                                评论者昵称：<input type="text" name="fromName"/>
                             </li>
                             <li class="select-time">
                                 <label>创建时间： </label>
@@ -46,15 +46,15 @@
 
     <div th:replace="system/common :: footer"></div>
     <script th:inline="javascript">
-        var prefix = ctx + "system/comments";
+        var prefix = ctx + "blog/comments";
 
         $(function() {
             var options = {
                 url: prefix + "/list",
                 removeUrl: prefix + "/remove",
                 exportUrl: prefix + "/export",
-                sortName: "roleSort",
-                modalName: "角色",
+                sortName: "createTime",
+                modalName: "评论",
                 columns: [
                     {
                         checkbox: true
@@ -64,17 +64,27 @@
                         title: '评论编号'
                     },
                     {
+                        field: 'fromQq',
+                        title: '评论者QQ'
+                    },
+                    {
+                        field: 'fromName',
+                        title: '评论者名字'
+                    },
+                    {
+                        field: 'fromAvatar',
+                        title: '评论者头像',
+                        formatter: function(value, row, index) {
+                            return '<img style="border-radius: 50%" src="' + value + '" ></img>';
+                        }
+                    },
+                    {
                         field: 'content',
                         title: '评论内容'
                     },
                     {
                         field: 'createTime',
                         title: '创建时间',
-                        sortable: true
-                    },
-                    {
-                        field: 'updateTime',
-                        title: '更新时间',
                         sortable: true
                     },
                     {
