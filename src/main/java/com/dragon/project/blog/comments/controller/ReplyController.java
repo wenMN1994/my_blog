@@ -2,8 +2,7 @@ package com.dragon.project.blog.comments.controller;
 
 import com.dragon.framework.web.controller.BaseController;
 import com.dragon.framework.web.page.TableDataInfo;
-import com.dragon.project.blog.comments.domain.CommentsInfo;
-import com.dragon.project.blog.comments.service.CommentsInfoService;
+import com.dragon.project.blog.comments.domain.CommentsReply;
 import com.dragon.project.blog.comments.service.CommentsReplyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -11,9 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -22,21 +19,18 @@ import java.util.List;
 /**
  * @author：Dragon Wen
  * @email：18475536452@163.com
- * @date：Created in 2019/8/15 15:09
- * @description：评论管理控制器
+ * @date：Created in 2019/8/22 15:58
+ * @description：回复管理
  * @modified By：
  * @version: 1.0.0
  */
-@Api("评论管理")
 @Controller
-@RequestMapping("/blog/comments")
-public class CommentsController extends BaseController {
-    private static Logger logger = LoggerFactory.getLogger(CommentsController.class);
+@Api("回复管理")
+@RequestMapping("/blog/reply")
+public class ReplyController extends BaseController {
+    private static Logger logger = LoggerFactory.getLogger(ReplyController.class);
 
     private String prefix = "blog/comments";
-
-    @Autowired
-    private CommentsInfoService commentsInfoService;
 
     @Autowired
     private CommentsReplyService commentsReplyService;
@@ -44,26 +38,15 @@ public class CommentsController extends BaseController {
     @GetMapping()
     @ApiOperation("访问评论管理页面")
     public String comments() {
-        return prefix + "/comments";
+        return prefix + "/reply";
     }
 
     @GetMapping("/list")
     @ApiOperation("查询评论信息")
     @ResponseBody
-    public TableDataInfo list(CommentsInfo commentsInfo) {
+    public TableDataInfo list(CommentsReply commentsReply) {
         startPage();
-        List<CommentsInfo> commentsInfoList = commentsInfoService.selectCommentsInfoList(commentsInfo);
-        return getDataTable(commentsInfoList);
+        List<CommentsReply> commentsReplyList = commentsReplyService.selectCommentsReplyList(commentsReply);
+        return getDataTable(commentsReplyList);
     }
-
-    /**
-     * 查询回复详细
-     */
-    @GetMapping("/reply/{id}")
-    public String detail(@PathVariable("id") Integer id, ModelMap mmap) {
-//        mmap.put("reply", commentsReplyService.selectCommentsReplyListById(id));
-        mmap.put("commentId", id);
-        return "blog/comments/reply";
-    }
-
 }
