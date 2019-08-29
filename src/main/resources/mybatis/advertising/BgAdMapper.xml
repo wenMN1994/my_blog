@@ -43,7 +43,7 @@
         where ad_id = #{adId}
     </select>
 
-    <select id="checkDataFlagUnique" parameterType="Integer" resultMap="BgAdResult">
+    <select id="selectAdByDataFlag" parameterType="Integer" resultMap="BgAdResult">
         <include refid="selectBgAdVo"/>
         where data_flag = #{dataFlag}
     </select>

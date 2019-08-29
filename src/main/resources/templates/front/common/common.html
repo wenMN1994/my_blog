@@ -145,7 +145,7 @@
 <!--广告节点3 begin-->
 <div class="ad whitebg imgscale" th:fragment="ad3">
     <ul>
-        <a href="/"><img src="Front-End/images/ad.jpg"></a>
+        <a target="_blank" th:href="${@ad.getAdUrl(3) == 'null' ? 'Front-End/images/ad.jpg' : @ad.getAdUrl(3)}" th:title="${@ad.getAdName(3) == 'null' ? '广告招租' : @ad.getAdName(3)}"><img th:src="${@ad.getAdImg(3) == 'null' ? 'Front-End/images/ad.jpg' : @ad.getAdImg(3)}" th:alt="${@ad.getAdName(3) == 'null' ? '广告招租' : @ad.getAdName(3)}"></a>
     </ul>
 </div>
 <!--广告节点3 end-->
@@ -205,7 +205,7 @@
 <!--广告节点4 begin-->
 <div class="ad whitebg imgscale" th:fragment="ad4">
     <ul>
-        <a href="/"><img src="Front-End/images/ad.jpg"></a>
+        <a target="_blank" th:href="${@ad.getAdUrl(4) == 'null' ? 'Front-End/images/ad.jpg' : @ad.getAdUrl(4)}" th:title="${@ad.getAdName(4) == 'null' ? '广告招租' : @ad.getAdName(4)}"><img th:src="${@ad.getAdImg(4) == 'null' ? 'Front-End/images/ad.jpg' : @ad.getAdImg(4)}" th:alt="${@ad.getAdName(4) == 'null' ? '广告招租' : @ad.getAdName(4)}"></a>
     </ul>
 </div>
 <!--广告节点4 end-->
@@ -314,7 +314,7 @@
                         <div class="author">
                             <div class="v-tooltip-container" style="z-index: 0;">
                                 <div class="v-tooltip-content">
-                                    <a href="" target="_blank" class="avatar"><img th:id="${'avatar-' + commentsInfo.id}" th:src="${commentsInfo.fromAvatar}" /></a>
+                                    <a href="javascript:void(0)" target="_blank" class="avatar"><img th:id="${'avatar-' + commentsInfo.id}" th:src="${commentsInfo.fromAvatar}" /></a>
                                 </div>
                             </div>
                             <div class="info">

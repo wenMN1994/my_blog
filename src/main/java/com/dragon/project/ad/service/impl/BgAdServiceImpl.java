@@ -99,10 +99,15 @@ public class BgAdServiceImpl implements IBgAdService
 
     @Override
     public String checkDataFlagUnique(BgAd bgAd) {
-        BgAd info = bgAdMapper.checkDataFlagUnique(bgAd.getDataFlag());
+        BgAd info = bgAdMapper.selectAdByDataFlag(bgAd.getDataFlag());
         if (StringUtils.isNotNull(info)) {
             return UserConstants.AD_DATA_FLAG_NOT_UNIQUE;
         }
         return UserConstants.AD_DATA_FLAG__UNIQUE;
+    }
+
+    @Override
+    public BgAd selectAdByDataFlag(Integer dataFlag) {
+        return bgAdMapper.selectAdByDataFlag(dataFlag);
     }
 }

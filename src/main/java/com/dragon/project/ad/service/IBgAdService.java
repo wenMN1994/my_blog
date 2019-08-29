@@ -66,4 +66,11 @@ public interface IBgAdService
      * @return 结果
      */
     String checkDataFlagUnique(BgAd bgAd);
+
+    /**
+     * 根据广告位置代码查询广告内容
+     * @param dataFlag 广告位置代码
+     * @return 结果
+     */
+    BgAd selectAdByDataFlag(Integer dataFlag);
 }

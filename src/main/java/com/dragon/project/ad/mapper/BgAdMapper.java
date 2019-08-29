@@ -1,7 +1,6 @@
 package com.dragon.project.ad.mapper;
 
 import com.dragon.project.ad.domain.BgAd;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -62,10 +61,9 @@ public interface BgAdMapper
     public int deleteBgAdByIds(String[] adIds);
 
     /**
-     * 校验广告位置是否已有广告
-     *
-     * @param dataFlag 广告信息
-     * @return 结果
+     * 根据广告位置代码查询广告内容
+     * @param dataFlag
+     * @return
      */
-    BgAd checkDataFlagUnique(@Param("dataFlag") Integer dataFlag);
+    BgAd selectAdByDataFlag(Integer dataFlag);
 }
