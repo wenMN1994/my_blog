@@ -20,7 +20,7 @@
             <div class="form-group">    
                 <label class="col-sm-3 control-label">广告网址：</label>
                 <div class="col-sm-8">
-                    <input name="adurl" class="form-control" type="text" required>
+                    <input name="adurl" class="form-control" type="url" required>
                 </div>
             </div>
             <div class="form-group">    
@@ -28,7 +28,7 @@
                 <div class="col-sm-8">
                     <div class="input-group date">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                        <input name="adStartDate" class="form-control" placeholder="yyyy-MM-dd" type="text" required>
+                        <input name="adStartDate" id="adStartDate" class="form-control" placeholder="yyyy-MM-dd" type="date" required>
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                 <div class="col-sm-8">
                     <div class="input-group date">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                        <input name="adEndDate" class="form-control" placeholder="yyyy-MM-dd" type="text" required>
+                        <input name="adEndDate" id="adEndDate" class="form-control" placeholder="yyyy-MM-dd" type="date" required>
                     </div>
                 </div>
             </div>
@@ -53,7 +53,7 @@
             <div class="form-group">    
                 <label class="col-sm-3 control-label">广告位置代码：</label>
                 <div class="col-sm-8">
-                    <input name="dataFlag" class="form-control" type="text" required>
+                    <input name="dataFlag" id="dataFlag" class="form-control" type="text" required>
                 </div>
             </div>
         </form>
@@ -63,6 +63,30 @@
     <script type="text/javascript">
         var prefix = ctx + "ad/ad"
         $("#form-ad-add").validate({
+            onkeyup: false,
+            rules:{
+
+                dataFlag:{
+                    remote: {
+                        url: prefix + "/checkDataFlagUnique",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            "dataFlag" : function() {
+                                return $.common.trim($("#dataFlag").val());
+                            }
+                        },
+                        dataFilter: function(data, type) {
+                            return $.validate.unique(data);
+                        }
+                    }
+                },
+            },
+            messages: {
+                "dataFlag": {
+                    remote: "当前位置已有广告"
+                }
+            },
             focusCleanup: true
         });
 
@@ -83,6 +107,7 @@
             minView: "month",
             autoclose: true
         });
+
     </script>
 </body>
 </html>

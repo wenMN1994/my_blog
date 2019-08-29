@@ -21,7 +21,7 @@
             <div class="form-group">    
                 <label class="col-sm-3 control-label">广告网址：</label>
                 <div class="col-sm-8">
-                    <input name="adurl" th:field="*{adurl}" class="form-control" type="text" required>
+                    <input name="adurl" th:field="*{adurl}" class="form-control" type="url" required>
                 </div>
             </div>
             <div class="form-group">    
@@ -29,7 +29,7 @@
                 <div class="col-sm-8">
                     <div class="input-group date">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                        <input name="adStartDate" th:value="${#dates.format(bgAd.adStartDate, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text" required>
+                        <input name="adStartDate" th:value="${#dates.format(bgAd.adStartDate, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="date" required>
                     </div>
                 </div>
             </div>
@@ -38,14 +38,8 @@
                 <div class="col-sm-8">
                     <div class="input-group date">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                        <input name="adEndDate" th:value="${#dates.format(bgAd.adEndDate, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text" required>
+                        <input name="adEndDate" th:value="${#dates.format(bgAd.adEndDate, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="date" required>
                     </div>
-                </div>
-            </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">广告点击数：</label>
-                <div class="col-sm-8">
-                    <input name="adClickNum" th:field="*{adClickNum}" class="form-control" type="text" required>
                 </div>
             </div>
             <div class="form-group">    
@@ -57,16 +51,10 @@
                     <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 代码生成请选择字典属性</span>
                 </div>
             </div>
-            <div class="form-group">    
+            <div class="form-group">
                 <label class="col-sm-3 control-label">广告位置代码：</label>
                 <div class="col-sm-8">
                     <input name="dataFlag" th:field="*{dataFlag}" class="form-control" type="text" required>
-                </div>
-            </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">删除标志 -1:删除 1:有效：</label>
-                <div class="col-sm-8">
-                    <input name="deleteFlag" th:field="*{deleteFlag}" class="form-control" type="text">
                 </div>
             </div>
         </form>
@@ -76,6 +64,30 @@
     <script type="text/javascript">
         var prefix = ctx + "ad/ad";
         $("#form-ad-edit").validate({
+            onkeyup: false,
+            rules:{
+
+                dataFlag:{
+                    remote: {
+                        url: prefix + "/checkDataFlagUnique",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            "dataFlag" : function() {
+                                return $.common.trim($("#dataFlag").val());
+                            }
+                        },
+                        dataFilter: function(data, type) {
+                            return $.validate.unique(data);
+                        }
+                    }
+                },
+            },
+            messages: {
+                "dataFlag": {
+                    remote: "当前位置已有广告"
+                }
+            },
             focusCleanup: true
         });
 
