@@ -9,7 +9,7 @@
 <header class="topnav" id="header" th:fragment="head">
     <div class="navbox">
         <h2 id="mnavh"><span class="navicon"></span></h2>
-        <div class="logo"><a href="http://dragonwen.wicp.vip/" target="_blank" th:text="${@config.getKey('sys.user.netName')} + '个人博客'"></a></div>
+        <div class="logo"><a th:href="${@config.getKey('sys.user.url')}" target="_blank" th:text="${@config.getKey('sys.user.netName')} + '个人博客'"></a></div>
         <nav>
             <ul id="starlist">
                 <li><a href="/my_blog">首页</a></li>
@@ -88,8 +88,12 @@
         点击排行
         <small> Click Leaderboard</small>
     </h2>
-    <section class="topnews imgscale"><a href="/"><img
-            src="Front-End/images/h1.jpg"><span>6条网页设计配色原则,让你秒变配色高手</span></a></section>
+    <section class="topnews imgscale">
+        <a href="javascript:void(0);">
+            <img src="Front-End/images/h1.jpg">
+            <span></span>
+        </a>
+    </section>
 
     <ul class="paihang-ul" style="display: block;">
         <li th:each="blog:${blogRanking}">
@@ -109,9 +113,9 @@
         <small> Recommended Station</small>
     </h2>
     <section class="topnews imgscale">
-        <a href="/">
+        <a href="javascript:void(0);">
             <img src="Front-End/images/h2.jpg">
-            <span>6条网页设计配色原则,让你秒变配色高手</span>
+            <span></span>
         </a>
     </section>
     <ul>
@@ -404,7 +408,7 @@
                 </a>
             </p>
             <p>Copyright ©
-                <a href="http://dragonwen.top/" target="_blank">www.dragonwen.top</a> All Rights Reserved.
+                <a th:href="${@config.getKey('sys.user.url')}" target="_blank" th:text="${@config.getKey('sys.user.url')}">www.dragonwen.top</a> All Rights Reserved.
                 备案号：
                 <a href="http://www.miitbeian.gov.cn/" target="_blank">粤ICP备11002373号-1</a>
             </p>
@@ -422,13 +426,13 @@
             <li><i class="side-icon-user"></i>
                 <section>
                     <div class="userinfo">
-                        <form name="login" method="post" action="https://www.yangqq.com/qingyulan/[!--news.url--]e/member/doaction.php">
+                        <form name="login" method="post" action="javascript:void(0);">
                             <input type="hidden" name="enews" value="login">
                             <input type="hidden" name="ecmsfrom" value="9">
                             <input name="username" type="text" class="inputText" size="16" placeholder="用户名">
                             <input name="password" type="password" class="inputText" size="16" placeholder="密码">
                             <input type="submit" name="Submit" value="登陆" class="inputsub-dl">
-                            <a href="https://www.yangqq.com/qingyulan/[!--news.url--]e/member/register/index.php?tobind=0&amp;groupid=1" class="inputsub-zc">注册</a>
+                            <a href="javascript:void(0);" class="inputsub-zc">注册</a>
                         </form>
                         <!--登陆后状态-->
                         <!--<div class="clear"></div>
@@ -440,7 +444,7 @@
             </li>
             <li><i class="side-icon-qq"></i>
                 <section class="qq-section">
-                    <div class="qqinfo"><a href="https://jq.qq.com/?_wv=1027&amp;k=5EH6xZg">前端设计交流群①</a><a href="https://jq.qq.com/?_wv=1027&amp;k=52fM36y">前端设计交流群②</a><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=476847113&amp;site=qq&amp;menu=yes">站长QQ</a></div>
+                    <div class="qqinfo"><a href="https://jq.qq.com/?_wv=1027&amp;k=5EH6xZg">前端设计交流群①</a><a href="https://jq.qq.com/?_wv=1027&amp;k=52fM36y">前端设计交流群②</a><a th:href="'http://wpa.qq.com/msgrd?v=3&uin='+ ${@config.getKey('sys.user.qq')} + '&site=qq&menu=yes'">站长QQ</a></div>
                 </section>
             </li>
             <li><i class="side-icon-weixin"></i>
