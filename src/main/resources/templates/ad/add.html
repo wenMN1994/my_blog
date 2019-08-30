@@ -44,7 +44,8 @@
             <div class="form-group">    
                 <label class="col-sm-3 control-label">广告类型：</label>
                 <div class="col-sm-8">
-                    <select name="positionType" class="form-control m-b" th:with="type=${@dict.getType('ad_ad_type')}">
+                    <select name="adType" class="form-control m-b" th:with="type=${@dict.getType('ad_ad_type')}" required>
+                        <option value="">请选择</option>
                         <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
                     </select>
                     <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 代码生成请选择字典属性</span>
@@ -53,7 +54,11 @@
             <div class="form-group">    
                 <label class="col-sm-3 control-label">广告位置代码：</label>
                 <div class="col-sm-8">
-                    <input name="dataFlag" id="dataFlag" class="form-control" type="text" required>
+                    <select name="dataFlag" id="dataFlag" class="form-control m-b" th:with="type=${@dict.getType('ad_position_code')}" required>
+                        <option value="">请选择</option>
+                        <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                    </select>
+                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 请在数据字典表中查询位置代码所代表的广告位置</span>
                 </div>
             </div>
         </form>
