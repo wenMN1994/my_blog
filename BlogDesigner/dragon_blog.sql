@@ -11,7 +11,7 @@
  Target Server Version : 50558
  File Encoding         : 65001
 
- Date: 30/08/2019 16:07:07
+ Date: 30/08/2019 17:17:00
 */
 
 SET NAMES utf8mb4;
@@ -461,7 +461,7 @@ CREATE TABLE `bg_visit_log`  (
   `create_time` datetime NULL DEFAULT NULL,
   `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '访问状态,1表示正常，0表示不正常',
   PRIMARY KEY (`visit_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1419 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '访问日志记录' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1422 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '访问日志记录' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of bg_visit_log
@@ -1884,6 +1884,9 @@ INSERT INTO `bg_visit_log` VALUES (1415, '127.0.0.1', '内网IP', 'Chrome', 'Win
 INSERT INTO `bg_visit_log` VALUES (1416, '127.0.0.1', '内网IP', 'Chrome', 'Windows 10', NULL, '/', NULL, '首页', '10ea436d-3c5a-4178-97e2-34572fa6e328', '2019-08-30 16:00:01', '1');
 INSERT INTO `bg_visit_log` VALUES (1417, '127.0.0.1', '内网IP', 'Mobile Safari', 'iOS 11 (iPhone)', NULL, '/', NULL, '首页', '10ea436d-3c5a-4178-97e2-34572fa6e328', '2019-08-30 16:00:34', '1');
 INSERT INTO `bg_visit_log` VALUES (1418, '127.0.0.1', '内网IP', 'Chrome', 'Windows 10', NULL, '/', NULL, '首页', '10ea436d-3c5a-4178-97e2-34572fa6e328', '2019-08-30 16:02:29', '1');
+INSERT INTO `bg_visit_log` VALUES (1419, '127.0.0.1', '内网IP', 'Chrome', 'Windows 10', NULL, '/', NULL, '首页', '4ddf1fed-4b51-4fd1-ab3d-31351f364265', '2019-08-30 17:12:26', '1');
+INSERT INTO `bg_visit_log` VALUES (1420, '127.0.0.1', '内网IP', 'Chrome', 'Windows 10', NULL, '/', NULL, '首页', '4ddf1fed-4b51-4fd1-ab3d-31351f364265', '2019-08-30 17:13:05', '1');
+INSERT INTO `bg_visit_log` VALUES (1421, '127.0.0.1', '内网IP', 'Chrome', 'Windows 10', NULL, '/', NULL, '首页', '4ddf1fed-4b51-4fd1-ab3d-31351f364265', '2019-08-30 17:13:45', '1');
 
 -- ----------------------------
 -- Table structure for qrtz_blob_triggers
@@ -2021,7 +2024,7 @@ CREATE TABLE `qrtz_scheduler_state`  (
 -- ----------------------------
 -- Records of qrtz_scheduler_state
 -- ----------------------------
-INSERT INTO `qrtz_scheduler_state` VALUES ('DragonWenScheduler', 'LAPTOP-GHVKEMRU1567143316640', 1567152428286, 15000);
+INSERT INTO `qrtz_scheduler_state` VALUES ('DragonWenScheduler', 'LAPTOP-GHVKEMRU1567156027160', 1567156436717, 15000);
 INSERT INTO `qrtz_scheduler_state` VALUES ('RuoyiScheduler', 'localhost1554707745537', 1554779698368, 15000);
 
 -- ----------------------------
@@ -2091,8 +2094,8 @@ CREATE TABLE `qrtz_triggers`  (
 -- ----------------------------
 -- Records of qrtz_triggers
 -- ----------------------------
-INSERT INTO `qrtz_triggers` VALUES ('DragonWenScheduler', 'TASK_CLASS_NAME1', 'DEFAULT', 'TASK_CLASS_NAME1', 'DEFAULT', NULL, 1567143320000, -1, 5, 'PAUSED', 'CRON', 1567143316000, 0, NULL, 0, '');
-INSERT INTO `qrtz_triggers` VALUES ('DragonWenScheduler', 'TASK_CLASS_NAME2', 'DEFAULT', 'TASK_CLASS_NAME2', 'DEFAULT', NULL, 1567143320000, -1, 5, 'PAUSED', 'CRON', 1567143317000, 0, NULL, 2, '');
+INSERT INTO `qrtz_triggers` VALUES ('DragonWenScheduler', 'TASK_CLASS_NAME1', 'DEFAULT', 'TASK_CLASS_NAME1', 'DEFAULT', NULL, 1567156610000, -1, 5, 'PAUSED', 'CRON', 1567156606000, 0, NULL, 0, '');
+INSERT INTO `qrtz_triggers` VALUES ('DragonWenScheduler', 'TASK_CLASS_NAME2', 'DEFAULT', 'TASK_CLASS_NAME2', 'DEFAULT', NULL, 1567156620000, -1, 5, 'PAUSED', 'CRON', 1567156606000, 0, NULL, 2, '');
 INSERT INTO `qrtz_triggers` VALUES ('RuoyiScheduler', 'TASK_CLASS_NAME1', 'DEFAULT', 'TASK_CLASS_NAME1', 'DEFAULT', NULL, 1554716610000, -1, 5, 'PAUSED', 'CRON', 1554716609000, 0, NULL, 0, '');
 INSERT INTO `qrtz_triggers` VALUES ('RuoyiScheduler', 'TASK_CLASS_NAME2', 'DEFAULT', 'TASK_CLASS_NAME2', 'DEFAULT', NULL, 1554716620000, -1, 5, 'PAUSED', 'CRON', 1554716611000, 0, NULL, 2, '');
 
@@ -2112,7 +2115,7 @@ CREATE TABLE `sys_config`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`config_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '参数配置表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '参数配置表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sys_config
@@ -2134,6 +2137,7 @@ INSERT INTO `sys_config` VALUES (14, '页面管理-源码仓库', 'sys.ui.source
 INSERT INTO `sys_config` VALUES (15, '页面管理-知识库', 'sys.ui.repository', '/imgshow?fileId=82', 'Y', 'admin', '2019-08-07 17:25:02', 'admin', '2019-08-08 15:26:04', '知识库，本栏目主要是教学视频资源分享。主要有AngularJS、BootStrap、python3.X全栈、Node.js + MongoDB、Java、C/C++、Linux、主流数据库、大数据。。。');
 INSERT INTO `sys_config` VALUES (16, '页面管理-文章分类Icon', 'sys.ui.category', '/imgshow?fileId=85', 'Y', 'admin', '2019-08-08 15:16:51', 'admin', '2019-08-08 16:34:05', '文章分类显示界面顶部图片');
 INSERT INTO `sys_config` VALUES (17, '用户管理-QQ_QR', 'sys.user.qq.QR', '/imgshow?fileId=94', 'Y', 'admin', '2019-08-21 17:20:05', '', NULL, 'QQ二维码');
+INSERT INTO `sys_config` VALUES (18, '用户管理-域名', 'sys.user.url', 'http://www.dragonwen.top', 'Y', 'admin', '2019-08-30 17:10:03', 'admin', '2019-08-30 17:13:03', '本站域名');
 
 -- ----------------------------
 -- Table structure for sys_dict_data
@@ -2422,7 +2426,7 @@ CREATE TABLE `sys_logininfor`  (
   `msg` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '提示消息',
   `login_time` datetime NULL DEFAULT NULL COMMENT '访问时间',
   PRIMARY KEY (`info_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2218 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统访问记录' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 2219 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统访问记录' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sys_logininfor
@@ -2849,6 +2853,7 @@ INSERT INTO `sys_logininfor` VALUES (2214, 'admin', '127.0.0.1', '内网IP', 'Ch
 INSERT INTO `sys_logininfor` VALUES (2215, 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Windows 10', '0', '登录成功', '2019-08-30 11:52:35');
 INSERT INTO `sys_logininfor` VALUES (2216, 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Windows 10', '0', '登录成功', '2019-08-30 11:54:46');
 INSERT INTO `sys_logininfor` VALUES (2217, 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Windows 10', '0', '登录成功', '2019-08-30 15:35:36');
+INSERT INTO `sys_logininfor` VALUES (2218, 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Windows 10', '0', '登录成功', '2019-08-30 17:07:59');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -3038,7 +3043,7 @@ CREATE TABLE `sys_oper_log`  (
   `error_msg` varchar(2000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '错误消息',
   `oper_time` datetime NULL DEFAULT NULL COMMENT '操作时间',
   PRIMARY KEY (`oper_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 258 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '操作日志记录' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 260 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '操作日志记录' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sys_oper_log
@@ -3300,6 +3305,8 @@ INSERT INTO `sys_oper_log` VALUES (254, '字典数据', 1, 'com.dragon.project.s
 INSERT INTO `sys_oper_log` VALUES (255, '新增广告', 1, 'com.dragon.project.ad.controller.BgAdController.addSave()', 1, 'admin', '', '/ad/ad/add', '127.0.0.1', '内网IP', '{\"adName\":[\"Love House Boy\"],\"adImg\":[\"http://www.dragonwen.top/imgshow?fileId=103\"],\"adurl\":[\"http://www.dragonwen.top\"],\"adStartDate\":[\"2018-12-31\"],\"adEndDate\":[\"2098-12-31\"],\"adType\":[\"0\"],\"dataFlag\":[\"1\"]}', 0, NULL, '2019-08-30 15:40:32');
 INSERT INTO `sys_oper_log` VALUES (256, '删除广告', 3, 'com.dragon.project.ad.controller.BgAdController.remove()', 1, 'admin', '', '/ad/ad/remove', '127.0.0.1', '内网IP', '{\"ids\":[\"19\"]}', 0, NULL, '2019-08-30 15:40:52');
 INSERT INTO `sys_oper_log` VALUES (257, '新增广告', 1, 'com.dragon.project.ad.controller.BgAdController.addSave()', 1, 'admin', '', '/ad/ad/add', '127.0.0.1', '内网IP', '{\"adName\":[\"Love House Girl\"],\"adImg\":[\"http://www.dragonwen.top/imgshow?fileId=104\"],\"adurl\":[\"http://www.dragonwen.top\"],\"adStartDate\":[\"2018-12-31\"],\"adEndDate\":[\"2098-12-31\"],\"adType\":[\"0\"],\"dataFlag\":[\"2\"]}', 0, NULL, '2019-08-30 15:42:21');
+INSERT INTO `sys_oper_log` VALUES (258, '参数管理', 1, 'com.dragon.project.system.config.controller.ConfigController.addSave()', 1, 'admin', '', '/system/config/add', '127.0.0.1', '内网IP', '{\"configName\":[\"用户管理-域名\"],\"configKey\":[\"sys.user.url\"],\"configValue\":[\"http://dragonwen.top\"],\"configType\":[\"Y\"],\"remark\":[\"本站域名\"]}', 0, NULL, '2019-08-30 17:10:03');
+INSERT INTO `sys_oper_log` VALUES (259, '参数管理', 2, 'com.dragon.project.system.config.controller.ConfigController.editSave()', 1, 'admin', '', '/system/config/edit', '127.0.0.1', '内网IP', '{\"configId\":[\"18\"],\"configName\":[\"用户管理-域名\"],\"configKey\":[\"sys.user.url\"],\"configValue\":[\"http://www.dragonwen.top\"],\"configType\":[\"Y\"],\"remark\":[\"本站域名\"]}', 0, NULL, '2019-08-30 17:13:03');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -3504,7 +3511,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'admin', 'admin', '00', '18475536452@163.com', '18129954693', '0', '/admin/img/profile.jpg', '1a366a671a35416ca01a8cf633afa1b4', '1b4b51', '0', '0', '127.0.0.1', '2019-08-30 15:35:36', 'admin', '2018-03-16 11:33:00', 'admin', '2019-08-30 15:35:36', '管理员');
+INSERT INTO `sys_user` VALUES (1, 'admin', 'admin', '00', '18475536452@163.com', '18129954693', '0', '/admin/img/profile.jpg', '1a366a671a35416ca01a8cf633afa1b4', '1b4b51', '0', '0', '127.0.0.1', '2019-08-30 17:07:59', 'admin', '2018-03-16 11:33:00', 'admin', '2019-08-30 17:07:59', '管理员');
 INSERT INTO `sys_user` VALUES (3, 'test', 'test', '00', 'Dragon.Wen@hafele.com', '18475536452', '0', '', '3f8922736d703d6b738fd1e0b1460220', '442d03', '0', '0', '127.0.0.1', '2019-08-26 16:08:59', 'admin', '2019-06-22 22:15:15', 'admin', '2019-08-26 16:08:59', '测试用户');
 INSERT INTO `sys_user` VALUES (4, 'test1', 'test1', '00', '18129954692@163.com', '18129954692', '0', '', '38db1cad6fb388f78131e05095a4a40c', '6af4e9', '1', '2', '', NULL, 'admin', '2019-08-15 13:41:49', '', '2019-08-15 13:41:56', '测试用户');
 
@@ -3529,7 +3536,7 @@ CREATE TABLE `sys_user_online`  (
 -- ----------------------------
 -- Records of sys_user_online
 -- ----------------------------
-INSERT INTO `sys_user_online` VALUES ('4ddf1fed-4b51-4fd1-ab3d-31351f364265', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Windows 10', 'on_line', '2019-08-30 15:35:30', '2019-08-30 16:02:29', 1800000);
+INSERT INTO `sys_user_online` VALUES ('4ddf1fed-4b51-4fd1-ab3d-31351f364265', 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Windows 10', 'on_line', '2019-08-30 17:07:43', '2019-08-30 17:13:44', 1800000);
 
 -- ----------------------------
 -- Table structure for sys_user_role
