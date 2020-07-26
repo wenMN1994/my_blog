@@ -1,12 +1,6 @@
-### my_blog 是基于SpringBoot2搭建的个人博客系统。
-### 前端演示链接 http://www.dragonwen.cn/
-### 后台管理演示链接 http://www.dragonwen.cn/login
-#### 管理员账号：admin
-#### 密码：admin123
-#### 测试账号：test
-#### 密码：123456
+### 通知：该版本已停止更新，如需最新资源请移步到https://github.com/wenMN1994/dragon_blog
 
-## 如需Maven版本请移步https://github.com/wenMN1994/my_blog_maven
+## my_blog 是基于SpringBoot2搭建的个人博客系统。
 
 ## 开发文档
 
@@ -71,7 +65,7 @@ MyBlog是一款基于SpringBoot+Bootstrap的个人博客（前端+后台管理�
 - 博客管理：新增，修改，删除博客。
 - 分类管理：新增，修改，删除博客分类
 - 标签管理：新增，修改，删除标签。
-- 评论管理：暂未实现
+- 评论管理：文章评论，回复评论
 
 ## 环境部署
 
