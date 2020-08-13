@@ -14,7 +14,7 @@ dragon:
 # 开发环境配置
 server:
   # 服务端口
-  port: 80
+  port: 8080
   servlet:
     # 项目contextPath
     context-path: /
@@ -116,16 +116,15 @@ shiro:
     # 相隔多久检查一次session的有效性，默认就是10分钟
     validationInterval: 10
 
-#Windows path
-#文件
+#文件路径
+# Windows配置：D:/你的项目路径/BlogDesigner/blog/resources/static/file
+# Linux配置：/opt/blog/resources/static/file
 file:
   root:
     path: /opt/blog/resources/static/file
-#图片
 img:
   root:
     path: /opt/blog/resources/static/images
-#附件
 attachment:
   root:
     path: /opt/blog/resources/static/attachment
@@ -138,3 +137,4 @@ xss:
   excludes: /system/notice/*
   # 匹配链接
   urlPatterns: /system/*,/monitor/*,/tool/*
+  

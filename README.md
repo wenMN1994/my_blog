@@ -91,17 +91,115 @@ Gradle 5.3
 建议使用Git克隆，因为克隆的方式可以和作者随时保持更新同步。使用Git命令克隆
 git clone https://github.com/wenMN1994/my_blog.git
 
-### 必要配置
+### Windows开发环境配置
 
 1. 修改数据库连接
-   `编辑resources目录下的application-druid.yml`
-   `url: 服务器地址`
-   `username: 账号`
-   `password: 密码`
+   
+   ```yml
+   # 编辑resources目录下的application-druid.yml
+   # 数据源配置
+   spring:
+     datasource:
+       type: com.alibaba.druid.pool.DruidDataSource
+       driver-class-name: com.mysql.jdbc.Driver
+       druid:
+         # 主库数据源
+         master:
+           url: jdbc:mysql://数据库服务器IP:3306/dragon_blog?characterEncoding=utf-8&useSSL=false
+           username: 账号
+           password: 密码
+   ```
+   
+   
+   
 2. 开发环境配置
-   `编辑resources目录下的application.yml`
-   `port: 端口`
-   `context-path: 部署路径`
+   
+   ```yml
+   # 编辑resources目录下的application.yml
+   server:
+     # 服务端口
+     port: 8080
+     servlet:
+       # 项目contextPath(默认不修改)
+       context-path: /
+   ```
+   
+   
+   
+3. 本地文件存储路径配置（请根据你的实际项目路径配置）
+
+   ```yml
+   # 编辑resources目录下的application.yml
+   # 文件路径
+   # Windows配置：
+   # D:/你的项目路径/BlogDesigner/blog/resources/static/file
+   # Linux配置：
+   # /opt/blog/resources/static/file
+   file:
+     root:
+       path: D:/你的项目路径/BlogDesigner/blog/resources/static/file
+   img:
+     root:
+       path: D:/你的项目路径/BlogDesigner/blog/resources/static/file
+   attachment:
+     root:
+       path: D:/你的项目路径/BlogDesigner/blog/resources/static/file
+   ```
+
+4. Nginx动静分离配置
+
+   ①、编辑 D:\你的项目路径\BlogDesigner\nginx-1.13.8-blog\conf\servers\blog.conf
+
+   ```properties
+   server {
+   	listen 8081;
+   	server_name  localhost;
+   	
+   	location / {
+   		proxy_next_upstream http_502 http_504 error timeout invalid_header;
+   		# 项目访问路径
+   		proxy_pass http://localhost:8080;
+   		# 真实的客户端IP
+   		proxy_set_header   X-Real-IP        $remote_addr;
+   		# 请求头中Host信息
+   		proxy_set_header   Host             $host;
+   		# 代理路由信息，此处取IP有安全隐患
+   		proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+   		# 真实的用户访问协议
+   		proxy_set_header   X-Forwarded-Proto $scheme;
+   	}
+   	
+   	location /admin/ {
+   		# 如果你的Nginx安装在Windows下请按照下面格式配置
+   		# 如果你的Nginx安装在Linux的路径格式配置
+           root   D:/Project/idea-workspace/my_blog/my_blog/BlogDesigner/static;
+       }
+   	location /common/ {
+           root   D:/Project/idea-workspace/my_blog/my_blog/BlogDesigner/static;
+       }
+   	location /Front-End/ {
+           root   D:/Project/idea-workspace/my_blog/my_blog/BlogDesigner/static;
+       }
+   }
+   ```
+
+   ②、编辑D:\你的项目路径\BlogDesigner\nginx-1.13.8-blog\nginx.bat
+
+   ```bat
+   @echo off  
+     
+   echo ==================begin========================  
+     
+   cls   
+   SET NGINX_PATH=D:  
+   SET NGINX_DIR=D:\你的项目路径\BlogDesigner\nginx-1.13.8-blog\
+   color 0a   
+   TITLE hafele-tools Power By DragonWen (http://www.dragonwen.cn)  
+   ```
+
+   ③、运行D:\你的项目路径\BlogDesigner\nginx-1.13.8-blog\nginx.bat启动Nginx
+
+5. 
 
 ### 部署系统
 
