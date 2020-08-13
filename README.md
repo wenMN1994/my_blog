@@ -2,6 +2,12 @@
 
 ## my_blog 是基于SpringBoot2搭建的个人博客系统。
 
+演示地址：http://www.dragonwen.cn/ （文明访问，请勿原本数据）
+
+账号：admin
+
+密码：admin123
+
 ## 开发文档
 
 ### 简介
@@ -205,10 +211,9 @@ git clone https://github.com/wenMN1994/my_blog.git
 
    ①、80端口被占用：找度娘解决
 
-### 部署系统
+### Linux部署系统
 
-1、jar部署方式
-使用命令行执行：`java –jar my_blog-1.0.0.jar` 或者执行脚本：`bin/run.bat`
+
 
 ### 常见问题
 
