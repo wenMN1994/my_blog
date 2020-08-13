@@ -152,7 +152,7 @@ git clone https://github.com/wenMN1994/my_blog.git
 
    ```properties
    server {
-   	listen 8081;
+   	listen 80;
    	server_name  localhost;
    	
    	location / {
@@ -199,7 +199,11 @@ git clone https://github.com/wenMN1994/my_blog.git
 
    ③、运行D:\你的项目路径\BlogDesigner\nginx-1.13.8-blog\nginx.bat启动Nginx
 
-5. 
+5. 访问：http://localhost/
+
+6. 常见问题：
+
+   ①、80端口被占用：找度娘解决
 
 ### 部署系统
 
