@@ -9,7 +9,7 @@ input::-ms-clear{display:none}
 .icons{display:inline-block;#display:inline;vertical-align:middle;background:url(//img01.51jobcdn.com/im/2016/resume/icon_resume.png) no-repeat;#zoom:1}
 .btnbox{width:100%;text-align:center;padding:15px 0}
 
-/*--±à¼­»òÉ¾³ý--*/
+/*--ï¿½à¼­ï¿½ï¿½É¾ï¿½ï¿½--*/
 /*.top_wrap,.edit{position:relative;border:1px solid transparent}*/
 .top_wrap:hover,.edit:hover{border:1px solid #ff6000 !important}
 .top_wrap:hover .ed_icon_blue,.top_wrap:hover .del,.top_wrap:hover .ed_icon_undel{display:inline-block}
@@ -17,7 +17,7 @@ input::-ms-clear{display:none}
 /*.top_wrap .ed_icon_blue:hover,.edit .edi:hover{background-position:-280px -20px}*/
 /*.top_wrap .del{background-position:-260px 0}*/
 /*.top_wrap .del,.top_wrap .undel{right:0}*/
-/*--±à¼­ºÍÉ¾³ý--*/
+/*--ï¿½à¼­ï¿½ï¿½É¾ï¿½ï¿½--*/
 /*.edit:hover .ed_icon{display:inline-block}*/
 /*.edit .ed_icon{position:absolute;display:none;width:60px;height:20px;top:20px;right:30px}*/
 /*.edit .ed_icon em:first-child{margin-left:0}*/
@@ -27,7 +27,7 @@ input::-ms-clear{display:none}
 /*.top_wrap .ed_icon_undel,.edit .unedi,.top_wrap .undel{background-position:-300px -20px;cursor:auto}*/
 /*.edit .undel{background-position:-300px 0;cursor:auto}*/
 
-/*--¼òÀúÕ¹Ê¾ÓÒ±ß--*/
+/*--ï¿½ï¿½ï¿½ï¿½Õ¹Ê¾ï¿½Ò±ï¿½--*/
 .column{float:left;width:100%;#overflow:hidden}
 .box{position:relative;border:1px solid transparent;border-top:1px solid #ddd}
 .box:first-child{border-top:1px solid #fff}
@@ -59,7 +59,7 @@ input::-ms-clear{display:none}
 .box .bd:first-child{border-top:none}
 .box .con strong{display:block;width:550px;font-weight:bold;color:#333}
 .box .con .pp{padding:0 15px}
-.box .e{position:relative;float:left;width:631px;line-height:30px;color:#333;word-break:break-all;padding:0 15px 0 100px}
+.box .e{position:relative;float:left;width:auto;line-height:30px;color:#333;word-break:break-all;padding:0 15px 0 100px}
 .box .e.e2{width:258px}
 .box .e.e3{min-width:258px;width:auto}
 .box .e.e4{width:78px;padding-right:0}
