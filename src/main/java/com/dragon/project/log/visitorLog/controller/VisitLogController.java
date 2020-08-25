@@ -1,5 +1,6 @@
 package com.dragon.project.log.visitorLog.controller;
 
+import com.dragon.common.utils.poi.ExcelUtil;
 import com.dragon.framework.aspectj.lang.annotation.Log;
 import com.dragon.framework.aspectj.lang.enums.BusinessType;
 import com.dragon.framework.web.controller.BaseController;
@@ -7,6 +8,7 @@ import com.dragon.framework.web.domain.AjaxResult;
 import com.dragon.framework.web.page.TableDataInfo;
 import com.dragon.project.log.visitorLog.domain.VisitLog;
 import com.dragon.project.log.visitorLog.service.VisitLogService;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -67,5 +69,16 @@ public class VisitLogController extends BaseController {
     public AjaxResult clean() {
         visitLogService.cleanVisitLog();
         return success();
+    }
+
+    @Log(title = "访问日志", businessType = BusinessType.EXPORT)
+    @RequiresPermissions("system:visitLog:export")
+    @PostMapping("/export")
+    @ApiOperation("导出访问日志记录")
+    @ResponseBody
+    public AjaxResult export(VisitLog visitLog) {
+        List<VisitLog> list = visitLogService.selectVisitLogList(visitLog);
+        ExcelUtil<VisitLog> util = new ExcelUtil<VisitLog>(VisitLog.class);
+        return util.exportExcel(list, "访问日志数据");
     }
 }

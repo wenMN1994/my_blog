@@ -1,6 +1,9 @@
 package com.dragon.project.log.visitorLog.domain;
 
+import com.dragon.framework.aspectj.lang.annotation.Excel;
 import com.dragon.framework.web.domain.BaseEntity;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * @author：Dragon Wen
@@ -11,42 +14,54 @@ import com.dragon.framework.web.domain.BaseEntity;
  * @version: 1.0.0
  */
 public class VisitLog extends BaseEntity {
+
+    @Excel(name = "访问序号")
     private Integer visitId;
+
     /**
      * IP地址
      */
+    @Excel(name = "IP地址")
     private String ipAddr;
     /**
      * ip地理位置
      */
+    @Excel(name = "ip地理位置")
     private String location;
     /**
      * 浏览器类型
      */
+    @Excel(name = "浏览器类型")
     private String browser;
     /**
      * 操作系统类型
      */
+    @Excel(name = "操作系统类型")
     private String os;
     /**
      * 爬虫
      */
+    @Excel(name = "爬虫")
     private String spider;
     /**
      * 请求的地址
      */
+    @Excel(name = "请求地址")
     private String requestUrl;
     /**
      * 错误信息
      */
+    @Excel(name = "错误信息")
     private String errorMsg;
     /**
      * 访问的模块
      */
+    @Excel(name = "访问模块")
     private String title;
     /**
      * 访问状态
      */
+    @Excel(name = "访问状态")
     private Integer status;
 
     public Integer getVisitId() {
@@ -127,5 +142,21 @@ public class VisitLog extends BaseEntity {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("visitId", visitId)
+                .append("ipAddr", ipAddr)
+                .append("location", location)
+                .append("browser", browser)
+                .append("os", os)
+                .append("spider", spider)
+                .append("requestUrl", requestUrl)
+                .append("errorMsg", errorMsg)
+                .append("title", title)
+                .append("status", status)
+                .toString();
     }
 }
