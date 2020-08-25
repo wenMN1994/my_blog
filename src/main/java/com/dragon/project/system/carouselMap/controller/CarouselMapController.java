@@ -1,5 +1,6 @@
 package com.dragon.project.system.carouselMap.controller;
 
+import com.dragon.common.utils.poi.ExcelUtil;
 import com.dragon.framework.aspectj.lang.annotation.Log;
 import com.dragon.framework.aspectj.lang.enums.BusinessType;
 import com.dragon.framework.web.controller.BaseController;
@@ -7,6 +8,7 @@ import com.dragon.framework.web.domain.AjaxResult;
 import com.dragon.framework.web.page.TableDataInfo;
 import com.dragon.project.system.carouselMap.entity.CarouselMap;
 import com.dragon.project.system.carouselMap.service.CarouselMapService;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -80,12 +82,22 @@ public class CarouselMapController extends BaseController {
         return toAjax(carouselMapService.changeCarouselDisplay(carouselId,display));
     }
 
-
     @DeleteMapping("/remove")
     @Log(title = "博客管理", businessType = BusinessType.DELETE)
     @RequiresPermissions("system:carouselMap:remove")
     @ResponseBody
     public AjaxResult remove(Integer[] ids) {
         return toAjax(carouselMapService.deleteCarouselMapByIds(ids));
+    }
+
+    @Log(title = "轮播图数据导出", businessType = BusinessType.EXPORT)
+    @RequiresPermissions("system:carouselMap:export")
+    @PostMapping("/export")
+    @ApiOperation("导出轮播图数据记录")
+    @ResponseBody
+    public AjaxResult export(CarouselMap carouselMap) {
+        List<CarouselMap> list = carouselMapService.selectCarouselMapList(carouselMap);
+        ExcelUtil<CarouselMap> util = new ExcelUtil<CarouselMap>(CarouselMap.class);
+        return util.exportExcel(list, "轮播图数据");
     }
 }
