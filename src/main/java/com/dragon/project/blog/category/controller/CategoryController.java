@@ -1,5 +1,6 @@
 package com.dragon.project.blog.category.controller;
 
+import com.dragon.common.utils.poi.ExcelUtil;
 import com.dragon.framework.aspectj.lang.annotation.Log;
 import com.dragon.framework.aspectj.lang.enums.BusinessType;
 import com.dragon.framework.web.controller.BaseController;
@@ -95,4 +96,13 @@ public class CategoryController extends BaseController {
         return categoryService.checkCategoryTitleUnique(title);
     }
 
+    @Log(title = "分类管理", businessType = BusinessType.EXPORT)
+    @RequiresPermissions("blog:category:export")
+    @PostMapping("/export")
+    @ResponseBody
+    public AjaxResult export(Category category) {
+        List<Category> list = categoryService.selectCategoryList(category);
+        ExcelUtil<Category> util = new ExcelUtil<Category>(Category.class);
+        return util.exportExcel(list, "标签数据");
+    }
 }

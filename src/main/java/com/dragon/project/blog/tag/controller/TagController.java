@@ -1,5 +1,6 @@
 package com.dragon.project.blog.tag.controller;
 
+import com.dragon.common.utils.poi.ExcelUtil;
 import com.dragon.framework.aspectj.lang.annotation.Log;
 import com.dragon.framework.aspectj.lang.enums.BusinessType;
 import com.dragon.framework.web.controller.BaseController;
@@ -86,5 +87,15 @@ public class TagController extends BaseController {
     @ResponseBody
     public String checkCategoryTitleUnique(String title) {
         return tagService.checkTagTitleUnique(title);
+    }
+
+    @Log(title = "标签管理", businessType = BusinessType.EXPORT)
+    @RequiresPermissions("blog:tag:export")
+    @PostMapping("/export")
+    @ResponseBody
+    public AjaxResult export(Tag tag) {
+        List<Tag> list = tagService.selectTagList(tag);
+        ExcelUtil<Tag> util = new ExcelUtil<Tag>(Tag.class);
+        return util.exportExcel(list, "标签数据");
     }
 }

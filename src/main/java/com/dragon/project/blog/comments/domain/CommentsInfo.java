@@ -1,5 +1,6 @@
 package com.dragon.project.blog.comments.domain;
 
+import com.dragon.framework.aspectj.lang.annotation.Excel;
 import com.dragon.framework.web.domain.BaseEntity;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class CommentsInfo extends BaseEntity {
      *
      * @mbg.generated
      */
+    @Excel(name = "序号")
     private Integer id;
 
     /**
@@ -25,6 +27,7 @@ public class CommentsInfo extends BaseEntity {
      *
      * @mbg.generated
      */
+    @Excel(name = "评论类型")
     private Integer type;
 
     /**
@@ -32,6 +35,7 @@ public class CommentsInfo extends BaseEntity {
      *
      * @mbg.generated
      */
+    @Excel(name = "被评论对象id")
     private Integer ownerId;
 
     /**
@@ -39,6 +43,7 @@ public class CommentsInfo extends BaseEntity {
      *
      * @mbg.generated
      */
+    @Excel(name = "评论者id")
     private String fromId;
 
     /**
@@ -46,6 +51,7 @@ public class CommentsInfo extends BaseEntity {
      *
      * @mbg.generated
      */
+    @Excel(name = "评论者QQ")
     private String fromQq;
 
     /**
@@ -53,6 +59,7 @@ public class CommentsInfo extends BaseEntity {
      *
      * @mbg.generated
      */
+    @Excel(name = "评论者名字")
     private String fromName;
 
     /**
@@ -60,6 +67,7 @@ public class CommentsInfo extends BaseEntity {
      *
      * @mbg.generated
      */
+    @Excel(name = "评论者头像")
     private String fromAvatar;
 
     /**
@@ -67,6 +75,7 @@ public class CommentsInfo extends BaseEntity {
      *
      * @mbg.generated
      */
+    @Excel(name = "点赞的数量")
     private Integer likeNum;
 
     /**
@@ -74,6 +83,7 @@ public class CommentsInfo extends BaseEntity {
      *
      * @mbg.generated
      */
+    @Excel(name = "评论内容")
     private String content;
 
     private List<CommentsReply> commentsReplyList;

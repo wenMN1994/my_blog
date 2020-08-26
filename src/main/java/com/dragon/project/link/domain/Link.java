@@ -1,6 +1,9 @@
 package com.dragon.project.link.domain;
 
+import com.dragon.framework.aspectj.lang.annotation.Excel;
 import com.dragon.framework.web.domain.BaseEntity;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * @author：Dragon Wen
@@ -12,16 +15,60 @@ import com.dragon.framework.web.domain.BaseEntity;
  */
 public class Link extends BaseEntity {
 
+    /**
+     * 友链id
+     */
+    @Excel(name = "序号")
     private Integer linkId;
+    /**
+     * 友链的名称
+     */
+    @Excel(name = "友链名称")
     private String title;
+    /**
+     * 友链描述
+     */
+    @Excel(name = "友链描述")
     private String description;
+    /**
+     * 友链图标地址
+     */
+    @Excel(name = "友链图标地址")
     private String headerImg;
+    /**
+     * 友链点击数
+     */
+    @Excel(name = "友链点击数")
     private Integer click;
+    /**
+     * 友链权重
+     */
+    @Excel(name = "友链权重")
     private Integer weight;
+    /**
+     * 友链是否能访问，1表示能，0表示不能
+     */
+    @Excel(name = "友链是否能访问，1表示能，0表示不能")
     private Integer available;
+    /**
+     * 友链是否已经处理，1表示已经处理，0表示没有处理
+     */
+    @Excel(name = "友链是否已经处理，1表示已经处理，0表示没有处理")
     private Integer processed;
+    /**
+     * 友链是否显示，1表示显示，0表示不显示
+     */
+    @Excel(name = "友链是否显示，1表示显示，0表示不显示")
     private Integer display;
+    /**
+     * 友链的地址
+     */
+    @Excel(name = "友链的地址")
     private String email;
+    /**
+     * 联系邮箱
+     */
+    @Excel(name = "联系邮箱")
     private String url;
 
     public Integer getLinkId() {
@@ -110,5 +157,22 @@ public class Link extends BaseEntity {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("linkId", linkId)
+                .append("title", title)
+                .append("description", description)
+                .append("headerImg", headerImg)
+                .append("click", click)
+                .append("weight", weight)
+                .append("available", available)
+                .append("processed", processed)
+                .append("display", display)
+                .append("email", email)
+                .append("url", url)
+                .toString();
     }
 }

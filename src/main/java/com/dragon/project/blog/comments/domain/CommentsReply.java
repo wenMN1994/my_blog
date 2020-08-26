@@ -1,5 +1,6 @@
 package com.dragon.project.blog.comments.domain;
 
+import com.dragon.framework.aspectj.lang.annotation.Excel;
 import com.dragon.framework.web.domain.BaseEntity;
 
 /**
@@ -16,6 +17,7 @@ public class CommentsReply extends BaseEntity {
      *
      * @mbg.generated
      */
+    @Excel(name = "序号")
     private Integer id;
 
     /**
@@ -23,6 +25,7 @@ public class CommentsReply extends BaseEntity {
      *
      * @mbg.generated
      */
+    @Excel(name = "评论主表id")
     private Integer commentId;
 
     /**
@@ -30,6 +33,7 @@ public class CommentsReply extends BaseEntity {
      *
      * @mbg.generated
      */
+    @Excel(name = "评论者id")
     private String fromId;
 
     /**
@@ -37,6 +41,7 @@ public class CommentsReply extends BaseEntity {
      *
      * @mbg.generated
      */
+    @Excel(name = "评论者QQ")
     private String fromQq;
 
     /**
@@ -44,6 +49,7 @@ public class CommentsReply extends BaseEntity {
      *
      * @mbg.generated
      */
+    @Excel(name = "评论者名字")
     private String fromName;
 
     /**
@@ -51,6 +57,7 @@ public class CommentsReply extends BaseEntity {
      *
      * @mbg.generated
      */
+    @Excel(name = "评论者头像")
     private String fromAvatar;
 
     /**
@@ -58,6 +65,7 @@ public class CommentsReply extends BaseEntity {
      *
      * @mbg.generated
      */
+    @Excel(name = "被评论者id")
     private String toId;
 
     /**
@@ -65,6 +73,7 @@ public class CommentsReply extends BaseEntity {
      *
      * @mbg.generated
      */
+    @Excel(name = "被评论者名字")
     private String toName;
 
     /**
@@ -72,6 +81,7 @@ public class CommentsReply extends BaseEntity {
      *
      * @mbg.generated
      */
+    @Excel(name = "被评论者头像")
     private String toAvatar;
 
     /**
@@ -79,6 +89,7 @@ public class CommentsReply extends BaseEntity {
      *
      * @mbg.generated
      */
+    @Excel(name = "评论内容")
     private String content;
 
     private static final long serialVersionUID = 1L;

@@ -1,5 +1,6 @@
 package com.dragon.project.blog.comments.controller;
 
+import com.dragon.common.utils.poi.ExcelUtil;
 import com.dragon.framework.aspectj.lang.annotation.Log;
 import com.dragon.framework.aspectj.lang.enums.BusinessType;
 import com.dragon.framework.web.controller.BaseController;
@@ -76,6 +77,16 @@ public class CommentsController extends BaseController {
         } catch (Exception e) {
             return error(e.getMessage());
         }
+    }
+
+    @Log(title = "评论数据导出", businessType = BusinessType.EXPORT)
+    @RequiresPermissions("blog:comment:export")
+    @PostMapping("/export")
+    @ResponseBody
+    public AjaxResult export(CommentsInfo commentsInfo) {
+        List<CommentsInfo> list = commentsInfoService.selectCommentsInfoList(commentsInfo);
+        ExcelUtil<CommentsInfo> util = new ExcelUtil<CommentsInfo>(CommentsInfo.class);
+        return util.exportExcel(list, "评论数据");
     }
 
 }

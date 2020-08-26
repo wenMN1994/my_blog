@@ -1,6 +1,9 @@
 package com.dragon.project.blog.tag.domain;
 
+import com.dragon.framework.aspectj.lang.annotation.Excel;
 import com.dragon.framework.web.domain.BaseEntity;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * @author：Dragon Wen
@@ -14,16 +17,21 @@ public class Tag extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-
+    /**
+     * 标签ID
+     */
+    @Excel(name = "序号")
     private Integer tagId;
 
     /**
      * 标签内容
      */
+    @Excel(name = "标签内容")
     private String tagTitle;
     /**
      * 关联的博客个数
      */
+    @Excel(name = "关联的博客个数")
     private int count;
 
     public static long getSerialVersionUID() {
@@ -52,5 +60,14 @@ public class Tag extends BaseEntity {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("tagId", tagId)
+                .append("tagTitle", tagTitle)
+                .append("count", count)
+                .toString();
     }
 }

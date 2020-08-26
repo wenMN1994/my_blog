@@ -1,5 +1,6 @@
 package com.dragon.project.blog.comments.controller;
 
+import com.dragon.common.utils.poi.ExcelUtil;
 import com.dragon.framework.aspectj.lang.annotation.Log;
 import com.dragon.framework.aspectj.lang.enums.BusinessType;
 import com.dragon.framework.web.controller.BaseController;
@@ -14,10 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -63,5 +61,15 @@ public class ReplyController extends BaseController {
     @ResponseBody
     public AjaxResult remove(String ids) {
         return toAjax(commentsReplyService.deleteCommentsReplyByIds(ids));
+    }
+
+    @Log(title = "评论回复数据导出", businessType = BusinessType.EXPORT)
+    @RequiresPermissions("blog:comment:export")
+    @PostMapping("/export")
+    @ResponseBody
+    public AjaxResult export(CommentsReply commentsReply) {
+        List<CommentsReply> list = commentsReplyService.selectCommentsReplyList(commentsReply);
+        ExcelUtil<CommentsReply> util = new ExcelUtil<CommentsReply>(CommentsReply.class);
+        return util.exportExcel(list, "评论回复数据");
     }
 }

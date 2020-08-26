@@ -1,6 +1,9 @@
 package com.dragon.project.blog.category.domain;
 
+import com.dragon.framework.aspectj.lang.annotation.Excel;
 import com.dragon.framework.web.domain.BaseEntity;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * @author：Dragon Wen
@@ -13,24 +16,34 @@ import com.dragon.framework.web.domain.BaseEntity;
 public class Category extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 分类Id
+     */
+    @Excel(name = "序号")
     private Integer categoryId;
+
     /**
      * 分类的名称
      */
+    @Excel(name = "分类的名称")
     private String categoryTitle;
 
     /**
      * 权重
      */
+    @Excel(name = "权重")
     private Integer weight;
 
     /**
      * 描述
      */
+    @Excel(name = "描述")
     private String description;
+
     /**
      * 是否推荐，0表示不推荐，1表示推荐
      */
+    @Excel(name = "是否推荐")
     private String support;
 
     public static long getSerialVersionUID() {
@@ -75,5 +88,16 @@ public class Category extends BaseEntity {
 
     public void setSupport(String support) {
         this.support = support;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("categoryId", categoryId)
+                .append("categoryTitle", categoryTitle)
+                .append("weight", weight)
+                .append("description", description)
+                .append("support", support)
+                .toString();
     }
 }

@@ -1,5 +1,6 @@
 package com.dragon.project.link.controller;
 
+import com.dragon.common.utils.poi.ExcelUtil;
 import com.dragon.framework.aspectj.lang.annotation.Log;
 import com.dragon.framework.aspectj.lang.enums.BusinessType;
 import com.dragon.framework.web.controller.BaseController;
@@ -97,6 +98,16 @@ public class LinkController extends BaseController {
     @ResponseBody
     public AjaxResult processed(String ids) {
         return toAjax(linkService.processedLinkByIds(ids));
+    }
+
+    @Log(title = "友链数据导出", businessType = BusinessType.EXPORT)
+    @RequiresPermissions("link:link:export")
+    @PostMapping("/export")
+    @ResponseBody
+    public AjaxResult export(Link link) {
+        List<Link> list = linkService.selectLinkList(link);
+        ExcelUtil<Link> util = new ExcelUtil<Link>(Link.class);
+        return util.exportExcel(list, "友链数据");
     }
 
 }

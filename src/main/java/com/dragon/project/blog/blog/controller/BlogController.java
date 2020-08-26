@@ -1,6 +1,7 @@
 package com.dragon.project.blog.blog.controller;
 
 import com.dragon.common.constant.BlogConstants;
+import com.dragon.common.utils.poi.ExcelUtil;
 import com.dragon.framework.aspectj.lang.annotation.Log;
 import com.dragon.framework.aspectj.lang.enums.BusinessType;
 import com.dragon.framework.web.controller.BaseController;
@@ -118,4 +119,13 @@ public class BlogController extends BaseController {
         return toAjax(blogService.deleteBlogById(ids));
     }
 
+    @Log(title = "博客管理", businessType = BusinessType.EXPORT)
+    @RequiresPermissions("blog:blog:export")
+    @PostMapping("/export")
+    @ResponseBody
+    public AjaxResult export(Blog blog) {
+        List<Blog> list = blogService.selectBlogList(blog);
+        ExcelUtil<Blog> util = new ExcelUtil<Blog>(Blog.class);
+        return util.exportExcel(list, "博客数据");
+    }
 }
