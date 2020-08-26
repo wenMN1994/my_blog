@@ -29,7 +29,7 @@ $(window).load(function() {
     var options = {
         thumbBox: '.thumbBox',
         spinner: '.spinner',
-        imgSrc: $.common.isEmpty(avatar) ? 'img/profile.jpg' : avatar
+        imgSrc: $.common.isEmpty(avatar) ? '/admin/img/profile.jpg' : avatar
     }
     cropper = $('.imageBox').cropbox(options);
     $('#avatar').on('change', function() {
