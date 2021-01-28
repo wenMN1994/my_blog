@@ -2,7 +2,7 @@
 
 ## my_blog 是基于SpringBoot2搭建的个人博客系统。
 
-演示地址：http://www.dragonwen.cn/ （文明访问，请勿原本数据）
+演示地址：http://www.dragonwen.cn/ （文明访问，请勿删除数据）
 
 账号：admin
 
