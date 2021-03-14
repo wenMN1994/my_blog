@@ -1,4 +1,4 @@
-### 通知：该版本已停止更新，如需最新资源请移步到https://github.com/wenMN1994/dragon_blog
+### 通知：该版本已停止更新，如需最新资源请移步到https://gitee.com/MN1994/dragon_blog
 
 ## my_blog 是基于SpringBoot2搭建的个人博客系统。
 
