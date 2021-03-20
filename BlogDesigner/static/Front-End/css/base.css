@@ -172,6 +172,7 @@ a.viewmore { display: block; right: 10px; bottom: 20px; position: absolute; padd
 
 a.iconfont.icon-zhuye {color: #ef5509;font-size: 36px;background: url(../images/c01.png) no-repeat center ;}
 a.iconfont.icon-github { color: #FF991A; font-size: 28px;    background: url(../images/c02.png) no-repeat center ; }
+a.iconfont.icon-gitee { color: #C71D23; font-size: 28px;    background: url(../images/gitee.png) no-repeat center ; }
 a.iconfont.icon-qq { color: #1296DB;    background: url(../images/c03.png) no-repeat center; }
 a.iconfont.icon-weixin { color: #07AF12;    background: url(../images/c04.png) no-repeat center; }
 #weixin { position: relative }

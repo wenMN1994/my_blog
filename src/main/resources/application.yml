@@ -14,7 +14,7 @@ dragon:
 # 开发环境配置
 server:
   # 服务端口
-  port: 8080
+  port: 8088
   servlet:
     # 项目contextPath
     context-path: /
@@ -123,13 +123,13 @@ shiro:
 # Linux配置：/opt/blog/resources/static/file
 file:
   root:
-    path: D:/Project/idea-workspace/my_blog/my_blog/BlogDesigner/blog/resources/static/file
+    path: D:/Project/idea-workspace/my_blog/BlogDesigner/blog/resources/static/file
 img:
   root:
-    path: D:/Project/idea-workspace/my_blog/my_blog/BlogDesigner/blog/resources/static/images
+    path: D:/Project/idea-workspace/my_blog/BlogDesigner/blog/resources/static/images
 attachment:
   root:
-    path: D:/Project/idea-workspace/my_blog/my_blog/BlogDesigner/blog/resources/attachment
+    path: D:/Project/idea-workspace/my_blog/BlogDesigner/blog/resources/attachment
 
 # 防止XSS攻击
 xss:

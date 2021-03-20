@@ -408,9 +408,9 @@
                 </a>
             </p>
             <p>Copyright ©
-                <a th:href="${@config.getKey('sys.user.url')}" target="_blank" th:text="${@config.getKey('sys.user.url')}">www.dragonwen.top</a> All Rights Reserved.
+                <a th:href="${@config.getKey('sys.user.url')}" target="_blank" th:text="${@config.getKey('sys.user.url')}">www.dragonwen.com</a> All Rights Reserved.
                 备案号：
-                <a href="http://www.beian.miit.gov.cn/" target="_blank">粤ICP备20001307号-1</a>
+                <a th:href="${@config.getKey('sys.user.beian')}" href="https://beian.miit.gov.cn" target="_blank" th:text="${@config.getKey('sys.user.beianNo')}">粤ICP备20001307号</a>
             </p>
         </div>
     </div>

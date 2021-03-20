@@ -4,7 +4,7 @@ echo ==================begin========================
   
 cls   
 SET NGINX_PATH=D:  
-SET NGINX_DIR=D:\Project\idea-workspace\my_blog\my_blog\BlogDesigner\nginx-1.13.8-blog\
+SET NGINX_DIR=D:\Project\idea-workspace\my_blog\BlogDesigner\nginx-1.13.8-blog\
 color 0a   
 TITLE hafele-tools Power By DragonWen (http://www.dragonwen.cn)  
   

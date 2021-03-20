@@ -1,8 +1,10 @@
-### 通知：该版本已停止更新，如需最新资源请移步到https://gitee.com/MN1994/dragon_blog
+### 通知：该版本已停止更新，如需最新资源请移步到https://gitee.com/wenMN1994/dragon_blog
 
 ## my_blog 是基于SpringBoot2搭建的个人博客系统。
 
-演示地址：http://www.dragonwen.cn/ （文明访问，请勿删除数据）
+前端演示链接：http://www.dragonwen.cn/ 
+
+后台管理演示链接: http://www.dragonwen.cn/login（文明访问，请勿删除数据）
 
 账号：admin
 
@@ -32,7 +34,7 @@ MyBlog是一款基于SpringBoot+Bootstrap的个人博客（前端+后台管理�
 
 - Java EE 8
 - Servlet 3.0
-- Gradle 5.3
+- Maven 3.0
 
 **2、主框架**
 
@@ -79,12 +81,12 @@ MyBlog是一款基于SpringBoot+Bootstrap的个人博客（前端+后台管理�
 
 JDK >= 1.8 (推荐1.8版本)
 Mysql >= 5.5.0 (推荐5.7版本)
-Gradle 5.3
+Maven >= 3.0
 
 ### 运行系统
 
-1、前往GitHub下载页面(https://github.com/wenMN1994/my_blog)下载解压到工作目录。
-2、导入到IDEA，IDEA会自动加载Gradle 依赖包，初次加载会比较慢（根据自身网络情况而定）
+1、前往Gitee下载页面(https://gitee.com/wenMN1994/my_blog)下载解压到工作目录。
+2、导入到IDEA，IDEA会自动加载Maven 依赖包，初次加载会比较慢（根据自身网络情况而定）
 3、创建数据库dragon_blog并导入数据脚本dragon_blog.sql（路径：BlogDesigner文件夹里）
 4、按照"必要配置"修改相关配置信息
 5、将项目所需的图片（路径：BlogDesigner/blog文件夹里）拷贝到你的PC的D盘根目录下
@@ -95,7 +97,7 @@ Gradle 5.3
 若能正确展示前端页面，并能成功登录，菜单及页面展示正常，则表明环境搭建成功
 
 建议使用Git克隆，因为克隆的方式可以和作者随时保持更新同步。使用Git命令克隆
-git clone https://github.com/wenMN1994/my_blog.git
+git clone git@gitee.com:wenMN1994/my_blog.git
 
 ### Windows开发环境配置
 
@@ -124,7 +126,7 @@ git clone https://github.com/wenMN1994/my_blog.git
    # 编辑resources目录下的application.yml
    server:
      # 服务端口
-     port: 8080
+     port: 8088
      servlet:
        # 项目contextPath(默认不修改)
        context-path: /
@@ -163,8 +165,31 @@ git clone https://github.com/wenMN1994/my_blog.git
    	
    	location / {
    		proxy_next_upstream http_502 http_504 error timeout invalid_header;
-   		# 项目访问路径
-   		proxy_pass http://localhost:8080;
+   		proxy_pass http://localhost:8088;
+   		# 真实的客户端IP
+   		proxy_set_header   X-Real-IP        $remote_addr;
+   		# 请求头中Host信息
+   		proxy_set_header   Host             $host;
+   		# 代理路由信息，此处取IP有安全隐患
+   		proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+   		# 真实的用户访问协议
+   		proxy_set_header   X-Forwarded-Proto $scheme;
+   	}
+   	location /common/download {
+   		proxy_next_upstream http_502 http_504 error timeout invalid_header;
+   		proxy_pass http://localhost:8088;
+   		# 真实的客户端IP
+   		proxy_set_header   X-Real-IP        $remote_addr;
+   		# 请求头中Host信息
+   		proxy_set_header   Host             $host;
+   		# 代理路由信息，此处取IP有安全隐患
+   		proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+   		# 真实的用户访问协议
+   		proxy_set_header   X-Forwarded-Proto $scheme;
+   	}
+   	location /common/upload {
+   		proxy_next_upstream http_502 http_504 error timeout invalid_header;
+   		proxy_pass http://localhost:8088;
    		# 真实的客户端IP
    		proxy_set_header   X-Real-IP        $remote_addr;
    		# 请求头中Host信息
@@ -176,15 +201,13 @@ git clone https://github.com/wenMN1994/my_blog.git
    	}
    	
    	location /admin/ {
-   		# 如果你的Nginx安装在Windows下请按照下面格式配置
-   		# 如果你的Nginx安装在Linux的路径格式配置
-           root   D:/Project/idea-workspace/my_blog/my_blog/BlogDesigner/static;
+           root   D:/Project/idea-workspace/my_blog/BlogDesigner/static;
        }
    	location /common/ {
-           root   D:/Project/idea-workspace/my_blog/my_blog/BlogDesigner/static;
+           root   D:/Project/idea-workspace/my_blog/BlogDesigner/static;
        }
    	location /Front-End/ {
-           root   D:/Project/idea-workspace/my_blog/my_blog/BlogDesigner/static;
+           root   D:/Project/idea-workspace/my_blog/BlogDesigner/static;
        }
    }
    ```
