@@ -67,6 +67,12 @@
             <artifactId>blog-generator</artifactId>
         </dependency>
 
+        <!-- 内容模块-->
+        <dependency>
+            <groupId>com.dragon</groupId>
+            <artifactId>blog-cms</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

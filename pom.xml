@@ -218,6 +218,13 @@
                 <version>${blog.version}</version>
             </dependency>
 
+            <!--内容模块-->
+            <dependency>
+                <groupId>com.dragon</groupId>
+                <artifactId>blog-cms</artifactId>
+                <version>${blog.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -228,6 +235,7 @@
         <module>blog-quartz</module>
         <module>blog-generator</module>
         <module>blog-common</module>
+        <module>blog-cms</module>
     </modules>
     <packaging>pom</packaging>
 

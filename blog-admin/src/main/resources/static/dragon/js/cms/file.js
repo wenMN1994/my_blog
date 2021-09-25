@@ -62,6 +62,13 @@ $(".nav.ul-onclick").on("click", "li", function() {
 });
 
 /**
+ * 文件上传弹出框
+ */
+function uploadDialog() {
+    $.modal.open("上传文件", prefix + '/upload','840');
+}
+
+/**
  * 预览文件
  * @param obj
  * @param fileId
