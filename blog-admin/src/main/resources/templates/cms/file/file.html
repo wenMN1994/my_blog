@@ -37,6 +37,11 @@
 		.file-active {
 			border: 1px solid #3c8dbc;
 		}
+		#file-item-container .image {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
 	</style>
 </head>
 <body class="gray-bg">
@@ -83,28 +88,22 @@
 		<div class="container-div">
 			<div class="row">
 				<div class="col-sm-12 search-collapse">
-					<form id="user-form">
+					<form id="file-form">
 						<input type="hidden" id="deptId" name="deptId">
 		                <input type="hidden" id="parentId" name="parentId">
 						<div class="select-list">
 							<ul>
 								<li>
-									文件名称：<input type="text" name="fileName"/>
-								</li>
-								<li>
-									文件类型：<select name="fileType" th:with="type=${@dict.getType('sys_normal_disable')}">
-										<option value="">所有</option>
-										<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
-									</select>
+									文件名称：<input type="text" name="fileName" id="fileName"/>
 								</li>
 								<li class="select-time">
 									<label>上传时间： </label>
-									<input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginTime]"/>
+									<input type="text" class="time-input" id="startTime" placeholder="开始时间" name="beginTime"/>
 									<span>-</span>
-									<input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endTime]"/>
+									<input type="text" class="time-input" id="endTime" placeholder="结束时间" name="endTime"/>
 								</li>
 								<li>
-									<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+									<a class="btn btn-primary btn-rounded btn-sm" onclick="queryFileList()"><i class="fa fa-search"></i>&nbsp;搜索</a>
 								    <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
 								</li>
 							</ul>
@@ -134,12 +133,12 @@
 			<div class="file">
 				<span class="corner" onclick="deleteFile(this, _FILEID_)"><i class="fa fa-trash"></i></span>
 				<div class="image" onclick="viewFile(this, _FILEID_)">
-					<img alt="image" class="img-responsive" src="_FILEURL_">
+					_FILEURL_
 				</div>
 				<div class="file-name" onclick="viewFile(this, _FILEID_)">
 					_FILENAME_
 					<br/>
-					<small>添加时间：_CREATETIME_</small>
+					<small>上传时间：_CREATETIME_</small>
 				</div>
 			</div>
 		</div>
@@ -148,9 +147,7 @@
 	<th:block th:include="include :: layout-latest-js" />
 	<th:block th:include="include :: ztree-js" />
 	<script th:inline="javascript">
-		var editFlag = [[${@permission.hasPermi('system:user:edit')}]];
-		var removeFlag = [[${@permission.hasPermi('system:user:remove')}]];
-		var resetPwdFlag = [[${@permission.hasPermi('system:user:resetPwd')}]];
+		var removeFlag = [[${@permission.hasPermi('cms:file:remove')}]];
 		var prefix = ctx + "cms/file";
 	</script>
 	<script th:src="@{/dragon/js/cms/file.js?v=20210918}"></script>

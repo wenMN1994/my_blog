@@ -12,10 +12,10 @@ $(function() {
         };
         $('#scroll-up').toTop(opt);
     }
+    queryFileList();
     $('.file-box').each(function () {
         animationHover(this, 'pulse');
     });
-    queryFileList();
 });
 
 /**
@@ -38,27 +38,46 @@ function animationHover(element, animation) {
     );
 }
 
-
 /**
  * 查询文件列表
  */
 function queryFileList() {
+    debugger;
+    let $fileItemContainer = $("#file-item-container");
+    $fileItemContainer.html('');
+    let fileName = $("#fileName").val();
+    let startTime = $("#startTime").val();
+    let endTime = $("#endTime").val();
     let formData = {
-
+        'fileName': fileName,
+        'params[beginTime]': startTime,
+        'params[endTime]': endTime
     };
     $.ajax({
         url: prefix + "/list",
+        type: 'POST',
         data: formData,
         cache: false,
-        contentType: false,
-        processData: false,
-        type: 'POST',
+        async: false,
+        contentType: "application/x-www-form-urlencoded",
         success: function (result) {
-            debugger;
             if (result.code == web_status.SUCCESS) {
-
-            } else if (result.code == web_status.WARNING) {
+                let fileItem = result.result;
+                $.each(fileItem,function(index,value){
+                    let createTime = value.createTime;
+                    let fileId = value.fileId;
+                    let fileName = value.fileName;
+                    let fileUrl = value.fileUrl;
+                    let type = value.type;
+                    let imgHtml = '<img alt="image" style="height: 100%;" class="img-responsive" src="'+fileUrl+'">';
+                    let fileBoxDiv = $("#img-file-box").html();
+                    if(type == 'image/png' || type == 'image/jpeg'){
+                        fileBoxDiv = fileBoxDiv.replaceAll("_FILEID_", fileId).replaceAll("_FILEURL_", imgHtml).replaceAll("_FILENAME_", fileName).replaceAll("_CREATETIME_", createTime);
+                    }
+                    $fileItemContainer.append(fileBoxDiv);
+                });
             } else {
+
             }
         }
     });

@@ -36,3 +36,13 @@ $(document).ready(function () {
         log.info("return filesuccessremove")
     })
 });
+
+/**
+ * 确认
+ */
+function submitHandler() {
+    debugger;
+    let parent = activeWindow();
+    $.modal.close();
+    parent.queryFileList();
+}
