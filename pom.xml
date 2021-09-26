@@ -32,8 +32,8 @@
         <commons.fileupload.version>1.4</commons.fileupload.version>
         <poi.version>4.1.2</poi.version>
         <velocity.version>1.7</velocity.version>
+        <aliyun-oss.version>3.13.0</aliyun-oss.version>
     </properties>
-
     <!-- 依赖声明 -->
     <dependencyManagement>
         <dependencies>
@@ -52,6 +52,13 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.version}</version>
+            </dependency>
+
+            <!--阿里云OSS-->
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>${aliyun-oss.version}</version>
             </dependency>
             
             <!-- 验证码 -->

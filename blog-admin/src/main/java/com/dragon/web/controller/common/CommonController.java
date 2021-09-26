@@ -1,15 +1,23 @@
 package com.dragon.web.controller.common;
 
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.dragon.cms.domain.CmsFile;
+import com.dragon.cms.service.ICmsFileService;
+import com.dragon.common.core.controller.BaseController;
+import com.dragon.common.utils.oss.OSSClientUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,17 +35,23 @@ import com.dragon.common.utils.file.FileUtils;
  * @author dragon
  */
 @Controller
-public class CommonController
+public class CommonController extends BaseController
 {
     private static final Logger log = LoggerFactory.getLogger(CommonController.class);
 
     @Autowired
     private ServerConfig serverConfig;
 
+    @Autowired
+    private OSSClientUtil ossClientUtil;
+
+    @Autowired
+    private ICmsFileService cmsFileService;
+
     private static final String FILE_DELIMETER = ",";
 
     /**
-     * 通用下载请求
+     * 本地通用下载请求
      * 
      * @param fileName 文件名称
      * @param delete 是否删除
@@ -69,7 +83,7 @@ public class CommonController
     }
 
     /**
-     * 通用上传请求（单个）
+     * 本地通用上传请求（单个）
      */
     @PostMapping("/common/upload")
     @ResponseBody
@@ -94,7 +108,7 @@ public class CommonController
     }
 
     /**
-     * 通用上传请求（多个）
+     * 本地通用上传请求（多个）
      */
     @PostMapping("/common/uploads")
     @ResponseBody
@@ -151,6 +165,74 @@ public class CommonController
         catch (Exception e)
         {
             log.error("下载文件失败", e);
+        }
+    }
+
+    /**
+     * OSS通用上传请求（单个）
+     */
+    @PostMapping("/common/uploadToOss")
+    @ResponseBody
+    public AjaxResult uploadFileToOss(MultipartFile file) throws Exception {
+        try {
+            Map<String, String> result = ossClientUtil.uploadMultipartFileToOss(file);
+            CmsFile cmsFile = new CmsFile();
+            if(result != null && result.size() > 0){
+                String originalFilename = file.getOriginalFilename();
+                String substring = originalFilename.substring(originalFilename.lastIndexOf(".") + 1).toLowerCase();
+                String ossFileName = result.get("ossFileName") == null ? "" : result.get("ossFileName") + "";
+                String fileUrl = result.get("url") == null ? "" : result.get("url") + "";
+                cmsFile.setFileName(originalFilename);
+                cmsFile.setFileSize(String.valueOf(file.getSize()));
+                cmsFile.setFileUrl(fileUrl);
+                cmsFile.setType(file.getContentType());
+                cmsFile.setOssKey(ossFileName);
+                cmsFile.setSuffix(substring);
+                cmsFile.setCreateBy(getLoginName());
+                cmsFileService.insertCmsFile(cmsFile);
+            }
+            AjaxResult ajax = AjaxResult.success();
+            ajax.put("result", cmsFile);
+            return ajax;
+        } catch (Exception e) {
+            return AjaxResult.error(e.getMessage());
+        }
+    }
+
+    /**
+     * OSS通用上传请求（多个）
+     */
+    @PostMapping("/common/uploadsToOss")
+    @ResponseBody
+    public AjaxResult uploadFilesToOss(List<MultipartFile> files) throws Exception {
+        try {
+            // 上传文件路径
+            List<CmsFile> resultList = new ArrayList<CmsFile>();
+            for (MultipartFile file : files) {
+                // 上传并返回OSS文件名称和url
+                Map<String, String> result = ossClientUtil.uploadMultipartFileToOss(file);
+                CmsFile cmsFile = new CmsFile();
+                if(result != null && result.size() > 0){
+                    String originalFilename = file.getOriginalFilename();
+                    String substring = originalFilename.substring(originalFilename.lastIndexOf(".") + 1).toLowerCase();
+                    String ossFileName = result.get("ossFileName") == null ? "" : result.get("ossFileName") + "";
+                    String fileUrl = result.get("url") == null ? "" : result.get("url") + "";
+                    cmsFile.setFileName(originalFilename);
+                    cmsFile.setFileSize(String.valueOf(file.getSize()));
+                    cmsFile.setFileUrl(fileUrl);
+                    cmsFile.setType(file.getContentType());
+                    cmsFile.setOssKey(ossFileName);
+                    cmsFile.setSuffix(substring);
+                    cmsFile.setCreateBy(getLoginName());
+                    cmsFileService.insertCmsFile(cmsFile);
+                }
+                resultList.add(cmsFile);
+            }
+            AjaxResult ajax = AjaxResult.success();
+            ajax.put("result", resultList);
+            return ajax;
+        } catch (Exception e) {
+            return AjaxResult.error(e.getMessage());
         }
     }
 }

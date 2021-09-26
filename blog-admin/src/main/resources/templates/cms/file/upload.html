@@ -14,26 +14,7 @@
     <th:block th:include="include :: bootstrap-fileinput-js" />
     <script th:inline="javascript">
         var prefix = ctx + "cms/file"
-        function submitHandler() {
-            alert("保存文件！")
-        }
-
-        $(document).ready(function () {
-            // 多图上传
-            $("#multipleFile").fileinput({
-                uploadUrl: ctx + 'common/uploads',
-                uploadAsync: false
-            }).on('filebatchuploadsuccess', function (event, data, previewId, index) {
-                var rsp = data.response;
-                log.info("return urls：" + rsp.urls)
-                log.info("reutrn fileNames：" + rsp.fileNames)
-            }).on('fileremoved', function (event, id, index) {
-                $("input[name='" + event.currentTarget.id + "']").val('')
-            })
-
-            $(".fileinput-remove").remove();
-        });
-
     </script>
+    <script th:src="@{/dragon/js/cms/upload.js?v=20210926}"></script>
 </body>
 </html>

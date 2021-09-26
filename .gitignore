@@ -41,3 +41,5 @@ nbdist/
 !*/build/*.java
 !*/build/*.html
 !*/build/*.xml
+/blog-admin/src/main/resources/bootstrap.yml
+/blog-admin/src/main/resources/application-oss.yml

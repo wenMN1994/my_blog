@@ -120,98 +120,8 @@
 					</div>
 					<div class="file-item">
 						<div class="row">
-							<div class="col-sm-12">
-								<div class="file-box">
-									<div class="file">
-										<span class="corner" onclick="deleteFile(this, '123')"><i class="fa fa-trash"></i></span>
-										<div class="icon" onclick="viewFile(this, '123')">
-											<i class="fa fa-file"></i>
-										</div>
-										<div class="file-name" onclick="viewFile(this, '123')">
-											Document_2014.doc
-											<br/>
-											<small>添加时间：2014-10-13</small>
-										</div>
-									</div>
-								</div>
-								<div class="file-box">
-									<div class="file">
-										<span class="corner" onclick="deleteFile(this, '123')"><i class="fa fa-trash"></i></span>
-										<div class="image" onclick="viewFile(this, '123')">
-											<img alt="image" class="img-responsive" src="img/p1.jpg">
-										</div>
-										<div class="file-name" onclick="viewFile(this, '123')">
-											Italy street.jpg
-											<br/>
-											<small>添加时间：2014-10-13</small>
-										</div>
-									</div>
-								</div>
-								<div class="file-box">
-									<div class="file">
-										<span class="corner" onclick="deleteFile(this, '123')"><i class="fa fa-trash"></i></span>
-										<div class="image" onclick="viewFile(this, '123')">
-											<img alt="image" class="img-responsive" src="img/p2.jpg">
-										</div>
-										<div class="file-name" onclick="viewFile(this, '123')">
-											My feel.png
-											<br/>
-											<small>添加时间：2014-10-13</small>
-										</div>
-									</div>
-								</div>
-								<div class="file-box">
-									<div class="file">
-										<span class="corner" onclick="deleteFile(this, '123')"><i class="fa fa-trash"></i></span>
-										<div class="icon" onclick="viewFile(this, '123')">
-											<i class="fa fa-music"></i>
-										</div>
-										<div class="file-name" onclick="viewFile(this, '123')">
-											Michal Jackson.mp3
-											<br/>
-											<small>添加时间：2014-10-13</small>
-										</div>
-									</div>
-								</div>
-								<div class="file-box">
-									<div class="file">
-										<span class="corner" onclick="deleteFile(this, '123')"><i class="fa fa-trash"></i></span>
-										<div class="image" onclick="viewFile(this, '123')">
-											<img alt="image" class="img-responsive" src="img/p3.jpg">
-										</div>
-										<div class="file-name" onclick="viewFile(this, '123')">
-											Document_2014.doc
-											<br/>
-											<small>添加时间：2014-10-13</small>
-										</div>
-									</div>
-								</div>
-								<div class="file-box">
-									<div class="file">
-										<span class="corner" onclick="deleteFile(this, '123')"><i class="fa fa-trash"></i></span>
-										<div class="icon" onclick="viewFile(this, '123')">
-											<i class="img-responsive fa fa-film"></i>
-										</div>
-										<div class="file-name" onclick="viewFile(this, '123')">
-											Monica's birthday.mpg4
-											<br/>
-											<small>添加时间：2014-10-13</small>
-										</div>
-									</div>
-								</div>
-								<div class="file-box">
-									<div class="file">
-										<span class="corner" onclick="deleteFile(this, '123')"><i class="fa fa-trash"></i></span>
-										<div class="icon" onclick="viewFile(this, '123')">
-											<i class="fa fa-bar-chart-o"></i>
-										</div>
-										<div class="file-name" onclick="viewFile(this, '123')">
-											Annual report 2014.xls
-											<br/>
-											<small>添加时间：2014-10-13</small>
-										</div>
-									</div>
-								</div>
+							<div class="col-sm-12" id="file-item-container">
+
 							</div>
 						</div>
 					</div>
@@ -219,7 +129,21 @@
 			</div>
 		</div>
 	</div>
-	
+	<div id="img-file-box" style="display: none;">
+		<div class="file-box">
+			<div class="file">
+				<span class="corner" onclick="deleteFile(this, _FILEID_)"><i class="fa fa-trash"></i></span>
+				<div class="image" onclick="viewFile(this, _FILEID_)">
+					<img alt="image" class="img-responsive" src="_FILEURL_">
+				</div>
+				<div class="file-name" onclick="viewFile(this, _FILEID_)">
+					_FILENAME_
+					<br/>
+					<small>添加时间：_CREATETIME_</small>
+				</div>
+			</div>
+		</div>
+	</div>
 	<th:block th:include="include :: footer" />
 	<th:block th:include="include :: layout-latest-js" />
 	<th:block th:include="include :: ztree-js" />

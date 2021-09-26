@@ -137,3 +137,11 @@ xss:
 swagger:
   # 是否开启swagger
   enabled: true
+
+ 阿里云oss
+oss:
+  aliyun:
+    endpoint: https://oss-cn-shenzhen.aliyuncs.com
+    accessKeyId: yourAccessKeyId
+    accessKeySecret: yourAccessKeySecret
+    bucketName: yourEndpoint

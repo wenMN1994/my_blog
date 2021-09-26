@@ -42,84 +42,98 @@ public class CmsFile extends BaseEntity
     @Excel(name = "是否有效", readConverterExp = "0=：有效，1无效")
     private String isEnable;
 
-    public void setFileId(Long fileId) 
+    /** ossKey */
+    @Excel(name = "ossKey")
+    private String ossKey;
+
+    public void setFileId(Long fileId)
     {
         this.fileId = fileId;
     }
 
-    public Long getFileId() 
+    public Long getFileId()
     {
         return fileId;
     }
-    public void setFileUrl(String fileUrl) 
+    public void setFileUrl(String fileUrl)
     {
         this.fileUrl = fileUrl;
     }
 
-    public String getFileUrl() 
+    public String getFileUrl()
     {
         return fileUrl;
     }
-    public void setFileName(String fileName) 
+    public void setFileName(String fileName)
     {
         this.fileName = fileName;
     }
 
-    public String getFileName() 
+    public String getFileName()
     {
         return fileName;
     }
-    public void setSuffix(String suffix) 
+    public void setSuffix(String suffix)
     {
         this.suffix = suffix;
     }
 
-    public String getSuffix() 
+    public String getSuffix()
     {
         return suffix;
     }
-    public void setType(String type) 
+    public void setType(String type)
     {
         this.type = type;
     }
 
-    public String getType() 
+    public String getType()
     {
         return type;
     }
-    public void setFileSize(String fileSize) 
+    public void setFileSize(String fileSize)
     {
         this.fileSize = fileSize;
     }
 
-    public String getFileSize() 
+    public String getFileSize()
     {
         return fileSize;
     }
-    public void setIsEnable(String isEnable) 
+    public void setIsEnable(String isEnable)
     {
         this.isEnable = isEnable;
     }
 
-    public String getIsEnable() 
+    public String getIsEnable()
     {
         return isEnable;
+    }
+    public void setOssKey(String ossKey)
+    {
+        this.ossKey = ossKey;
+    }
+
+    public String getOssKey()
+    {
+        return ossKey;
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("fileId", getFileId())
-            .append("fileUrl", getFileUrl())
-            .append("fileName", getFileName())
-            .append("suffix", getSuffix())
-            .append("type", getType())
-            .append("fileSize", getFileSize())
-            .append("isEnable", getIsEnable())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+                .append("fileId", getFileId())
+                .append("fileUrl", getFileUrl())
+                .append("fileName", getFileName())
+                .append("suffix", getSuffix())
+                .append("type", getType())
+                .append("fileSize", getFileSize())
+                .append("isEnable", getIsEnable())
+                .append("ossKey", getOssKey())
+                .append("createBy", getCreateBy())
+                .append("createTime", getCreateTime())
+                .append("updateBy", getUpdateBy())
+                .append("updateTime", getUpdateTime())
+                .toString();
     }
 }

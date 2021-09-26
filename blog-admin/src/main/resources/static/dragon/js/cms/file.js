@@ -43,7 +43,25 @@ function animationHover(element, animation) {
  * 查询文件列表
  */
 function queryFileList() {
+    let formData = {
 
+    };
+    $.ajax({
+        url: prefix + "/list",
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        success: function (result) {
+            debugger;
+            if (result.code == web_status.SUCCESS) {
+
+            } else if (result.code == web_status.WARNING) {
+            } else {
+            }
+        }
+    });
 }
 
 /**
