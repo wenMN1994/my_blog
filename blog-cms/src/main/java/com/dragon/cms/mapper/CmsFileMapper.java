@@ -2,6 +2,7 @@ package com.dragon.cms.mapper;
 
 import java.util.List;
 import com.dragon.cms.domain.CmsFile;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 文件管理Mapper接口
@@ -55,7 +56,8 @@ public interface CmsFileMapper
      * 批量删除文件管理
      * 
      * @param fileIds 需要删除的数据主键集合
+     * @param updateBy 修改人
      * @return 结果
      */
-    public int deleteCmsFileByFileIds(String[] fileIds);
+    public int deleteCmsFileByFileIds(@Param("fileIds") String[] fileIds, @Param("updateBy") String updateBy);
 }

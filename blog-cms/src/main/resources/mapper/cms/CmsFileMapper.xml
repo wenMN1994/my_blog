@@ -97,15 +97,15 @@
         where file_id = #{fileId}
     </update>
 
-    <delete id="deleteCmsFileByFileId" parameterType="Long">
-        delete from cms_file where file_id = #{fileId}
-    </delete>
+    <update id="deleteCmsFileByFileId" parameterType="Long">
+        update cms_file set is_enable = '1', update_time = sysdate() where file_id = #{fileId}
+    </update>
 
-    <delete id="deleteCmsFileByFileIds" parameterType="String">
-        delete from cms_file where file_id in
-        <foreach item="fileId" collection="array" open="(" separator="," close=")">
+    <update id="deleteCmsFileByFileIds" parameterType="String">
+        update cms_file set is_enable = '1', update_by = #{updateBy}, update_time = sysdate() where file_id in
+        <foreach item="fileId" collection="fileIds" open="(" separator="," close=")">
             #{fileId}
         </foreach>
-    </delete>
+    </update>
 
 </mapper>

@@ -45,6 +45,7 @@ public class CmsFileController extends BaseController
     @ResponseBody
     public AjaxResult list(CmsFile cmsFile)
     {
+        cmsFile.setIsEnable("0");
         List<CmsFile> list = cmsFileService.selectCmsFileList(cmsFile);
         AjaxResult ajax = AjaxResult.success();
         ajax.put("result", list);
@@ -69,6 +70,6 @@ public class CmsFileController extends BaseController
     @ResponseBody
     public AjaxResult remove(String ids)
     {
-        return toAjax(cmsFileService.deleteCmsFileByFileIds(ids));
+        return toAjax(cmsFileService.deleteCmsFileByFileIds(ids,getLoginName()));
     }
 }

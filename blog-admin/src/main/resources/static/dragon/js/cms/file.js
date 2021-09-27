@@ -42,24 +42,18 @@ function animationHover(element, animation) {
  * 查询文件列表
  */
 function queryFileList() {
-    debugger;
     let $fileItemContainer = $("#file-item-container");
     $fileItemContainer.html('');
-    let fileName = $("#fileName").val();
-    let startTime = $("#startTime").val();
-    let endTime = $("#endTime").val();
-    let formData = {
-        'fileName': fileName,
-        'params[beginTime]': startTime,
-        'params[endTime]': endTime
-    };
+    let formData = $("#file-form").serialize();
     $.ajax({
         url: prefix + "/list",
         type: 'POST',
         data: formData,
         cache: false,
         async: false,
-        contentType: "application/x-www-form-urlencoded",
+        beforeSend: function () {
+            $.modal.loading("正在查询中，请稍后...");
+        },
         success: function (result) {
             if (result.code == web_status.SUCCESS) {
                 let fileItem = result.result;
@@ -77,8 +71,9 @@ function queryFileList() {
                     $fileItemContainer.append(fileBoxDiv);
                 });
             } else {
-
+                $.modal.alertError(result.msg);
             }
+            $.modal.closeLoading();
         }
     });
 }
@@ -113,7 +108,6 @@ function uploadDialog() {
 function viewFile(obj, fileId) {
     $(obj).parent().addClass("file-active");
     $(obj).parent().parent().siblings().children().removeClass("file-active");
-    alert("预览文件！");
 }
 
 /**
@@ -124,5 +118,27 @@ function viewFile(obj, fileId) {
 function deleteFile(obj, fileId) {
     $(obj).parent().addClass("file-active");
     $(obj).parent().parent().siblings().children().removeClass("file-active");
-    alert("删除文件！");
+    $.modal.confirm("确认要删除这条数据吗?", function() {
+        let data = { "ids": fileId };
+        $.ajax({
+            url: prefix + "/remove",
+            type: 'POST',
+            data: data,
+            cache: false,
+            async: false,
+            beforeSend: function () {
+                $.modal.loading("正在处理中，请稍后...");
+            },
+            success: function (result) {
+                debugger;
+                if (result.code == web_status.SUCCESS) {
+                    $.modal.msgSuccess(result.msg);
+                    queryFileList();
+                } else {
+                    $.modal.alertError(result.msg);
+                }
+                $.modal.closeLoading();
+            }
+        });
+    });
 }

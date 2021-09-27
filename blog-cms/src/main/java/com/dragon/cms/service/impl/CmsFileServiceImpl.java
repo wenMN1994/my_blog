@@ -74,17 +74,19 @@ public class CmsFileServiceImpl implements ICmsFileService
     /**
      * 批量删除文件管理
      * 
-     * @param fileIds 需要删除的文件管理主键
+     *
+     * @param ids 需要删除的文件管理主键
+     * @param updateBy 修改人
      * @return 结果
      */
     @Override
-    public int deleteCmsFileByFileIds(String fileIds)
+    public int deleteCmsFileByFileIds(String ids, String updateBy)
     {
-        return cmsFileMapper.deleteCmsFileByFileIds(Convert.toStrArray(fileIds));
+        return cmsFileMapper.deleteCmsFileByFileIds(Convert.toStrArray(ids), updateBy);
     }
 
     /**
-     * 删除文件管理信息
+     * 删除文件
      * 
      * @param fileId 文件管理主键
      * @return 结果

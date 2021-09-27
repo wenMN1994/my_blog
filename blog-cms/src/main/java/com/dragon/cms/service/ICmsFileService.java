@@ -46,10 +46,12 @@ public interface ICmsFileService
     /**
      * 批量删除文件管理
      * 
-     * @param fileIds 需要删除的文件管理主键集合
+     *
+     * @param ids 需要删除的文件管理主键集合
+     * @param updateBy 修改人
      * @return 结果
      */
-    public int deleteCmsFileByFileIds(String fileIds);
+    public int deleteCmsFileByFileIds(String ids, String updateBy);
 
     /**
      * 删除文件管理信息
