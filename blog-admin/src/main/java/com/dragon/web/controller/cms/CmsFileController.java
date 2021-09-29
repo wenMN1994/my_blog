@@ -1,6 +1,9 @@
 package com.dragon.web.controller.cms;
 
 import java.util.List;
+
+import com.dragon.common.core.domain.entity.SysDictData;
+import com.dragon.system.service.ISysDictTypeService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +32,9 @@ public class CmsFileController extends BaseController
 
     @Autowired
     private ICmsFileService cmsFileService;
+
+    @Autowired
+    private ISysDictTypeService sysDictTypeService;
 
     @RequiresPermissions("cms:file:view")
     @GetMapping()

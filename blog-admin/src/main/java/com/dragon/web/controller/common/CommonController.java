@@ -1,6 +1,5 @@
 package com.dragon.web.controller.common;
 
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.dragon.cms.domain.CmsFile;
 import com.dragon.cms.service.ICmsFileService;
 import com.dragon.common.core.controller.BaseController;
+import com.dragon.common.utils.file.FileTypeUtils;
 import com.dragon.common.utils.oss.OSSClientUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -185,7 +184,7 @@ public class CommonController extends BaseController
                 cmsFile.setFileName(originalFilename);
                 cmsFile.setFileSize(String.valueOf(file.getSize()));
                 cmsFile.setFileUrl(fileUrl);
-                cmsFile.setType(file.getContentType());
+                cmsFile.setType(FileTypeUtils.getContentType(substring));
                 cmsFile.setOssKey(ossFileName);
                 cmsFile.setSuffix(substring);
                 cmsFile.setCreateBy(getLoginName());
@@ -220,7 +219,7 @@ public class CommonController extends BaseController
                     cmsFile.setFileName(originalFilename);
                     cmsFile.setFileSize(String.valueOf(file.getSize()));
                     cmsFile.setFileUrl(fileUrl);
-                    cmsFile.setType(file.getContentType());
+                    cmsFile.setType(FileTypeUtils.getContentType(substring));
                     cmsFile.setOssKey(ossFileName);
                     cmsFile.setSuffix(substring);
                     cmsFile.setCreateBy(getLoginName());

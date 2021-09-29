@@ -41,7 +41,6 @@ $(document).ready(function () {
  * 确认
  */
 function submitHandler() {
-    debugger;
     let parent = activeWindow();
     $.modal.close();
     parent.queryFileList();

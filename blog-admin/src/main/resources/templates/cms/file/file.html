@@ -58,26 +58,26 @@
 			</div>
 			<div class="ui-layout-content">
 				<ul class="nav nav-pills nav-stacked ul-onclick">
-					<li class="li-active">
+					<li class="li-active" data-file-type="">
 						<a href="##"><i class="fa fa-folder-o"></i>&nbsp;&nbsp;全部文件</a>
 					</li>
-					<li>
+					<li data-file-type="document">
 						<a href="##"><i class="fa fa-file-text-o"></i>&nbsp;&nbsp;文档</a>
 					</li>
-					<li>
+					<li data-file-type="image">
 						<a href="##"><i class="fa fa-file-image-o"></i>&nbsp;&nbsp;图片</a>
 					</li>
-					<li>
+					<li data-file-type="audio">
 						<a href="##"><i class="fa fa-file-audio-o"></i>&nbsp;&nbsp;音乐</a>
 					</li>
-					<li>
+					<li data-file-type="video">
 						<a href="##"><i class="fa fa-file-video-o"></i>&nbsp;&nbsp;视频</a>
 					</li>
-					<li>
+					<li data-file-type="package">
 						<a href="##"><i class="fa fa-file-zip-o"></i>&nbsp;&nbsp;压缩包</a>
 					</li>
-					<li>
-						<a href="##"><i class="fa fa-archive"></i>&nbsp;&nbsp;其他</a>
+					<li data-file-type="other">
+						<a href="##"><i class="fa fa-question-circle-o"></i>&nbsp;&nbsp;其他</a>
 					</li>
 				</ul>
 			</div>
@@ -93,6 +93,7 @@
 		                <input type="hidden" id="parentId" name="parentId">
 						<div class="select-list">
 							<ul>
+                                <input class="hidden" type="text" name="type" id="fileType" value=""/>
 								<li>
 									文件名称：<input type="text" name="fileName"/>
 								</li>
@@ -143,6 +144,22 @@
 			</div>
 		</div>
 	</div>
+
+	<div id="icon-file-box" style="display: none;">
+		<div class="file-box">
+			<div class="file">
+				<span class="corner" onclick="deleteFile(this, _FILEID_)"><i class="fa fa-trash"></i></span>
+				<div class="icon" onclick="viewFile(this, _FILEID_)">
+					_ICON_
+				</div>
+				<div class="file-name" onclick="viewFile(this, _FILEID_)">
+					_FILENAME_
+					<br/>
+					<small>上传时间：_CREATETIME_</small>
+				</div>
+			</div>
+		</div>
+	</div>
 	<th:block th:include="include :: footer" />
 	<th:block th:include="include :: layout-latest-js" />
 	<th:block th:include="include :: ztree-js" />
@@ -150,6 +167,6 @@
 		var removeFlag = [[${@permission.hasPermi('cms:file:remove')}]];
 		var prefix = ctx + "cms/file";
 	</script>
-	<script th:src="@{/dragon/js/cms/file.js?v=20210918}"></script>
+	<script th:src="@{/dragon/js/cms/file.js?v=20210929}"></script>
 </body>
 </html>

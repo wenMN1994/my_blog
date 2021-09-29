@@ -67,7 +67,7 @@ public class OSSClientUtil {
         String name = random.nextInt(10000) + System.currentTimeMillis() + substring;
         try {
             InputStream inputStream = file.getInputStream();
-            result = this.uploadFileToOSS(inputStream, name);
+            result = this.uploadFileToOSS(inputStream, name, file.getContentType());
             return result;
         } catch (Exception e) {
             log.info("文件上传失败:{}",e.getMessage());
@@ -76,49 +76,16 @@ public class OSSClientUtil {
     }
 
     /**
-     * 本地文件上传到OSS
-     * @param filePath
-     * @return
-     * @throws Exception
-     */
-    public Map<String, String> uploadLocalFileToOss(String filePath) throws Exception {
-        File file = new File(filePath);
-        if (file.exists() && file.isFile()) {
-            Map<String, String> result = new HashMap<>(16);
-            String originalFilename = file.getName();
-            String substring = originalFilename.substring(originalFilename.lastIndexOf(".")).toLowerCase();
-            Random random = new Random();
-            String name = random.nextInt(10000) + System.currentTimeMillis() + substring;
-            InputStream inputStream = null;
-            try {
-                inputStream = new FileInputStream(file);
-                result = this.uploadFileToOSS(inputStream, name);
-                return result;
-            } catch (Exception e) {
-                log.info("文件上传失败:{}",e.getMessage());
-                throw new Exception("文件上传失败");
-            } finally {
-                try {
-                    if (inputStream != null) {
-                        inputStream.close();
-                    }
-                } catch (Exception e) {
-                    log.info(e.getMessage());
-                }
-            }
-        }
-        return null;
-    }
-
-    /**
      * 上传到OSS服务器 如果同名文件会覆盖服务器上的
      * @param inStream
      *            文件流
      * @param fileName
      *            文件名称 包括后缀名
+     * @param contentType
+     *            文件类型
      * @return
      */
-    public Map<String, String> uploadFileToOSS(InputStream inStream, String fileName) {
+    public Map<String, String> uploadFileToOSS(InputStream inStream, String fileName, String contentType) {
         String url = "";
         Map<String, String> result = new HashMap<>(16);
         String host = endpoint.replaceAll("//","//" + bucketName + ".");
@@ -129,7 +96,7 @@ public class OSSClientUtil {
             objectMetadata.setContentLength(inStream.available());
             objectMetadata.setCacheControl("no-cache");
             objectMetadata.setHeader("Pragma", "no-cache");
-            objectMetadata.setContentType(getContentType(fileName.substring(fileName.lastIndexOf("."))));
+            objectMetadata.setContentType(contentType);
             objectMetadata.setContentDisposition("inline;filename=" + fileName);
             // 文件上传日期
             String format = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
@@ -154,45 +121,6 @@ public class OSSClientUtil {
             ossClient.shutdown();
         }
         return result;
-    }
-
-    /**
-     * Description: 判断OSS服务文件上传时文件的contentType
-     *
-     * @param
-     *
-     * @return String
-     */
-    public static String getContentType(String filenameExtension) {
-        if ("bmp".equalsIgnoreCase(filenameExtension)) {
-            return "image/bmp";
-        }
-        if ("gif".equalsIgnoreCase(filenameExtension)) {
-            return "image/gif";
-        }
-        if ("jpeg".equalsIgnoreCase(filenameExtension) || "jpg".equalsIgnoreCase(filenameExtension)
-                || "png".equalsIgnoreCase(filenameExtension)) {
-            return "image/jpeg";
-        }
-        if ("html".equalsIgnoreCase(filenameExtension)) {
-            return "text/html";
-        }
-        if ("txt".equalsIgnoreCase(filenameExtension)) {
-            return "text/plain";
-        }
-        if ("vsd".equalsIgnoreCase(filenameExtension)) {
-            return "application/vnd.visio";
-        }
-        if ("pptx".equalsIgnoreCase(filenameExtension) || "ppt".equalsIgnoreCase(filenameExtension)) {
-            return "application/vnd.ms-powerpoint";
-        }
-        if ("docx".equalsIgnoreCase(filenameExtension) || "doc".equalsIgnoreCase(filenameExtension)) {
-            return "application/msword";
-        }
-        if ("xml".equalsIgnoreCase(filenameExtension)) {
-            return "text/xml";
-        }
-        return "image/jpeg";
     }
 
     /**
