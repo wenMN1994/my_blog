@@ -80,7 +80,7 @@ public class OSSClientUtil {
      * @param inStream
      *            文件流
      * @param fileName
-     *            文件名称 包括后缀名
+     *            自定义生成的oss文件名称 包括后缀名
      * @param contentType
      *            文件类型
      * @return

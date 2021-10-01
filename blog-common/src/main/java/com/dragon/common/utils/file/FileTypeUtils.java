@@ -89,6 +89,7 @@ public class FileTypeUtils
             return "image";
         }
         if ("txt".equalsIgnoreCase(filenameExtension) ||
+                "pdf".equalsIgnoreCase(filenameExtension) ||
                 "xml".equalsIgnoreCase(filenameExtension) ||
                 "html".equalsIgnoreCase(filenameExtension) ||
                 "pptx".equalsIgnoreCase(filenameExtension) ||

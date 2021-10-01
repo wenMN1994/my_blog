@@ -1,6 +1,7 @@
 package com.dragon.web.controller.common;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -174,10 +175,11 @@ public class CommonController extends BaseController
     @ResponseBody
     public AjaxResult uploadFileToOss(MultipartFile file) throws Exception {
         try {
+            Map<String, Object> resultMap = new HashMap<>(2);
             Map<String, String> result = ossClientUtil.uploadMultipartFileToOss(file);
             CmsFile cmsFile = new CmsFile();
+            String originalFilename = file.getOriginalFilename();
             if(result != null && result.size() > 0){
-                String originalFilename = file.getOriginalFilename();
                 String substring = originalFilename.substring(originalFilename.lastIndexOf(".") + 1).toLowerCase();
                 String ossFileName = result.get("ossFileName") == null ? "" : result.get("ossFileName") + "";
                 String fileUrl = result.get("url") == null ? "" : result.get("url") + "";
@@ -189,9 +191,12 @@ public class CommonController extends BaseController
                 cmsFile.setSuffix(substring);
                 cmsFile.setCreateBy(getLoginName());
                 cmsFileService.insertCmsFile(cmsFile);
+                resultMap.put("success", cmsFile);
+            }else {
+                resultMap.put("error", cmsFile);
             }
             AjaxResult ajax = AjaxResult.success();
-            ajax.put("result", cmsFile);
+            ajax.put("result", resultMap);
             return ajax;
         } catch (Exception e) {
             return AjaxResult.error(e.getMessage());
@@ -206,13 +211,16 @@ public class CommonController extends BaseController
     public AjaxResult uploadFilesToOss(List<MultipartFile> files) throws Exception {
         try {
             // 上传文件路径
-            List<CmsFile> resultList = new ArrayList<CmsFile>();
+            Map<String, Object> resultMap = new HashMap<>(2);
+            List<CmsFile> successList = new ArrayList<>();
+            List<CmsFile> errorList = new ArrayList<>();
             for (MultipartFile file : files) {
                 // 上传并返回OSS文件名称和url
                 Map<String, String> result = ossClientUtil.uploadMultipartFileToOss(file);
                 CmsFile cmsFile = new CmsFile();
+                String originalFilename = file.getOriginalFilename();
+//                int i = 1/0;
                 if(result != null && result.size() > 0){
-                    String originalFilename = file.getOriginalFilename();
                     String substring = originalFilename.substring(originalFilename.lastIndexOf(".") + 1).toLowerCase();
                     String ossFileName = result.get("ossFileName") == null ? "" : result.get("ossFileName") + "";
                     String fileUrl = result.get("url") == null ? "" : result.get("url") + "";
@@ -224,11 +232,16 @@ public class CommonController extends BaseController
                     cmsFile.setSuffix(substring);
                     cmsFile.setCreateBy(getLoginName());
                     cmsFileService.insertCmsFile(cmsFile);
+                    successList.add(cmsFile);
+                }else {
+                    cmsFile.setFileName(originalFilename);
+                    errorList.add(cmsFile);
                 }
-                resultList.add(cmsFile);
+                resultMap.put("success",successList);
+                resultMap.put("error",errorList);
             }
             AjaxResult ajax = AjaxResult.success();
-            ajax.put("result", resultList);
+            ajax.put("result", resultMap);
             return ajax;
         } catch (Exception e) {
             return AjaxResult.error(e.getMessage());

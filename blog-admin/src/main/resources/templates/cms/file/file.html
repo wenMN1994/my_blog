@@ -42,6 +42,11 @@
 			justify-content: center;
 			align-items: center;
 		}
+		.file-name-hide {
+			white-space:nowrap;
+			overflow:hidden;
+			text-overflow:ellipsis;
+		}
 	</style>
 </head>
 <body class="gray-bg">
@@ -136,8 +141,8 @@
 				<div class="image" onclick="viewFile(this, _FILEID_)">
 					_FILEURL_
 				</div>
-				<div class="file-name" onclick="viewFile(this, _FILEID_)">
-					_FILENAME_
+				<div class="file-name file-name-hide" onclick="viewFile(this, _FILEID_)">
+					<small title="_FILENAME_">_FILENAME_</small>
 					<br/>
 					<small>上传时间：_CREATETIME_</small>
 				</div>
@@ -152,8 +157,8 @@
 				<div class="icon" onclick="viewFile(this, _FILEID_)">
 					_ICON_
 				</div>
-				<div class="file-name" onclick="viewFile(this, _FILEID_)">
-					_FILENAME_
+				<div class="file-name file-name-hide" onclick="viewFile(this, _FILEID_)">
+					<small title="_FILENAME_">_FILENAME_</small>
 					<br/>
 					<small>上传时间：_CREATETIME_</small>
 				</div>
