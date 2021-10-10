@@ -219,7 +219,6 @@ public class CommonController extends BaseController
                 Map<String, String> result = ossClientUtil.uploadMultipartFileToOss(file);
                 CmsFile cmsFile = new CmsFile();
                 String originalFilename = file.getOriginalFilename();
-//                int i = 1/0;
                 if(result != null && result.size() > 0){
                     String substring = originalFilename.substring(originalFilename.lastIndexOf(".") + 1).toLowerCase();
                     String ossFileName = result.get("ossFileName") == null ? "" : result.get("ossFileName") + "";

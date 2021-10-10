@@ -71,7 +71,7 @@ public class OSSClientUtil {
             return result;
         } catch (Exception e) {
             log.info("文件上传失败:{}",e.getMessage());
-            throw new Exception("文件上传失败");
+            throw new Exception("文件上传失败！");
         }
     }
 
