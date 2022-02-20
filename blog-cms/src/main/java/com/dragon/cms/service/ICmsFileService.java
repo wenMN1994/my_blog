@@ -9,8 +9,7 @@ import com.dragon.cms.domain.CmsFile;
  * @author DragonWen
  * @date 2021-09-25
  */
-public interface ICmsFileService 
-{
+public interface ICmsFileService {
     /**
      * 查询文件管理
      * 

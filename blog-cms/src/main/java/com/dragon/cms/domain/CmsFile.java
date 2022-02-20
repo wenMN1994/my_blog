@@ -11,8 +11,7 @@ import com.dragon.common.core.domain.BaseEntity;
  * @author DragonWen
  * @date 2021-09-25
  */
-public class CmsFile extends BaseEntity
-{
+public class CmsFile extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /** 文件ID */
@@ -46,76 +45,60 @@ public class CmsFile extends BaseEntity
     @Excel(name = "ossKey")
     private String ossKey;
 
-    public void setFileId(Long fileId)
-    {
+    public void setFileId(Long fileId) {
         this.fileId = fileId;
     }
 
-    public Long getFileId()
-    {
+    public Long getFileId() {
         return fileId;
     }
-    public void setFileUrl(String fileUrl)
-    {
+    public void setFileUrl(String fileUrl) {
         this.fileUrl = fileUrl;
     }
 
-    public String getFileUrl()
-    {
+    public String getFileUrl() {
         return fileUrl;
     }
-    public void setFileName(String fileName)
-    {
+    public void setFileName(String fileName) {
         this.fileName = fileName;
     }
 
-    public String getFileName()
-    {
+    public String getFileName() {
         return fileName;
     }
-    public void setSuffix(String suffix)
-    {
+    public void setSuffix(String suffix) {
         this.suffix = suffix;
     }
 
-    public String getSuffix()
-    {
+    public String getSuffix() {
         return suffix;
     }
-    public void setType(String type)
-    {
+    public void setType(String type) {
         this.type = type;
     }
 
-    public String getType()
-    {
+    public String getType() {
         return type;
     }
-    public void setFileSize(String fileSize)
-    {
+    public void setFileSize(String fileSize) {
         this.fileSize = fileSize;
     }
 
-    public String getFileSize()
-    {
+    public String getFileSize() {
         return fileSize;
     }
-    public void setIsEnable(String isEnable)
-    {
+    public void setIsEnable(String isEnable) {
         this.isEnable = isEnable;
     }
 
-    public String getIsEnable()
-    {
+    public String getIsEnable() {
         return isEnable;
     }
-    public void setOssKey(String ossKey)
-    {
+    public void setOssKey(String ossKey) {
         this.ossKey = ossKey;
     }
 
-    public String getOssKey()
-    {
+    public String getOssKey() {
         return ossKey;
     }
 

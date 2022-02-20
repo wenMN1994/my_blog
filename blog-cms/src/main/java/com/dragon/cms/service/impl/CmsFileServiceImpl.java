@@ -17,8 +17,7 @@ import com.dragon.common.core.text.Convert;
  * @date 2021-09-25
  */
 @Service
-public class CmsFileServiceImpl implements ICmsFileService 
-{
+public class CmsFileServiceImpl implements ICmsFileService {
     @Autowired
     private CmsFileMapper cmsFileMapper;
 
@@ -29,8 +28,7 @@ public class CmsFileServiceImpl implements ICmsFileService
      * @return 文件管理
      */
     @Override
-    public CmsFile selectCmsFileByFileId(Long fileId)
-    {
+    public CmsFile selectCmsFileByFileId(Long fileId) {
         return cmsFileMapper.selectCmsFileByFileId(fileId);
     }
 
@@ -41,8 +39,7 @@ public class CmsFileServiceImpl implements ICmsFileService
      * @return 文件管理
      */
     @Override
-    public List<CmsFile> selectCmsFileList(CmsFile cmsFile)
-    {
+    public List<CmsFile> selectCmsFileList(CmsFile cmsFile) {
         return cmsFileMapper.selectCmsFileList(cmsFile);
     }
 
@@ -53,8 +50,7 @@ public class CmsFileServiceImpl implements ICmsFileService
      * @return 结果
      */
     @Override
-    public int insertCmsFile(CmsFile cmsFile)
-    {
+    public int insertCmsFile(CmsFile cmsFile) {
         cmsFile.setCreateTime(DateUtils.getNowDate());
         return cmsFileMapper.insertCmsFile(cmsFile);
     }
@@ -66,8 +62,7 @@ public class CmsFileServiceImpl implements ICmsFileService
      * @return 结果
      */
     @Override
-    public int updateCmsFile(CmsFile cmsFile)
-    {
+    public int updateCmsFile(CmsFile cmsFile) {
         cmsFile.setUpdateTime(DateUtils.getNowDate());
         return cmsFileMapper.updateCmsFile(cmsFile);
     }
@@ -81,8 +76,7 @@ public class CmsFileServiceImpl implements ICmsFileService
      * @return 结果
      */
     @Override
-    public int deleteCmsFileByFileIds(String ids, String updateBy)
-    {
+    public int deleteCmsFileByFileIds(String ids, String updateBy) {
         return cmsFileMapper.deleteCmsFileByFileIds(Convert.toStrArray(ids), updateBy);
     }
 
@@ -93,8 +87,7 @@ public class CmsFileServiceImpl implements ICmsFileService
      * @return 结果
      */
     @Override
-    public int deleteCmsFileByFileId(Long fileId)
-    {
+    public int deleteCmsFileByFileId(Long fileId) {
         return cmsFileMapper.deleteCmsFileByFileId(fileId);
     }
 }

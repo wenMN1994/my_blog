@@ -35,8 +35,7 @@ import com.dragon.common.utils.file.FileUtils;
  * @author dragon
  */
 @Controller
-public class CommonController extends BaseController
-{
+public class CommonController extends BaseController {
     private static final Logger log = LoggerFactory.getLogger(CommonController.class);
 
     @Autowired
@@ -57,12 +56,9 @@ public class CommonController extends BaseController
      * @param delete 是否删除
      */
     @GetMapping("common/download")
-    public void fileDownload(String fileName, Boolean delete, HttpServletResponse response, HttpServletRequest request)
-    {
-        try
-        {
-            if (!FileUtils.checkAllowDownload(fileName))
-            {
+    public void fileDownload(String fileName, Boolean delete, HttpServletResponse response, HttpServletRequest request) {
+        try {
+            if (!FileUtils.checkAllowDownload(fileName)) {
                 throw new Exception(StringUtils.format("文件名称({})非法，不允许下载。 ", fileName));
             }
             String realFileName = System.currentTimeMillis() + fileName.substring(fileName.indexOf("_") + 1);
@@ -71,13 +67,11 @@ public class CommonController extends BaseController
             response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
             FileUtils.setAttachmentResponseHeader(response, realFileName);
             FileUtils.writeBytes(filePath, response.getOutputStream());
-            if (delete)
-            {
+            if (delete) {
                 FileUtils.deleteFile(filePath);
             }
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             log.error("下载文件失败", e);
         }
     }
@@ -87,10 +81,8 @@ public class CommonController extends BaseController
      */
     @PostMapping("/common/upload")
     @ResponseBody
-    public AjaxResult uploadFile(MultipartFile file) throws Exception
-    {
-        try
-        {
+    public AjaxResult uploadFile(MultipartFile file) throws Exception {
+        try {
             // 上传文件路径
             String filePath = BlogConfig.getUploadPath();
             // 上传并返回新文件名称
@@ -101,8 +93,7 @@ public class CommonController extends BaseController
             ajax.put("url", url);
             return ajax;
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             return AjaxResult.error(e.getMessage());
         }
     }
@@ -112,10 +103,8 @@ public class CommonController extends BaseController
      */
     @PostMapping("/common/uploads")
     @ResponseBody
-    public AjaxResult uploadFiles(List<MultipartFile> files) throws Exception
-    {
-        try
-        {
+    public AjaxResult uploadFiles(List<MultipartFile> files) throws Exception {
+        try {
             // 上传文件路径
             String filePath = BlogConfig.getUploadPath();
             List<String> fileNames = new ArrayList<String>();
@@ -133,8 +122,7 @@ public class CommonController extends BaseController
             ajax.put("urls", StringUtils.join(urls, FILE_DELIMETER));
             return ajax;
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             return AjaxResult.error(e.getMessage());
         }
     }
@@ -143,13 +131,9 @@ public class CommonController extends BaseController
      * 本地资源通用下载
      */
     @GetMapping("/common/download/resource")
-    public void resourceDownload(String resource, HttpServletRequest request, HttpServletResponse response)
-            throws Exception
-    {
-        try
-        {
-            if (!FileUtils.checkAllowDownload(resource))
-            {
+    public void resourceDownload(String resource, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        try {
+            if (!FileUtils.checkAllowDownload(resource)) {
                 throw new Exception(StringUtils.format("资源文件({})非法，不允许下载。 ", resource));
             }
             // 本地资源路径
@@ -162,8 +146,7 @@ public class CommonController extends BaseController
             FileUtils.setAttachmentResponseHeader(response, downloadName);
             FileUtils.writeBytes(downloadPath, response.getOutputStream());
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             log.error("下载文件失败", e);
         }
     }

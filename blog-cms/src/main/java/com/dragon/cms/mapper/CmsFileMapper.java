@@ -10,8 +10,7 @@ import org.apache.ibatis.annotations.Param;
  * @author DragonWen
  * @date 2021-09-25
  */
-public interface CmsFileMapper 
-{
+public interface CmsFileMapper {
     /**
      * 查询文件管理
      * 
