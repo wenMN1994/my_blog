@@ -1,12 +1,14 @@
 package com.dragon.common.core.domain.entity;
 
-import javax.validation.constraints.*;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import com.dragon.common.annotation.Excel;
 import com.dragon.common.annotation.Excel.ColumnType;
 import com.dragon.common.constant.UserConstants;
 import com.dragon.common.core.domain.BaseEntity;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  * 字典数据表 sys_dict_data
@@ -38,7 +40,6 @@ public class SysDictData extends BaseEntity
     private String dictType;
 
     /** 样式属性（其他样式扩展） */
-    @Excel(name = "字典样式")
     private String cssClass;
 
     /** 表格字典样式 */
@@ -153,10 +154,10 @@ public class SysDictData extends BaseEntity
     {
         this.status = status;
     }
-
+    
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
             .append("dictCode", getDictCode())
             .append("dictSort", getDictSort())
             .append("dictLabel", getDictLabel())

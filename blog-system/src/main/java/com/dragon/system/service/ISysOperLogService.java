@@ -1,7 +1,8 @@
 package com.dragon.system.service;
 
-import java.util.List;
 import com.dragon.system.domain.SysOperLog;
+
+import java.util.List;
 
 /**
  * 操作日志 服务层
@@ -28,10 +29,10 @@ public interface ISysOperLogService
     /**
      * 批量删除系统操作日志
      * 
-     * @param ids 需要删除的数据
+     * @param operIds 需要删除的操作日志ID
      * @return 结果
      */
-    public int deleteOperLogByIds(String ids);
+    public int deleteOperLogByIds(Long[] operIds);
 
     /**
      * 查询操作日志详细

@@ -1,14 +1,10 @@
 package com.dragon.common.utils;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import org.springframework.util.AntPathMatcher;
 import com.dragon.common.constant.Constants;
 import com.dragon.common.core.text.StrFormatter;
+import org.springframework.util.AntPathMatcher;
+
+import java.util.*;
 
 /**
  * 字符串工具类
@@ -419,22 +415,6 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
     }
 
     /**
-     * 删除最后一个字符串
-     *
-     * @param str 输入字符串
-     * @param spit 以什么类型结尾的
-     * @return 截取后的字符串
-     */
-    public static String lastStringDel(String str, String spit)
-    {
-        if (!StringUtils.isEmpty(str) && str.endsWith(spit))
-        {
-            return str.subSequence(0, str.length() - 1).toString();
-        }
-        return str;
-    }
-
-    /**
      * 将下划线大写方式命名的字符串转换为驼峰式。如果转换前的下划线大写方式命名的字符串为空，则返回空字符串。 例如：HELLO_WORLD->HelloWorld
      * 
      * @param name 转换前的下划线大写方式命名的字符串
@@ -471,18 +451,13 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
     }
 
     /**
-     * 驼峰式命名法
-     * 例如：user_name->userName
+     * 驼峰式命名法 例如：user_name->userName
      */
     public static String toCamelCase(String s)
     {
         if (s == null)
         {
             return null;
-        }
-        if (s.indexOf(SEPARATOR) == -1)
-        {
-            return s;
         }
         s = s.toLowerCase();
         StringBuilder sb = new StringBuilder(s.length());
@@ -551,5 +526,54 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
     public static <T> T cast(Object obj)
     {
         return (T) obj;
+    }
+
+    /**
+     * 数字左边补齐0，使之达到指定长度。注意，如果数字转换为字符串后，长度大于size，则只保留 最后size个字符。
+     * 
+     * @param num 数字对象
+     * @param size 字符串指定长度
+     * @return 返回数字的字符串格式，该字符串为指定长度。
+     */
+    public static final String padl(final Number num, final int size)
+    {
+        return padl(num.toString(), size, '0');
+    }
+
+    /**
+     * 字符串左补齐。如果原始字符串s长度大于size，则只保留最后size个字符。
+     * 
+     * @param s 原始字符串
+     * @param size 字符串指定长度
+     * @param c 用于补齐的字符
+     * @return 返回指定长度的字符串，由原字符串左补齐或截取得到。
+     */
+    public static final String padl(final String s, final int size, final char c)
+    {
+        final StringBuilder sb = new StringBuilder(size);
+        if (s != null)
+        {
+            final int len = s.length();
+            if (s.length() <= size)
+            {
+                for (int i = size - len; i > 0; i--)
+                {
+                    sb.append(c);
+                }
+                sb.append(s);
+            }
+            else
+            {
+                return s.substring(len - size, len);
+            }
+        }
+        else
+        {
+            for (int i = size; i > 0; i--)
+            {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
     }
 }

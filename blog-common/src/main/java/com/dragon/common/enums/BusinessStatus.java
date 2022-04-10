@@ -4,6 +4,7 @@ package com.dragon.common.enums;
  * 操作状态
  * 
  * @author dragon
+ *
  */
 public enum BusinessStatus
 {

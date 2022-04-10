@@ -1,88 +1,89 @@
 package com.dragon.web.controller.monitor;
 
-import java.util.List;
-import org.apache.shiro.authz.annotation.Logical;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import com.dragon.common.annotation.Log;
+import com.dragon.common.constant.Constants;
 import com.dragon.common.core.controller.BaseController;
 import com.dragon.common.core.domain.AjaxResult;
+import com.dragon.common.core.domain.model.LoginUser;
 import com.dragon.common.core.page.TableDataInfo;
-import com.dragon.common.core.text.Convert;
+import com.dragon.common.core.redis.RedisCache;
 import com.dragon.common.enums.BusinessType;
-import com.dragon.common.enums.OnlineStatus;
-import com.dragon.common.utils.ShiroUtils;
-import com.dragon.framework.shiro.session.OnlineSession;
-import com.dragon.framework.shiro.session.OnlineSessionDAO;
+import com.dragon.common.utils.StringUtils;
 import com.dragon.system.domain.SysUserOnline;
 import com.dragon.system.service.ISysUserOnlineService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * 在线用户监控
  * 
  * @author dragon
  */
-@Controller
+@RestController
 @RequestMapping("/monitor/online")
 public class SysUserOnlineController extends BaseController
 {
-    private String prefix = "monitor/online";
-
     @Autowired
     private ISysUserOnlineService userOnlineService;
 
     @Autowired
-    private OnlineSessionDAO onlineSessionDAO;
+    private RedisCache redisCache;
 
-    @RequiresPermissions("monitor:online:view")
-    @GetMapping()
-    public String online()
+    @PreAuthorize("@ss.hasPermi('monitor:online:list')")
+    @GetMapping("/list")
+    public TableDataInfo list(String ipaddr, String userName)
     {
-        return prefix + "/online";
-    }
-
-    @RequiresPermissions("monitor:online:list")
-    @PostMapping("/list")
-    @ResponseBody
-    public TableDataInfo list(SysUserOnline userOnline)
-    {
-        startPage();
-        List<SysUserOnline> list = userOnlineService.selectUserOnlineList(userOnline);
-        return getDataTable(list);
-    }
-
-    @RequiresPermissions(value = { "monitor:online:batchForceLogout", "monitor:online:forceLogout" }, logical = Logical.OR)
-    @Log(title = "在线用户", businessType = BusinessType.FORCE)
-    @PostMapping("/batchForceLogout")
-    @ResponseBody
-    public AjaxResult batchForceLogout(String ids)
-    {
-        for (String sessionId : Convert.toStrArray(ids))
+        Collection<String> keys = redisCache.keys(Constants.LOGIN_TOKEN_KEY + "*");
+        List<SysUserOnline> userOnlineList = new ArrayList<SysUserOnline>();
+        for (String key : keys)
         {
-            SysUserOnline online = userOnlineService.selectOnlineById(sessionId);
-            if (online == null)
+            LoginUser user = redisCache.getCacheObject(key);
+            if (StringUtils.isNotEmpty(ipaddr) && StringUtils.isNotEmpty(userName))
             {
-                return error("用户已下线");
+                if (StringUtils.equals(ipaddr, user.getIpaddr()) && StringUtils.equals(userName, user.getUsername()))
+                {
+                    userOnlineList.add(userOnlineService.selectOnlineByInfo(ipaddr, userName, user));
+                }
             }
-            OnlineSession onlineSession = (OnlineSession) onlineSessionDAO.readSession(online.getSessionId());
-            if (onlineSession == null)
+            else if (StringUtils.isNotEmpty(ipaddr))
             {
-                return error("用户已下线");
+                if (StringUtils.equals(ipaddr, user.getIpaddr()))
+                {
+                    userOnlineList.add(userOnlineService.selectOnlineByIpaddr(ipaddr, user));
+                }
             }
-            if (sessionId.equals(ShiroUtils.getSessionId()))
+            else if (StringUtils.isNotEmpty(userName) && StringUtils.isNotNull(user.getUser()))
             {
-                return error("当前登录用户无法强退");
+                if (StringUtils.equals(userName, user.getUsername()))
+                {
+                    userOnlineList.add(userOnlineService.selectOnlineByUserName(userName, user));
+                }
             }
-            onlineSessionDAO.delete(onlineSession);
-            online.setStatus(OnlineStatus.off_line);
-            userOnlineService.saveOnline(online);
-            userOnlineService.removeUserCache(online.getLoginName(), sessionId);
+            else
+            {
+                userOnlineList.add(userOnlineService.loginUserToUserOnline(user));
+            }
         }
-        return success();
+        Collections.reverse(userOnlineList);
+        userOnlineList.removeAll(Collections.singleton(null));
+        return getDataTable(userOnlineList);
+    }
+
+    /**
+     * 强退用户
+     */
+    @PreAuthorize("@ss.hasPermi('monitor:online:forceLogout')")
+    @Log(title = "在线用户", businessType = BusinessType.FORCE)
+    @DeleteMapping("/{tokenId}")
+    public AjaxResult forceLogout(@PathVariable String tokenId)
+    {
+        redisCache.deleteObject(Constants.LOGIN_TOKEN_KEY + tokenId);
+        return AjaxResult.success();
     }
 }

@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * 全局配置类
+ * 读取项目相关配置
  * 
  * @author dragon
  */
@@ -13,16 +13,16 @@ import org.springframework.stereotype.Component;
 public class BlogConfig
 {
     /** 项目名称 */
-    private static String name;
+    private String name;
 
     /** 版本 */
-    private static String version;
+    private String version;
 
     /** 版权年份 */
-    private static String copyrightYear;
+    private String copyrightYear;
 
     /** 实例演示开关 */
-    private static boolean demoEnabled;
+    private boolean demoEnabled;
 
     /** 上传路径 */
     private static String profile;
@@ -30,44 +30,47 @@ public class BlogConfig
     /** 获取地址开关 */
     private static boolean addressEnabled;
 
-    public static String getName()
+    /** 验证码类型 */
+    private static String captchaType;
+
+    public String getName()
     {
         return name;
     }
 
     public void setName(String name)
     {
-        BlogConfig.name = name;
+        this.name = name;
     }
 
-    public static String getVersion()
+    public String getVersion()
     {
         return version;
     }
 
     public void setVersion(String version)
     {
-        BlogConfig.version = version;
+        this.version = version;
     }
 
-    public static String getCopyrightYear()
+    public String getCopyrightYear()
     {
         return copyrightYear;
     }
 
     public void setCopyrightYear(String copyrightYear)
     {
-        BlogConfig.copyrightYear = copyrightYear;
+        this.copyrightYear = copyrightYear;
     }
 
-    public static boolean isDemoEnabled()
+    public boolean isDemoEnabled()
     {
         return demoEnabled;
     }
 
     public void setDemoEnabled(boolean demoEnabled)
     {
-        BlogConfig.demoEnabled = demoEnabled;
+        this.demoEnabled = demoEnabled;
     }
 
     public static String getProfile()
@@ -88,6 +91,14 @@ public class BlogConfig
     public void setAddressEnabled(boolean addressEnabled)
     {
         BlogConfig.addressEnabled = addressEnabled;
+    }
+
+    public static String getCaptchaType() {
+        return captchaType;
+    }
+
+    public void setCaptchaType(String captchaType) {
+        BlogConfig.captchaType = captchaType;
     }
 
     /**

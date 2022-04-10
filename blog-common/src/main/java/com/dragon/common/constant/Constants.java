@@ -1,5 +1,7 @@
 package com.dragon.common.constant;
 
+import io.jsonwebtoken.Claims;
+
 /**
  * 通用常量信息
  * 
@@ -58,44 +60,74 @@ public class Constants
     public static final String LOGIN_FAIL = "Error";
 
     /**
-     * 当前记录起始索引
+     * 验证码 redis key
      */
-    public static final String PAGE_NUM = "pageNum";
+    public static final String CAPTCHA_CODE_KEY = "captcha_codes:";
 
     /**
-     * 每页显示记录数
+     * 登录用户 redis key
      */
-    public static final String PAGE_SIZE = "pageSize";
+    public static final String LOGIN_TOKEN_KEY = "login_tokens:";
 
     /**
-     * 排序列
+     * 防重提交 redis key
      */
-    public static final String ORDER_BY_COLUMN = "orderByColumn";
+    public static final String REPEAT_SUBMIT_KEY = "repeat_submit:";
 
     /**
-     * 排序的方向 "desc" 或者 "asc".
+     * 限流 redis key
      */
-    public static final String IS_ASC = "isAsc";
+    public static final String RATE_LIMIT_KEY = "rate_limit:";
 
     /**
-     * 系统用户授权缓存
+     * 验证码有效期（分钟）
      */
-    public static final String SYS_AUTH_CACHE = "sys-authCache";
+    public static final Integer CAPTCHA_EXPIRATION = 2;
 
     /**
-     * 参数管理 cache name
+     * 令牌
      */
-    public static final String SYS_CONFIG_CACHE = "sys-config";
+    public static final String TOKEN = "token";
+
+    /**
+     * 令牌前缀
+     */
+    public static final String TOKEN_PREFIX = "Bearer ";
+
+    /**
+     * 令牌前缀
+     */
+    public static final String LOGIN_USER_KEY = "login_user_key";
+
+    /**
+     * 用户ID
+     */
+    public static final String JWT_USERID = "userid";
+
+    /**
+     * 用户名称
+     */
+    public static final String JWT_USERNAME = Claims.SUBJECT;
+
+    /**
+     * 用户头像
+     */
+    public static final String JWT_AVATAR = "avatar";
+
+    /**
+     * 创建时间
+     */
+    public static final String JWT_CREATED = "created";
+
+    /**
+     * 用户权限
+     */
+    public static final String JWT_AUTHORITIES = "authorities";
 
     /**
      * 参数管理 cache key
      */
     public static final String SYS_CONFIG_KEY = "sys_config:";
-
-    /**
-     * 字典管理 cache name
-     */
-    public static final String SYS_DICT_CACHE = "sys-dict";
 
     /**
      * 字典管理 cache key
@@ -110,10 +142,26 @@ public class Constants
     /**
      * RMI 远程方法调用
      */
-    public static final String LOOKUP_RMI = "rmi://";
+    public static final String LOOKUP_RMI = "rmi:";
 
     /**
      * LDAP 远程方法调用
      */
-    public static final String LOOKUP_LDAP = "ldap://";
+    public static final String LOOKUP_LDAP = "ldap:";
+
+    /**
+     * LDAPS 远程方法调用
+     */
+    public static final String LOOKUP_LDAPS = "ldaps:";
+
+    /**
+     * 定时任务白名单配置（仅允许访问的包名，如其他需要可以自行添加）
+     */
+    public static final String[] JOB_WHITELIST_STR = { "com.dragon" };
+
+    /**
+     * 定时任务违规的字符
+     */
+    public static final String[] JOB_ERROR_STR = { "java.net.URL", "javax.naming.InitialContext", "org.yaml.snakeyaml",
+            "org.springframework", "org.apache", "com.dragon.common.utils.file" };
 }

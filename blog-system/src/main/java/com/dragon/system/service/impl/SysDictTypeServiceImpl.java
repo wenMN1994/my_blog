@@ -1,22 +1,23 @@
 package com.dragon.system.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import com.dragon.common.constant.UserConstants;
-import com.dragon.common.core.domain.Ztree;
 import com.dragon.common.core.domain.entity.SysDictData;
 import com.dragon.common.core.domain.entity.SysDictType;
-import com.dragon.common.core.text.Convert;
 import com.dragon.common.exception.ServiceException;
 import com.dragon.common.utils.DictUtils;
 import com.dragon.common.utils.StringUtils;
 import com.dragon.system.mapper.SysDictDataMapper;
 import com.dragon.system.mapper.SysDictTypeMapper;
 import com.dragon.system.service.ISysDictTypeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.PostConstruct;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 字典 业务层处理
@@ -112,15 +113,13 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService
     }
 
     /**
-     * 批量删除字典类型
+     * 批量删除字典类型信息
      * 
-     * @param ids 需要删除的数据
-     * @return 结果
+     * @param dictIds 需要删除的字典ID
      */
     @Override
-    public void deleteDictTypeByIds(String ids)
+    public void deleteDictTypeByIds(Long[] dictIds)
     {
-        Long[] dictIds = Convert.toLongArray(ids);
         for (Long dictId : dictIds)
         {
             SysDictType dictType = selectDictTypeById(dictId);
@@ -139,11 +138,12 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService
     @Override
     public void loadingDictCache()
     {
-        List<SysDictType> dictTypeList = dictTypeMapper.selectDictTypeAll();
-        for (SysDictType dict : dictTypeList)
+        SysDictData dictData = new SysDictData();
+        dictData.setStatus("0");
+        Map<String, List<SysDictData>> dictDataMap = dictDataMapper.selectDictDataList(dictData).stream().collect(Collectors.groupingBy(SysDictData::getDictType));
+        for (Map.Entry<String, List<SysDictData>> entry : dictDataMap.entrySet())
         {
-            List<SysDictData> dictDatas = dictDataMapper.selectDictDataByType(dict.getDictType());
-            DictUtils.setDictCache(dict.getDictType(), dictDatas);
+            DictUtils.setDictCache(entry.getKey(), entry.getValue().stream().sorted(Comparator.comparing(SysDictData::getDictSort)).collect(Collectors.toList()));
         }
     }
 
@@ -217,41 +217,8 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService
         SysDictType dictType = dictTypeMapper.checkDictTypeUnique(dict.getDictType());
         if (StringUtils.isNotNull(dictType) && dictType.getDictId().longValue() != dictId.longValue())
         {
-            return UserConstants.DICT_TYPE_NOT_UNIQUE;
+            return UserConstants.NOT_UNIQUE;
         }
-        return UserConstants.DICT_TYPE_UNIQUE;
-    }
-
-    /**
-     * 查询字典类型树
-     * 
-     * @param dictType 字典类型
-     * @return 所有字典类型
-     */
-    @Override
-    public List<Ztree> selectDictTree(SysDictType dictType)
-    {
-        List<Ztree> ztrees = new ArrayList<Ztree>();
-        List<SysDictType> dictList = dictTypeMapper.selectDictTypeList(dictType);
-        for (SysDictType dict : dictList)
-        {
-            if (UserConstants.DICT_NORMAL.equals(dict.getStatus()))
-            {
-                Ztree ztree = new Ztree();
-                ztree.setId(dict.getDictId());
-                ztree.setName(transDictName(dict));
-                ztree.setTitle(dict.getDictType());
-                ztrees.add(ztree);
-            }
-        }
-        return ztrees;
-    }
-
-    public String transDictName(SysDictType dictType)
-    {
-        StringBuffer sb = new StringBuffer();
-        sb.append("(" + dictType.getDictName() + ")");
-        sb.append("&nbsp;&nbsp;&nbsp;" + dictType.getDictType());
-        return sb.toString();
+        return UserConstants.UNIQUE;
     }
 }

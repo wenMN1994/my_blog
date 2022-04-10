@@ -1,8 +1,9 @@
 package com.dragon.generator.service;
 
+import com.dragon.generator.domain.GenTable;
+
 import java.util.List;
 import java.util.Map;
-import com.dragon.generator.domain.GenTable;
 
 /**
  * 业务 服务层
@@ -61,18 +62,17 @@ public interface IGenTableService
     /**
      * 删除业务信息
      * 
-     * @param ids 需要删除的数据ID
+     * @param tableIds 需要删除的表数据ID
      * @return 结果
      */
-    public void deleteGenTableByIds(String ids);
+    public void deleteGenTableByIds(Long[] tableIds);
 
     /**
      * 导入表结构
      * 
      * @param tableList 导入表列表
-     * @param operName 操作人员
      */
-    public void importGenTable(List<GenTable> tableList, String operName);
+    public void importGenTable(List<GenTable> tableList);
 
     /**
      * 预览代码
@@ -94,9 +94,10 @@ public interface IGenTableService
      * 生成代码（自定义路径）
      * 
      * @param tableName 表名称
+     * @return 数据
      */
     public void generatorCode(String tableName);
-    
+
     /**
      * 同步数据库
      * 

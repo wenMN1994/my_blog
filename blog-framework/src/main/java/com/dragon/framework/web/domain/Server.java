@@ -1,16 +1,8 @@
 package com.dragon.framework.web.domain;
 
-import java.net.UnknownHostException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Properties;
 import com.dragon.common.utils.Arith;
-import com.dragon.common.utils.IpUtils;
-import com.dragon.framework.web.domain.server.Cpu;
-import com.dragon.framework.web.domain.server.Jvm;
-import com.dragon.framework.web.domain.server.Mem;
-import com.dragon.framework.web.domain.server.Sys;
-import com.dragon.framework.web.domain.server.SysFile;
+import com.dragon.common.utils.ip.IpUtils;
+import com.dragon.framework.web.domain.server.*;
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
 import oshi.hardware.CentralProcessor.TickType;
@@ -21,6 +13,11 @@ import oshi.software.os.OSFileStore;
 import oshi.software.os.OperatingSystem;
 import oshi.util.Util;
 
+import java.net.UnknownHostException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Properties;
+
 /**
  * 服务器相关信息
  * 
@@ -28,7 +25,6 @@ import oshi.util.Util;
  */
 public class Server
 {
-    
     private static final int OSHI_WAIT_SECOND = 1000;
     
     /**

@@ -1,8 +1,9 @@
 package com.dragon.common.core.text;
 
+import com.dragon.common.utils.StringUtils;
+
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import com.dragon.common.utils.StringUtils;
 
 /**
  * 字符集工具类

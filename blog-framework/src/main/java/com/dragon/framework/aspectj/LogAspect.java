@@ -1,35 +1,32 @@
 package com.dragon.framework.aspectj;
 
-import java.lang.reflect.Method;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.alibaba.fastjson.JSON;
+import com.dragon.common.annotation.Log;
+import com.dragon.common.core.domain.model.LoginUser;
+import com.dragon.common.enums.BusinessStatus;
+import com.dragon.common.enums.HttpMethod;
+import com.dragon.common.utils.SecurityUtils;
+import com.dragon.common.utils.ServletUtils;
+import com.dragon.common.utils.StringUtils;
+import com.dragon.common.utils.ip.IpUtils;
+import com.dragon.framework.manager.AsyncManager;
+import com.dragon.framework.manager.factory.AsyncFactory;
+import com.dragon.system.domain.SysOperLog;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
-import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.support.spring.PropertyPreFilters;
-import com.dragon.common.annotation.Log;
-import com.dragon.common.core.domain.entity.SysUser;
-import com.dragon.common.enums.BusinessStatus;
-import com.dragon.common.json.JSON;
-import com.dragon.common.utils.ServletUtils;
-import com.dragon.common.utils.ShiroUtils;
-import com.dragon.common.utils.StringUtils;
-import com.dragon.framework.manager.AsyncManager;
-import com.dragon.framework.manager.factory.AsyncFactory;
-import com.dragon.system.domain.SysOperLog;
+import org.springframework.web.servlet.HandlerMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * 操作日志记录处理
@@ -42,24 +39,15 @@ public class LogAspect
 {
     private static final Logger log = LoggerFactory.getLogger(LogAspect.class);
 
-    /** 排除敏感属性字段 */
-    public static final String[] EXCLUDE_PROPERTIES = { "password", "oldPassword", "newPassword", "confirmPassword" };
-
-    // 配置织入点
-    @Pointcut("@annotation(com.dragon.common.annotation.Log)")
-    public void logPointCut()
-    {
-    }
-
     /**
      * 处理完请求后执行
      *
      * @param joinPoint 切点
      */
-    @AfterReturning(pointcut = "logPointCut()", returning = "jsonResult")
-    public void doAfterReturning(JoinPoint joinPoint, Object jsonResult)
+    @AfterReturning(pointcut = "@annotation(controllerLog)", returning = "jsonResult")
+    public void doAfterReturning(JoinPoint joinPoint, Log controllerLog, Object jsonResult)
     {
-        handleLog(joinPoint, null, jsonResult);
+        handleLog(joinPoint, controllerLog, null, jsonResult);
     }
 
     /**
@@ -68,47 +56,29 @@ public class LogAspect
      * @param joinPoint 切点
      * @param e 异常
      */
-    @AfterThrowing(value = "logPointCut()", throwing = "e")
-    public void doAfterThrowing(JoinPoint joinPoint, Exception e)
+    @AfterThrowing(value = "@annotation(controllerLog)", throwing = "e")
+    public void doAfterThrowing(JoinPoint joinPoint, Log controllerLog, Exception e)
     {
-        handleLog(joinPoint, e, null);
+        handleLog(joinPoint, controllerLog, e, null);
     }
 
-    protected void handleLog(final JoinPoint joinPoint, final Exception e, Object jsonResult)
+    protected void handleLog(final JoinPoint joinPoint, Log controllerLog, final Exception e, Object jsonResult)
     {
         try
         {
-            // 获得注解
-            Log controllerLog = getAnnotationLog(joinPoint);
-            if (controllerLog == null)
-            {
-                return;
-            }
-
             // 获取当前的用户
-            SysUser currentUser = ShiroUtils.getSysUser();
+            LoginUser loginUser = SecurityUtils.getLoginUser();
 
             // *========数据库日志=========*//
             SysOperLog operLog = new SysOperLog();
             operLog.setStatus(BusinessStatus.SUCCESS.ordinal());
             // 请求的地址
-            String ip = ShiroUtils.getIp();
+            String ip = IpUtils.getIpAddr(ServletUtils.getRequest());
             operLog.setOperIp(ip);
-            // 返回参数
-            if (StringUtils.isNotNull(jsonResult))
-            {
-                operLog.setJsonResult(StringUtils.substring(JSON.marshal(jsonResult), 0, 2000));
-            }
-
             operLog.setOperUrl(ServletUtils.getRequest().getRequestURI());
-            if (currentUser != null)
+            if (loginUser != null)
             {
-                operLog.setOperName(currentUser.getLoginName());
-                if (StringUtils.isNotNull(currentUser.getDept())
-                        && StringUtils.isNotEmpty(currentUser.getDept().getDeptName()))
-                {
-                    operLog.setDeptName(currentUser.getDept().getDeptName());
-                }
+                operLog.setOperName(loginUser.getUsername());
             }
 
             if (e != null)
@@ -123,7 +93,7 @@ public class LogAspect
             // 设置请求方式
             operLog.setRequestMethod(ServletUtils.getRequest().getMethod());
             // 处理设置注解上的参数
-            getControllerMethodDescription(joinPoint, controllerLog, operLog);
+            getControllerMethodDescription(joinPoint, controllerLog, operLog, jsonResult);
             // 保存数据库
             AsyncManager.me().execute(AsyncFactory.recordOper(operLog));
         }
@@ -143,7 +113,7 @@ public class LogAspect
      * @param operLog 操作日志
      * @throws Exception
      */
-    public void getControllerMethodDescription(JoinPoint joinPoint, Log log, SysOperLog operLog) throws Exception
+    public void getControllerMethodDescription(JoinPoint joinPoint, Log log, SysOperLog operLog, Object jsonResult) throws Exception
     {
         // 设置action动作
         operLog.setBusinessType(log.businessType().ordinal());
@@ -157,6 +127,11 @@ public class LogAspect
             // 获取参数的信息，传入到数据库中。
             setRequestValue(joinPoint, operLog);
         }
+        // 是否需要保存response，参数和值
+        if (log.isSaveResponseData() && StringUtils.isNotNull(jsonResult))
+        {
+            operLog.setJsonResult(StringUtils.substring(JSON.toJSONString(jsonResult), 0, 2000));
+        }
     }
 
     /**
@@ -167,45 +142,17 @@ public class LogAspect
      */
     private void setRequestValue(JoinPoint joinPoint, SysOperLog operLog) throws Exception
     {
-        Map<String, String[]> map = ServletUtils.getRequest().getParameterMap();
-        if (StringUtils.isNotEmpty(map))
+        String requestMethod = operLog.getRequestMethod();
+        if (HttpMethod.PUT.name().equals(requestMethod) || HttpMethod.POST.name().equals(requestMethod))
         {
-            String params = JSONObject.toJSONString(map, excludePropertyPreFilter());
+            String params = argsArrayToString(joinPoint.getArgs());
             operLog.setOperParam(StringUtils.substring(params, 0, 2000));
         }
         else
         {
-            Object args = joinPoint.getArgs();
-            if (StringUtils.isNotNull(args))
-            {
-                String params = argsArrayToString(joinPoint.getArgs());
-                operLog.setOperParam(StringUtils.substring(params, 0, 2000));
-            }
+            Map<?, ?> paramsMap = (Map<?, ?>) ServletUtils.getRequest().getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+            operLog.setOperParam(StringUtils.substring(paramsMap.toString(), 0, 2000));
         }
-    }
-
-    /**
-     * 是否存在注解，如果存在就获取
-     */
-    private Log getAnnotationLog(JoinPoint joinPoint) throws Exception
-    {
-        Signature signature = joinPoint.getSignature();
-        MethodSignature methodSignature = (MethodSignature) signature;
-        Method method = methodSignature.getMethod();
-
-        if (method != null)
-        {
-            return method.getAnnotation(Log.class);
-        }
-        return null;
-    }
-
-    /**
-     * 忽略敏感属性
-     */
-    public PropertyPreFilters.MySimplePropertyPreFilter excludePropertyPreFilter()
-    {
-        return new PropertyPreFilters().addFilter().addExcludes(EXCLUDE_PROPERTIES);
     }
 
     /**
@@ -216,12 +163,18 @@ public class LogAspect
         String params = "";
         if (paramsArray != null && paramsArray.length > 0)
         {
-            for (int i = 0; i < paramsArray.length; i++)
+            for (Object o : paramsArray)
             {
-                if (StringUtils.isNotNull(paramsArray[i]) && !isFilterObject(paramsArray[i]))
+                if (StringUtils.isNotNull(o) && !isFilterObject(o))
                 {
-                    Object jsonObj = JSONObject.toJSONString(paramsArray[i], excludePropertyPreFilter());
-                    params += jsonObj.toString() + " ";
+                    try
+                    {
+                        Object jsonObj = JSON.toJSON(o);
+                        params += jsonObj.toString() + " ";
+                    }
+                    catch (Exception e)
+                    {
+                    }
                 }
             }
         }
@@ -245,17 +198,17 @@ public class LogAspect
         else if (Collection.class.isAssignableFrom(clazz))
         {
             Collection collection = (Collection) o;
-            for (Iterator iter = collection.iterator(); iter.hasNext();)
+            for (Object value : collection)
             {
-                return iter.next() instanceof MultipartFile;
+                return value instanceof MultipartFile;
             }
         }
         else if (Map.class.isAssignableFrom(clazz))
         {
             Map map = (Map) o;
-            for (Iterator iter = map.entrySet().iterator(); iter.hasNext();)
+            for (Object value : map.entrySet())
             {
-                Map.Entry entry = (Map.Entry) iter.next();
+                Map.Entry entry = (Map.Entry) value;
                 return entry.getValue() instanceof MultipartFile;
             }
         }

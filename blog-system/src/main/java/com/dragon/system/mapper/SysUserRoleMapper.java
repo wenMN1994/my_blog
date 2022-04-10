@@ -1,8 +1,9 @@
 package com.dragon.system.mapper;
 
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 import com.dragon.system.domain.SysUserRole;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * 用户与角色关联表 数据层
@@ -11,14 +12,6 @@ import com.dragon.system.domain.SysUserRole;
  */
 public interface SysUserRoleMapper
 {
-    /**
-     * 通过用户ID查询用户和角色关联
-     * 
-     * @param userId 用户ID
-     * @return 用户和角色关联列表
-     */
-    public List<SysUserRole> selectUserRoleByUserId(Long userId);
-
     /**
      * 通过用户ID删除用户和角色关联
      * 

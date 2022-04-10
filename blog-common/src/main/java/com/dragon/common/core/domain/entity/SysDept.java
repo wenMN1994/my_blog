@@ -1,12 +1,14 @@
 package com.dragon.common.core.domain.entity;
 
+import com.dragon.common.core.domain.BaseEntity;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.dragon.common.core.domain.BaseEntity;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 部门表 sys_dept
@@ -49,9 +51,9 @@ public class SysDept extends BaseEntity
 
     /** 父部门名称 */
     private String parentName;
-
-    /** 排除编号 */
-    private Long excludeId;
+    
+    /** 子部门 */
+    private List<SysDept> children = new ArrayList<SysDept>();
 
     public Long getDeptId()
     {
@@ -169,20 +171,19 @@ public class SysDept extends BaseEntity
         this.parentName = parentName;
     }
 
-    @JsonIgnore
-    public Long getExcludeId()
+    public List<SysDept> getChildren()
     {
-        return excludeId;
+        return children;
     }
 
-    public void setExcludeId(Long excludeId)
+    public void setChildren(List<SysDept> children)
     {
-        this.excludeId = excludeId;
+        this.children = children;
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
             .append("deptId", getDeptId())
             .append("parentId", getParentId())
             .append("ancestors", getAncestors())

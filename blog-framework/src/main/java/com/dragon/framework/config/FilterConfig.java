@@ -1,15 +1,17 @@
 package com.dragon.framework.config;
 
-import java.util.HashMap;
-import java.util.Map;
-import javax.servlet.DispatcherType;
+import com.dragon.common.filter.RepeatableFilter;
+import com.dragon.common.filter.XssFilter;
+import com.dragon.common.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.dragon.common.utils.StringUtils;
-import com.dragon.common.xss.XssFilter;
+
+import javax.servlet.DispatcherType;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Filter配置
@@ -17,7 +19,6 @@ import com.dragon.common.xss.XssFilter;
  * @author dragon
  */
 @Configuration
-@ConditionalOnProperty(value = "xss.enabled", havingValue = "true")
 public class FilterConfig
 {
     @Value("${xss.excludes}")
@@ -28,6 +29,7 @@ public class FilterConfig
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Bean
+    @ConditionalOnProperty(value = "xss.enabled", havingValue = "true")
     public FilterRegistrationBean xssFilterRegistration()
     {
         FilterRegistrationBean registration = new FilterRegistrationBean();
@@ -41,4 +43,17 @@ public class FilterConfig
         registration.setInitParameters(initParameters);
         return registration;
     }
+
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @Bean
+    public FilterRegistrationBean someFilterRegistration()
+    {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setFilter(new RepeatableFilter());
+        registration.addUrlPatterns("/*");
+        registration.setName("repeatableFilter");
+        registration.setOrder(FilterRegistrationBean.LOWEST_PRECEDENCE);
+        return registration;
+    }
+
 }

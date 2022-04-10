@@ -1,84 +1,30 @@
 package com.dragon.framework.manager.factory;
 
-import java.util.TimerTask;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.dragon.common.constant.Constants;
-import com.dragon.common.utils.AddressUtils;
 import com.dragon.common.utils.LogUtils;
 import com.dragon.common.utils.ServletUtils;
-import com.dragon.common.utils.ShiroUtils;
 import com.dragon.common.utils.StringUtils;
+import com.dragon.common.utils.ip.AddressUtils;
+import com.dragon.common.utils.ip.IpUtils;
 import com.dragon.common.utils.spring.SpringUtils;
-import com.dragon.framework.shiro.session.OnlineSession;
 import com.dragon.system.domain.SysLogininfor;
 import com.dragon.system.domain.SysOperLog;
-import com.dragon.system.domain.SysUserOnline;
+import com.dragon.system.service.ISysLogininforService;
 import com.dragon.system.service.ISysOperLogService;
-import com.dragon.system.service.ISysUserOnlineService;
-import com.dragon.system.service.impl.SysLogininforServiceImpl;
 import eu.bitwalker.useragentutils.UserAgent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.TimerTask;
 
 /**
  * 异步工厂（产生任务用）
  * 
- * @author liuhulu
- *
+ * @author dragon
  */
 public class AsyncFactory
 {
     private static final Logger sys_user_logger = LoggerFactory.getLogger("sys-user");
-
-    /**
-     * 同步session到数据库
-     * 
-     * @param session 在线用户会话
-     * @return 任务task
-     */
-    public static TimerTask syncSessionToDb(final OnlineSession session)
-    {
-        return new TimerTask()
-        {
-            @Override
-            public void run()
-            {
-                SysUserOnline online = new SysUserOnline();
-                online.setSessionId(String.valueOf(session.getId()));
-                online.setDeptName(session.getDeptName());
-                online.setLoginName(session.getLoginName());
-                online.setStartTimestamp(session.getStartTimestamp());
-                online.setLastAccessTime(session.getLastAccessTime());
-                online.setExpireTime(session.getTimeout());
-                online.setIpaddr(session.getHost());
-                online.setLoginLocation(AddressUtils.getRealAddressByIP(session.getHost()));
-                online.setBrowser(session.getBrowser());
-                online.setOs(session.getOs());
-                online.setStatus(session.getStatus());
-                SpringUtils.getBean(ISysUserOnlineService.class).saveOnline(online);
-
-            }
-        };
-    }
-
-    /**
-     * 操作日志记录
-     * 
-     * @param operLog 操作日志信息
-     * @return 任务task
-     */
-    public static TimerTask recordOper(final SysOperLog operLog)
-    {
-        return new TimerTask()
-        {
-            @Override
-            public void run()
-            {
-                // 远程查询操作地点
-                operLog.setOperLocation(AddressUtils.getRealAddressByIP(operLog.getOperIp()));
-                SpringUtils.getBean(ISysOperLogService.class).insertOperlog(operLog);
-            }
-        };
-    }
 
     /**
      * 记录登录信息
@@ -89,10 +35,11 @@ public class AsyncFactory
      * @param args 列表
      * @return 任务task
      */
-    public static TimerTask recordLogininfor(final String username, final String status, final String message, final Object... args)
+    public static TimerTask recordLogininfor(final String username, final String status, final String message,
+            final Object... args)
     {
         final UserAgent userAgent = UserAgent.parseUserAgentString(ServletUtils.getRequest().getHeader("User-Agent"));
-        final String ip = ShiroUtils.getIp();
+        final String ip = IpUtils.getIpAddr(ServletUtils.getRequest());
         return new TimerTask()
         {
             @Override
@@ -113,7 +60,7 @@ public class AsyncFactory
                 String browser = userAgent.getBrowser().getName();
                 // 封装对象
                 SysLogininfor logininfor = new SysLogininfor();
-                logininfor.setLoginName(username);
+                logininfor.setUserName(username);
                 logininfor.setIpaddr(ip);
                 logininfor.setLoginLocation(address);
                 logininfor.setBrowser(browser);
@@ -129,7 +76,27 @@ public class AsyncFactory
                     logininfor.setStatus(Constants.FAIL);
                 }
                 // 插入数据
-                SpringUtils.getBean(SysLogininforServiceImpl.class).insertLogininfor(logininfor);
+                SpringUtils.getBean(ISysLogininforService.class).insertLogininfor(logininfor);
+            }
+        };
+    }
+
+    /**
+     * 操作日志记录
+     * 
+     * @param operLog 操作日志信息
+     * @return 任务task
+     */
+    public static TimerTask recordOper(final SysOperLog operLog)
+    {
+        return new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                // 远程查询操作地点
+                operLog.setOperLocation(AddressUtils.getRealAddressByIP(operLog.getOperIp()));
+                SpringUtils.getBean(ISysOperLogService.class).insertOperlog(operLog);
             }
         };
     }

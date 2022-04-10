@@ -1,11 +1,13 @@
 package com.dragon.common.core.domain.entity;
 
-import javax.validation.constraints.*;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import com.dragon.common.annotation.Excel;
 import com.dragon.common.annotation.Excel.ColumnType;
 import com.dragon.common.core.domain.BaseEntity;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  * 字典类型表 sys_dict_type
@@ -75,10 +77,10 @@ public class SysDictType extends BaseEntity
     {
         this.status = status;
     }
-
+    
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
             .append("dictId", getDictId())
             .append("dictName", getDictName())
             .append("dictType", getDictType())

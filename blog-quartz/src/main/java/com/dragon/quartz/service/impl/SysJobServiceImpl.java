@@ -1,7 +1,12 @@
 package com.dragon.quartz.service.impl;
 
-import java.util.List;
-import javax.annotation.PostConstruct;
+import com.dragon.common.constant.ScheduleConstants;
+import com.dragon.common.exception.job.TaskException;
+import com.dragon.quartz.domain.SysJob;
+import com.dragon.quartz.mapper.SysJobMapper;
+import com.dragon.quartz.service.ISysJobService;
+import com.dragon.quartz.util.CronUtils;
+import com.dragon.quartz.util.ScheduleUtils;
 import org.quartz.JobDataMap;
 import org.quartz.JobKey;
 import org.quartz.Scheduler;
@@ -9,14 +14,9 @@ import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.dragon.common.constant.ScheduleConstants;
-import com.dragon.common.core.text.Convert;
-import com.dragon.common.exception.job.TaskException;
-import com.dragon.quartz.domain.SysJob;
-import com.dragon.quartz.mapper.SysJobMapper;
-import com.dragon.quartz.service.ISysJobService;
-import com.dragon.quartz.util.CronUtils;
-import com.dragon.quartz.util.ScheduleUtils;
+
+import javax.annotation.PostConstruct;
+import java.util.List;
 
 /**
  * 定时任务调度信息 服务层
@@ -33,8 +33,7 @@ public class SysJobServiceImpl implements ISysJobService
     private SysJobMapper jobMapper;
 
     /**
-     * 项目启动时，初始化定时器 
-     * 主要是防止手动修改数据库导致未同步到定时任务处理（注：不能手动修改数据库ID和任务组名，否则会导致脏数据）
+     * 项目启动时，初始化定时器 主要是防止手动修改数据库导致未同步到定时任务处理（注：不能手动修改数据库ID和任务组名，否则会导致脏数据）
      */
     @PostConstruct
     public void init() throws SchedulerException, TaskException
@@ -133,14 +132,13 @@ public class SysJobServiceImpl implements ISysJobService
     /**
      * 批量删除调度信息
      * 
-     * @param ids 需要删除的数据ID
+     * @param jobIds 需要删除的任务ID
      * @return 结果
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void deleteJobByIds(String ids) throws SchedulerException
+    public void deleteJobByIds(Long[] jobIds) throws SchedulerException
     {
-        Long[] jobIds = Convert.toLongArray(ids);
         for (Long jobId : jobIds)
         {
             SysJob job = jobMapper.selectJobById(jobId);
@@ -180,11 +178,12 @@ public class SysJobServiceImpl implements ISysJobService
     public void run(SysJob job) throws SchedulerException
     {
         Long jobId = job.getJobId();
-        SysJob tmpObj = selectJobById(job.getJobId());
+        String jobGroup = job.getJobGroup();
+        SysJob properties = selectJobById(job.getJobId());
         // 参数
         JobDataMap dataMap = new JobDataMap();
-        dataMap.put(ScheduleConstants.TASK_PROPERTIES, tmpObj);
-        scheduler.triggerJob(ScheduleUtils.getJobKey(jobId, tmpObj.getJobGroup()), dataMap);
+        dataMap.put(ScheduleConstants.TASK_PROPERTIES, properties);
+        scheduler.triggerJob(ScheduleUtils.getJobKey(jobId, jobGroup), dataMap);
     }
 
     /**

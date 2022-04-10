@@ -1,12 +1,12 @@
 package com.dragon.quartz.service.impl;
 
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.dragon.common.core.text.Convert;
 import com.dragon.quartz.domain.SysJobLog;
 import com.dragon.quartz.mapper.SysJobLogMapper;
 import com.dragon.quartz.service.ISysJobLogService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 定时任务调度日志信息 服务层
@@ -57,13 +57,13 @@ public class SysJobLogServiceImpl implements ISysJobLogService
     /**
      * 批量删除调度日志信息
      * 
-     * @param ids 需要删除的数据ID
+     * @param logIds 需要删除的数据ID
      * @return 结果
      */
     @Override
-    public int deleteJobLogByIds(String ids)
+    public int deleteJobLogByIds(Long[] logIds)
     {
-        return jobLogMapper.deleteJobLogByIds(Convert.toStrArray(ids));
+        return jobLogMapper.deleteJobLogByIds(logIds);
     }
 
     /**

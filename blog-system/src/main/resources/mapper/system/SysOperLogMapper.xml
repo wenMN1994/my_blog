@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="title != null and title != ''">
 				AND title like concat('%', #{title}, '%')
 			</if>
-			<if test="businessType != null">
+			<if test="businessType != null and businessType != ''">
 				AND business_type = #{businessType}
 			</if>
 			<if test="businessTypes != null and businessTypes.length > 0">
@@ -61,9 +61,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				and date_format(oper_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
 			</if>
 		</where>
+		order by oper_id desc
 	</select>
 	
-	<delete id="deleteOperLogByIds" parameterType="String">
+	<delete id="deleteOperLogByIds" parameterType="Long">
  		delete from sys_oper_log where oper_id in
  		<foreach collection="array" item="operId" open="(" separator="," close=")">
  			#{operId}

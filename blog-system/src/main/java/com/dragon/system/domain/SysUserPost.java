@@ -38,7 +38,7 @@ public class SysUserPost
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
             .append("userId", getUserId())
             .append("postId", getPostId())
             .toString();

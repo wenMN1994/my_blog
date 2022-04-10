@@ -1,11 +1,13 @@
 package com.dragon.system.domain;
 
-import javax.validation.constraints.*;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import com.dragon.common.annotation.Excel;
 import com.dragon.common.annotation.Excel.ColumnType;
 import com.dragon.common.core.domain.BaseEntity;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  * 岗位表 sys_post
@@ -29,7 +31,7 @@ public class SysPost extends BaseEntity
     private String postName;
 
     /** 岗位排序 */
-    @Excel(name = "岗位排序", cellType = ColumnType.NUMERIC)
+    @Excel(name = "岗位排序")
     private String postSort;
 
     /** 状态（0正常 1停用） */
@@ -103,10 +105,10 @@ public class SysPost extends BaseEntity
     {
         this.flag = flag;
     }
-
+    
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
             .append("postId", getPostId())
             .append("postCode", getPostCode())
             .append("postName", getPostName())

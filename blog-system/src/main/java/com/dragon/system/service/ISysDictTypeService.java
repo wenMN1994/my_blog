@@ -1,9 +1,9 @@
 package com.dragon.system.service;
 
-import java.util.List;
-import com.dragon.common.core.domain.Ztree;
 import com.dragon.common.core.domain.entity.SysDictData;
 import com.dragon.common.core.domain.entity.SysDictType;
+
+import java.util.List;
 
 /**
  * 字典 业务层
@@ -52,13 +52,11 @@ public interface ISysDictTypeService
     public SysDictType selectDictTypeByType(String dictType);
 
     /**
-     * 批量删除字典类型
+     * 批量删除字典信息
      * 
-     * @param ids 需要删除的数据
-     * @return 结果
-     * @throws Exception 异常
+     * @param dictIds 需要删除的字典ID
      */
-    public void deleteDictTypeByIds(String ids);
+    public void deleteDictTypeByIds(Long[] dictIds);
 
     /**
      * 加载字典缓存数据
@@ -98,12 +96,4 @@ public interface ISysDictTypeService
      * @return 结果
      */
     public String checkDictTypeUnique(SysDictType dictType);
-
-    /**
-     * 查询字典类型树
-     * 
-     * @param dictType 字典类型
-     * @return 所有字典类型
-     */
-    public List<Ztree> selectDictTree(SysDictType dictType);
 }

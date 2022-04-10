@@ -1,12 +1,8 @@
 package com.dragon.common.annotation;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 import com.dragon.common.enums.DataSourceType;
+
+import java.lang.annotation.*;
 
 /**
  * 自定义多数据源切换注解

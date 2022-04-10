@@ -1,22 +1,17 @@
 package com.dragon.common.utils.file;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.ArrayUtils;
 import com.dragon.common.config.BlogConfig;
 import com.dragon.common.utils.DateUtils;
 import com.dragon.common.utils.StringUtils;
 import com.dragon.common.utils.uuid.IdUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.ArrayUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 文件处理工具类
@@ -196,7 +191,6 @@ public class FileUtils
      *
      * @param response 响应对象
      * @param realFileName 真实文件名
-     * @return
      */
     public static void setAttachmentResponseHeader(HttpServletResponse response, String realFileName) throws UnsupportedEncodingException
     {
@@ -210,7 +204,9 @@ public class FileUtils
                 .append("utf-8''")
                 .append(percentEncodedFileName);
 
+        response.addHeader("Access-Control-Expose-Headers", "Content-Disposition,download-filename");
         response.setHeader("Content-disposition", contentDispositionValue.toString());
+        response.setHeader("download-filename", percentEncodedFileName);
     }
 
     /**
@@ -252,5 +248,23 @@ public class FileUtils
             strFileExtendName = "png";
         }
         return strFileExtendName;
+    }
+
+    /**
+     * 获取名称
+     * 
+     * @param fileName 路径名称
+     * @return 没有文件路径的名称
+     */
+    public static String getName(String fileName)
+    {
+        if (fileName == null)
+        {
+            return null;
+        }
+        int lastUnixPos = fileName.lastIndexOf('/');
+        int lastWindowsPos = fileName.lastIndexOf('\\');
+        int index = Math.max(lastUnixPos, lastWindowsPos);
+        return fileName.substring(index + 1);
     }
 }

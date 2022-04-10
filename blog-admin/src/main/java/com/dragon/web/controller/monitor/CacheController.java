@@ -1,82 +1,50 @@
 package com.dragon.web.controller.monitor;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import com.dragon.common.core.controller.BaseController;
 import com.dragon.common.core.domain.AjaxResult;
-import com.dragon.framework.web.service.CacheService;
+import com.dragon.common.utils.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.*;
 
 /**
  * 缓存监控
  * 
  * @author dragon
  */
-@Controller
+@RestController
 @RequestMapping("/monitor/cache")
-public class CacheController extends BaseController
+public class CacheController
 {
-    private String prefix = "monitor/cache";
-
     @Autowired
-    private CacheService cacheService;
+    private RedisTemplate<String, String> redisTemplate;
 
+    @PreAuthorize("@ss.hasPermi('monitor:cache:list')")
     @GetMapping()
-    public String cache(ModelMap mmap)
+    public AjaxResult getInfo() throws Exception
     {
-        mmap.put("cacheNames", cacheService.getCacheNames());
-        return prefix + "/cache";
-    }
+        Properties info = (Properties) redisTemplate.execute((RedisCallback<Object>) connection -> connection.info());
+        Properties commandStats = (Properties) redisTemplate.execute((RedisCallback<Object>) connection -> connection.info("commandstats"));
+        Object dbSize = redisTemplate.execute((RedisCallback<Object>) connection -> connection.dbSize());
 
-    @PostMapping("/getNames")
-    public String getCacheNames(String fragment, ModelMap mmap)
-    {
-        mmap.put("cacheNames", cacheService.getCacheNames());
-        return prefix + "/cache::" + fragment;
-    }
+        Map<String, Object> result = new HashMap<>(3);
+        result.put("info", info);
+        result.put("dbSize", dbSize);
 
-    @PostMapping("/getKeys")
-    public String getCacheKeys(String fragment, String cacheName, ModelMap mmap)
-    {
-        mmap.put("cacheName", cacheName);
-        mmap.put("cacheKyes", cacheService.getCacheKeys(cacheName));
-        return prefix + "/cache::" + fragment;
-    }
-
-    @PostMapping("/getValue")
-    public String getCacheValue(String fragment, String cacheName, String cacheKey, ModelMap mmap)
-    {
-        mmap.put("cacheName", cacheName);
-        mmap.put("cacheKey", cacheKey);
-        mmap.put("cacheValue", cacheService.getCacheValue(cacheName, cacheKey));
-        return prefix + "/cache::" + fragment;
-    }
-
-    @PostMapping("/clearCacheName")
-    @ResponseBody
-    public AjaxResult clearCacheName(String cacheName, ModelMap mmap)
-    {
-        cacheService.clearCacheName(cacheName);
-        return AjaxResult.success();
-    }
-
-    @PostMapping("/clearCacheKey")
-    @ResponseBody
-    public AjaxResult clearCacheKey(String cacheName, String cacheKey, ModelMap mmap)
-    {
-        cacheService.clearCacheKey(cacheName, cacheKey);
-        return AjaxResult.success();
-    }
-
-    @GetMapping("/clearAll")
-    @ResponseBody
-    public AjaxResult clearAll(ModelMap mmap)
-    {
-        cacheService.clearAll();
-        return AjaxResult.success();
+        List<Map<String, String>> pieList = new ArrayList<>();
+        commandStats.stringPropertyNames().forEach(key -> {
+            Map<String, String> data = new HashMap<>(2);
+            String property = commandStats.getProperty(key);
+            data.put("name", StringUtils.removeStart(key, "cmdstat_"));
+            data.put("value", StringUtils.substringBetween(property, "calls=", ",usec"));
+            pieList.add(data);
+        });
+        result.put("commandStats", pieList);
+        return AjaxResult.success(result);
     }
 }

@@ -1,16 +1,18 @@
 package com.dragon.common.utils;
 
-import java.util.List;
-import org.springframework.stereotype.Component;
 import com.dragon.common.constant.Constants;
 import com.dragon.common.core.domain.entity.SysDictData;
+import com.dragon.common.core.redis.RedisCache;
+import com.dragon.common.utils.spring.SpringUtils;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * 字典工具类
  * 
  * @author dragon
  */
-@Component
 public class DictUtils
 {
     /**
@@ -26,7 +28,7 @@ public class DictUtils
      */
     public static void setDictCache(String key, List<SysDictData> dictDatas)
     {
-        CacheUtils.put(getCacheName(), getCacheKey(key), dictDatas);
+        SpringUtils.getBean(RedisCache.class).setCacheObject(getCacheKey(key), dictDatas);
     }
 
     /**
@@ -37,11 +39,10 @@ public class DictUtils
      */
     public static List<SysDictData> getDictCache(String key)
     {
-        Object cacheObj = CacheUtils.get(getCacheName(), getCacheKey(key));
+        Object cacheObj = SpringUtils.getBean(RedisCache.class).getCacheObject(getCacheKey(key));
         if (StringUtils.isNotNull(cacheObj))
         {
-            List<SysDictData> DictDatas = StringUtils.cast(cacheObj);
-            return DictDatas;
+            return StringUtils.cast(cacheObj);
         }
         return null;
     }
@@ -91,7 +92,7 @@ public class DictUtils
                 {
                     if (value.equals(dict.getDictValue()))
                     {
-                        propertyString.append(dict.getDictLabel() + separator);
+                        propertyString.append(dict.getDictLabel()).append(separator);
                         break;
                     }
                 }
@@ -131,7 +132,7 @@ public class DictUtils
                 {
                     if (label.equals(dict.getDictLabel()))
                     {
-                        propertyString.append(dict.getDictValue() + separator);
+                        propertyString.append(dict.getDictValue()).append(separator);
                         break;
                     }
                 }
@@ -157,7 +158,7 @@ public class DictUtils
      */
     public static void removeDictCache(String key)
     {
-        CacheUtils.remove(getCacheName(), getCacheKey(key));
+        SpringUtils.getBean(RedisCache.class).deleteObject(getCacheKey(key));
     }
 
     /**
@@ -165,17 +166,8 @@ public class DictUtils
      */
     public static void clearDictCache()
     {
-        CacheUtils.removeAll(getCacheName());
-    }
-
-    /**
-     * 获取cache name
-     * 
-     * @return 缓存名
-     */
-    public static String getCacheName()
-    {
-        return Constants.SYS_DICT_CACHE;
+        Collection<String> keys = SpringUtils.getBean(RedisCache.class).keys(Constants.SYS_DICT_KEY + "*");
+        SpringUtils.getBean(RedisCache.class).deleteObject(keys);
     }
 
     /**

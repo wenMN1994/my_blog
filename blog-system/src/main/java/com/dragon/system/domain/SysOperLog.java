@@ -1,11 +1,11 @@
 package com.dragon.system.domain;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.dragon.common.annotation.Excel;
 import com.dragon.common.annotation.Excel.ColumnType;
 import com.dragon.common.core.domain.BaseEntity;
+
+import java.util.Date;
 
 /**
  * 操作日志记录表 oper_log
@@ -80,6 +80,7 @@ public class SysOperLog extends BaseEntity
     private String errorMsg;
 
     /** 操作时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Excel(name = "操作时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
     private Date operTime;
 
@@ -251,27 +252,5 @@ public class SysOperLog extends BaseEntity
     public void setOperTime(Date operTime)
     {
         this.operTime = operTime;
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("operId", getOperId())
-            .append("title", getTitle())
-            .append("businessType", getBusinessType())
-            .append("businessTypes", getBusinessTypes())
-            .append("method", getMethod())
-            .append("requestMethod", getRequestMethod())
-            .append("operatorType", getOperatorType())
-            .append("operName", getOperName())
-            .append("deptName", getDeptName())
-            .append("operUrl", getOperUrl())
-            .append("operIp", getOperIp())
-            .append("operLocation", getOperLocation())
-            .append("operParam", getOperParam())
-            .append("status", getStatus())
-            .append("errorMsg", getErrorMsg())
-            .append("operTime", getOperTime())
-            .toString();
     }
 }

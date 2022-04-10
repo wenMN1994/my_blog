@@ -1,7 +1,8 @@
 package com.dragon.system.mapper;
 
-import java.util.List;
 import com.dragon.system.domain.SysRoleDept;
+
+import java.util.List;
 
 /**
  * 角色与部门关联表 数据层

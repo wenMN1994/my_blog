@@ -59,7 +59,7 @@ public class GenConstants
     public static final String[] BASE_ENTITY = { "createBy", "createTime", "updateBy", "updateTime", "remark" };
 
     /** Tree基类字段 */
-    public static final String[] TREE_ENTITY = { "parentName", "parentId", "orderNum", "ancestors" };
+    public static final String[] TREE_ENTITY = { "parentName", "parentId", "orderNum", "ancestors", "children" };
 
     /** 文本框 */
     public static final String HTML_INPUT = "input";
@@ -79,11 +79,14 @@ public class GenConstants
     /** 日期控件 */
     public static final String HTML_DATETIME = "datetime";
 
-    /** 上传控件 */
-    public static final String HTML_UPLOAD = "upload";
+    /** 图片上传控件 */
+    public static final String HTML_IMAGE_UPLOAD = "imageUpload";
+
+    /** 文件上传控件 */
+    public static final String HTML_FILE_UPLOAD = "fileUpload";
 
     /** 富文本控件 */
-    public static final String HTML_SUMMERNOTE = "summernote";
+    public static final String HTML_EDITOR = "editor";
 
     /** 字符串类型 */
     public static final String TYPE_STRING = "String";
@@ -105,6 +108,9 @@ public class GenConstants
 
     /** 模糊查询 */
     public static final String QUERY_LIKE = "LIKE";
+
+    /** 相等查询 */
+    public static final String QUERY_EQ = "EQ";
 
     /** 需要 */
     public static final String REQUIRE = "1";

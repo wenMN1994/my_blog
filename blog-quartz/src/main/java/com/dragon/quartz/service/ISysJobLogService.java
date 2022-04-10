@@ -1,7 +1,8 @@
 package com.dragon.quartz.service;
 
-import java.util.List;
 import com.dragon.quartz.domain.SysJobLog;
+
+import java.util.List;
 
 /**
  * 定时任务调度日志信息信息 服务层
@@ -36,10 +37,10 @@ public interface ISysJobLogService
     /**
      * 批量删除调度日志信息
      * 
-     * @param ids 需要删除的数据ID
+     * @param logIds 需要删除的日志ID
      * @return 结果
      */
-    public int deleteJobLogByIds(String ids);
+    public int deleteJobLogByIds(Long[] logIds);
 
     /**
      * 删除任务日志
@@ -48,7 +49,7 @@ public interface ISysJobLogService
      * @return 结果
      */
     public int deleteJobLogById(Long jobId);
-    
+
     /**
      * 清空任务日志
      */

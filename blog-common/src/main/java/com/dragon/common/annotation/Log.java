@@ -1,17 +1,15 @@
 package com.dragon.common.annotation;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 import com.dragon.common.enums.BusinessType;
 import com.dragon.common.enums.OperatorType;
+
+import java.lang.annotation.*;
 
 /**
  * 自定义操作日志记录注解
  * 
  * @author dragon
+ *
  */
 @Target({ ElementType.PARAMETER, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
@@ -37,4 +35,9 @@ public @interface Log
      * 是否保存请求的参数
      */
     public boolean isSaveRequestData() default true;
+
+    /**
+     * 是否保存响应的参数
+     */
+    public boolean isSaveResponseData() default true;
 }

@@ -1,13 +1,13 @@
 package com.dragon.system.service.impl;
 
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.dragon.common.core.domain.entity.SysDictData;
-import com.dragon.common.core.text.Convert;
 import com.dragon.common.utils.DictUtils;
 import com.dragon.system.mapper.SysDictDataMapper;
 import com.dragon.system.service.ISysDictDataService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 字典 业务层处理
@@ -58,15 +58,13 @@ public class SysDictDataServiceImpl implements ISysDictDataService
     }
 
     /**
-     * 批量删除字典数据
+     * 批量删除字典数据信息
      * 
-     * @param ids 需要删除的数据
-     * @return 结果
+     * @param dictCodes 需要删除的字典数据ID
      */
     @Override
-    public void deleteDictDataByIds(String ids)
+    public void deleteDictDataByIds(Long[] dictCodes)
     {
-        Long[] dictCodes = Convert.toLongArray(ids);
         for (Long dictCode : dictCodes)
         {
             SysDictData data = selectDictDataById(dictCode);

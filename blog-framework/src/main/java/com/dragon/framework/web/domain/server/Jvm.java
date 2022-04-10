@@ -1,8 +1,9 @@
 package com.dragon.framework.web.domain.server;
 
-import java.lang.management.ManagementFactory;
 import com.dragon.common.utils.Arith;
 import com.dragon.common.utils.DateUtils;
+
+import java.lang.management.ManagementFactory;
 
 /**
  * JVM相关信息
@@ -118,5 +119,13 @@ public class Jvm
     public String getRunTime()
     {
         return DateUtils.getDatePoor(DateUtils.getNowDate(), DateUtils.getServerStartDate());
+    }
+
+    /**
+     * 运行参数
+     */
+    public String getInputArgs()
+    {
+        return ManagementFactory.getRuntimeMXBean().getInputArguments().toString();
     }
 }

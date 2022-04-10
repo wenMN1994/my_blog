@@ -1,10 +1,6 @@
 package com.dragon.common.utils.html;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.regex.Matcher;
@@ -332,7 +328,7 @@ public final class HTMLFilter
             final String name = m.group(1).toLowerCase();
             if (allowed(name))
             {
-                if (false == inArray(name, vSelfClosingTags))
+                if (!inArray(name, vSelfClosingTags))
                 {
                     if (vTagCounts.containsKey(name))
                     {
@@ -387,7 +383,7 @@ public final class HTMLFilter
                         {
                             paramValue = processParamProtocol(paramValue);
                         }
-                        params.append(' ').append(paramName).append("=\"").append(paramValue).append("\"");
+                        params.append(' ').append(paramName).append("=\\\"").append(paramValue).append("\"");
                     }
                 }
 

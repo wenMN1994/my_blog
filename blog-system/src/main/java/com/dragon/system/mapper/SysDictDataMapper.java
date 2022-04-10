@@ -1,8 +1,9 @@
 package com.dragon.system.mapper;
 
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 import com.dragon.common.core.domain.entity.SysDictData;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * 字典表 数据层
@@ -61,12 +62,12 @@ public interface SysDictDataMapper
     public int deleteDictDataById(Long dictCode);
 
     /**
-     * 批量删除字典数据
+     * 批量删除字典数据信息
      * 
-     * @param ids 需要删除的数据
+     * @param dictCodes 需要删除的字典数据ID
      * @return 结果
      */
-    public int deleteDictDataByIds(String[] ids);
+    public int deleteDictDataByIds(Long[] dictCodes);
 
     /**
      * 新增字典数据信息

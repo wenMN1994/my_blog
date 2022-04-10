@@ -1,23 +1,25 @@
 package com.dragon.quartz.domain;
 
-import java.io.Serializable;
-import java.util.Date;
-import javax.validation.constraints.*;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.dragon.common.annotation.Excel;
 import com.dragon.common.annotation.Excel.ColumnType;
 import com.dragon.common.constant.ScheduleConstants;
 import com.dragon.common.core.domain.BaseEntity;
 import com.dragon.common.utils.StringUtils;
 import com.dragon.quartz.util.CronUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.util.Date;
 
 /**
  * 定时任务调度表 sys_job
  * 
  * @author dragon
  */
-public class SysJob extends BaseEntity implements Serializable
+public class SysJob extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
@@ -86,7 +88,7 @@ public class SysJob extends BaseEntity implements Serializable
     }
 
     @NotBlank(message = "调用目标字符串不能为空")
-    @Size(min = 0, max = 1000, message = "调用目标字符串长度不能超过500个字符")
+    @Size(min = 0, max = 500, message = "调用目标字符串长度不能超过500个字符")
     public String getInvokeTarget()
     {
         return invokeTarget;
@@ -109,6 +111,7 @@ public class SysJob extends BaseEntity implements Serializable
         this.cronExpression = cronExpression;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public Date getNextValidTime()
     {
         if (StringUtils.isNotEmpty(cronExpression))
@@ -150,7 +153,7 @@ public class SysJob extends BaseEntity implements Serializable
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
             .append("jobId", getJobId())
             .append("jobName", getJobName())
             .append("jobGroup", getJobGroup())

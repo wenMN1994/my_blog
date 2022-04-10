@@ -1,10 +1,11 @@
 package com.dragon.quartz.domain;
 
-import java.util.Date;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import com.dragon.common.annotation.Excel;
 import com.dragon.common.core.domain.BaseEntity;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+import java.util.Date;
 
 /**
  * 定时任务调度日志表 sys_job_log
@@ -46,8 +47,8 @@ public class SysJobLog extends BaseEntity
     /** 开始时间 */
     private Date startTime;
 
-    /** 结束时间 */
-    private Date endTime;
+    /** 停止时间 */
+    private Date stopTime;
 
     public Long getJobLogId()
     {
@@ -128,20 +129,20 @@ public class SysJobLog extends BaseEntity
     {
         this.startTime = startTime;
     }
-
-    public Date getEndTime()
+    
+    public Date getStopTime()
     {
-        return endTime;
+        return stopTime;
     }
 
-    public void setEndTime(Date endTime)
+    public void setStopTime(Date stopTime)
     {
-        this.endTime = endTime;
+        this.stopTime = stopTime;
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
             .append("jobLogId", getJobLogId())
             .append("jobName", getJobName())
             .append("jobGroup", getJobGroup())
@@ -149,7 +150,7 @@ public class SysJobLog extends BaseEntity
             .append("status", getStatus())
             .append("exceptionInfo", getExceptionInfo())
             .append("startTime", getStartTime())
-            .append("endTime", getEndTime())
+            .append("stopTime", getStopTime())
             .toString();
     }
 }

@@ -1,8 +1,8 @@
 package com.dragon.quartz.util;
 
+import com.dragon.quartz.domain.SysJob;
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.JobExecutionContext;
-import com.dragon.quartz.domain.SysJob;
 
 /**
  * 定时任务处理（禁止并发执行）

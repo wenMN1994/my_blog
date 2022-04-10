@@ -1,7 +1,8 @@
 package com.dragon.system.service;
 
-import java.util.List;
 import com.dragon.system.domain.SysLogininfor;
+
+import java.util.List;
 
 /**
  * 系统访问日志情况信息 服务层
@@ -28,10 +29,10 @@ public interface ISysLogininforService
     /**
      * 批量删除系统登录日志
      * 
-     * @param ids 需要删除的数据
-     * @return
+     * @param infoIds 需要删除的登录日志ID
+     * @return 结果
      */
-    public int deleteLogininforByIds(String ids);
+    public int deleteLogininforByIds(Long[] infoIds);
 
     /**
      * 清空系统登录日志

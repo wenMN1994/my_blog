@@ -38,7 +38,7 @@ public class SysRoleMenu
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
             .append("roleId", getRoleId())
             .append("menuId", getMenuId())
             .toString();

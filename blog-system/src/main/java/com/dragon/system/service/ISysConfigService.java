@@ -1,7 +1,8 @@
 package com.dragon.system.service;
 
-import java.util.List;
 import com.dragon.system.domain.SysConfig;
+
+import java.util.List;
 
 /**
  * 参数配置 服务层
@@ -25,6 +26,13 @@ public interface ISysConfigService
      * @return 参数键值
      */
     public String selectConfigByKey(String configKey);
+
+    /**
+     * 获取验证码开关
+     * 
+     * @return true开启，false关闭
+     */
+    public boolean selectCaptchaOnOff();
 
     /**
      * 查询参数配置列表
@@ -51,12 +59,11 @@ public interface ISysConfigService
     public int updateConfig(SysConfig config);
 
     /**
-     * 批量删除参数配置信息
+     * 批量删除参数信息
      * 
-     * @param ids 需要删除的数据ID
-     * @return 结果
+     * @param configIds 需要删除的参数ID
      */
-    public void deleteConfigByIds(String ids);
+    public void deleteConfigByIds(Long[] configIds);
 
     /**
      * 加载参数缓存数据

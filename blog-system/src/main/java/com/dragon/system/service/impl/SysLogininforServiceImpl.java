@@ -1,12 +1,12 @@
 package com.dragon.system.service.impl;
 
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.dragon.common.core.text.Convert;
 import com.dragon.system.domain.SysLogininfor;
 import com.dragon.system.mapper.SysLogininforMapper;
 import com.dragon.system.service.ISysLogininforService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 系统访问日志情况信息 服务层处理
@@ -46,13 +46,13 @@ public class SysLogininforServiceImpl implements ISysLogininforService
     /**
      * 批量删除系统登录日志
      * 
-     * @param ids 需要删除的数据
-     * @return
+     * @param infoIds 需要删除的登录日志ID
+     * @return 结果
      */
     @Override
-    public int deleteLogininforByIds(String ids)
+    public int deleteLogininforByIds(Long[] infoIds)
     {
-        return logininforMapper.deleteLogininforByIds(Convert.toStrArray(ids));
+        return logininforMapper.deleteLogininforByIds(infoIds);
     }
 
     /**

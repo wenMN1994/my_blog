@@ -1,9 +1,10 @@
 package com.dragon.quartz.service;
 
-import java.util.List;
-import org.quartz.SchedulerException;
 import com.dragon.common.exception.job.TaskException;
 import com.dragon.quartz.domain.SysJob;
+import org.quartz.SchedulerException;
+
+import java.util.List;
 
 /**
  * 定时任务调度信息信息 服务层
@@ -55,10 +56,10 @@ public interface ISysJobService
     /**
      * 批量删除调度信息
      * 
-     * @param ids 需要删除的数据ID
+     * @param jobIds 需要删除的任务ID
      * @return 结果
      */
-    public void deleteJobByIds(String ids) throws SchedulerException;
+    public void deleteJobByIds(Long[] jobIds) throws SchedulerException;
 
     /**
      * 任务调度状态修改

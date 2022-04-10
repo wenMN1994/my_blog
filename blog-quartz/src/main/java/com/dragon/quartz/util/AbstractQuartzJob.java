@@ -1,11 +1,5 @@
 package com.dragon.quartz.util;
 
-import java.util.Date;
-import org.quartz.Job;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.dragon.common.constant.Constants;
 import com.dragon.common.constant.ScheduleConstants;
 import com.dragon.common.utils.ExceptionUtil;
@@ -15,6 +9,13 @@ import com.dragon.common.utils.spring.SpringUtils;
 import com.dragon.quartz.domain.SysJob;
 import com.dragon.quartz.domain.SysJobLog;
 import com.dragon.quartz.service.ISysJobLogService;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Date;
 
 /**
  * 抽象quartz调用
@@ -66,7 +67,7 @@ public abstract class AbstractQuartzJob implements Job
      * 执行后
      *
      * @param context 工作执行上下文对象
-     * @param sysScheduleJob 系统计划任务
+     * @param sysJob 系统计划任务
      */
     protected void after(JobExecutionContext context, SysJob sysJob, Exception e)
     {
@@ -78,8 +79,8 @@ public abstract class AbstractQuartzJob implements Job
         sysJobLog.setJobGroup(sysJob.getJobGroup());
         sysJobLog.setInvokeTarget(sysJob.getInvokeTarget());
         sysJobLog.setStartTime(startTime);
-        sysJobLog.setEndTime(new Date());
-        long runMs = sysJobLog.getEndTime().getTime() - sysJobLog.getStartTime().getTime();
+        sysJobLog.setStopTime(new Date());
+        long runMs = sysJobLog.getStopTime().getTime() - sysJobLog.getStartTime().getTime();
         sysJobLog.setJobMessage(sysJobLog.getJobName() + " 总共耗时：" + runMs + "毫秒");
         if (e != null)
         {

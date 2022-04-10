@@ -1,7 +1,8 @@
 package com.dragon.system.mapper;
 
-import java.util.List;
 import com.dragon.system.domain.SysConfig;
+
+import java.util.List;
 
 /**
  * 参数配置 数据层
@@ -53,16 +54,16 @@ public interface SysConfigMapper
     /**
      * 删除参数配置
      * 
-     * @param configId 参数主键
+     * @param configId 参数ID
      * @return 结果
      */
     public int deleteConfigById(Long configId);
 
     /**
-     * 批量删除参数配置
+     * 批量删除参数信息
      * 
-     * @param configIds 需要删除的数据ID
+     * @param configIds 需要删除的参数ID
      * @return 结果
      */
-    public int deleteConfigByIds(String[] configIds);
+    public int deleteConfigByIds(Long[] configIds);
 }

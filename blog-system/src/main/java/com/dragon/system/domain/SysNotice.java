@@ -1,9 +1,12 @@
 package com.dragon.system.domain;
 
-import javax.validation.constraints.*;
+import com.dragon.common.core.domain.BaseEntity;
+import com.dragon.common.xss.Xss;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import com.dragon.common.core.domain.BaseEntity;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  * 通知公告表 sys_notice
@@ -44,6 +47,7 @@ public class SysNotice extends BaseEntity
         this.noticeTitle = noticeTitle;
     }
 
+    @Xss(message = "公告标题不能包含脚本字符")
     @NotBlank(message = "公告标题不能为空")
     @Size(min = 0, max = 50, message = "公告标题不能超过50个字符")
     public String getNoticeTitle()
@@ -83,7 +87,7 @@ public class SysNotice extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
             .append("noticeId", getNoticeId())
             .append("noticeTitle", getNoticeTitle())
             .append("noticeType", getNoticeType())

@@ -1,23 +1,20 @@
 package com.dragon.framework.aspectj;
 
-import java.lang.reflect.Method;
-import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.Signature;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
-import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.stereotype.Component;
 import com.dragon.common.annotation.DataScope;
 import com.dragon.common.core.domain.BaseEntity;
 import com.dragon.common.core.domain.entity.SysRole;
 import com.dragon.common.core.domain.entity.SysUser;
-import com.dragon.common.utils.ShiroUtils;
+import com.dragon.common.core.domain.model.LoginUser;
+import com.dragon.common.utils.SecurityUtils;
 import com.dragon.common.utils.StringUtils;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.springframework.stereotype.Component;
 
 /**
  * 数据过滤处理
- * 
+ *
  * @author dragon
  */
 @Aspect
@@ -54,33 +51,22 @@ public class DataScopeAspect
      */
     public static final String DATA_SCOPE = "dataScope";
 
-    // 配置织入点
-    @Pointcut("@annotation(com.dragon.common.annotation.DataScope)")
-    public void dataScopePointCut()
-    {
-    }
-
-    @Before("dataScopePointCut()")
-    public void doBefore(JoinPoint point) throws Throwable
+    @Before("@annotation(controllerDataScope)")
+    public void doBefore(JoinPoint point, DataScope controllerDataScope) throws Throwable
     {
         clearDataScope(point);
-        handleDataScope(point);
+        handleDataScope(point, controllerDataScope);
     }
 
-    protected void handleDataScope(final JoinPoint joinPoint)
+    protected void handleDataScope(final JoinPoint joinPoint, DataScope controllerDataScope)
     {
-        // 获得注解
-        DataScope controllerDataScope = getAnnotationLog(joinPoint);
-        if (controllerDataScope == null)
-        {
-            return;
-        }
         // 获取当前的用户
-        SysUser currentUser = ShiroUtils.getSysUser();
-        if (currentUser != null)
+        LoginUser loginUser = SecurityUtils.getLoginUser();
+        if (StringUtils.isNotNull(loginUser))
         {
+            SysUser currentUser = loginUser.getUser();
             // 如果是超级管理员，则不过滤数据
-            if (!currentUser.isAdmin())
+            if (StringUtils.isNotNull(currentUser) && !currentUser.isAdmin())
             {
                 dataScopeFilter(joinPoint, currentUser, controllerDataScope.deptAlias(),
                         controllerDataScope.userAlias());
@@ -90,11 +76,10 @@ public class DataScopeAspect
 
     /**
      * 数据范围过滤
-     * 
+     *
      * @param joinPoint 切点
      * @param user 用户
-     * @param deptAlias 部门别名
-     * @param userAlias 用户别名
+     * @param userAlias 别名
      */
     public static void dataScopeFilter(JoinPoint joinPoint, SysUser user, String deptAlias, String userAlias)
     {
@@ -147,22 +132,6 @@ public class DataScopeAspect
                 baseEntity.getParams().put(DATA_SCOPE, " AND (" + sqlString.substring(4) + ")");
             }
         }
-    }
-
-    /**
-     * 是否存在注解，如果存在就获取
-     */
-    private DataScope getAnnotationLog(JoinPoint joinPoint)
-    {
-        Signature signature = joinPoint.getSignature();
-        MethodSignature methodSignature = (MethodSignature) signature;
-        Method method = methodSignature.getMethod();
-
-        if (method != null)
-        {
-            return method.getAnnotation(DataScope.class);
-        }
-        return null;
     }
 
     /**

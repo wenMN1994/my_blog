@@ -41,17 +41,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<include refid="selectPostVo"/>
 	</select>
 	
-	<select id="selectPostsByUserId" parameterType="Long" resultMap="SysPostResult">
-		SELECT p.post_id, p.post_name, p.post_code
-		FROM sys_user u
-			 LEFT JOIN sys_user_post up ON u.user_id = up.user_id
-			 LEFT JOIN sys_post p ON up.post_id = p.post_id
-		WHERE up.user_id = #{userId}
-	</select>
-	
 	<select id="selectPostById" parameterType="Long" resultMap="SysPostResult">
 		<include refid="selectPostVo"/>
 		where post_id = #{postId}
+	</select>
+	
+	<select id="selectPostListByUserId" parameterType="Long" resultType="Long">
+		select p.post_id
+        from sys_post p
+	        left join sys_user_post up on up.post_id = p.post_id
+	        left join sys_user u on u.user_id = up.user_id
+	    where u.user_id = #{userId}
+	</select>
+	
+	<select id="selectPostsByUserName" parameterType="String" resultMap="SysPostResult">
+		select p.post_id, p.post_name, p.post_code
+		from sys_post p
+			 left join sys_user_post up on up.post_id = p.post_id
+			 left join sys_user u on u.user_id = up.user_id
+		where u.user_name = #{userName}
 	</select>
 	
 	<select id="checkPostNameUnique" parameterType="String" resultMap="SysPostResult">
@@ -64,14 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 where post_code=#{postCode} limit 1
 	</select>
 	
- 	<delete id="deletePostByIds" parameterType="Long">
- 		delete from sys_post where post_id in
- 		<foreach collection="array" item="postId" open="(" separator="," close=")">
- 			#{postId}
-        </foreach> 
- 	</delete>
- 	
- 	<update id="updatePost" parameterType="SysPost">
+	<update id="updatePost" parameterType="SysPost">
  		update sys_post
  		<set>
  			<if test="postCode != null and postCode != ''">post_code = #{postCode},</if>
@@ -106,5 +107,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			sysdate()
  		)
 	</insert>
+	
+	<delete id="deletePostById" parameterType="Long">
+		delete from sys_post where post_id = #{postId}
+	</delete>
+	
+	<delete id="deletePostByIds" parameterType="Long">
+ 		delete from sys_post where post_id in
+ 		<foreach collection="array" item="postId" open="(" separator="," close=")">
+ 			#{postId}
+        </foreach> 
+ 	</delete>
 
 </mapper> 

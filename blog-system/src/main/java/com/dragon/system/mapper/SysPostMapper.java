@@ -1,7 +1,8 @@
 package com.dragon.system.mapper;
 
-import java.util.List;
 import com.dragon.system.domain.SysPost;
+
+import java.util.List;
 
 /**
  * 岗位信息 数据层
@@ -26,14 +27,6 @@ public interface SysPostMapper
     public List<SysPost> selectPostAll();
 
     /**
-     * 根据用户ID查询岗位
-     * 
-     * @param userId 用户ID
-     * @return 岗位列表
-     */
-    public List<SysPost> selectPostsByUserId(Long userId);
-
-    /**
      * 通过岗位ID查询岗位信息
      * 
      * @param postId 岗位ID
@@ -42,12 +35,36 @@ public interface SysPostMapper
     public SysPost selectPostById(Long postId);
 
     /**
-     * 批量删除岗位信息
+     * 根据用户ID获取岗位选择框列表
      * 
-     * @param ids 需要删除的数据ID
+     * @param userId 用户ID
+     * @return 选中岗位ID列表
+     */
+    public List<Long> selectPostListByUserId(Long userId);
+
+    /**
+     * 查询用户所属岗位组
+     * 
+     * @param userName 用户名
      * @return 结果
      */
-    public int deletePostByIds(Long[] ids);
+    public List<SysPost> selectPostsByUserName(String userName);
+
+    /**
+     * 删除岗位信息
+     * 
+     * @param postId 岗位ID
+     * @return 结果
+     */
+    public int deletePostById(Long postId);
+
+    /**
+     * 批量删除岗位信息
+     * 
+     * @param postIds 需要删除的岗位ID
+     * @return 结果
+     */
+    public int deletePostByIds(Long[] postIds);
 
     /**
      * 修改岗位信息

@@ -1,12 +1,12 @@
 package com.dragon.system.service.impl;
 
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.dragon.common.core.text.Convert;
 import com.dragon.system.domain.SysOperLog;
 import com.dragon.system.mapper.SysOperLogMapper;
 import com.dragon.system.service.ISysOperLogService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 操作日志 服务层处理
@@ -45,13 +45,13 @@ public class SysOperLogServiceImpl implements ISysOperLogService
     /**
      * 批量删除系统操作日志
      * 
-     * @param ids 需要删除的数据
-     * @return
+     * @param operIds 需要删除的操作日志ID
+     * @return 结果
      */
     @Override
-    public int deleteOperLogByIds(String ids)
+    public int deleteOperLogByIds(Long[] operIds)
     {
-        return operLogMapper.deleteOperLogByIds(Convert.toStrArray(ids));
+        return operLogMapper.deleteOperLogByIds(operIds);
     }
 
     /**

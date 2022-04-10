@@ -2,9 +2,6 @@ package ${packageName}.service;
 
 import java.util.List;
 import ${packageName}.domain.${ClassName};
-#if($table.tree)
-import com.dragon.common.core.domain.Ztree;
-#end
 
 /**
  * ${functionName}Service接口
@@ -52,7 +49,7 @@ public interface I${ClassName}Service
      * @param ${pkColumn.javaField}s 需要删除的${functionName}主键集合
      * @return 结果
      */
-    public int delete${ClassName}By${pkColumn.capJavaField}s(String ${pkColumn.javaField}s);
+    public int delete${ClassName}By${pkColumn.capJavaField}s(${pkColumn.javaType}[] ${pkColumn.javaField}s);
 
     /**
      * 删除${functionName}信息
@@ -61,13 +58,4 @@ public interface I${ClassName}Service
      * @return 结果
      */
     public int delete${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField});
-#if($table.tree)
-
-    /**
-     * 查询${functionName}树列表
-     * 
-     * @return 所有${functionName}信息
-     */
-    public List<Ztree> select${ClassName}Tree();
-#end
 }

@@ -1,16 +1,16 @@
 package com.dragon.system.service.impl;
 
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.dragon.common.constant.UserConstants;
-import com.dragon.common.core.text.Convert;
 import com.dragon.common.exception.ServiceException;
 import com.dragon.common.utils.StringUtils;
 import com.dragon.system.domain.SysPost;
 import com.dragon.system.mapper.SysPostMapper;
 import com.dragon.system.mapper.SysUserPostMapper;
 import com.dragon.system.service.ISysPostService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 岗位信息 服务层处理
@@ -50,31 +50,6 @@ public class SysPostServiceImpl implements ISysPostService
     }
 
     /**
-     * 根据用户ID查询岗位
-     * 
-     * @param userId 用户ID
-     * @return 岗位列表
-     */
-    @Override
-    public List<SysPost> selectPostsByUserId(Long userId)
-    {
-        List<SysPost> userPosts = postMapper.selectPostsByUserId(userId);
-        List<SysPost> posts = postMapper.selectPostAll();
-        for (SysPost post : posts)
-        {
-            for (SysPost userRole : userPosts)
-            {
-                if (post.getPostId().longValue() == userRole.getPostId().longValue())
-                {
-                    post.setFlag(true);
-                    break;
-                }
-            }
-        }
-        return posts;
-    }
-
-    /**
      * 通过岗位ID查询岗位信息
      * 
      * @param postId 岗位ID
@@ -87,15 +62,86 @@ public class SysPostServiceImpl implements ISysPostService
     }
 
     /**
-     * 批量删除岗位信息
+     * 根据用户ID获取岗位选择框列表
      * 
-     * @param ids 需要删除的数据ID
-     * @throws Exception
+     * @param userId 用户ID
+     * @return 选中岗位ID列表
      */
     @Override
-    public int deletePostByIds(String ids)
+    public List<Long> selectPostListByUserId(Long userId)
     {
-        Long[] postIds = Convert.toLongArray(ids);
+        return postMapper.selectPostListByUserId(userId);
+    }
+
+    /**
+     * 校验岗位名称是否唯一
+     * 
+     * @param post 岗位信息
+     * @return 结果
+     */
+    @Override
+    public String checkPostNameUnique(SysPost post)
+    {
+        Long postId = StringUtils.isNull(post.getPostId()) ? -1L : post.getPostId();
+        SysPost info = postMapper.checkPostNameUnique(post.getPostName());
+        if (StringUtils.isNotNull(info) && info.getPostId().longValue() != postId.longValue())
+        {
+            return UserConstants.NOT_UNIQUE;
+        }
+        return UserConstants.UNIQUE;
+    }
+
+    /**
+     * 校验岗位编码是否唯一
+     * 
+     * @param post 岗位信息
+     * @return 结果
+     */
+    @Override
+    public String checkPostCodeUnique(SysPost post)
+    {
+        Long postId = StringUtils.isNull(post.getPostId()) ? -1L : post.getPostId();
+        SysPost info = postMapper.checkPostCodeUnique(post.getPostCode());
+        if (StringUtils.isNotNull(info) && info.getPostId().longValue() != postId.longValue())
+        {
+            return UserConstants.NOT_UNIQUE;
+        }
+        return UserConstants.UNIQUE;
+    }
+
+    /**
+     * 通过岗位ID查询岗位使用数量
+     * 
+     * @param postId 岗位ID
+     * @return 结果
+     */
+    @Override
+    public int countUserPostById(Long postId)
+    {
+        return userPostMapper.countUserPostById(postId);
+    }
+
+    /**
+     * 删除岗位信息
+     * 
+     * @param postId 岗位ID
+     * @return 结果
+     */
+    @Override
+    public int deletePostById(Long postId)
+    {
+        return postMapper.deletePostById(postId);
+    }
+
+    /**
+     * 批量删除岗位信息
+     * 
+     * @param postIds 需要删除的岗位ID
+     * @return 结果
+     */
+    @Override
+    public int deletePostByIds(Long[] postIds)
+    {
         for (Long postId : postIds)
         {
             SysPost post = selectPostById(postId);
@@ -129,53 +175,5 @@ public class SysPostServiceImpl implements ISysPostService
     public int updatePost(SysPost post)
     {
         return postMapper.updatePost(post);
-    }
-
-    /**
-     * 通过岗位ID查询岗位使用数量
-     * 
-     * @param postId 岗位ID
-     * @return 结果
-     */
-    @Override
-    public int countUserPostById(Long postId)
-    {
-        return userPostMapper.countUserPostById(postId);
-    }
-
-    /**
-     * 校验岗位名称是否唯一
-     * 
-     * @param post 岗位信息
-     * @return 结果
-     */
-    @Override
-    public String checkPostNameUnique(SysPost post)
-    {
-        Long postId = StringUtils.isNull(post.getPostId()) ? -1L : post.getPostId();
-        SysPost info = postMapper.checkPostNameUnique(post.getPostName());
-        if (StringUtils.isNotNull(info) && info.getPostId().longValue() != postId.longValue())
-        {
-            return UserConstants.POST_NAME_NOT_UNIQUE;
-        }
-        return UserConstants.POST_NAME_UNIQUE;
-    }
-
-    /**
-     * 校验岗位编码是否唯一
-     * 
-     * @param post 岗位信息
-     * @return 结果
-     */
-    @Override
-    public String checkPostCodeUnique(SysPost post)
-    {
-        Long postId = StringUtils.isNull(post.getPostId()) ? -1L : post.getPostId();
-        SysPost info = postMapper.checkPostCodeUnique(post.getPostCode());
-        if (StringUtils.isNotNull(info) && info.getPostId().longValue() != postId.longValue())
-        {
-            return UserConstants.POST_CODE_NOT_UNIQUE;
-        }
-        return UserConstants.POST_CODE_UNIQUE;
     }
 }

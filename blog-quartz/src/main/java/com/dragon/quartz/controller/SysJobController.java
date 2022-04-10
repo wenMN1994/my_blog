@@ -1,18 +1,5 @@
 package com.dragon.quartz.controller;
 
-import java.util.List;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.quartz.SchedulerException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import com.dragon.common.annotation.Log;
 import com.dragon.common.constant.Constants;
 import com.dragon.common.core.controller.BaseController;
@@ -25,112 +12,69 @@ import com.dragon.common.utils.poi.ExcelUtil;
 import com.dragon.quartz.domain.SysJob;
 import com.dragon.quartz.service.ISysJobService;
 import com.dragon.quartz.util.CronUtils;
+import com.dragon.quartz.util.ScheduleUtils;
+import org.quartz.SchedulerException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * 调度任务信息操作处理
  * 
  * @author dragon
  */
-@Controller
+@RestController
 @RequestMapping("/monitor/job")
 public class SysJobController extends BaseController
 {
-    private String prefix = "monitor/job";
-
     @Autowired
     private ISysJobService jobService;
 
-    @RequiresPermissions("monitor:job:view")
-    @GetMapping()
-    public String job()
-    {
-        return prefix + "/job";
-    }
-
-    @RequiresPermissions("monitor:job:list")
-    @PostMapping("/list")
-    @ResponseBody
-    public TableDataInfo list(SysJob job)
+    /**
+     * 查询定时任务列表
+     */
+    @PreAuthorize("@ss.hasPermi('monitor:job:list')")
+    @GetMapping("/list")
+    public TableDataInfo list(SysJob sysJob)
     {
         startPage();
-        List<SysJob> list = jobService.selectJobList(job);
+        List<SysJob> list = jobService.selectJobList(sysJob);
         return getDataTable(list);
     }
 
+    /**
+     * 导出定时任务列表
+     */
+    @PreAuthorize("@ss.hasPermi('monitor:job:export')")
     @Log(title = "定时任务", businessType = BusinessType.EXPORT)
-    @RequiresPermissions("monitor:job:export")
     @PostMapping("/export")
-    @ResponseBody
-    public AjaxResult export(SysJob job)
+    public void export(HttpServletResponse response, SysJob sysJob)
     {
-        List<SysJob> list = jobService.selectJobList(job);
+        List<SysJob> list = jobService.selectJobList(sysJob);
         ExcelUtil<SysJob> util = new ExcelUtil<SysJob>(SysJob.class);
-        return util.exportExcel(list, "定时任务");
-    }
-
-    @Log(title = "定时任务", businessType = BusinessType.DELETE)
-    @RequiresPermissions("monitor:job:remove")
-    @PostMapping("/remove")
-    @ResponseBody
-    public AjaxResult remove(String ids) throws SchedulerException
-    {
-        jobService.deleteJobByIds(ids);
-        return success();
-    }
-
-    @RequiresPermissions("monitor:job:detail")
-    @GetMapping("/detail/{jobId}")
-    public String detail(@PathVariable("jobId") Long jobId, ModelMap mmap)
-    {
-        mmap.put("name", "job");
-        mmap.put("job", jobService.selectJobById(jobId));
-        return prefix + "/detail";
+        util.exportExcel(response, list, "定时任务");
     }
 
     /**
-     * 任务调度状态修改
+     * 获取定时任务详细信息
      */
-    @Log(title = "定时任务", businessType = BusinessType.UPDATE)
-    @RequiresPermissions("monitor:job:changeStatus")
-    @PostMapping("/changeStatus")
-    @ResponseBody
-    public AjaxResult changeStatus(SysJob job) throws SchedulerException
+    @PreAuthorize("@ss.hasPermi('monitor:job:query')")
+    @GetMapping(value = "/{jobId}")
+    public AjaxResult getInfo(@PathVariable("jobId") Long jobId)
     {
-        SysJob newJob = jobService.selectJobById(job.getJobId());
-        newJob.setStatus(job.getStatus());
-        return toAjax(jobService.changeStatus(newJob));
+        return AjaxResult.success(jobService.selectJobById(jobId));
     }
 
     /**
-     * 任务调度立即执行一次
+     * 新增定时任务
      */
-    @Log(title = "定时任务", businessType = BusinessType.UPDATE)
-    @RequiresPermissions("monitor:job:changeStatus")
-    @PostMapping("/run")
-    @ResponseBody
-    public AjaxResult run(SysJob job) throws SchedulerException
-    {
-        jobService.run(job);
-        return success();
-    }
-
-    /**
-     * 新增调度
-     */
-    @GetMapping("/add")
-    public String add()
-    {
-        return prefix + "/add";
-    }
-
-    /**
-     * 新增保存调度
-     */
+    @PreAuthorize("@ss.hasPermi('monitor:job:add')")
     @Log(title = "定时任务", businessType = BusinessType.INSERT)
-    @RequiresPermissions("monitor:job:add")
-    @PostMapping("/add")
-    @ResponseBody
-    public AjaxResult addSave(@Validated SysJob job) throws SchedulerException, TaskException
+    @PostMapping
+    public AjaxResult add(@RequestBody SysJob job) throws SchedulerException, TaskException
     {
         if (!CronUtils.isValid(job.getCronExpression()))
         {
@@ -138,37 +82,35 @@ public class SysJobController extends BaseController
         }
         else if (StringUtils.containsIgnoreCase(job.getInvokeTarget(), Constants.LOOKUP_RMI))
         {
-            return error("新增任务'" + job.getJobName() + "'失败，目标字符串不允许'rmi://'调用");
+            return error("新增任务'" + job.getJobName() + "'失败，目标字符串不允许'rmi'调用");
         }
-        else if (StringUtils.containsIgnoreCase(job.getInvokeTarget(), Constants.LOOKUP_LDAP))
+        else if (StringUtils.containsAnyIgnoreCase(job.getInvokeTarget(), new String[] { Constants.LOOKUP_LDAP, Constants.LOOKUP_LDAPS }))
         {
-            return error("新增任务'" + job.getJobName() + "'失败，目标字符串不允许'ldap://'调用");
+            return error("新增任务'" + job.getJobName() + "'失败，目标字符串不允许'ldap(s)'调用");
         }
         else if (StringUtils.containsAnyIgnoreCase(job.getInvokeTarget(), new String[] { Constants.HTTP, Constants.HTTPS }))
         {
-            return error("新增任务'" + job.getJobName() + "'失败，目标字符串不允许'http(s)//'调用");
+            return error("新增任务'" + job.getJobName() + "'失败，目标字符串不允许'http(s)'调用");
         }
+        else if (StringUtils.containsAnyIgnoreCase(job.getInvokeTarget(), Constants.JOB_ERROR_STR))
+        {
+            return error("新增任务'" + job.getJobName() + "'失败，目标字符串存在违规");
+        }
+        else if (!ScheduleUtils.whiteList(job.getInvokeTarget()))
+        {
+            return error("新增任务'" + job.getJobName() + "'失败，目标字符串不在白名单内");
+        }
+        job.setCreateBy(getUsername());
         return toAjax(jobService.insertJob(job));
     }
 
     /**
-     * 修改调度
+     * 修改定时任务
      */
-    @GetMapping("/edit/{jobId}")
-    public String edit(@PathVariable("jobId") Long jobId, ModelMap mmap)
-    {
-        mmap.put("job", jobService.selectJobById(jobId));
-        return prefix + "/edit";
-    }
-
-    /**
-     * 修改保存调度
-     */
+    @PreAuthorize("@ss.hasPermi('monitor:job:edit')")
     @Log(title = "定时任务", businessType = BusinessType.UPDATE)
-    @RequiresPermissions("monitor:job:edit")
-    @PostMapping("/edit")
-    @ResponseBody
-    public AjaxResult editSave(@Validated SysJob job) throws SchedulerException, TaskException
+    @PutMapping
+    public AjaxResult edit(@RequestBody SysJob job) throws SchedulerException, TaskException
     {
         if (!CronUtils.isValid(job.getCronExpression()))
         {
@@ -176,53 +118,62 @@ public class SysJobController extends BaseController
         }
         else if (StringUtils.containsIgnoreCase(job.getInvokeTarget(), Constants.LOOKUP_RMI))
         {
-            return error("修改任务'" + job.getJobName() + "'失败，目标字符串不允许'rmi://'调用");
+            return error("修改任务'" + job.getJobName() + "'失败，目标字符串不允许'rmi'调用");
         }
-        else if (StringUtils.containsIgnoreCase(job.getInvokeTarget(), Constants.LOOKUP_LDAP))
+        else if (StringUtils.containsAnyIgnoreCase(job.getInvokeTarget(), new String[] { Constants.LOOKUP_LDAP, Constants.LOOKUP_LDAPS }))
         {
-            return error("修改任务'" + job.getJobName() + "'失败，目标字符串不允许'ldap://'调用");
+            return error("修改任务'" + job.getJobName() + "'失败，目标字符串不允许'ldap(s)'调用");
         }
         else if (StringUtils.containsAnyIgnoreCase(job.getInvokeTarget(), new String[] { Constants.HTTP, Constants.HTTPS }))
         {
-            return error("修改任务'" + job.getJobName() + "'失败，目标字符串不允许'http(s)//'调用");
+            return error("修改任务'" + job.getJobName() + "'失败，目标字符串不允许'http(s)'调用");
         }
+        else if (StringUtils.containsAnyIgnoreCase(job.getInvokeTarget(), Constants.JOB_ERROR_STR))
+        {
+            return error("修改任务'" + job.getJobName() + "'失败，目标字符串存在违规");
+        }
+        else if (!ScheduleUtils.whiteList(job.getInvokeTarget()))
+        {
+            return error("修改任务'" + job.getJobName() + "'失败，目标字符串不在白名单内");
+        }
+        job.setUpdateBy(getUsername());
         return toAjax(jobService.updateJob(job));
     }
 
     /**
-     * 校验cron表达式是否有效
+     * 定时任务状态修改
      */
-    @PostMapping("/checkCronExpressionIsValid")
-    @ResponseBody
-    public boolean checkCronExpressionIsValid(SysJob job)
+    @PreAuthorize("@ss.hasPermi('monitor:job:changeStatus')")
+    @Log(title = "定时任务", businessType = BusinessType.UPDATE)
+    @PutMapping("/changeStatus")
+    public AjaxResult changeStatus(@RequestBody SysJob job) throws SchedulerException
     {
-        return jobService.checkCronExpressionIsValid(job.getCronExpression());
+        SysJob newJob = jobService.selectJobById(job.getJobId());
+        newJob.setStatus(job.getStatus());
+        return toAjax(jobService.changeStatus(newJob));
     }
 
     /**
-     * Cron表达式在线生成
+     * 定时任务立即执行一次
      */
-    @GetMapping("/cron")
-    public String cron()
+    @PreAuthorize("@ss.hasPermi('monitor:job:changeStatus')")
+    @Log(title = "定时任务", businessType = BusinessType.UPDATE)
+    @PutMapping("/run")
+    public AjaxResult run(@RequestBody SysJob job) throws SchedulerException
     {
-        return prefix + "/cron";
+        jobService.run(job);
+        return AjaxResult.success();
     }
 
     /**
-     * 查询cron表达式近5次的执行时间
+     * 删除定时任务
      */
-    @GetMapping("/queryCronExpression")
-    @ResponseBody
-    public AjaxResult queryCronExpression(@RequestParam(value = "cronExpression", required = false) String cronExpression)
+    @PreAuthorize("@ss.hasPermi('monitor:job:remove')")
+    @Log(title = "定时任务", businessType = BusinessType.DELETE)
+    @DeleteMapping("/{jobIds}")
+    public AjaxResult remove(@PathVariable Long[] jobIds) throws SchedulerException, TaskException
     {
-        if (jobService.checkCronExpressionIsValid(cronExpression))
-        {
-            List<String> dateList = CronUtils.getRecentTriggerTime(cronExpression);
-            return success(dateList);
-        }
-        else
-        {
-            return error("表达式无效");
-        }
+        jobService.deleteJobByIds(jobIds);
+        return AjaxResult.success();
     }
 }

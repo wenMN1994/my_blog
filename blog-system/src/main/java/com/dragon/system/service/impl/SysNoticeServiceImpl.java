@@ -1,18 +1,17 @@
 package com.dragon.system.service.impl;
 
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.dragon.common.core.text.Convert;
 import com.dragon.system.domain.SysNotice;
 import com.dragon.system.mapper.SysNoticeMapper;
 import com.dragon.system.service.ISysNoticeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 公告 服务层实现
  * 
  * @author dragon
- * @date 2018-06-25
  */
 @Service
 public class SysNoticeServiceImpl implements ISysNoticeService
@@ -71,12 +70,24 @@ public class SysNoticeServiceImpl implements ISysNoticeService
     /**
      * 删除公告对象
      * 
-     * @param ids 需要删除的数据ID
+     * @param noticeId 公告ID
      * @return 结果
      */
     @Override
-    public int deleteNoticeByIds(String ids)
+    public int deleteNoticeById(Long noticeId)
     {
-        return noticeMapper.deleteNoticeByIds(Convert.toStrArray(ids));
+        return noticeMapper.deleteNoticeById(noticeId);
+    }
+
+    /**
+     * 批量删除公告信息
+     * 
+     * @param noticeIds 需要删除的公告ID
+     * @return 结果
+     */
+    @Override
+    public int deleteNoticeByIds(Long[] noticeIds)
+    {
+        return noticeMapper.deleteNoticeByIds(noticeIds);
     }
 }

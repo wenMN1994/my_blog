@@ -1,5 +1,8 @@
 package com.dragon.common.core.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Tree基类
  * 
@@ -20,6 +23,9 @@ public class TreeEntity extends BaseEntity
 
     /** 祖级列表 */
     private String ancestors;
+
+    /** 子部门 */
+    private List<?> children = new ArrayList<>();
 
     public String getParentName()
     {
@@ -59,5 +65,15 @@ public class TreeEntity extends BaseEntity
     public void setAncestors(String ancestors)
     {
         this.ancestors = ancestors;
+    }
+
+    public List<?> getChildren()
+    {
+        return children;
+    }
+
+    public void setChildren(List<?> children)
+    {
+        this.children = children;
     }
 }

@@ -1,8 +1,9 @@
 package com.dragon.common.utils;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /**
  * 错误信息处理类。
@@ -18,8 +19,7 @@ public class ExceptionUtil
     {
         StringWriter sw = new StringWriter();
         e.printStackTrace(new PrintWriter(sw, true));
-        String str = sw.toString();
-        return str;
+        return sw.toString();
     }
 
     public static String getRootErrorMessage(Exception e)

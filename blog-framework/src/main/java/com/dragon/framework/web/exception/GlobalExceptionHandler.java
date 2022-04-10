@@ -1,19 +1,20 @@
 package com.dragon.framework.web.exception;
 
-import javax.servlet.http.HttpServletRequest;
-import org.apache.shiro.authz.AuthorizationException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.validation.BindException;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.ModelAndView;
+import com.dragon.common.constant.HttpStatus;
 import com.dragon.common.core.domain.AjaxResult;
 import com.dragon.common.exception.DemoModeException;
 import com.dragon.common.exception.ServiceException;
-import com.dragon.common.utils.ServletUtils;
-import com.dragon.common.utils.security.PermissionUtils;
+import com.dragon.common.utils.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.validation.BindException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 全局异常处理器
@@ -26,21 +27,14 @@ public class GlobalExceptionHandler
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     /**
-     * 权限校验异常（ajax请求返回json，redirect请求跳转页面）
+     * 权限校验异常
      */
-    @ExceptionHandler(AuthorizationException.class)
-    public Object handleAuthorizationException(AuthorizationException e, HttpServletRequest request)
+    @ExceptionHandler(AccessDeniedException.class)
+    public AjaxResult handleAccessDeniedException(AccessDeniedException e, HttpServletRequest request)
     {
         String requestURI = request.getRequestURI();
         log.error("请求地址'{}',权限校验失败'{}'", requestURI, e.getMessage());
-        if (ServletUtils.isAjaxRequest(request))
-        {
-            return AjaxResult.error(PermissionUtils.getMsg(e.getMessage()));
-        }
-        else
-        {
-            return new ModelAndView("error/unauth");
-        }
+        return AjaxResult.error(HttpStatus.FORBIDDEN, "没有权限，请联系管理员授权");
     }
 
     /**
@@ -48,11 +42,22 @@ public class GlobalExceptionHandler
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public AjaxResult handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException e,
-            HttpServletRequest request)
+                                                          HttpServletRequest request)
     {
         String requestURI = request.getRequestURI();
         log.error("请求地址'{}',不支持'{}'请求", requestURI, e.getMethod());
         return AjaxResult.error(e.getMessage());
+    }
+
+    /**
+     * 业务异常
+     */
+    @ExceptionHandler(ServiceException.class)
+    public AjaxResult handleServiceException(ServiceException e, HttpServletRequest request)
+    {
+        log.error(e.getMessage(), e);
+        Integer code = e.getCode();
+        return StringUtils.isNotNull(code) ? AjaxResult.error(code, e.getMessage()) : AjaxResult.error(e.getMessage());
     }
 
     /**
@@ -78,23 +83,6 @@ public class GlobalExceptionHandler
     }
 
     /**
-     * 业务异常
-     */
-    @ExceptionHandler(ServiceException.class)
-    public Object handleServiceException(ServiceException e, HttpServletRequest request)
-    {
-        log.error(e.getMessage(), e);
-        if (ServletUtils.isAjaxRequest(request))
-        {
-            return AjaxResult.error(e.getMessage());
-        }
-        else
-        {
-            return new ModelAndView("error/service", "errorMessage", e.getMessage());
-        }
-    }
-
-    /**
      * 自定义验证异常
      */
     @ExceptionHandler(BindException.class)
@@ -102,6 +90,17 @@ public class GlobalExceptionHandler
     {
         log.error(e.getMessage(), e);
         String message = e.getAllErrors().get(0).getDefaultMessage();
+        return AjaxResult.error(message);
+    }
+
+    /**
+     * 自定义验证异常
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Object handleMethodArgumentNotValidException(MethodArgumentNotValidException e)
+    {
+        log.error(e.getMessage(), e);
+        String message = e.getBindingResult().getFieldError().getDefaultMessage();
         return AjaxResult.error(message);
     }
 

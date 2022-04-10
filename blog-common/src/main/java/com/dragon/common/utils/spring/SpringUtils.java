@@ -1,5 +1,6 @@
 package com.dragon.common.utils.spring;
 
+import com.dragon.common.utils.StringUtils;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
-import com.dragon.common.utils.StringUtils;
 
 /**
  * spring工具类 方便在非spring管理环境中获取bean

@@ -1,7 +1,8 @@
 package com.dragon.common.exception.file;
 
-import java.util.Arrays;
 import org.apache.commons.fileupload.FileUploadException;
+
+import java.util.Arrays;
 
 /**
  * 文件上传 误异常类
@@ -68,7 +69,7 @@ public class InvalidExtensionException extends FileUploadException
             super(allowedExtension, extension, filename);
         }
     }
-    
+
     public static class InvalidVideoExtensionException extends InvalidExtensionException
     {
         private static final long serialVersionUID = 1L;

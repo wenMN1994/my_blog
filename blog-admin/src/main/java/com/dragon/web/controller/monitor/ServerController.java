@@ -1,31 +1,27 @@
 package com.dragon.web.controller.monitor;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import com.dragon.common.core.domain.AjaxResult;
+import com.dragon.framework.web.domain.Server;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.dragon.common.core.controller.BaseController;
-import com.dragon.framework.web.domain.Server;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 服务器监控
  * 
  * @author dragon
  */
-@Controller
+@RestController
 @RequestMapping("/monitor/server")
-public class ServerController extends BaseController
+public class ServerController
 {
-    private String prefix = "monitor/server";
-
-    @RequiresPermissions("monitor:server:view")
+    @PreAuthorize("@ss.hasPermi('monitor:server:list')")
     @GetMapping()
-    public String server(ModelMap mmap) throws Exception
+    public AjaxResult getInfo() throws Exception
     {
         Server server = new Server();
         server.copyTo();
-        mmap.put("server", server);
-        return prefix + "/server";
+        return AjaxResult.success(server);
     }
 }

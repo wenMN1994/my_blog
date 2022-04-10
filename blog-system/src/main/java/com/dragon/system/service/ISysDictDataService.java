@@ -1,7 +1,8 @@
 package com.dragon.system.service;
 
-import java.util.List;
 import com.dragon.common.core.domain.entity.SysDictData;
+
+import java.util.List;
 
 /**
  * 字典 业务层
@@ -36,12 +37,11 @@ public interface ISysDictDataService
     public SysDictData selectDictDataById(Long dictCode);
 
     /**
-     * 批量删除字典数据
+     * 批量删除字典数据信息
      * 
-     * @param ids 需要删除的数据
-     * @return 结果
+     * @param dictCodes 需要删除的字典数据ID
      */
-    public void deleteDictDataByIds(String ids);
+    public void deleteDictDataByIds(Long[] dictCodes);
 
     /**
      * 新增保存字典数据信息

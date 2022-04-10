@@ -1,28 +1,20 @@
 package com.dragon.system.domain;
 
-import java.util.Date;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import com.dragon.common.core.domain.BaseEntity;
-import com.dragon.common.enums.OnlineStatus;
-
 /**
- * 当前在线会话 sys_user_online
+ * 当前在线会话
  * 
  * @author dragon
  */
-public class SysUserOnline extends BaseEntity
+public class SysUserOnline
 {
-    private static final long serialVersionUID = 1L;
-    
-    /** 用户会话id */
-    private String sessionId;
+    /** 会话编号 */
+    private String tokenId;
 
     /** 部门名称 */
     private String deptName;
 
-    /** 登录名称 */
-    private String loginName;
+    /** 用户名称 */
+    private String userName;
 
     /** 登录IP地址 */
     private String ipaddr;
@@ -36,26 +28,17 @@ public class SysUserOnline extends BaseEntity
     /** 操作系统 */
     private String os;
 
-    /** session创建时间 */
-    private Date startTimestamp;
+    /** 登录时间 */
+    private Long loginTime;
 
-    /** session最后访问时间 */
-    private Date lastAccessTime;
-
-    /** 超时时间，单位为分钟 */
-    private Long expireTime;
-
-    /** 在线状态 */
-    private OnlineStatus status = OnlineStatus.on_line;
-
-    public String getSessionId()
+    public String getTokenId()
     {
-        return sessionId;
+        return tokenId;
     }
 
-    public void setSessionId(String sessionId)
+    public void setTokenId(String tokenId)
     {
-        this.sessionId = sessionId;
+        this.tokenId = tokenId;
     }
 
     public String getDeptName()
@@ -68,14 +51,14 @@ public class SysUserOnline extends BaseEntity
         this.deptName = deptName;
     }
 
-    public String getLoginName()
+    public String getUserName()
     {
-        return loginName;
+        return userName;
     }
 
-    public void setLoginName(String loginName)
+    public void setUserName(String userName)
     {
-        this.loginName = loginName;
+        this.userName = userName;
     }
 
     public String getIpaddr()
@@ -118,60 +101,13 @@ public class SysUserOnline extends BaseEntity
         this.os = os;
     }
 
-    public Date getStartTimestamp()
+    public Long getLoginTime()
     {
-        return startTimestamp;
+        return loginTime;
     }
 
-    public void setStartTimestamp(Date startTimestamp)
+    public void setLoginTime(Long loginTime)
     {
-        this.startTimestamp = startTimestamp;
-    }
-
-    public Date getLastAccessTime()
-    {
-        return lastAccessTime;
-    }
-
-    public void setLastAccessTime(Date lastAccessTime)
-    {
-        this.lastAccessTime = lastAccessTime;
-    }
-
-    public Long getExpireTime()
-    {
-        return expireTime;
-    }
-
-    public void setExpireTime(Long expireTime)
-    {
-        this.expireTime = expireTime;
-    }
-
-    public OnlineStatus getStatus()
-    {
-        return status;
-    }
-
-    public void setStatus(OnlineStatus status)
-    {
-        this.status = status;
-    }
-    
-	@Override
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("sessionId", getSessionId())
-            .append("loginName", getLoginName())
-            .append("deptName", getDeptName())
-            .append("ipaddr", getIpaddr())
-            .append("loginLocation", getLoginLocation())
-            .append("browser", getBrowser())
-            .append("os", getOs())
-            .append("status", getStatus())
-            .append("startTimestamp", getStartTimestamp())
-            .append("lastAccessTime", getLastAccessTime())
-            .append("expireTime", getExpireTime())
-            .toString();
+        this.loginTime = loginTime;
     }
 }
