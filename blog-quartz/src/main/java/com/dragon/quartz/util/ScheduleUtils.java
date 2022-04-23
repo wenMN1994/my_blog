@@ -5,6 +5,7 @@ import com.dragon.common.constant.ScheduleConstants;
 import com.dragon.common.exception.job.TaskException;
 import com.dragon.common.exception.job.TaskException.Code;
 import com.dragon.common.utils.StringUtils;
+import com.dragon.common.utils.spring.SpringUtils;
 import com.dragon.quartz.domain.SysJob;
 import org.quartz.*;
 
@@ -118,6 +119,7 @@ public class ScheduleUtils
         {
             return StringUtils.containsAnyIgnoreCase(invokeTarget, Constants.JOB_WHITELIST_STR);
         }
-        return true;
+        Object obj = SpringUtils.getBean(StringUtils.split(invokeTarget, ".")[0]);
+        return StringUtils.containsAnyIgnoreCase(obj.getClass().getPackage().getName(), Constants.JOB_WHITELIST_STR);
     }
 }
