@@ -1,8 +1,8 @@
 {
-  "name": "ruoyi",
+  "name": "my_blog",
   "version": "3.8.2",
-  "description": "若依管理系统",
-  "author": "若依",
+  "description": "博客管理系统",
+  "author": "DragonWen",
   "license": "MIT",
   "scripts": {
     "dev": "vue-cli-service serve",
@@ -33,7 +33,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/y_project/RuoYi-Vue.git"
+    "url": "https://gitee.com/wenMN1994/my_blog.git"
   },
   "dependencies": {
     "@riophae/vue-treeselect": "0.4.0",
