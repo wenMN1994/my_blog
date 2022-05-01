@@ -1,4 +1,4 @@
-package com.dragon.cms.domain;
+package com.dragon.system.domain;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -6,12 +6,12 @@ import com.dragon.common.annotation.Excel;
 import com.dragon.common.core.domain.BaseEntity;
 
 /**
- * 文件管理对象 cms_file
+ * 文件管理对象 sys_file
  * 
  * @author DragonWen
  * @date 2021-09-25
  */
-public class CmsFile extends BaseEntity {
+public class SysFile extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /** 文件ID */

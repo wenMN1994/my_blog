@@ -70,7 +70,7 @@
         <!-- 内容模块-->
         <dependency>
             <groupId>com.dragon</groupId>
-            <artifactId>blog-cms</artifactId>
+            <artifactId>blog-portal</artifactId>
         </dependency>
 
     </dependencies>

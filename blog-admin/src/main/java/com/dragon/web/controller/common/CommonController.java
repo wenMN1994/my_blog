@@ -39,7 +39,7 @@ public class CommonController
     private static final String FILE_DELIMETER = ",";
 
     /**
-     * 通用下载请求
+     * 本地通用下载请求
      * 
      * @param fileName 文件名称
      * @param delete 是否删除
@@ -71,7 +71,7 @@ public class CommonController
     }
 
     /**
-     * 通用上传请求（单个）
+     * 本地通用上传请求（单个）
      */
     @PostMapping("/upload")
     public AjaxResult uploadFile(MultipartFile file) throws Exception
@@ -97,7 +97,7 @@ public class CommonController
     }
 
     /**
-     * 通用上传请求（多个）
+     * 本地通用上传请求（多个）
      */
     @PostMapping("/uploads")
     public AjaxResult uploadFiles(List<MultipartFile> files) throws Exception

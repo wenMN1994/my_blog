@@ -210,7 +210,7 @@
             <!--内容模块-->
             <dependency>
                 <groupId>com.dragon</groupId>
-                <artifactId>blog-cms</artifactId>
+                <artifactId>blog-portal</artifactId>
                 <version>${blog.version}</version>
             </dependency>
 
@@ -224,7 +224,7 @@
         <module>blog-quartz</module>
         <module>blog-generator</module>
         <module>blog-common</module>
-        <module>blog-cms</module>
+        <module>blog-portal</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -1,7 +1,7 @@
-package com.dragon.cms.mapper;
+package com.dragon.system.mapper;
 
 import java.util.List;
-import com.dragon.cms.domain.CmsFile;
+import com.dragon.system.domain.SysFile;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -10,14 +10,14 @@ import org.apache.ibatis.annotations.Param;
  * @author DragonWen
  * @date 2021-09-25
  */
-public interface CmsFileMapper {
+public interface SysFileMapper {
     /**
      * 查询文件管理
      * 
      * @param fileId 文件管理主键
      * @return 文件管理
      */
-    public CmsFile selectCmsFileByFileId(Long fileId);
+    public SysFile selectSysFileByFileId(Long fileId);
 
     /**
      * 查询文件管理列表
@@ -25,7 +25,7 @@ public interface CmsFileMapper {
      * @param cmsFile 文件管理
      * @return 文件管理集合
      */
-    public List<CmsFile> selectCmsFileList(CmsFile cmsFile);
+    public List<SysFile> selectSysFileList(SysFile cmsFile);
 
     /**
      * 新增文件管理
@@ -33,7 +33,7 @@ public interface CmsFileMapper {
      * @param cmsFile 文件管理
      * @return 结果
      */
-    public int insertCmsFile(CmsFile cmsFile);
+    public int insertSysFile(SysFile cmsFile);
 
     /**
      * 修改文件管理
@@ -41,7 +41,7 @@ public interface CmsFileMapper {
      * @param cmsFile 文件管理
      * @return 结果
      */
-    public int updateCmsFile(CmsFile cmsFile);
+    public int updateSysFile(SysFile cmsFile);
 
     /**
      * 删除文件管理
@@ -49,7 +49,7 @@ public interface CmsFileMapper {
      * @param fileId 文件管理主键
      * @return 结果
      */
-    public int deleteCmsFileByFileId(Long fileId);
+    public int deleteSysFileByFileId(Long fileId);
 
     /**
      * 批量删除文件管理
@@ -58,5 +58,5 @@ public interface CmsFileMapper {
      * @param updateBy 修改人
      * @return 结果
      */
-    public int deleteCmsFileByFileIds(@Param("fileIds") String[] fileIds, @Param("updateBy") String updateBy);
+    public int deleteSysFileByFileIds(@Param("fileIds") String[] fileIds, @Param("updateBy") String updateBy);
 }

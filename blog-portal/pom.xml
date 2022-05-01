@@ -9,10 +9,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>blog-cms</artifactId>
+    <artifactId>blog-portal</artifactId>
 
     <description>
-        cms内容模块
+        博客网站模块
     </description>
 
     <dependencies>

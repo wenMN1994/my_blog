@@ -6,6 +6,7 @@ import com.aliyun.oss.OSSException;
 import com.aliyun.oss.model.OSSObject;
 import com.aliyun.oss.model.ObjectMetadata;
 import com.aliyun.oss.model.PutObjectResult;
+import com.dragon.common.constant.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,8 +29,20 @@ import java.util.Random;
  * @version: $
  */
 @Component
-public class OSSClientUtil {
-    private static final Logger log = LoggerFactory.getLogger(OSSClientUtil.class);
+public class OssClientUtil {
+
+    private static final Logger log = LoggerFactory.getLogger(OssClientUtil.class);
+
+    /**
+     * 默认大小 10M
+     */
+    public static final long DEFAULT_MAX_SIZE = 10 * 1024 * 1024;
+
+    /**
+     * 默认的文件名最大长度 100
+     */
+    public static final int DEFAULT_FILE_NAME_LENGTH = 100;
+
     /**
      * 参数在yaml配置
      */
@@ -57,7 +70,7 @@ public class OSSClientUtil {
      * @throws Exception
      */
     public Map<String, String> uploadMultipartFileToOss(MultipartFile file) throws Exception {
-        if (file.getSize() > 10 * 1024 * 1024) {
+        if (file.getSize() > DEFAULT_MAX_SIZE) {
             throw new Exception("上传文件大小不能超过10M！");
         }
         Map<String, String> result = new HashMap<>(16);
@@ -67,7 +80,7 @@ public class OSSClientUtil {
         String name = random.nextInt(10000) + System.currentTimeMillis() + substring;
         try {
             InputStream inputStream = file.getInputStream();
-            result = this.uploadFileToOSS(inputStream, name, file.getContentType());
+            result = this.uploadFileToOss(inputStream, name, file.getContentType());
             return result;
         } catch (Exception e) {
             log.info("文件上传失败:{}",e.getMessage());
@@ -85,7 +98,7 @@ public class OSSClientUtil {
      *            文件类型
      * @return
      */
-    public Map<String, String> uploadFileToOSS(InputStream inStream, String fileName, String contentType) {
+    public Map<String, String> uploadFileToOss(InputStream inStream, String fileName, String contentType) {
         String url = "";
         Map<String, String> result = new HashMap<>(16);
         String host = endpoint.replaceAll("//","//" + bucketName + ".");
@@ -127,7 +140,7 @@ public class OSSClientUtil {
      * 删除OSS文件
      * @param fileName
      */
-    public void delFileOSS(String fileName){
+    public void delFileOss(String fileName){
         OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
         if(fileName != null && fileName.length() > 0) {
             ossClient.deleteObject(bucketName, fileName);
@@ -160,14 +173,14 @@ public class OSSClientUtil {
             ByteArrayOutputStream swapStream = new ByteArrayOutputStream();
             byte[] buff = new byte[100];
             int rc = 0;
-            while ((rc = inputStream.read(buff, 0, 100)) > 0) {
+            while ((rc = inputStream.read(buff, 0, DEFAULT_FILE_NAME_LENGTH)) > 0) {
                 swapStream.write(buff, 0, rc);
             }
             byte[] in2b = swapStream.toByteArray();
             return in2b;
         } catch (OSSException e) {
             // OSS在查找不到某对象时，会抛出ErrorCode为“NoSuchKey”的OSSException，而不是返回null
-            if (e.getErrorCode().contains("NoSuchKey")) {
+            if (e.getErrorCode().contains(Constants.NO_SUCH_KEY)) {
                 log.info("找不到OSS文件:{}", key);
             }else {
                 log.info("获取文件失败:{}",e.getMessage());

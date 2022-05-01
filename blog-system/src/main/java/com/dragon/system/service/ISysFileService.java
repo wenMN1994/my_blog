@@ -1,7 +1,7 @@
-package com.dragon.cms.service;
+package com.dragon.system.service;
 
 import java.util.List;
-import com.dragon.cms.domain.CmsFile;
+import com.dragon.system.domain.SysFile;
 
 /**
  * 文件管理Service接口
@@ -9,14 +9,14 @@ import com.dragon.cms.domain.CmsFile;
  * @author DragonWen
  * @date 2021-09-25
  */
-public interface ICmsFileService {
+public interface ISysFileService {
     /**
      * 查询文件管理
      * 
      * @param fileId 文件管理主键
      * @return 文件管理
      */
-    public CmsFile selectCmsFileByFileId(Long fileId);
+    public SysFile selectSysFileByFileId(Long fileId);
 
     /**
      * 查询文件管理列表
@@ -24,7 +24,7 @@ public interface ICmsFileService {
      * @param cmsFile 文件管理
      * @return 文件管理集合
      */
-    public List<CmsFile> selectCmsFileList(CmsFile cmsFile);
+    public List<SysFile> selectSysFileList(SysFile cmsFile);
 
     /**
      * 新增文件管理
@@ -32,7 +32,7 @@ public interface ICmsFileService {
      * @param cmsFile 文件管理
      * @return 结果
      */
-    public int insertCmsFile(CmsFile cmsFile);
+    public int insertSysFile(SysFile cmsFile);
 
     /**
      * 修改文件管理
@@ -40,7 +40,7 @@ public interface ICmsFileService {
      * @param cmsFile 文件管理
      * @return 结果
      */
-    public int updateCmsFile(CmsFile cmsFile);
+    public int updateSysFile(SysFile cmsFile);
 
     /**
      * 批量删除文件管理
@@ -50,7 +50,7 @@ public interface ICmsFileService {
      * @param updateBy 修改人
      * @return 结果
      */
-    public int deleteCmsFileByFileIds(String ids, String updateBy);
+    public int deleteSysFileByFileIds(String ids, String updateBy);
 
     /**
      * 删除文件管理信息
@@ -58,5 +58,5 @@ public interface ICmsFileService {
      * @param fileId 文件管理主键
      * @return 结果
      */
-    public int deleteCmsFileByFileId(Long fileId);
+    public int deleteSysFileByFileId(Long fileId);
 }

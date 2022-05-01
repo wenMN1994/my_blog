@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dragon.cms.mapper.CmsFileMapper">
+<mapper namespace="com.dragon.system.mapper.SysFileMapper">
 
-    <resultMap type="CmsFile" id="CmsFileResult">
+    <resultMap type="SysFile" id="SysFileResult">
         <result property="fileId"    column="file_id"    />
         <result property="fileUrl"    column="file_url"    />
         <result property="fileName"    column="file_name"    />
@@ -19,12 +19,12 @@
         <result property="updateTime"    column="update_time"    />
     </resultMap>
 
-    <sql id="selectCmsFileVo">
-        select file_id, file_url, file_name, suffix, type, file_size, is_enable, oss_key, create_by, create_time, update_by, update_time from cms_file
+    <sql id="selectSysFileVo">
+        select file_id, file_url, file_name, suffix, type, file_size, is_enable, oss_key, create_by, create_time, update_by, update_time from sys_file
     </sql>
 
-    <select id="selectCmsFileList" parameterType="CmsFile" resultMap="CmsFileResult">
-        <include refid="selectCmsFileVo"/>
+    <select id="selectSysFileList" parameterType="SysFile" resultMap="SysFileResult">
+        <include refid="selectSysFileVo"/>
         <where>
             <if test="fileUrl != null  and fileUrl != ''"> and file_url = #{fileUrl}</if>
             <if test="fileName != null  and fileName != ''"> and file_name like concat('%', #{fileName}, '%')</if>
@@ -43,13 +43,13 @@
         order by create_time desc
     </select>
 
-    <select id="selectCmsFileByFileId" parameterType="Long" resultMap="CmsFileResult">
-        <include refid="selectCmsFileVo"/>
+    <select id="selectSysFileByFileId" parameterType="Long" resultMap="SysFileResult">
+        <include refid="selectSysFileVo"/>
         where file_id = #{fileId}
     </select>
 
-    <insert id="insertCmsFile" parameterType="CmsFile" useGeneratedKeys="true" keyProperty="fileId"  keyColumn="file_id">
-        insert into cms_file
+    <insert id="insertSysFile" parameterType="SysFile" useGeneratedKeys="true" keyProperty="fileId" keyColumn="file_id">
+        insert into sys_file
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="fileId != null">file_id,</if>
             <if test="fileUrl != null and fileUrl != ''">file_url,</if>
@@ -80,8 +80,8 @@
         </trim>
     </insert>
 
-    <update id="updateCmsFile" parameterType="CmsFile">
-        update cms_file
+    <update id="updateSysFile" parameterType="SysFile">
+        update sys_file
         <trim prefix="SET" suffixOverrides=",">
             <if test="fileUrl != null and fileUrl != ''">file_url = #{fileUrl},</if>
             <if test="fileName != null and fileName != ''">file_name = #{fileName},</if>
@@ -98,12 +98,12 @@
         where file_id = #{fileId}
     </update>
 
-    <update id="deleteCmsFileByFileId" parameterType="Long">
-        update cms_file set is_enable = '1', update_time = sysdate() where file_id = #{fileId}
+    <update id="deleteSysFileByFileId" parameterType="Long">
+        update sys_file set is_enable = '1', update_time = sysdate() where file_id = #{fileId}
     </update>
 
-    <update id="deleteCmsFileByFileIds" parameterType="String">
-        update cms_file set is_enable = '1', update_by = #{updateBy}, update_time = sysdate() where file_id in
+    <update id="deleteSysFileByFileIds" parameterType="String">
+        update sys_file set is_enable = '1', update_by = #{updateBy}, update_time = sysdate() where file_id in
         <foreach item="fileId" collection="fileIds" open="(" separator="," close=")">
             #{fileId}
         </foreach>

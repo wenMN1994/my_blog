@@ -1,13 +1,12 @@
-package com.dragon.cms.service.impl;
+package com.dragon.system.service.impl;
 
 import java.util.List;
 import com.dragon.common.utils.DateUtils;
-import com.dragon.common.utils.oss.OSSClientUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.dragon.cms.mapper.CmsFileMapper;
-import com.dragon.cms.domain.CmsFile;
-import com.dragon.cms.service.ICmsFileService;
+import com.dragon.system.mapper.SysFileMapper;
+import com.dragon.system.domain.SysFile;
+import com.dragon.system.service.ISysFileService;
 import com.dragon.common.core.text.Convert;
 
 /**
@@ -17,9 +16,9 @@ import com.dragon.common.core.text.Convert;
  * @date 2021-09-25
  */
 @Service
-public class CmsFileServiceImpl implements ICmsFileService {
+public class SysFileServiceImpl implements ISysFileService {
     @Autowired
-    private CmsFileMapper cmsFileMapper;
+    private SysFileMapper cmsFileMapper;
 
     /**
      * 查询文件管理
@@ -28,8 +27,8 @@ public class CmsFileServiceImpl implements ICmsFileService {
      * @return 文件管理
      */
     @Override
-    public CmsFile selectCmsFileByFileId(Long fileId) {
-        return cmsFileMapper.selectCmsFileByFileId(fileId);
+    public SysFile selectSysFileByFileId(Long fileId) {
+        return cmsFileMapper.selectSysFileByFileId(fileId);
     }
 
     /**
@@ -39,8 +38,8 @@ public class CmsFileServiceImpl implements ICmsFileService {
      * @return 文件管理
      */
     @Override
-    public List<CmsFile> selectCmsFileList(CmsFile cmsFile) {
-        return cmsFileMapper.selectCmsFileList(cmsFile);
+    public List<SysFile> selectSysFileList(SysFile cmsFile) {
+        return cmsFileMapper.selectSysFileList(cmsFile);
     }
 
     /**
@@ -50,9 +49,9 @@ public class CmsFileServiceImpl implements ICmsFileService {
      * @return 结果
      */
     @Override
-    public int insertCmsFile(CmsFile cmsFile) {
+    public int insertSysFile(SysFile cmsFile) {
         cmsFile.setCreateTime(DateUtils.getNowDate());
-        return cmsFileMapper.insertCmsFile(cmsFile);
+        return cmsFileMapper.insertSysFile(cmsFile);
     }
 
     /**
@@ -62,9 +61,9 @@ public class CmsFileServiceImpl implements ICmsFileService {
      * @return 结果
      */
     @Override
-    public int updateCmsFile(CmsFile cmsFile) {
+    public int updateSysFile(SysFile cmsFile) {
         cmsFile.setUpdateTime(DateUtils.getNowDate());
-        return cmsFileMapper.updateCmsFile(cmsFile);
+        return cmsFileMapper.updateSysFile(cmsFile);
     }
 
     /**
@@ -76,8 +75,8 @@ public class CmsFileServiceImpl implements ICmsFileService {
      * @return 结果
      */
     @Override
-    public int deleteCmsFileByFileIds(String ids, String updateBy) {
-        return cmsFileMapper.deleteCmsFileByFileIds(Convert.toStrArray(ids), updateBy);
+    public int deleteSysFileByFileIds(String ids, String updateBy) {
+        return cmsFileMapper.deleteSysFileByFileIds(Convert.toStrArray(ids), updateBy);
     }
 
     /**
@@ -87,7 +86,7 @@ public class CmsFileServiceImpl implements ICmsFileService {
      * @return 结果
      */
     @Override
-    public int deleteCmsFileByFileId(Long fileId) {
-        return cmsFileMapper.deleteCmsFileByFileId(fileId);
+    public int deleteSysFileByFileId(Long fileId) {
+        return cmsFileMapper.deleteSysFileByFileId(fileId);
     }
 }
