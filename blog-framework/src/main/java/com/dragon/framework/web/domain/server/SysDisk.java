@@ -1,11 +1,11 @@
 package com.dragon.framework.web.domain.server;
 
 /**
- * 系统文件相关信息
+ * 系统磁盘相关信息
  * 
  * @author dragon
  */
-public class SysFile
+public class SysDisk
 {
     /**
      * 盘符路径

@@ -50,7 +50,7 @@ public class Server
     /**
      * 磁盘相关信息
      */
-    private List<SysFile> sysFiles = new LinkedList<SysFile>();
+    private List<SysDisk> sysFiles = new LinkedList<SysDisk>();
 
     public Cpu getCpu()
     {
@@ -92,12 +92,12 @@ public class Server
         this.sys = sys;
     }
 
-    public List<SysFile> getSysFiles()
+    public List<SysDisk> getSysFiles()
     {
         return sysFiles;
     }
 
-    public void setSysFiles(List<SysFile> sysFiles)
+    public void setSysFiles(List<SysDisk> sysFiles)
     {
         this.sysFiles = sysFiles;
     }
@@ -192,7 +192,7 @@ public class Server
             long free = fs.getUsableSpace();
             long total = fs.getTotalSpace();
             long used = total - free;
-            SysFile sysFile = new SysFile();
+            SysDisk sysFile = new SysDisk();
             sysFile.setDirName(fs.getMount());
             sysFile.setSysTypeName(fs.getType());
             sysFile.setTypeName(fs.getName());
