@@ -123,14 +123,6 @@ public interface ISysRoleService
     public int updateRoleStatus(SysRole role);
 
     /**
-     * 修改数据权限信息
-     * 
-     * @param role 角色信息
-     * @return 结果
-     */
-    public int authDataScope(SysRole role);
-
-    /**
      * 通过角色ID删除角色
      * 
      * @param roleId 角色ID

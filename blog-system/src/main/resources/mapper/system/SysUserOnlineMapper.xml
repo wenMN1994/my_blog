@@ -7,7 +7,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<resultMap type="SysUserOnline" id="SysUserOnlineResult">
 		<id     property="sessionId"         column="sessionId"         />
 		<result property="loginName"         column="login_name"        />
-		<result property="deptName"          column="dept_name"         />
 		<result property="ipaddr"            column="ipaddr"            />
 		<result property="loginLocation"     column="login_location"    />
 		<result property="browser"           column="browser"           />
@@ -19,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	
 	<sql id="selectOnlineVo">
-       select sessionId, login_name, dept_name, ipaddr, login_location, browser, os, status, start_timestamp, last_access_time, expire_time 
+       select sessionId, login_name, ipaddr, login_location, browser, os, status, start_timestamp, last_access_time, expire_time
 	   from sys_user_online
     </sql>
     
@@ -29,8 +28,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<insert id="saveOnline" parameterType="SysUserOnline">
-		replace into sys_user_online(sessionId, login_name, dept_name, ipaddr, login_location, browser, os, status, start_timestamp, last_access_time, expire_time)
-        values (#{sessionId}, #{loginName}, #{deptName}, #{ipaddr}, #{loginLocation}, #{browser}, #{os}, #{status}, #{startTimestamp}, #{lastAccessTime}, #{expireTime})
+		replace into sys_user_online(sessionId, login_name, ipaddr, login_location, browser, os, status, start_timestamp, last_access_time, expire_time)
+        values (#{sessionId}, #{loginName}, #{ipaddr}, #{loginLocation}, #{browser}, #{os}, #{status}, #{startTimestamp}, #{lastAccessTime}, #{expireTime})
 	</insert>
 	
  	<delete id="deleteOnlineById" parameterType="String">

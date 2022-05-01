@@ -1,15 +1,15 @@
 <template>
   <div>
-    <svg-icon icon-class="question" @click="goto" />
+    <svg-icon icon-class="github" @click="goto" />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'RuoYiDoc',
+  name: 'CustomsGit',
   data() {
     return {
-      url: 'http://doc.ruoyi.vip/ruoyi-vue'
+      url: 'https://github.com/wenMN1994/my_blog'
     }
   },
   methods: {

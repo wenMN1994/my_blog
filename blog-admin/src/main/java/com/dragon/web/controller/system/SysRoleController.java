@@ -132,19 +132,6 @@ public class SysRoleController extends BaseController
     }
 
     /**
-     * 修改保存数据权限
-     */
-    @PreAuthorize("@ss.hasPermi('system:role:edit')")
-    @Log(title = "角色管理", businessType = BusinessType.UPDATE)
-    @PutMapping("/dataScope")
-    public AjaxResult dataScope(@RequestBody SysRole role)
-    {
-        roleService.checkRoleAllowed(role);
-        roleService.checkRoleDataScope(role.getRoleId());
-        return toAjax(roleService.authDataScope(role));
-    }
-
-    /**
      * 状态修改
      */
     @PreAuthorize("@ss.hasPermi('system:role:edit')")
