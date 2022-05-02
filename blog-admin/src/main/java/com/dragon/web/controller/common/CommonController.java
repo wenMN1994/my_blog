@@ -153,7 +153,7 @@ public class CommonController {
     public AjaxResult uploadFileToOss(MultipartFile file) throws Exception {
         try {
             Map<String, String> result = ossClientUtil.uploadMultipartFileToOss(file);
-            if(CollectionUtils.isEmpty(result)){
+            if(!CollectionUtils.isEmpty(result)){
                 AjaxResult ajax = AjaxResult.success();
                 ajax.put("url", result.get("url"));
                 ajax.put("fileName", result.get("ossFileName"));
@@ -177,7 +177,7 @@ public class CommonController {
             List<String> originalFilenames = new ArrayList<String>();
             for (MultipartFile file : files) {
                 Map<String, String> result = ossClientUtil.uploadMultipartFileToOss(file);
-                if(CollectionUtils.isEmpty(result)){
+                if(!CollectionUtils.isEmpty(result)){
                     urls.add(result.get("url"));
                     fileNames.add(result.get("ossFileName"));
                     originalFilenames.add(file.getOriginalFilename());
