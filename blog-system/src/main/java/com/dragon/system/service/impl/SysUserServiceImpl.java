@@ -319,12 +319,17 @@ public class SysUserServiceImpl implements ISysUserService
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateUserAvatar(String userName, Map<String, String> avatar, MultipartFile file) {
+        // 获取用户原有头像ID
+        SysUser sysUser = userMapper.selectUserByUserName(userName);
+        if(null != sysUser.getAvatarId()){
+            sysFileService.deleteSysFileByFileId(sysUser.getAvatarId());
+        }
         String fileName = avatar.get("originalFileName");
         String substring = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
         SysFile sysFile = new SysFile();
         sysFile.setFileName(fileName);
         sysFile.setFileSize(String.valueOf(file.getSize()));
-        sysFile.setIsEnable("1");
+        sysFile.setIsEnable("0");
         sysFile.setCreateBy(userName);
         sysFile.setType("avatar");
         sysFile.setSuffix(substring);

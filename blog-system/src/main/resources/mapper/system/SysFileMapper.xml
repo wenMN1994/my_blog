@@ -99,11 +99,11 @@
     </update>
 
     <update id="deleteSysFileByFileId" parameterType="Long">
-        update sys_file set is_enable = '1', update_time = sysdate() where file_id = #{fileId}
+        update sys_file set is_enable = '1', update_time = sysdate() where is_enable = '0' and file_id = #{fileId}
     </update>
 
     <update id="deleteSysFileByFileIds" parameterType="String">
-        update sys_file set is_enable = '1', update_by = #{updateBy}, update_time = sysdate() where file_id in
+        update sys_file set is_enable = '1', update_by = #{updateBy}, update_time = sysdate() where is_enable = '0' and file_id in
         <foreach item="fileId" collection="fileIds" open="(" separator="," close=")">
             #{fileId}
         </foreach>
