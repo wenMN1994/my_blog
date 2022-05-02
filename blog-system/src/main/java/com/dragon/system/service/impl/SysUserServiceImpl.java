@@ -9,6 +9,7 @@ import com.dragon.common.utils.SecurityUtils;
 import com.dragon.common.utils.StringUtils;
 import com.dragon.common.utils.bean.BeanValidators;
 import com.dragon.common.utils.spring.SpringUtils;
+import com.dragon.system.domain.SysFile;
 import com.dragon.system.domain.SysUserRole;
 import com.dragon.system.mapper.*;
 import com.dragon.system.service.ISysConfigService;
@@ -19,10 +20,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Validator;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -49,6 +52,9 @@ public class SysUserServiceImpl implements ISysUserService
 
     @Autowired
     protected Validator validator;
+
+    @Autowired
+    private SysFileServiceImpl sysFileService;
 
     /**
      * 根据条件分页查询用户列表
@@ -306,13 +312,26 @@ public class SysUserServiceImpl implements ISysUserService
      * 修改用户头像
      * 
      * @param userName 用户名
-     * @param avatar 头像地址
+     * @param avatar 头像信息
+     * @param file
      * @return 结果
      */
     @Override
-    public boolean updateUserAvatar(String userName, String avatar)
-    {
-        return userMapper.updateUserAvatar(userName, avatar) > 0;
+    @Transactional(rollbackFor = Exception.class)
+    public boolean updateUserAvatar(String userName, Map<String, String> avatar, MultipartFile file) {
+        String fileName = avatar.get("originalFileName");
+        String substring = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+        SysFile sysFile = new SysFile();
+        sysFile.setFileName(fileName);
+        sysFile.setFileSize(String.valueOf(file.getSize()));
+        sysFile.setIsEnable("1");
+        sysFile.setCreateBy(userName);
+        sysFile.setType("avatar");
+        sysFile.setSuffix(substring);
+        sysFile.setFileUrl(avatar.get("url"));
+        sysFile.setOssKey(avatar.get("ossFileName"));
+        sysFileService.insertSysFile(sysFile);
+        return userMapper.updateUserAvatar(userName, sysFile.getFileId()) > 0;
     }
 
     /**

@@ -7,6 +7,7 @@ import com.aliyun.oss.model.OSSObject;
 import com.aliyun.oss.model.ObjectMetadata;
 import com.aliyun.oss.model.PutObjectResult;
 import com.dragon.common.constant.Constants;
+import com.dragon.common.utils.file.FileUploadUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,6 +44,8 @@ public class OssClientUtil {
      */
     public static final int DEFAULT_FILE_NAME_LENGTH = 100;
 
+    public static final String CAESURA_SIGN = ".";
+
     /**
      * 参数在yaml配置
      */
@@ -74,13 +77,10 @@ public class OssClientUtil {
             throw new Exception("上传文件大小不能超过10M！");
         }
         Map<String, String> result = new HashMap<>(16);
-        String originalFilename = file.getOriginalFilename();
-        String substring = originalFilename.substring(originalFilename.lastIndexOf(".")).toLowerCase();
-        Random random = new Random();
-        String name = random.nextInt(10000) + System.currentTimeMillis() + substring;
+        String fileName = FileUploadUtils.extractFilenameTwo(file);
         try {
             InputStream inputStream = file.getInputStream();
-            result = this.uploadFileToOss(inputStream, name, file.getContentType());
+            result = this.uploadFileToOss(inputStream, fileName, file.getContentType());
             return result;
         } catch (Exception e) {
             log.info("文件上传失败:{}",e.getMessage());
@@ -117,7 +117,10 @@ public class OssClientUtil {
             fileDir = format + "/";
             PutObjectResult putResult = ossClient.putObject(bucketName, fileDir + fileName, inStream, objectMetadata);
             if (putResult != null) {
+                String originalFileName = fileName.substring(0, fileName.lastIndexOf("_"));
+                String substring = fileName.substring(fileName.lastIndexOf("."));
                 url = host + "/" + fileDir + fileName;
+                result.put("originalFileName",originalFileName + substring);
                 result.put("ossFileName",fileDir + fileName);
                 result.put("url",url);
             }

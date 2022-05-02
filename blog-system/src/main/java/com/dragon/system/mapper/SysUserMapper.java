@@ -72,10 +72,10 @@ public interface SysUserMapper
      * 修改用户头像
      * 
      * @param userName 用户名
-     * @param avatar 头像地址
+     * @param avatarId 头像地址ID
      * @return 结果
      */
-    public int updateUserAvatar(@Param("userName") String userName, @Param("avatar") String avatar);
+    public int updateUserAvatar(@Param("userName") String userName, @Param("avatarId") Long avatarId);
 
     /**
      * 重置用户密码

@@ -53,6 +53,9 @@ public class SysUser extends BaseEntity
     /** 用户头像 */
     private String avatar;
 
+    /** 用户头像ID */
+    private Long avatarId;
+
     /** 密码 */
     private String password;
 
@@ -181,6 +184,14 @@ public class SysUser extends BaseEntity
         this.avatar = avatar;
     }
 
+    public Long getAvatarId() {
+        return avatarId;
+    }
+
+    public void setAvatarId(Long avatarId) {
+        this.avatarId = avatarId;
+    }
+
     @JsonIgnore
     @JsonProperty
     public String getPassword()
@@ -283,6 +294,7 @@ public class SysUser extends BaseEntity
             .append("phonenumber", getPhonenumber())
             .append("sex", getSex())
             .append("avatar", getAvatar())
+            .append("avatarId", getAvatarId())
             .append("password", getPassword())
             .append("salt", getSalt())
             .append("status", getStatus())

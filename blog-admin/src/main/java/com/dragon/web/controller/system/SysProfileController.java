@@ -11,13 +11,16 @@ import com.dragon.common.enums.BusinessType;
 import com.dragon.common.utils.SecurityUtils;
 import com.dragon.common.utils.StringUtils;
 import com.dragon.common.utils.file.FileUploadUtils;
+import com.dragon.common.utils.oss.OssClientUtil;
 import com.dragon.framework.web.service.TokenService;
 import com.dragon.system.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * 个人信息 业务处理
@@ -33,6 +36,9 @@ public class SysProfileController extends BaseController
 
     @Autowired
     private TokenService tokenService;
+
+    @Autowired
+    private OssClientUtil ossClientUtil;
 
     /**
      * 个人信息
@@ -115,18 +121,17 @@ public class SysProfileController extends BaseController
      */
     @Log(title = "用户头像", businessType = BusinessType.UPDATE)
     @PostMapping("/avatar")
-    public AjaxResult avatar(@RequestParam("avatarfile") MultipartFile file) throws IOException
-    {
-        if (!file.isEmpty())
-        {
+    public AjaxResult avatar(@RequestParam("avatarfile") MultipartFile file) throws Exception {
+        if (!file.isEmpty()) {
             LoginUser loginUser = getLoginUser();
-            String avatar = FileUploadUtils.upload(BlogConfig.getAvatarPath(), file);
-            if (userService.updateUserAvatar(loginUser.getUsername(), avatar))
-            {
+            Map<String, String> fileInfo = ossClientUtil.uploadMultipartFileToOss(file);
+            String url = "";
+            if(!CollectionUtils.isEmpty(fileInfo) && userService.updateUserAvatar(loginUser.getUsername(), fileInfo, file)){
+                url = fileInfo.get("url");
                 AjaxResult ajax = AjaxResult.success();
-                ajax.put("imgUrl", avatar);
+                ajax.put("imgUrl", url);
                 // 更新缓存用户头像
-                loginUser.getUser().setAvatar(avatar);
+                loginUser.getUser().setAvatar(url);
                 tokenService.setLoginUser(loginUser);
                 return ajax;
             }

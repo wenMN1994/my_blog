@@ -1,8 +1,10 @@
 package com.dragon.system.service;
 
 import com.dragon.common.core.domain.entity.SysUser;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户 业务层
@@ -149,10 +151,11 @@ public interface ISysUserService
      * 修改用户头像
      * 
      * @param userName 用户名
-     * @param avatar 头像地址
+     * @param avatar 头像信息
+     * @param file 文件
      * @return 结果
      */
-    public boolean updateUserAvatar(String userName, String avatar);
+    public boolean updateUserAvatar(String userName, Map<String, String> avatar, MultipartFile file);
 
     /**
      * 重置用户密码
