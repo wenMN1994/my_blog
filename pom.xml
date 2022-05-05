@@ -34,6 +34,7 @@
         <velocity.version>2.3</velocity.version>
         <jwt.version>0.9.1</jwt.version>
         <aliyun-oss.version>3.13.0</aliyun-oss.version>
+        <hutool.version>5.8.0.M3</hutool.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -149,6 +150,13 @@
                 <groupId>commons-collections</groupId>
                 <artifactId>commons-collections</artifactId>
                 <version>${commons.collections.version}</version>
+            </dependency>
+
+            <!--hutool工具包-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
             </dependency>
 
             <!-- 阿里JSON解析器 -->
