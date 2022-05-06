@@ -44,8 +44,6 @@ public class OssClientUtil {
      */
     public static final int DEFAULT_FILE_NAME_LENGTH = 100;
 
-    public static final String CAESURA_SIGN = ".";
-
     /**
      * 参数在yaml配置
      */
@@ -114,12 +112,12 @@ public class OssClientUtil {
             // 文件上传日期
             String format = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
             // 用户上传文件时指定的前缀。
-            fileDir = format + "/";
+            fileDir = format + Constants.SLASH;
             PutObjectResult putResult = ossClient.putObject(bucketName, fileDir + fileName, inStream, objectMetadata);
             if (putResult != null) {
-                String originalFileName = fileName.substring(0, fileName.lastIndexOf("_"));
-                String substring = fileName.substring(fileName.lastIndexOf("."));
-                url = host + "/" + fileDir + fileName;
+                String originalFileName = fileName.substring(0, fileName.lastIndexOf(Constants.UNDERSCORE_CHARACTER));
+                String substring = fileName.substring(fileName.lastIndexOf(Constants.CAESURA_SIGN));
+                url = host + Constants.SLASH + fileDir + fileName;
                 result.put("originalFileName",originalFileName + substring);
                 result.put("ossFileName",fileDir + fileName);
                 result.put("url",url);

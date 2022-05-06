@@ -166,4 +166,19 @@ public class Constants
      */
     public static final String[] JOB_ERROR_STR = { "java.net.URL", "javax.naming.InitialContext", "org.yaml.snakeyaml",
             "org.springframework", "org.apache", "com.dragon.common.utils.file" };
+
+    /**
+     * 顿号分隔符/文件后缀分隔符
+     */
+    public static final String CAESURA_SIGN = ".";
+
+    /**
+     * 下划线分隔符
+     */
+    public static final String UNDERSCORE_CHARACTER = "_";
+
+    /**
+     * 斜杠“/”分隔符
+     */
+    public static final String SLASH = "/";
 }
