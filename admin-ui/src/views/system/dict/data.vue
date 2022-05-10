@@ -191,7 +191,7 @@
 
 <script>
 import { listData, getData, delData, addData, updateData } from "@/api/system/dict/data";
-import { listType, getType } from "@/api/system/dict/type";
+import { optionselect as getDictOptionSelect, getType } from "@/api/system/dict/type";
 
 export default {
   name: "Data",
@@ -287,8 +287,8 @@ export default {
     },
     /** 查询字典类型列表 */
     getTypeList() {
-      listType().then(response => {
-        this.typeOptions = response.rows;
+      getDictOptionSelect().then(response => {
+        this.typeOptions = response.data;
       });
     },
     /** 查询字典数据列表 */
