@@ -56,7 +56,7 @@
     </el-form>
 
     <el-row :gutter="10" class="mb8">
-      <el-col :span="1.5">
+      <el-col :span="1.5" v-if="!showAddOrUpdate">
         <el-button
           type="primary"
           plain
@@ -64,9 +64,32 @@
           size="mini"
           @click="handleAdd"
           v-hasPermi="['portal:article:add']"
-        >新增</el-button>
+        >发表文章</el-button>
       </el-col>
-      <el-col :span="1.5">
+      <el-col :span="1.5" v-if="showAddOrUpdate">
+        <el-button
+          type="primary"
+          plain
+          icon="el-icon-refresh-left"
+          size="mini"
+          @click="handleReturn"
+        >返回</el-button>
+        <el-button
+          type="danger"
+          plain
+          icon="el-icon-delete"
+          size="mini"
+          @click="handleSaveDraft"
+        >保存草稿</el-button>
+        <el-button
+          type="warning"
+          plain
+          icon="el-icon-s-promotion"
+          size="mini"
+          @click="handlePublishArticle"
+        >发布文章</el-button>
+      </el-col>
+      <!-- <el-col :span="1.5">
         <el-button
           type="success"
           plain
@@ -97,11 +120,76 @@
           @click="handleExport"
           v-hasPermi="['portal:article:export']"
         >导出</el-button>
-      </el-col>
+      </el-col> -->
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="articleList" @selection-change="handleSelectionChange">
+    <add-or-update v-if="showAddOrUpdate"></add-or-update>
+
+    <div class="infinite-list-wrapper"
+      v-if="!showAddOrUpdate"
+      style="overflow-y:auto;overflow-x:hidden;">
+      <ul
+        class="list"
+        v-infinite-scroll="getList"
+        infinite-scroll-disabled="disabled">
+        <li v-for="(countItem, index) in count" :key="index" class="list-item">
+          <table cellspacing="0" style="width: 100%;table-layout:fixed;">
+            <tbody>
+              <tr>
+                <td colspan="3" class="el-table__cell is-leaf">
+                  <p class="cell title">
+                    <a href="https://editor.csdn.net/md/?articleId=114834755" title="编辑">文章标题{{countItem}}</a>
+                  </p>
+                </td>
+                <td colspan="1" class="el-table__cell is-leaf" style="text-align: right;">
+                  <p class="cell date-time">2022-05-07 22:40:50</p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="4" class="el-table__cell is-leaf">
+                  <p class="cell"><el-tag size="small">原创</el-tag></p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3" class="el-table__cell is-leaf">
+                  <p class="cell data-info">展现量0 · 阅读0 · 评论0 · 收藏0</p>
+                </td>
+                <td colspan="1" class="el-table__cell is-leaf" style="text-align: right;">
+                  <p class="cell">
+                    <el-button
+                      size="mini"
+                      type="text"
+                      icon="el-icon-view"
+                      @click="handleView(scope.row)"
+                      v-hasPermi="['portal:article:view']"
+                    >浏览</el-button>
+                    <el-button
+                      size="mini"
+                      type="text"
+                      icon="el-icon-edit"
+                      @click="handleUpdate(scope.row)"
+                      v-hasPermi="['portal:article:edit']"
+                    >修改</el-button>
+                    <el-button
+                      size="mini"
+                      type="text"
+                      icon="el-icon-delete"
+                      @click="handleDelete(scope.row)"
+                      v-hasPermi="['portal:article:remove']"
+                    >删除</el-button>
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </li>
+      </ul>
+      <p class="load-txt" v-if="loading">加载中...</p>
+      <p class="load-txt" v-if="noMore">没有更多了</p>
+    </div>
+
+    <!-- <el-table v-loading="loading" :data="articleList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="文章ID" align="center" prop="articleId" />
       <el-table-column label="文章标题" align="center" prop="articleTitle" />
@@ -160,63 +248,50 @@
       :page.sync="queryParams.pageNum"
       :limit.sync="queryParams.pageSize"
       @pagination="getList"
-    />
+    /> -->
 
     <!-- 添加或修改文章信息对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
+    <el-dialog :title="title" :visible.sync="open" width="800px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="文章标题" prop="articleTitle">
           <el-input v-model="form.articleTitle" placeholder="请输入文章标题" />
         </el-form-item>
-        <el-form-item label="文章类型" prop="articleType">
-          <el-select v-model="form.articleType" placeholder="请选择文章类型">
-            <el-option
+        <el-form-item label="文章类型">
+          <el-radio-group v-model="form.articleType">
+            <el-radio
               v-for="dict in dict.type.portal_article_type"
               :key="dict.value"
-              :label="dict.label"
-:value="dict.value"
-            ></el-option>
-          </el-select>
+              :label="dict.value"
+            >{{dict.label}}</el-radio>
+          </el-radio-group>
         </el-form-item>
-        <el-form-item label="封面" prop="cover">
-          <el-input v-model="form.cover" placeholder="请输入封面" />
+        <el-form-item label="封面">
+          <image-upload v-model="form.cover"/>
         </el-form-item>
         <el-form-item label="摘要信息" prop="summary">
-          <el-input v-model="form.summary" placeholder="请输入摘要信息" />
+          <el-input v-model="form.summary" type="textarea" placeholder="请输入摘要信息" />
         </el-form-item>
-        <el-form-item label="发布形式" prop="publishType">
-          <el-select v-model="form.publishType" placeholder="请选择发布形式">
-            <el-option
+        <el-form-item label="发布形式">
+          <el-radio-group v-model="form.publishType">
+            <el-radio
               v-for="dict in dict.type.portal_article_publish_type"
               :key="dict.value"
-              :label="dict.label"
-:value="dict.value"
-            ></el-option>
-          </el-select>
+              :label="dict.value"
+            >{{dict.label}}</el-radio>
+          </el-radio-group>
         </el-form-item>
-        <el-form-item label="内容等级" prop="contentLevel">
-          <el-select v-model="form.contentLevel" placeholder="请选择内容等级">
-            <el-option
+        <el-form-item label="内容等级">
+          <el-radio-group v-model="form.contentLevel">
+            <el-radio
               v-for="dict in dict.type.portal_article_content_level"
               :key="dict.value"
-              :label="dict.label"
-:value="dict.value"
-            ></el-option>
-          </el-select>
+              :label="dict.value"
+            >{{dict.label}}</el-radio>
+          </el-radio-group>
         </el-form-item>
-        <el-form-item label="文章状态" prop="status">
-          <el-select v-model="form.status" placeholder="请选择文章状态">
-            <el-option
-              v-for="dict in dict.type.portal_article_status"
-              :key="dict.value"
-              :label="dict.label"
-:value="dict.value"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="文章内容">
+        <!-- <el-form-item label="文章内容">
           <editor v-model="form.content" :min-height="192"/>
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -228,12 +303,19 @@
 
 <script>
 import { listArticle, getArticle, delArticle, addArticle, updateArticle } from "@/api/portal/article";
-
+import AddOrUpdate from "./addOrUpdate.vue";
 export default {
+  components: {
+    AddOrUpdate
+  },
   name: "Article",
   dicts: ['portal_article_status', 'portal_article_content_level', 'portal_article_publish_type', 'portal_article_type'],
   data() {
     return {
+      // 显示新增或编辑
+      showAddOrUpdate: false,
+      // 滚动加载计数
+      count: 0,
       // 遮罩层
       loading: true,
       // 选中数组
@@ -284,14 +366,16 @@ export default {
         contentLevel: [
           { required: true, message: "内容等级不能为空", trigger: "change" }
         ],
-        status: [
-          { required: true, message: "文章状态不能为空", trigger: "change" }
-        ],
-        content: [
-          { required: true, message: "文章内容不能为空", trigger: "blur" }
-        ],
       }
     };
+  },
+  computed: {
+    noMore () {
+      return this.count >= this.total
+    },
+    disabled () {
+      return this.loading || this.noMore
+    }
   },
   created() {
     this.getList();
@@ -303,6 +387,7 @@ export default {
       listArticle(this.queryParams).then(response => {
         this.articleList = response.rows;
         this.total = response.total;
+        this.count += this.articleList.length
         this.loading = false;
       });
     },
@@ -319,7 +404,7 @@ export default {
         articleType: null,
         cover: null,
         summary: null,
-        publishType: null,
+        publishType: "0",
         contentLevel: null,
         status: null,
         content: null,
@@ -348,9 +433,23 @@ export default {
     },
     /** 新增按钮操作 */
     handleAdd() {
+      this.showSearch = false;
+      this.showAddOrUpdate = true;
+    },
+    // 返回按钮操作
+    handleReturn() {
+      this.showSearch = true;
+      this.showAddOrUpdate = false;
+    },
+    // 保存草稿操作
+    handleSaveDraft() {
+
+    },
+    // 发布文章操作
+    handlePublishArticle(){
       this.reset();
       this.open = true;
-      this.title = "添加文章信息";
+      this.title = "发布文章";
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
@@ -401,3 +500,32 @@ export default {
   }
 };
 </script>
+<style scoped>
+.list{
+  margin: 0px;
+  padding: 0px;
+}
+.list-item{
+  border-bottom: 1px solid #dfe6ec;
+  padding: 5px 0px;
+}
+.list, .list-item{
+  list-style:none;
+}
+.title{
+  color: #555666;
+} 
+.date-time, .data-info{
+  color: #999aaa;
+}
+.cell{
+  margin: 5px 0px;
+}
+.title:hover a {
+    color: #fc5531;
+}
+.load-txt{
+  text-align: center;
+  color: #999aaa;
+}
+</style>
