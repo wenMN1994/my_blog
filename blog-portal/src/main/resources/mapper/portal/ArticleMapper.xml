@@ -28,7 +28,7 @@
         <include refid="selectArticleVo"/>
         <where>
             <if test="articleTitle != null  and articleTitle != ''"> and article_title = #{articleTitle}</if>
-            <if test="articleType != null  and articleType != ''"> and article_type like concat('%', #{articleType}, '%')</if>
+            <if test="articleType != null  and articleType != ''"> and article_type = #{articleType}</if>
             <if test="publishType != null  and publishType != ''"> and publish_type = #{publishType}</if>
             <if test="contentLevel != null  and contentLevel != ''"> and content_level = #{contentLevel}</if>
             <if test="status != null  and status != ''"> and status = #{status}</if>
