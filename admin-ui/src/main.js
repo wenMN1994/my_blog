@@ -23,6 +23,10 @@ import { parseTime, resetForm, addDateRange, selectDictLabel, selectDictLabels, 
 import Pagination from "@/components/Pagination";
 // 自定义表格工具组件
 import RightToolbar from "@/components/RightToolbar"
+// Markdown组件
+import mavonEditor from 'mavon-editor'
+// Markdown样式
+import 'mavon-editor/dist/css/index.css'
 // 富文本组件
 import Editor from "@/components/Editor"
 // 文件上传组件
@@ -58,6 +62,7 @@ Vue.component('FileUpload', FileUpload)
 Vue.component('ImageUpload', ImageUpload)
 Vue.component('ImagePreview', ImagePreview)
 
+Vue.use(mavonEditor)
 Vue.use(directive)
 Vue.use(plugins)
 Vue.use(VueMeta)
