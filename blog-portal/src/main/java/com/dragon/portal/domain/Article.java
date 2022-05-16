@@ -11,8 +11,7 @@ import com.dragon.common.core.domain.BaseEntity;
  * @author dragon
  * @date 2022-05-08
  */
-public class Article extends BaseEntity
-{
+public class Article extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /** 文章ID */
@@ -50,85 +49,67 @@ public class Article extends BaseEntity
     @Excel(name = "文章内容")
     private String content;
 
-    public void setArticleId(Long articleId)
-    {
+    public void setArticleId(Long articleId) {
         this.articleId = articleId;
     }
 
-    public Long getArticleId()
-    {
+    public Long getArticleId() {
         return articleId;
     }
-    public void setArticleTitle(String articleTitle)
-    {
+    public void setArticleTitle(String articleTitle) {
         this.articleTitle = articleTitle;
     }
 
-    public String getArticleTitle()
-    {
+    public String getArticleTitle() {
         return articleTitle;
     }
-    public void setArticleType(String articleType)
-    {
+    public void setArticleType(String articleType) {
         this.articleType = articleType;
     }
 
-    public String getArticleType()
-    {
+    public String getArticleType() {
         return articleType;
     }
-    public void setCover(Long cover)
-    {
+    public void setCover(Long cover) {
         this.cover = cover;
     }
 
-    public Long getCover()
-    {
+    public Long getCover() {
         return cover;
     }
-    public void setSummary(String summary)
-    {
+    public void setSummary(String summary) {
         this.summary = summary;
     }
 
-    public String getSummary()
-    {
+    public String getSummary() {
         return summary;
     }
-    public void setPublishType(String publishType)
-    {
+    public void setPublishType(String publishType) {
         this.publishType = publishType;
     }
 
-    public String getPublishType()
-    {
+    public String getPublishType() {
         return publishType;
     }
-    public void setContentLevel(String contentLevel)
-    {
+    public void setContentLevel(String contentLevel) {
         this.contentLevel = contentLevel;
     }
 
-    public String getContentLevel()
-    {
+    public String getContentLevel() {
         return contentLevel;
     }
-    public void setStatus(String status)
-    {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public String getStatus()
-    {
+    public String getStatus() {
         return status;
     }
-    public void setContent(String content)
-    {
+    public void setContent(String content) {
         this.content = content;
     }
 
-    public String getContent()
-    {
+    public String getContent() {
         return content;
     }
 

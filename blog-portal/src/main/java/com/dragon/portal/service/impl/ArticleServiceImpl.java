@@ -15,8 +15,7 @@ import com.dragon.portal.service.IArticleService;
  * @date 2022-05-08
  */
 @Service
-public class ArticleServiceImpl implements IArticleService
-{
+public class ArticleServiceImpl implements IArticleService {
     @Autowired
     private ArticleMapper articleMapper;
 
@@ -27,8 +26,7 @@ public class ArticleServiceImpl implements IArticleService
      * @return 文章信息
      */
     @Override
-    public Article selectArticleByArticleId(Long articleId)
-    {
+    public Article selectArticleByArticleId(Long articleId) {
         return articleMapper.selectArticleByArticleId(articleId);
     }
 
@@ -39,8 +37,7 @@ public class ArticleServiceImpl implements IArticleService
      * @return 文章信息
      */
     @Override
-    public List<Article> selectArticleList(Article article)
-    {
+    public List<Article> selectArticleList(Article article) {
         return articleMapper.selectArticleList(article);
     }
 
@@ -51,8 +48,7 @@ public class ArticleServiceImpl implements IArticleService
      * @return 结果
      */
     @Override
-    public int insertArticle(Article article)
-    {
+    public int insertArticle(Article article) {
         article.setCreateTime(DateUtils.getNowDate());
         return articleMapper.insertArticle(article);
     }
@@ -64,8 +60,7 @@ public class ArticleServiceImpl implements IArticleService
      * @return 结果
      */
     @Override
-    public int updateArticle(Article article)
-    {
+    public int updateArticle(Article article) {
         article.setUpdateTime(DateUtils.getNowDate());
         return articleMapper.updateArticle(article);
     }
@@ -77,8 +72,7 @@ public class ArticleServiceImpl implements IArticleService
      * @return 结果
      */
     @Override
-    public int deleteArticleByArticleIds(Long[] articleIds)
-    {
+    public int deleteArticleByArticleIds(Long[] articleIds) {
         return articleMapper.deleteArticleByArticleIds(articleIds);
     }
 
@@ -89,8 +83,7 @@ public class ArticleServiceImpl implements IArticleService
      * @return 结果
      */
     @Override
-    public int deleteArticleByArticleId(Long articleId)
-    {
+    public int deleteArticleByArticleId(Long articleId) {
         return articleMapper.deleteArticleByArticleId(articleId);
     }
 }
