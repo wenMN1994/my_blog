@@ -45,9 +45,13 @@ public class Article extends BaseEntity {
     @Excel(name = "文章状态", readConverterExp = "0=：已发布，1：已删除，2：草稿")
     private String status;
 
-    /** 文章内容 */
-    @Excel(name = "文章内容")
+    /** 文章内容（文本格式） */
+    @Excel(name = "文章内容（文本格式）")
     private String content;
+
+    /** 文章内容（html格式） */
+    @Excel(name = "文章内容（html格式）")
+    private String contentHtml;
 
     public void setArticleId(Long articleId) {
         this.articleId = articleId;
@@ -113,6 +117,14 @@ public class Article extends BaseEntity {
         return content;
     }
 
+    public String getContentHtml() {
+        return contentHtml;
+    }
+
+    public void setContentHtml(String contentHtml) {
+        this.contentHtml = contentHtml;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -125,6 +137,7 @@ public class Article extends BaseEntity {
                 .append("contentLevel", getContentLevel())
                 .append("status", getStatus())
                 .append("content", getContent())
+                .append("contentHtml", getContentHtml())
                 .append("createBy", getCreateBy())
                 .append("createTime", getCreateTime())
                 .append("updateBy", getUpdateBy())
