@@ -23,6 +23,12 @@
             <artifactId>blog-common</artifactId>
         </dependency>
 
+        <!-- 核心模块-->
+        <dependency>
+            <groupId>com.dragon</groupId>
+            <artifactId>blog-framework</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>
