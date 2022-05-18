@@ -1,6 +1,8 @@
 package com.dragon.portal.service;
 
 import java.util.List;
+
+import com.dragon.common.core.domain.model.LoginUser;
 import com.dragon.portal.domain.Article;
 
 /**
@@ -31,9 +33,10 @@ public interface IArticleService
      * 新增文章信息
      *
      * @param article 文章信息
+     * @param loginUser 登录用户信息
      * @return 结果
      */
-    public int insertArticle(Article article);
+    public int insertArticle(Article article, LoginUser loginUser);
 
     /**
      * 修改文章信息

@@ -25,9 +25,13 @@ public class Article extends BaseEntity {
     @Excel(name = "文章类型", readConverterExp = "1=：原创，2：转载，3：翻译")
     private String articleType;
 
-    /** 封面 */
-    @Excel(name = "封面")
+    /** 封面ID */
+    @Excel(name = "封面ID")
     private Long cover;
+
+    /** 封面Url */
+    @Excel(name = "封面Url")
+    private String coverUrl;
 
     /** 摘要信息 */
     @Excel(name = "摘要信息")
@@ -76,6 +80,14 @@ public class Article extends BaseEntity {
     }
     public void setCover(Long cover) {
         this.cover = cover;
+    }
+
+    public String getCoverUrl() {
+        return coverUrl;
+    }
+
+    public void setCoverUrl(String coverUrl) {
+        this.coverUrl = coverUrl;
     }
 
     public Long getCover() {
@@ -132,6 +144,7 @@ public class Article extends BaseEntity {
                 .append("articleTitle", getArticleTitle())
                 .append("articleType", getArticleType())
                 .append("cover", getCover())
+                .append("coverUrl", getCoverUrl())
                 .append("summary", getSummary())
                 .append("publishType", getPublishType())
                 .append("contentLevel", getContentLevel())

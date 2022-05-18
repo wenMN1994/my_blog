@@ -1,12 +1,17 @@
 package com.dragon.portal.service.impl;
 
 import java.util.List;
+
+import com.dragon.common.core.domain.model.LoginUser;
 import com.dragon.common.utils.DateUtils;
+import com.dragon.system.domain.SysFile;
+import com.dragon.system.service.ISysFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.dragon.portal.mapper.ArticleMapper;
 import com.dragon.portal.domain.Article;
 import com.dragon.portal.service.IArticleService;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 文章信息Service业务层处理
@@ -16,6 +21,9 @@ import com.dragon.portal.service.IArticleService;
  */
 @Service
 public class ArticleServiceImpl implements IArticleService {
+    @Autowired
+    private ISysFileService iSysFileService;
+
     @Autowired
     private ArticleMapper articleMapper;
 
@@ -45,10 +53,20 @@ public class ArticleServiceImpl implements IArticleService {
      * 新增文章信息
      *
      * @param article 文章信息
+     * @param loginUser 登录用户信息
      * @return 结果
      */
     @Override
-    public int insertArticle(Article article) {
+    @Transactional(rollbackFor = Exception.class)
+    public int insertArticle(Article article, LoginUser loginUser) {
+        SysFile sysFile = new SysFile();
+        sysFile.setFileUrl(article.getCoverUrl());
+        sysFile.setIsEnable("0");
+        sysFile.setCreateBy(loginUser.getUsername());
+        iSysFileService.insertSysFile(sysFile);
+        article.setStatus("0");
+        article.setCover(sysFile.getFileId());
+        article.setCreateBy(loginUser.getUsername());
         article.setCreateTime(DateUtils.getNowDate());
         return articleMapper.insertArticle(article);
     }

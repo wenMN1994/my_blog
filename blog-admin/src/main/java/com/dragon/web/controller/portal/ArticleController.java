@@ -2,6 +2,8 @@ package com.dragon.web.controller.portal;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.dragon.common.core.domain.model.LoginUser;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,7 +74,8 @@ public class ArticleController extends BaseController {
     @Log(title = "文章信息", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody Article article) {
-        return toAjax(articleService.insertArticle(article));
+        LoginUser loginUser = getLoginUser();
+        return toAjax(articleService.insertArticle(article, loginUser));
     }
 
     /**
