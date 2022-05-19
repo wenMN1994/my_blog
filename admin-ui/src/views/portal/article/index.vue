@@ -124,7 +124,12 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <add-or-update v-if="showAddOrUpdate"></add-or-update>
+    <add-or-update 
+      :articleData="articleData"
+      @setdata="setdata" 
+      ref="addUpdate" 
+      v-if="showAddOrUpdate">
+    </add-or-update>
 
     <div class="infinite-list-wrapper"
       v-if="!showAddOrUpdate"
@@ -133,17 +138,17 @@
         class="list"
         v-infinite-scroll="getList"
         infinite-scroll-disabled="disabled">
-        <li v-for="(countItem, index) in count" :key="index" class="list-item">
+        <li v-for="(articleItem, index) in articleList" :key="index" class="list-item">
           <table cellspacing="0" style="width: 100%;table-layout:fixed;">
             <tbody>
               <tr>
                 <td colspan="3" class="el-table__cell is-leaf">
                   <p class="cell title">
-                    <a href="https://editor.csdn.net/md/?articleId=114834755" title="编辑">文章标题{{countItem}}</a>
+                    <a href="https://editor.csdn.net/md/?articleId=114834755" title="编辑">{{articleItem.articleTitle}}</a>
                   </p>
                 </td>
                 <td colspan="1" class="el-table__cell is-leaf" style="text-align: right;">
-                  <p class="cell date-time">2022-05-07 22:40:50</p>
+                  <p class="cell date-time">{{articleItem.createTime}}</p>
                 </td>
               </tr>
               <tr>
@@ -266,7 +271,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="封面">
-          <image-upload v-model="form.cover"/>
+          <image-upload :limit="limit" v-model="form.coverUrl"/>
         </el-form-item>
         <el-form-item label="摘要信息" prop="summary">
           <el-input v-model="form.summary" type="textarea" placeholder="请输入摘要信息" />
@@ -312,18 +317,15 @@ export default {
   dicts: ['portal_article_status', 'portal_article_content_level', 'portal_article_publish_type', 'portal_article_type'],
   data() {
     return {
+      limit: 1,
+      // 编辑记录
+      articleData: {},
       // 显示新增或编辑
       showAddOrUpdate: false,
       // 滚动加载计数
       count: 0,
       // 遮罩层
       loading: true,
-      // 选中数组
-      ids: [],
-      // 非单个禁用
-      single: true,
-      // 非多个禁用
-      multiple: true,
       // 显示搜索条件
       showSearch: true,
       // 总条数
@@ -345,26 +347,26 @@ export default {
         status: null,
       },
       // 表单参数
-      form: {},
+      form: {content: null},
       // 表单校验
       rules: {
         articleTitle: [
           { required: true, message: "文章标题不能为空", trigger: "blur" }
         ],
         articleType: [
-          { required: true, message: "文章类型不能为空", trigger: "change" }
+          { required: true, message: "文章类型不能为空", trigger: "blur" }
         ],
-        cover: [
+        coverUrl: [
           { required: true, message: "封面不能为空", trigger: "blur" }
         ],
         summary: [
           { required: true, message: "摘要信息不能为空", trigger: "blur" }
         ],
         publishType: [
-          { required: true, message: "发布形式不能为空", trigger: "change" }
+          { required: true, message: "发布形式不能为空", trigger: "blur" }
         ],
         contentLevel: [
-          { required: true, message: "内容等级不能为空", trigger: "change" }
+          { required: true, message: "内容等级不能为空", trigger: "blur" }
         ],
       }
     };
@@ -403,11 +405,13 @@ export default {
         articleTitle: null,
         articleType: null,
         cover: null,
+        coverUrl: null,
         summary: null,
         publishType: "0",
         contentLevel: null,
         status: null,
         content: null,
+        contentHtml: null,
         createBy: null,
         createTime: null,
         updateBy: null,
@@ -425,19 +429,15 @@ export default {
       this.resetForm("queryForm");
       this.handleQuery();
     },
-    // 多选框选中数据
-    handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.articleId)
-      this.single = selection.length!==1
-      this.multiple = !selection.length
-    },
     /** 新增按钮操作 */
     handleAdd() {
+      this.reset();
       this.showSearch = false;
       this.showAddOrUpdate = true;
     },
     // 返回按钮操作
     handleReturn() {
+      this.articleData = {};
       this.showSearch = true;
       this.showAddOrUpdate = false;
     },
@@ -447,18 +447,27 @@ export default {
     },
     // 发布文章操作
     handlePublishArticle(){
-      this.reset();
+      // 调用子页面方法触发数据回传到父页面
+      this.$refs.addUpdate.getContext()
       this.open = true;
       this.title = "发布文章";
+    },
+    //接收子页面参数 data可用json传多个参数
+    setdata: function(data) {
+      this.form.content = data.content;
+      this.form.contentHtml = data.contentHtml;
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
-      const articleId = row.articleId || this.ids
+      this.showSearch = false;
+      this.showAddOrUpdate = true;
+      const articleId = row.articleId
       getArticle(articleId).then(response => {
         this.form = response.data;
+        this.articleData = response.data;
         this.open = true;
-        this.title = "修改文章信息";
+        this.title = "发布文章";
       });
     },
     /** 提交按钮 */
@@ -467,13 +476,13 @@ export default {
         if (valid) {
           if (this.form.articleId != null) {
             updateArticle(this.form).then(response => {
-              this.$modal.msgSuccess("修改成功");
+              this.$modal.msgSuccess("发布成功");
               this.open = false;
               this.getList();
             });
           } else {
             addArticle(this.form).then(response => {
-              this.$modal.msgSuccess("新增成功");
+              this.$modal.msgSuccess("发布成功");
               this.open = false;
               this.getList();
             });
@@ -483,7 +492,7 @@ export default {
     },
     /** 删除按钮操作 */
     handleDelete(row) {
-      const articleIds = row.articleId || this.ids;
+      const articleIds = row.articleId
       this.$modal.confirm('是否确认删除文章信息编号为"' + articleIds + '"的数据项？').then(function() {
         return delArticle(articleIds);
       }).then(() => {
@@ -513,6 +522,7 @@ export default {
   list-style:none;
 }
 .title{
+  text-align: left;
   color: #555666;
 } 
 .date-time, .data-info{

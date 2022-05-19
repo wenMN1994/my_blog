@@ -55,7 +55,7 @@ export default {
     },
     // 大小限制(MB)
     fileSize: {
-       type: Number,
+      type: Number,
       default: 5,
     },
     // 文件类型, 例如['png', 'jpg', 'jpeg']
@@ -76,7 +76,6 @@ export default {
       dialogImageUrl: "",
       dialogVisible: false,
       hideUpload: false,
-      baseUrl: process.env.VUE_APP_BASE_API,
       uploadImgUrl: process.env.VUE_APP_BASE_API + "/common/uploadFileToOss", // 上传的图片服务器地址
       headers: {
         Authorization: "Bearer " + getToken(),
@@ -93,11 +92,7 @@ export default {
           // 然后将数组转为对象数组
           this.fileList = list.map(item => {
             if (typeof item === "string") {
-              if (item.indexOf(this.baseUrl) === -1) {
-                  item = { name: this.baseUrl + item, url: this.baseUrl + item };
-              } else {
-                  item = { name: item, url: item };
-              }
+              item = { name: item, url: item };
             }
             return item;
           });
@@ -186,7 +181,7 @@ export default {
       let strs = "";
       separator = separator || ",";
       for (let i in list) {
-        strs += list[i].url.replace(this.baseUrl, "") + separator;
+        strs += list[i].url + separator;
       }
       return strs != '' ? strs.substr(0, strs.length - 1) : '';
     }
