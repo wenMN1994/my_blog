@@ -166,21 +166,21 @@
                       size="mini"
                       type="text"
                       icon="el-icon-view"
-                      @click="handleView(scope.row)"
+                      @click="handleView(articleItem.articleId)"
                       v-hasPermi="['portal:article:view']"
                     >浏览</el-button>
                     <el-button
                       size="mini"
                       type="text"
                       icon="el-icon-edit"
-                      @click="handleUpdate(scope.row)"
+                      @click="handleUpdate(articleItem.articleId)"
                       v-hasPermi="['portal:article:edit']"
                     >修改</el-button>
                     <el-button
                       size="mini"
                       type="text"
                       icon="el-icon-delete"
-                      @click="handleDelete(scope.row)"
+                      @click="handleDelete(articleItem.articleId)"
                       v-hasPermi="['portal:article:remove']"
                     >删除</el-button>
                   </p>
@@ -458,11 +458,10 @@ export default {
       this.form.contentHtml = data.contentHtml;
     },
     /** 修改按钮操作 */
-    handleUpdate(row) {
+    handleUpdate(articleId) {
       this.reset();
       this.showSearch = false;
       this.showAddOrUpdate = true;
-      const articleId = row.articleId
       getArticle(articleId).then(response => {
         this.form = response.data;
         this.articleData = response.data;
@@ -491,10 +490,9 @@ export default {
       });
     },
     /** 删除按钮操作 */
-    handleDelete(row) {
-      const articleIds = row.articleId
-      this.$modal.confirm('是否确认删除文章信息编号为"' + articleIds + '"的数据项？').then(function() {
-        return delArticle(articleIds);
+    handleDelete(articleId) {
+      this.$modal.confirm('是否确认删除文章信息编号为"' + articleId + '"的数据项？').then(function() {
+        return delArticle(articleId);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");
