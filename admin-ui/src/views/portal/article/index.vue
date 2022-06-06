@@ -432,24 +432,25 @@ export default {
       this.showSearch = false;
       this.showAddOrUpdate = true;
     },
-    // 返回按钮操作
+    /**返回按钮操作 */
     handleReturn() {
       this.articleData = {};
       this.showSearch = true;
       this.showAddOrUpdate = false;
+      this.getList();
     },
-    // 保存草稿操作
+    /**保存草稿操作 */
     handleSaveDraft() {
 
     },
-    // 发布文章操作
+    /**发布文章操作 */
     handlePublishArticle(){
-      // 调用子页面方法触发数据回传到父页面
+      /**调用子页面方法触发数据回传到父页面 */
       this.$refs.addUpdate.getContext()
       this.open = true;
       this.title = "发布文章";
     },
-    //接收子页面参数 data可用json传多个参数
+    /**接收子页面参数 data可用json传多个参数 */
     setdata: function(data) {
       this.form.content = data.content;
       this.form.contentHtml = data.contentHtml;
@@ -472,13 +473,13 @@ export default {
             updateArticle(this.form).then(response => {
               this.$modal.msgSuccess("发布成功");
               this.open = false;
-              this.getList();
+              this.handleReturn();
             });
           } else {
             addArticle(this.form).then(response => {
               this.$modal.msgSuccess("发布成功");
               this.open = false;
-              this.getList();
+              this.handleReturn();
             });
           }
         }
