@@ -144,7 +144,7 @@
               <tr>
                 <td colspan="3" class="el-table__cell is-leaf">
                   <p class="cell title">
-                    <a href="https://editor.csdn.net/md/?articleId=114834755" title="编辑">{{articleItem.articleTitle}}</a>
+                    <a @click="handleUpdate(articleItem.articleId)" title="编辑">{{articleItem.articleTitle}}</a>
                   </p>
                 </td>
                 <td colspan="1" class="el-table__cell is-leaf" style="text-align: right;">
@@ -294,9 +294,6 @@
             >{{dict.label}}</el-radio>
           </el-radio-group>
         </el-form-item>
-        <!-- <el-form-item label="文章内容">
-          <editor v-model="form.content" :min-height="192"/>
-        </el-form-item> -->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -461,12 +458,10 @@ export default {
     handleUpdate(articleId) {
       this.reset();
       this.showSearch = false;
-      this.showAddOrUpdate = true;
       getArticle(articleId).then(response => {
         this.form = response.data;
         this.articleData = response.data;
-        this.open = true;
-        this.title = "发布文章";
+        this.showAddOrUpdate = true;
       });
     },
     /** 提交按钮 */

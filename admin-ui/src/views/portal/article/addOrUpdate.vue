@@ -66,8 +66,9 @@ export default {
     }
   },
   created() {
-    this.context = this.articleData.content
+    this.initData()
   },
+  /**组件挂在完毕 */
   mounted() {
     const that = this
     window.onresize = function temp() {
@@ -75,11 +76,16 @@ export default {
     }
   },
   methods: {
-    // 编辑区域内容改变
+    /**初始化数据 */
+    initData() {
+      this.context = this.articleData.content
+    },
+    /**编辑区域内容改变 */
     handleChange(value, render) {
       this.returnData.content = value
       this.returnData.contentHtml = render
     },
+    /**插入图片 */
     imgAdd(pos, $file) {
       uploadFilesToOss(this.uploadUrl, $file).then(res => {
         const data = res.data
@@ -87,6 +93,7 @@ export default {
         this.$refs.md.$img2Url(pos, url)
       })
     },
+    /**获取文本内容 */
     getContext(){
       this.$emit('setdata', this.returnData);
     }

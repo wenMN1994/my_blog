@@ -12,6 +12,7 @@ import com.dragon.portal.mapper.ArticleMapper;
 import com.dragon.portal.domain.Article;
 import com.dragon.portal.service.IArticleService;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 /**
  * 文章信息Service业务层处理
@@ -35,7 +36,14 @@ public class ArticleServiceImpl implements IArticleService {
      */
     @Override
     public Article selectArticleByArticleId(Long articleId) {
-        return articleMapper.selectArticleByArticleId(articleId);
+        Article article = articleMapper.selectArticleByArticleId(articleId);
+        if(article != null && article.getCover() != null){
+            SysFile sysFile = iSysFileService.selectSysFileByFileId(article.getCover());
+            if(sysFile != null){
+                article.setCoverUrl(sysFile.getFileUrl());
+            }
+        }
+        return article;
     }
 
     /**
