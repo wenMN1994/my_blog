@@ -1,6 +1,7 @@
 package com.dragon.common.utils.ip;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.dragon.common.config.BlogConfig;
 import com.dragon.common.constant.Constants;
 import com.dragon.common.utils.StringUtils;
@@ -40,7 +41,7 @@ public class AddressUtils
                     log.error("获取地理位置异常 {}", ip);
                     return UNKNOWN;
                 }
-                JSONObject obj = JSONObject.parseObject(rspStr);
+                JSONObject obj = JSON.parseObject(rspStr);
                 String region = obj.getString("pro");
                 String city = obj.getString("city");
                 return String.format("%s %s", region, city);

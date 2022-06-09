@@ -1,6 +1,6 @@
 package com.dragon.framework.interceptor.impl;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSON;
 import com.dragon.common.annotation.RepeatSubmit;
 import com.dragon.common.constant.Constants;
 import com.dragon.common.core.redis.RedisCache;
@@ -51,7 +51,7 @@ public class SameUrlDataInterceptor extends RepeatSubmitInterceptor
         // body参数为空，获取Parameter的数据
         if (StringUtils.isEmpty(nowParams))
         {
-            nowParams = JSONObject.toJSONString(request.getParameterMap());
+            nowParams = JSON.toJSONString(request.getParameterMap());
         }
         Map<String, Object> nowDataMap = new HashMap<String, Object>();
         nowDataMap.put(REPEAT_PARAMS, nowParams);

@@ -1,6 +1,6 @@
 package com.dragon.framework.interceptor;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSON;
 import com.dragon.common.annotation.RepeatSubmit;
 import com.dragon.common.core.domain.AjaxResult;
 import com.dragon.common.utils.ServletUtils;
@@ -33,7 +33,7 @@ public abstract class RepeatSubmitInterceptor implements HandlerInterceptor
                 if (this.isRepeatSubmit(request, annotation))
                 {
                     AjaxResult ajaxResult = AjaxResult.error(annotation.message());
-                    ServletUtils.renderString(response, JSONObject.toJSONString(ajaxResult));
+                    ServletUtils.renderString(response, JSON.toJSONString(ajaxResult));
                     return false;
                 }
             }
