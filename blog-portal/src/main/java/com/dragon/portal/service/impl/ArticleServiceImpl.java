@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.dragon.common.core.domain.model.LoginUser;
 import com.dragon.common.utils.DateUtils;
+import com.dragon.common.utils.DictUtils;
 import com.dragon.system.domain.SysFile;
 import com.dragon.system.service.ISysFileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import com.dragon.portal.mapper.ArticleMapper;
 import com.dragon.portal.domain.Article;
 import com.dragon.portal.service.IArticleService;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 /**
  * 文章信息Service业务层处理
@@ -54,7 +54,18 @@ public class ArticleServiceImpl implements IArticleService {
      */
     @Override
     public List<Article> selectArticleList(Article article) {
-        return articleMapper.selectArticleList(article);
+        List<Article> articleList = articleMapper.selectArticleList(article);
+        for (Article articleVo : articleList) {
+            String articleTypeStr = DictUtils.getDictLabel("portal_article_type", articleVo.getArticleType());
+            articleVo.setArticleTypeStr(articleTypeStr);
+            String publishTypeStr = DictUtils.getDictLabel("portal_article_publish_type", articleVo.getPublishType());
+            articleVo.setPublishTypeStr(publishTypeStr);
+            String contentLevelStr = DictUtils.getDictLabel("portal_article_content_level", articleVo.getContentLevel());
+            articleVo.setContentLevelStr(contentLevelStr);
+            String statusStr = DictUtils.getDictLabel("portal_article_status", articleVo.getStatus());
+            articleVo.setStatusStr(statusStr);
+        }
+        return articleList;
     }
 
     /**
@@ -67,16 +78,20 @@ public class ArticleServiceImpl implements IArticleService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int insertArticle(Article article, LoginUser loginUser) {
-        SysFile sysFile = new SysFile();
-        sysFile.setFileUrl(article.getCoverUrl());
-        sysFile.setIsEnable("0");
-        sysFile.setCreateBy(loginUser.getUsername());
-        iSysFileService.insertSysFile(sysFile);
-        article.setStatus("0");
-        article.setCover(sysFile.getFileId());
-        article.setCreateBy(loginUser.getUsername());
-        article.setCreateTime(DateUtils.getNowDate());
-        return articleMapper.insertArticle(article);
+        try {
+            SysFile sysFile = new SysFile();
+            sysFile.setFileUrl(article.getCoverUrl());
+            sysFile.setIsEnable("0");
+            sysFile.setCreateBy(loginUser.getUsername());
+            iSysFileService.insertSysFile(sysFile);
+            article.setStatus("0");
+            article.setCover(sysFile.getFileId());
+            article.setCreateBy(loginUser.getUsername());
+            article.setCreateTime(DateUtils.getNowDate());
+            return articleMapper.insertArticle(article);
+        } catch (Exception e) {
+            throw new RuntimeException("新增失败！");
+        }
     }
 
     /**

@@ -25,6 +25,9 @@ public class Article extends BaseEntity {
     @Excel(name = "文章类型", readConverterExp = "1=：原创，2：转载，3：翻译")
     private String articleType;
 
+    /** 文章类型中文描述 */
+    private String articleTypeStr;
+
     /** 封面ID */
     @Excel(name = "封面ID")
     private Long cover;
@@ -41,13 +44,22 @@ public class Article extends BaseEntity {
     @Excel(name = "发布形式", readConverterExp = "1=：公开，2：私密，3：VIP可见")
     private String publishType;
 
+    /** 发布形式中文描述 */
+    private String publishTypeStr;
+
     /** 内容等级（1：初级，2：中级，3：高级） */
     @Excel(name = "内容等级", readConverterExp = "1=：初级，2：中级，3：高级")
     private String contentLevel;
 
+    /** 内容等级中文描述 */
+    private String contentLevelStr;
+
     /** 文章状态（0：已发布，1：已删除，2：草稿） */
     @Excel(name = "文章状态", readConverterExp = "0=：已发布，1：已删除，2：草稿")
     private String status;
+
+    /** 文章状态中文描述 */
+    private String statusStr;
 
     /** 文章内容（文本格式） */
     @Excel(name = "文章内容（文本格式）")
@@ -78,6 +90,15 @@ public class Article extends BaseEntity {
     public String getArticleType() {
         return articleType;
     }
+
+    public String getArticleTypeStr() {
+        return articleTypeStr;
+    }
+
+    public void setArticleTypeStr(String articleTypeStr) {
+        this.articleTypeStr = articleTypeStr;
+    }
+
     public void setCover(Long cover) {
         this.cover = cover;
     }
@@ -107,6 +128,15 @@ public class Article extends BaseEntity {
     public String getPublishType() {
         return publishType;
     }
+
+    public String getPublishTypeStr() {
+        return publishTypeStr;
+    }
+
+    public void setPublishTypeStr(String publishTypeStr) {
+        this.publishTypeStr = publishTypeStr;
+    }
+
     public void setContentLevel(String contentLevel) {
         this.contentLevel = contentLevel;
     }
@@ -114,6 +144,15 @@ public class Article extends BaseEntity {
     public String getContentLevel() {
         return contentLevel;
     }
+
+    public String getContentLevelStr() {
+        return contentLevelStr;
+    }
+
+    public void setContentLevelStr(String contentLevelStr) {
+        this.contentLevelStr = contentLevelStr;
+    }
+
     public void setStatus(String status) {
         this.status = status;
     }
@@ -121,6 +160,15 @@ public class Article extends BaseEntity {
     public String getStatus() {
         return status;
     }
+
+    public String getStatusStr() {
+        return statusStr;
+    }
+
+    public void setStatusStr(String statusStr) {
+        this.statusStr = statusStr;
+    }
+
     public void setContent(String content) {
         this.content = content;
     }
@@ -143,12 +191,16 @@ public class Article extends BaseEntity {
                 .append("articleId", getArticleId())
                 .append("articleTitle", getArticleTitle())
                 .append("articleType", getArticleType())
+                .append("articleTypeStr", getArticleTypeStr())
                 .append("cover", getCover())
                 .append("coverUrl", getCoverUrl())
                 .append("summary", getSummary())
                 .append("publishType", getPublishType())
+                .append("publishTypeStr", getPublishTypeStr())
                 .append("contentLevel", getContentLevel())
+                .append("contentLevelStr", getContentLevelStr())
                 .append("status", getStatus())
+                .append("statusStr", getStatusStr())
                 .append("content", getContent())
                 .append("contentHtml", getContentHtml())
                 .append("createBy", getCreateBy())
