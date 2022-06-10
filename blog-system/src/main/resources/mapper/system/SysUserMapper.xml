@@ -45,7 +45,7 @@
     </sql>
 
 	<select id="selectUserList" parameterType="SysUser" resultMap="SysUserResult">
-		select u.user_id, u.nick_name, u.user_name, u.email, u.avatar_id, u.phonenumber, u.password, u.sex, u.status,
+		select u.user_id, u.nick_name, u.user_name, u.email, u.avatar_id, u.phonenumber, u.sex, u.status,
 		u.del_flag, u.login_ip, u.login_date, u.create_by, u.create_time, u.remark, f.file_url as avatar
 		from sys_user u
 			left join sys_file f on u.avatar_id = f.file_id

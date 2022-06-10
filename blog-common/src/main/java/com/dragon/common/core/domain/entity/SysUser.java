@@ -1,11 +1,8 @@
 package com.dragon.common.core.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.dragon.common.annotation.Excel;
 import com.dragon.common.annotation.Excel.ColumnType;
 import com.dragon.common.annotation.Excel.Type;
-import com.dragon.common.annotation.Excels;
 import com.dragon.common.core.domain.BaseEntity;
 import com.dragon.common.xss.Xss;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -192,8 +189,6 @@ public class SysUser extends BaseEntity
         this.avatarId = avatarId;
     }
 
-    @JsonIgnore
-    @JsonProperty
     public String getPassword()
     {
         return password;
