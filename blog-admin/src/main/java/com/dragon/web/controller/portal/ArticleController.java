@@ -95,6 +95,7 @@ public class ArticleController extends BaseController {
     @Log(title = "文章信息", businessType = BusinessType.DELETE)
     @DeleteMapping("/{articleIds}")
     public AjaxResult remove(@PathVariable Long[] articleIds) {
-        return toAjax(articleService.deleteArticleByArticleIds(articleIds));
+        LoginUser loginUser = getLoginUser();
+        return toAjax(articleService.deleteArticleByArticleIds(articleIds, loginUser));
     }
 }

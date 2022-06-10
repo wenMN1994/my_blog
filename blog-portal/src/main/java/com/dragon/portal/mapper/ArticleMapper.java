@@ -2,6 +2,7 @@ package com.dragon.portal.mapper;
 
 import java.util.List;
 import com.dragon.portal.domain.Article;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 文章信息Mapper接口
@@ -47,15 +48,17 @@ public interface ArticleMapper
      * 删除文章信息
      *
      * @param articleId 文章信息主键
+     * @param loginUser 登录用户信息
      * @return 结果
      */
-    public int deleteArticleByArticleId(Long articleId);
+    public int deleteArticleByArticleId(@Param("articleId") Long articleId, @Param("loginUser") String loginUser);
 
     /**
      * 批量删除文章信息
      *
      * @param articleIds 需要删除的数据主键集合
+     * @param loginUser 登录用户信息
      * @return 结果
      */
-    public int deleteArticleByArticleIds(Long[] articleIds);
+    public int deleteArticleByArticleIds(@Param("articleIds") Long[] articleIds, @Param("loginUser") String loginUser);
 }

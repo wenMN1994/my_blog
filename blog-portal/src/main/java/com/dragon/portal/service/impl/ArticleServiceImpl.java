@@ -110,21 +110,23 @@ public class ArticleServiceImpl implements IArticleService {
      * 批量删除文章信息
      *
      * @param articleIds 需要删除的文章信息主键
+     * @param loginUser 登录用户信息
      * @return 结果
      */
     @Override
-    public int deleteArticleByArticleIds(Long[] articleIds) {
-        return articleMapper.deleteArticleByArticleIds(articleIds);
+    public int deleteArticleByArticleIds(Long[] articleIds, LoginUser loginUser) {
+        return articleMapper.deleteArticleByArticleIds(articleIds, loginUser.getUsername());
     }
 
     /**
      * 删除文章信息信息
      *
      * @param articleId 文章信息主键
+     * @param loginUser 登录用户信息
      * @return 结果
      */
     @Override
-    public int deleteArticleByArticleId(Long articleId) {
-        return articleMapper.deleteArticleByArticleId(articleId);
+    public int deleteArticleByArticleId(Long articleId, LoginUser loginUser) {
+        return articleMapper.deleteArticleByArticleId(articleId, loginUser.getUsername());
     }
 }

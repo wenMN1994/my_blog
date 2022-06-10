@@ -324,7 +324,7 @@ export default {
         summary: null,
         publishType: "1",
         contentLevel: "1",
-        status: "0",
+        status: null,
         content: null,
         contentHtml: null,
         createBy: null,
@@ -359,12 +359,19 @@ export default {
     },
     /**保存草稿操作 */
     handleSaveDraft() {
-
+      /**调用子页面方法触发数据回传到父页面 */
+      this.$refs.addUpdate.getContext();
+      this.form.status = "2";
+      if(!this.form.content){
+        this.$modal.msgError("文章内容不能为空！");
+        return false;
+      }
     },
     /**发布文章操作 */
     handlePublishArticle(){
       /**调用子页面方法触发数据回传到父页面 */
-      this.$refs.addUpdate.getContext()
+      this.$refs.addUpdate.getContext();
+      this.form.status = "0";
       if(!this.form.content){
         this.$modal.msgError("文章内容不能为空！");
         return false;

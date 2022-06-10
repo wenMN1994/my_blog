@@ -96,14 +96,25 @@
         where article_id = #{articleId}
     </update>
 
-    <delete id="deleteArticleByArticleId" parameterType="Long">
-        delete from portal_article where article_id = #{articleId}
-    </delete>
+    <update id="deleteArticleByArticleId" parameterType="Long">
+        update portal_article
+        <trim prefix="SET" suffixOverrides=",">
+            status = '1',
+            update_by = #{loginUser},
+            update_time = sysdate,
+        </trim>
+         where article_id = #{articleId}
+    </update>
 
     <delete id="deleteArticleByArticleIds" parameterType="String">
-        delete from portal_article where article_id in
-        <foreach item="articleId" collection="array" open="(" separator="," close=")">
-            #{articleId}
+        <foreach item="articleId" collection="articleIds" open="begin" separator=";" close=";end;">
+            update portal_article
+            <trim prefix="SET" suffixOverrides=",">
+                status = '1',
+                update_by = #{loginUser},
+                update_time = sysdate,
+            </trim>
+            where article_id = #{articleId}
         </foreach>
     </delete>
 </mapper>

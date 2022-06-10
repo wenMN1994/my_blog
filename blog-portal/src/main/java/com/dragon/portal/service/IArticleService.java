@@ -50,15 +50,17 @@ public interface IArticleService
      * 批量删除文章信息
      *
      * @param articleIds 需要删除的文章信息主键集合
+     * @param loginUser 登录用户信息
      * @return 结果
      */
-    public int deleteArticleByArticleIds(Long[] articleIds);
+    public int deleteArticleByArticleIds(Long[] articleIds, LoginUser loginUser);
 
     /**
      * 删除文章信息信息
      *
      * @param articleId 文章信息主键
+     * @param loginUser 登录用户信息
      * @return 结果
      */
-    public int deleteArticleByArticleId(Long articleId);
+    public int deleteArticleByArticleId(Long articleId, LoginUser loginUser);
 }
