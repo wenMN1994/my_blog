@@ -101,18 +101,18 @@
         <trim prefix="SET" suffixOverrides=",">
             status = '1',
             update_by = #{loginUser},
-            update_time = sysdate,
+            update_time = #{nowDate},
         </trim>
          where article_id = #{articleId}
     </update>
 
     <delete id="deleteArticleByArticleIds" parameterType="String">
-        <foreach item="articleId" collection="articleIds" open="begin" separator=";" close=";end;">
+        <foreach item="articleId" index="index" collection="articleIds" open="" separator=";" close="">
             update portal_article
             <trim prefix="SET" suffixOverrides=",">
                 status = '1',
                 update_by = #{loginUser},
-                update_time = sysdate,
+                update_time = #{nowDate},
             </trim>
             where article_id = #{articleId}
         </foreach>

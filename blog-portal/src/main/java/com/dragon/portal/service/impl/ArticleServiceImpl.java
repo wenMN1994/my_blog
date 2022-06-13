@@ -1,5 +1,6 @@
 package com.dragon.portal.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import com.dragon.common.core.domain.model.LoginUser;
@@ -114,7 +115,8 @@ public class ArticleServiceImpl implements IArticleService {
      */
     @Override
     public int deleteArticleByArticleIds(Long[] articleIds, LoginUser loginUser) {
-        return articleMapper.deleteArticleByArticleIds(articleIds, loginUser.getUsername());
+        Date nowDate = DateUtils.getNowDate();
+        return articleMapper.deleteArticleByArticleIds(articleIds, loginUser.getUsername(), nowDate);
     }
 
     /**
@@ -126,6 +128,7 @@ public class ArticleServiceImpl implements IArticleService {
      */
     @Override
     public int deleteArticleByArticleId(Long articleId, LoginUser loginUser) {
-        return articleMapper.deleteArticleByArticleId(articleId, loginUser.getUsername());
+        Date nowDate = DateUtils.getNowDate();
+        return articleMapper.deleteArticleByArticleId(articleId, loginUser.getUsername(), nowDate);
     }
 }
