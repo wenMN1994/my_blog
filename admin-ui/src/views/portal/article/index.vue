@@ -366,6 +366,8 @@ export default {
         this.$modal.msgError("文章内容不能为空！");
         return false;
       }
+      this.open = true;
+      this.title = "发布文章";
     },
     /**发布文章操作 */
     handlePublishArticle(){

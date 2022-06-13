@@ -84,7 +84,6 @@ public class ArticleServiceImpl implements IArticleService {
             sysFile.setIsEnable("0");
             sysFile.setCreateBy(loginUser.getUsername());
             iSysFileService.insertSysFile(sysFile);
-            article.setStatus("0");
             article.setCover(sysFile.getFileId());
             article.setCreateBy(loginUser.getUsername());
             article.setCreateTime(DateUtils.getNowDate());
