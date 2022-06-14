@@ -4,6 +4,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.dragon.common.core.domain.model.LoginUser;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +32,7 @@ import com.dragon.common.core.page.TableDataInfo;
  * @author dragon
  * @date 2022-05-08
  */
+@Api("用户信息管理")
 @RestController
 @RequestMapping("/portal/article")
 public class ArticleController extends BaseController {
@@ -38,6 +42,7 @@ public class ArticleController extends BaseController {
     /**
      * 查询文章信息列表
      */
+    @ApiOperation("获取文章列表")
     @PreAuthorize("@ss.hasPermi('portal:article:list')")
     @GetMapping("/list")
     public TableDataInfo list(Article article) {
@@ -49,6 +54,7 @@ public class ArticleController extends BaseController {
     /**
      * 导出文章信息列表
      */
+    @ApiOperation("导出文章列表")
     @PreAuthorize("@ss.hasPermi('portal:article:export')")
     @Log(title = "文章信息", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
@@ -59,8 +65,10 @@ public class ArticleController extends BaseController {
     }
 
     /**
-     * 获取文章信息详细信息
+     * 获取文章详细信息
      */
+    @ApiOperation("获取文章详细信息")
+    @ApiImplicitParam(name = "articleId", value = "文章ID", required = true, dataType = "long", paramType = "path", dataTypeClass = Long.class)
     @PreAuthorize("@ss.hasPermi('portal:article:query')")
     @GetMapping(value = "/{articleId}")
     public AjaxResult getInfo(@PathVariable("articleId") Long articleId) {
@@ -70,6 +78,7 @@ public class ArticleController extends BaseController {
     /**
      * 新增文章信息
      */
+    @ApiOperation("新增文章")
     @PreAuthorize("@ss.hasPermi('portal:article:add')")
     @Log(title = "文章信息", businessType = BusinessType.INSERT)
     @PostMapping
@@ -81,6 +90,7 @@ public class ArticleController extends BaseController {
     /**
      * 修改文章信息
      */
+    @ApiOperation("修改文章")
     @PreAuthorize("@ss.hasPermi('portal:article:edit')")
     @Log(title = "文章信息", businessType = BusinessType.UPDATE)
     @PutMapping
@@ -91,6 +101,8 @@ public class ArticleController extends BaseController {
     /**
      * 删除文章信息
      */
+    @ApiOperation("删除文章")
+    @ApiImplicitParam(name = "articleIds", value = "文章ID数组", required = true, dataType = "long", paramType = "path", dataTypeClass = Long.class)
     @PreAuthorize("@ss.hasPermi('portal:article:remove')")
     @Log(title = "文章信息", businessType = BusinessType.DELETE)
     @DeleteMapping("/{articleIds}")
