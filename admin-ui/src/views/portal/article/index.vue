@@ -413,7 +413,7 @@ export default {
     },
     /** 浏览按钮操作 */
     handleView(articleId) {
-      this.$modal.msgError("功能待开发...");
+      this.$modal.msgWarning("功能待开发...");
     },
     /** 修改按钮操作 */
     handleUpdate(articleId) {
