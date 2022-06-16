@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-container" style="max-height: calc(100vh - 84px);">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
       <el-form-item label="文章标题" prop="articleTitle">
         <el-input
@@ -89,7 +89,7 @@
           @click="handlePublishArticle"
         >发布文章</el-button>
       </el-col>
-      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
+      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList()"></right-toolbar>
     </el-row>
 
     <add-or-update
@@ -98,14 +98,15 @@
       ref="addUpdate"
       v-if="showAddOrUpdate">
     </add-or-update>
-
-    <div class="infinite-list-wrapper"
+    
+    <div class="infinite-list-wrapper article-list"
       v-if="!showAddOrUpdate"
-      style="overflow-y:auto;overflow-x:hidden;">
+      :style="{height:scrollerHeight}">
       <ul
         class="list"
-        v-infinite-scroll="getList"
-        infinite-scroll-disabled="disabled">
+        v-infinite-scroll="loadMore"
+        infinite-scroll-disabled="disabled"
+        infinite-scroll-distance="21">
         <li v-for="(articleItem, index) in articleList" :key="index" class="list-item">
           <table cellspacing="0" style="width: 100%;table-layout:fixed;">
             <tbody>
@@ -172,6 +173,7 @@
       <p class="load-txt" v-if="loading">加载中...</p>
       <p class="load-txt" v-if="noMore">没有更多了</p>
     </div>
+    
 
     <!-- 添加或修改文章信息对话框 -->
     <el-dialog :title="title" :visible.sync="open" :close-on-click-modal="false" width="800px" append-to-body>
@@ -237,10 +239,8 @@ export default {
       articleData: {},
       // 显示新增或编辑
       showAddOrUpdate: false,
-      // 滚动加载计数
-      count: 0,
       // 遮罩层
-      loading: true,
+      loading: false,
       // 显示搜索条件
       showSearch: true,
       // 总条数
@@ -288,23 +288,48 @@ export default {
   },
   computed: {
     noMore () {
-      return this.count >= this.total
+      return this.articleList.length >= this.total
     },
     disabled () {
       return this.loading || this.noMore
+    },
+    scrollerHeight(){
+      let height = "";
+      if(this.showSearch){
+        // let queryFormHeight = this.$refs.queryForm.offsetHeight;
+        let queryFormHeight = 100 + 140;
+        height = 'calc(100vh - '+queryFormHeight+'px)';
+      }else{
+        height = 'calc(100vh - 140px)';
+      }
+      return height;
     }
   },
   created() {
     this.getList();
   },
   methods: {
-    /** 查询文章信息列表 */
-    getList() {
+    /** 滚动翻页 */
+    loadMore(){
       this.loading = true;
+      setTimeout(() => {  // 发送请求有时间间隔第一个滚动时间结束后才发送第二个请求
+        this.pageNum++;  // 滚动之后加载第二页
+        this.getList(true);
+      }, 1000);	   
+    },
+    /** 查询文章信息列表 */
+    getList(flag) {
       listArticle(this.queryParams).then(response => {
-        this.articleList = response.rows;
+        if(flag){//如果flag为true则表示分页
+          this.articleList = this.articleList.concat(response.rows);
+        }else{
+          this.articleList = response.rows;
+        }
         this.total = response.total;
-        this.count += this.articleList.length
+        this.loading = false;
+      }).catch(() => {
+        this.articleList = [];
+        this.total = 0;
         this.loading = false;
       });
     },
@@ -469,5 +494,9 @@ export default {
 }
 .cell-flag{
   padding-right: 5px;
+}
+.article-list{
+  overflow-y:visible;
+  overflow-x:hidden;
 }
 </style>

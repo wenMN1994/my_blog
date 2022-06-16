@@ -27,7 +27,7 @@ import io.swagger.annotations.ApiOperation;
  *
  * @author dragon
  */
-@Api("用户信息管理")
+@Api(tags = "用户信息管理(测试Swagger)")
 @RestController
 @RequestMapping("/test/user")
 public class TestController extends BaseController
