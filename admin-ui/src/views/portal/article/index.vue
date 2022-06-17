@@ -98,7 +98,7 @@
       ref="addUpdate"
       v-if="showAddOrUpdate">
     </add-or-update>
-    
+
     <div class="infinite-list-wrapper article-list"
       v-if="!showAddOrUpdate"
       :style="{height:scrollerHeight}">
@@ -173,7 +173,7 @@
       <p class="load-txt" v-if="loading">加载中...</p>
       <p class="load-txt" v-if="noMore">没有更多了</p>
     </div>
-    
+
 
     <!-- 添加或修改文章信息对话框 -->
     <el-dialog :title="title" :visible.sync="open" :close-on-click-modal="false" width="800px" append-to-body>
@@ -262,7 +262,9 @@ export default {
         status: null,
       },
       // 表单参数
-      form: {content: null},
+      form: {
+        content: null
+      },
       // 表单校验
       rules: {
         articleTitle: [
@@ -315,7 +317,7 @@ export default {
       setTimeout(() => {  // 发送请求有时间间隔第一个滚动时间结束后才发送第二个请求
         this.pageNum++;  // 滚动之后加载第二页
         this.getList(true);
-      }, 1000);	   
+      }, 1000);
     },
     /** 查询文章信息列表 */
     getList(flag) {
@@ -336,7 +338,6 @@ export default {
     // 取消按钮
     cancel() {
       this.open = false;
-      this.reset();
     },
     // 表单重置
     reset() {
@@ -392,7 +393,7 @@ export default {
         return false;
       }
       this.open = true;
-      this.title = "发布文章";
+      this.title = "保存草稿";
     },
     /**发布文章操作 */
     handlePublishArticle(){
@@ -431,13 +432,13 @@ export default {
         if (valid) {
           if (this.form.articleId != null) {
             updateArticle(this.form).then(response => {
-              this.$modal.msgSuccess("发布成功");
+              this.$modal.msgSuccess("保存成功");
               this.open = false;
               this.handleReturn();
             });
           } else {
             addArticle(this.form).then(response => {
-              this.$modal.msgSuccess("发布成功");
+              this.$modal.msgSuccess("保存成功");
               this.open = false;
               this.handleReturn();
             });
