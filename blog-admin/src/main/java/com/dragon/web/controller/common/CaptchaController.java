@@ -1,5 +1,6 @@
 package com.dragon.web.controller.common;
 
+import com.dragon.common.constant.CacheConstants;
 import com.google.code.kaptcha.Producer;
 import com.dragon.common.config.BlogConfig;
 import com.dragon.common.constant.Constants;
@@ -55,7 +56,7 @@ public class CaptchaController
 
         // 保存验证码信息
         String uuid = IdUtils.simpleUUID();
-        String verifyKey = Constants.CAPTCHA_CODE_KEY + uuid;
+        String verifyKey = CacheConstants.CAPTCHA_CODE_KEY + uuid;
 
         String capStr = null, code = null;
         BufferedImage image = null;

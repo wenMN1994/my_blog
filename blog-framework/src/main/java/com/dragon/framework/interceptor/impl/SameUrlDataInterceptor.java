@@ -2,7 +2,7 @@ package com.dragon.framework.interceptor.impl;
 
 import com.alibaba.fastjson2.JSON;
 import com.dragon.common.annotation.RepeatSubmit;
-import com.dragon.common.constant.Constants;
+import com.dragon.common.constant.CacheConstants;
 import com.dragon.common.core.redis.RedisCache;
 import com.dragon.common.filter.RepeatedlyRequestWrapper;
 import com.dragon.common.utils.StringUtils;
@@ -64,7 +64,7 @@ public class SameUrlDataInterceptor extends RepeatSubmitInterceptor
         String submitKey = StringUtils.trimToEmpty(request.getHeader(header));
 
         // 唯一标识（指定key + url + 消息头）
-        String cacheRepeatKey = Constants.REPEAT_SUBMIT_KEY + url + submitKey;
+        String cacheRepeatKey = CacheConstants.REPEAT_SUBMIT_KEY + url + submitKey;
 
         Object sessionObj = redisCache.getCacheObject(cacheRepeatKey);
         if (sessionObj != null)

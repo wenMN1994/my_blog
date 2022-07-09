@@ -1,5 +1,6 @@
 package com.dragon.framework.web.service;
 
+import com.dragon.common.constant.CacheConstants;
 import com.dragon.common.constant.Constants;
 import com.dragon.common.core.domain.entity.SysUser;
 import com.dragon.common.core.domain.model.LoginUser;
@@ -32,8 +33,7 @@ import javax.annotation.Resource;
  * @author dragon
  */
 @Component
-public class SysLoginService
-{
+public class SysLoginService {
     @Autowired
     private TokenService tokenService;
 
@@ -58,31 +58,23 @@ public class SysLoginService
      * @param uuid 唯一标识
      * @return 结果
      */
-    public String login(String username, String password, String code, String uuid)
-    {
+    public String login(String username, String password, String code, String uuid) {
         boolean captchaOnOff = configService.selectCaptchaOnOff();
         // 验证码开关
-        if (captchaOnOff)
-        {
+        if (captchaOnOff) {
             validateCaptcha(username, code, uuid);
         }
         // 用户验证
         Authentication authentication = null;
-        try
-        {
+        try {
             // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
             authentication = authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        }
-        catch (Exception e)
-        {
-            if (e instanceof BadCredentialsException)
-            {
+        } catch (Exception e) {
+            if (e instanceof BadCredentialsException) {
                 AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.password.not.match")));
                 throw new UserPasswordNotMatchException();
-            }
-            else
-            {
+            } else {
                 AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, e.getMessage()));
                 throw new ServiceException(e.getMessage());
             }
@@ -102,18 +94,15 @@ public class SysLoginService
      * @param uuid 唯一标识
      * @return 结果
      */
-    public void validateCaptcha(String username, String code, String uuid)
-    {
-        String verifyKey = Constants.CAPTCHA_CODE_KEY + StringUtils.nvl(uuid, "");
+    public void validateCaptcha(String username, String code, String uuid) {
+        String verifyKey = CacheConstants.CAPTCHA_CODE_KEY + StringUtils.nvl(uuid, "");
         String captcha = redisCache.getCacheObject(verifyKey);
         redisCache.deleteObject(verifyKey);
-        if (captcha == null)
-        {
+        if (captcha == null) {
             AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.expire")));
             throw new CaptchaExpireException();
         }
-        if (!code.equalsIgnoreCase(captcha))
-        {
+        if (!code.equalsIgnoreCase(captcha)) {
             AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.error")));
             throw new CaptchaException();
         }
@@ -124,8 +113,7 @@ public class SysLoginService
      *
      * @param userId 用户ID
      */
-    public void recordLoginInfo(Long userId)
-    {
+    public void recordLoginInfo(Long userId) {
         SysUser sysUser = new SysUser();
         sysUser.setUserId(userId);
         sysUser.setLoginIp(IpUtils.getIpAddr(ServletUtils.getRequest()));
