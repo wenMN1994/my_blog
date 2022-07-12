@@ -64,8 +64,8 @@ public class CacheController {
     @PreAuthorize("@ss.hasPermi('monitor:cache:list')")
     @GetMapping("/getKeys/{cacheName}")
     public AjaxResult getCacheKeys(@PathVariable String cacheName) {
-        Set<String> cacheKyes = redisTemplate.keys(cacheName + "*");
-        return AjaxResult.success(cacheKyes);
+        Set<String> cacheKeys = redisTemplate.keys(cacheName + "*");
+        return AjaxResult.success(cacheKeys);
     }
 
     @PreAuthorize("@ss.hasPermi('monitor:cache:list')")
