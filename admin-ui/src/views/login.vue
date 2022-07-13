@@ -57,12 +57,15 @@
     <!--  底部  -->
     <div class="el-login-footer">
       <span>Copyright © 2018-2022 www.dragonwen.cn All Rights Reserved.</span>
+      <span>
+        备案号：<a href="https://beian.miit.gov.cn/" title="工信部链接" target="_blank">粤ICP备20001307号</a>
+      </span>
     </div>
   </div>
 </template>
 
 <script>
-import { getCodeImg } from "@/api/login";
+import { getCodeImg, getWebsiteConfigInfo } from "@/api/login";
 import Cookies from "js-cookie";
 import { encrypt, decrypt } from '@/utils/jsencrypt'
 
@@ -104,10 +107,19 @@ export default {
     }
   },
   created() {
-    this.getCode();
+    this.getWebsiteConfig();
     this.getCookie();
   },
   methods: {
+    getWebsiteConfig(){
+      getWebsiteConfigInfo().then(res => {
+        if(res.code === 200){
+          this.captchaEnabled = res.captchaEnabled;
+          this.register = res.registerUser;
+          this.getCode();
+        }
+      });
+    },
     getCode() {
       getCodeImg().then(res => {
         this.captchaEnabled = res.captchaEnabled === undefined ? true : res.captchaEnabled;

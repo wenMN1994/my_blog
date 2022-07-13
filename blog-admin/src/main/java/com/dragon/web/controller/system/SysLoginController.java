@@ -8,6 +8,7 @@ import com.dragon.common.core.domain.model.LoginBody;
 import com.dragon.common.utils.SecurityUtils;
 import com.dragon.framework.web.service.SysLoginService;
 import com.dragon.framework.web.service.SysPermissionService;
+import com.dragon.system.service.ISysConfigService;
 import com.dragon.system.service.ISysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,8 +25,7 @@ import java.util.Set;
  * @author dragon
  */
 @RestController
-public class SysLoginController
-{
+public class SysLoginController {
     @Autowired
     private SysLoginService loginService;
 
@@ -35,6 +35,9 @@ public class SysLoginController
     @Autowired
     private SysPermissionService permissionService;
 
+    @Autowired
+    private ISysConfigService configService;
+
     /**
      * 登录方法
      * 
@@ -42,8 +45,7 @@ public class SysLoginController
      * @return 结果
      */
     @PostMapping("/login")
-    public AjaxResult login(@RequestBody LoginBody loginBody)
-    {
+    public AjaxResult login(@RequestBody LoginBody loginBody) {
         AjaxResult ajax = AjaxResult.success();
         // 生成令牌
         String token = loginService.login(loginBody.getUsername(), loginBody.getPassword(), loginBody.getCode(),
@@ -58,8 +60,7 @@ public class SysLoginController
      * @return 用户信息
      */
     @GetMapping("getInfo")
-    public AjaxResult getInfo()
-    {
+    public AjaxResult getInfo() {
         SysUser user = SecurityUtils.getLoginUser().getUser();
         // 角色集合
         Set<String> roles = permissionService.getRolePermission(user);
@@ -78,10 +79,24 @@ public class SysLoginController
      * @return 路由信息
      */
     @GetMapping("getRouters")
-    public AjaxResult getRouters()
-    {
+    public AjaxResult getRouters() {
         Long userId = SecurityUtils.getUserId();
         List<SysMenu> menus = menuService.selectMenuTreeByUserId(userId);
         return AjaxResult.success(menuService.buildMenus(menus));
+    }
+
+    /**
+     * 获取网站配置信息
+     *
+     * @return 网站配置信息
+     */
+    @GetMapping("/getWebsiteConfigInfo")
+    public AjaxResult getWebsiteConfigInfo() {
+        boolean captchaEnabled = configService.selectCaptchaEnabled();
+        boolean registerUser = configService.selectRegisterUser();
+        AjaxResult ajax = AjaxResult.success();
+        ajax.put("captchaEnabled", captchaEnabled);
+        ajax.put("registerUser", registerUser);
+        return ajax;
     }
 }

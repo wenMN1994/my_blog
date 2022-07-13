@@ -57,3 +57,15 @@ export function getCodeImg() {
     timeout: 20000
   })
 }
+
+// 获取网站配置信息
+export function getWebsiteConfigInfo() {
+  return request({
+    url: '/getWebsiteConfigInfo',
+    headers: {
+      isToken: false
+    },
+    method: 'get',
+    timeout: 20000
+  })
+}
