@@ -1,5 +1,6 @@
 package com.dragon.web.controller.system;
 
+import com.alibaba.fastjson2.JSONObject;
 import com.dragon.common.constant.Constants;
 import com.dragon.common.core.domain.AjaxResult;
 import com.dragon.common.core.domain.entity.SysMenu;
@@ -94,9 +95,14 @@ public class SysLoginController {
     public AjaxResult getWebsiteConfigInfo() {
         boolean captchaEnabled = configService.selectCaptchaEnabled();
         boolean registerUser = configService.selectRegisterUser();
+        JSONObject jsonObject = configService.selectDomainNameIcp();
         AjaxResult ajax = AjaxResult.success();
         ajax.put("captchaEnabled", captchaEnabled);
         ajax.put("registerUser", registerUser);
+        ajax.put("ICP", jsonObject.get("ICP"));
+        ajax.put("domainName", jsonObject.get("domainName"));
+        ajax.put("year", jsonObject.get("year"));
+        ajax.put("MIIT", jsonObject.get("MIIT"));
         return ajax;
     }
 }

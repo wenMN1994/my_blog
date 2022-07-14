@@ -1,5 +1,6 @@
 package com.dragon.system.service;
 
+import com.alibaba.fastjson2.JSONObject;
 import com.dragon.system.domain.SysConfig;
 
 import java.util.List;
@@ -36,9 +37,17 @@ public interface ISysConfigService
 
     /**
      * 获取用户注册开关
+     *
      * @return true开启，false关闭
      */
     public boolean selectRegisterUser();
+
+    /**
+     * 获取网站底部-域名备案信息
+     *
+     * @return
+     */
+    public JSONObject selectDomainNameIcp();
 
     /**
      * 查询参数配置列表

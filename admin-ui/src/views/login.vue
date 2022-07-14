@@ -56,9 +56,9 @@
     </el-form>
     <!--  底部  -->
     <div class="el-login-footer">
-      <span>Copyright © 2018-2022 www.dragonwen.cn All Rights Reserved.</span>
+      <span>Copyright © {{year}} {{domainName}} All Rights Reserved.</span>
       <span>
-        备案号：<a href="https://beian.miit.gov.cn/" title="工信部链接" target="_blank">粤ICP备20001307号</a>
+        备案号：<a :href="MIIT" title="工信部链接" target="_blank">{{ICP}}</a>
       </span>
     </div>
   </div>
@@ -95,7 +95,15 @@ export default {
       captchaEnabled: true,
       // 注册开关
       register: false,
-      redirect: undefined
+      redirect: undefined,
+      // 备案号
+      ICP: '粤ICP备20001307号',
+      // 网站域名
+      domainName: 'www.dragonwen.cn',
+      // 版权
+      year: '2018-2022',
+      // 工信部网址
+      MIIT: 'https://beian.miit.gov.cn/'
     };
   },
   watch: {
@@ -116,6 +124,10 @@ export default {
         if(res.code === 200){
           this.captchaEnabled = res.captchaEnabled;
           this.register = res.registerUser;
+          this.ICP = res.ICP;
+          this.domainName = res.domainName;
+          this.year = res.year;
+          this.MIIT = res.MIIT;
           this.getCode();
         }
       });

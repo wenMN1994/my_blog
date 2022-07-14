@@ -1,5 +1,7 @@
 package com.dragon.system.service.impl;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.dragon.common.annotation.DataSource;
 import com.dragon.common.constant.CacheConstants;
 import com.dragon.common.constant.UserConstants;
@@ -101,6 +103,21 @@ public class SysConfigServiceImpl implements ISysConfigService {
             return false;
         }
         return Convert.toBool(registerUser);
+    }
+
+    /**
+     * 获取网站底部-域名备案信息
+     *
+     * @return
+     */
+    @Override
+    public JSONObject selectDomainNameIcp() {
+        String registerUser = selectConfigByKey("sys.domainName.ICP");
+        if(StringUtils.isEmpty(registerUser)){
+            JSONObject obj = JSON.parseObject("{\"ICP\":\"粤ICP备20001307号\",\"domainName\":\"www.dragonwen.cn\",\"year\":\"2018-2022\",\"MIIT\":\"https://beian.miit.gov.cn/\"}");
+            return obj;
+        }
+        return JSON.parseObject(registerUser);
     }
 
     /**
