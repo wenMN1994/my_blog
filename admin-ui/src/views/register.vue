@@ -61,13 +61,16 @@
     </el-form>
     <!--  底部  -->
     <div class="el-register-footer">
-      <span>Copyright © 2018-2022 www.dragonwen.cn All Rights Reserved.</span>
+      <span>Copyright © {{year}} {{domainName}} All Rights Reserved.</span>
+      <span>
+        备案号：<a :href="MIIT" title="工信部链接" target="_blank">{{ICP}}</a>
+      </span>
     </div>
   </div>
 </template>
 
 <script>
-import { getCodeImg, register } from "@/api/login";
+import { getCodeImg, register, getWebsiteConfigInfo } from "@/api/login";
 
 export default {
   name: "Register",
@@ -104,13 +107,33 @@ export default {
         code: [{ required: true, trigger: "change", message: "请输入验证码" }]
       },
       loading: false,
-      captchaEnabled: true
+      captchaEnabled: true,
+      // 备案号
+      ICP: '粤ICP备20001307号',
+      // 网站域名
+      domainName: 'www.dragonwen.cn',
+      // 版权
+      year: '2018-2022',
+      // 工信部网址
+      MIIT: 'https://beian.miit.gov.cn/'
     };
   },
   created() {
-    this.getCode();
+    this.getWebsiteConfig();
   },
   methods: {
+    getWebsiteConfig(){
+      getWebsiteConfigInfo().then(res => {
+        if(res.code === 200){
+          this.captchaEnabled = res.captchaEnabled;
+          this.ICP = res.ICP;
+          this.domainName = res.domainName;
+          this.year = res.year;
+          this.MIIT = res.MIIT;
+          this.getCode();
+        }
+      });
+    },
     getCode() {
       getCodeImg().then(res => {
         this.captchaEnabled = res.captchaEnabled === undefined ? true : res.captchaEnabled;
