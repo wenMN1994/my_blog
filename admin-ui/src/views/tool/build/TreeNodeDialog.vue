@@ -4,6 +4,7 @@
       v-bind="$attrs"
       :close-on-click-modal="false"
       :modal-append-to-body="false"
+      class="scrollbar"
       v-on="$listeners"
       @open="onOpen"
       @close="onClose"

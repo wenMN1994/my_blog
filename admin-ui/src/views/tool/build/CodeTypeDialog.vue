@@ -5,6 +5,7 @@
       width="500px"
       :close-on-click-modal="false"
       :modal-append-to-body="false"
+      class="scrollbar"
       v-on="$listeners"
       @open="onOpen"
       @close="onClose"
