@@ -419,11 +419,15 @@ export default {
     /** 修改按钮操作 */
     handleUpdate(articleId) {
       this.reset();
-      this.showSearch = false;
+      this.loading = true;
       getArticle(articleId).then(response => {
         this.form = response.data;
         this.articleData = response.data;
+        this.showSearch = false;
         this.showAddOrUpdate = true;
+        this.loading = false;
+      }).catch(() => {
+        this.loading = false;
       });
     },
     /** 提交按钮 */
