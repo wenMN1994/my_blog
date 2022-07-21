@@ -455,7 +455,7 @@ a.current-2 .lh-p-icon{background-position:0 -254px}
 #sharebutton .bdsharebuttonbox a.bds_tsina{width:70px;height:70px;background:transparent url(../img/wb2-icon.png) no-repeat scroll 0 0/100% auto!important}
 @media (min-width:1300px){
 	.container{width:1160px}
-	.i-slide,.swiper-container{height:480px}
+	.i-slide,.swiper-container{height:auto}
 	.col-7{width:75%}
 	.col-3{width:25%}
 	.c-v-pic-wrap{width:640px;height:357px}

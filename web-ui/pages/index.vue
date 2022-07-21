@@ -1,18 +1,15 @@
 <template>
-  <div>
+  <div class="app-container">
     <!-- 幻灯片 开始 -->
     <div v-swiper:mySwiper="swiperOption">
       <div class="swiper-wrapper">
-
           <div v-for="banner in bannerList" :key="banner.id" class="swiper-slide" style="background: #040B1B;">
               <a target="_blank" :href="banner.linkUrl">
                   <img :src="banner.imageUrl" :alt="banner.title">
               </a>
           </div>
       </div>
-      <div class="swiper-pagination swiper-pagination-white"></div>
-      <div class="swiper-button-prev swiper-button-white" slot="button-prev"></div>
-      <div class="swiper-button-next swiper-button-white" slot="button-next"></div>
+      <div class="swiper-pagination" slot="pagination"></div>
     </div>
     <!-- 幻灯片 结束 -->
     
@@ -119,20 +116,51 @@ import index from '@/api/index'
 export default {
   data () {
     return {
-
       swiperOption: {
+        loop: true,
+        autoplay: {
+          delay: 3000,
+          stopOnLastSlide: false,
+          disableOnInteraction: false
+        },
         //配置分页
         pagination: {
-          el: '.swiper-pagination'//分页的dom节点
+          el: '.swiper-pagination',//分页的dom节点
+          clickable: true //允许分页点击跳转
         },
-        //配置导航
+        // 设置点击箭头
         navigation: {
           nextEl: '.swiper-button-next',//下一页dom节点
           prevEl: '.swiper-button-prev'//前一页dom节点
         }
       },
       //banner数组
-      bannerList:[],
+      bannerList:[
+        {
+          "id": 1,
+          "linkUrl": "www.dragonwen.cn",
+          "imageUrl": "https://www.gulixueyuan.com/files/system/2022/01-26/172605dc29fe231548.jpg?version=20.4.6",
+          "title": "Flink性能调优"
+        },
+        {
+          "id": 2,
+          "linkUrl": "www.dragonwen.cn",
+          "imageUrl": "https://www.gulixueyuan.com/files/system/2022/02-16/1502113c1947586168.jpg?version=20.4.6",
+          "title": "Kafka3.0"
+        },
+        {
+          "id": 3,
+          "linkUrl": "www.dragonwen.cn",
+          "imageUrl": "https://www.gulixueyuan.com/files/system/2021/12-29/171400881c0d537063.jpg?version=20.4.6",
+          "title": "Canal数据实时同步神器"
+        },
+        {
+          "id": 4,
+          "linkUrl": "www.dragonwen.cn",
+          "imageUrl": "https://www.gulixueyuan.com/files/system/2022/01-19/15375531895e994953.jpg?version=20.4.6",
+          "title": "JavaWeb"
+        }
+      ],
       eduList:[],
       teacherList:[]
     }
@@ -156,7 +184,7 @@ export default {
     getBannerList() {
       banner.getListBanner()
         .then(response => {
-          this.bannerList = response.data.data.list
+          // this.bannerList = response.data.data.list
         })
     }
   }
