@@ -226,13 +226,13 @@ export default {
     }
   },
   created() {
-    //调用查询轮播图的方法
+    // 调用查询轮播图的方法
     this.getBannerList()
-    //调用查询热门课程和新上好课的方法
+    // 调用查询热门课程和新上好课的方法
     this.getHotNewCourse()
   },
   methods:{
-    //查询热门课程和新上好课
+    // 查询热门课程和新上好课
     getHotNewCourse() {
       index.getIndexData()
         .then(response => {
@@ -240,12 +240,18 @@ export default {
           this.teacherList = response.data.data.teacherList
         })
     },
-    //查询轮播图数据
+    // 查询轮播图数据
     getBannerList() {
       banner.getListBanner()
         .then(response => {
           // this.bannerList = response.data.data.list
         })
+    },
+    // 课程点击跳转
+    courseItemClick(courseId) {
+      this.$router.push({
+        path: `/course/${courseId}`,
+      })	
     }
   }
 }
