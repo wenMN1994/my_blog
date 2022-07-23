@@ -150,7 +150,14 @@ a.current-2 .lh-p-icon{background-position:0 -254px}
 .course-r-list li .course-r-pic{width:110px;position:absolute;left:0;top:10px;overflow:hidden}
 .course-r-pic img{display:block;max-width:100%;transition:.8s;-webkit-transition:.8s}
 .course-r-list li:hover .course-r-pic img{transform:scale(1.1);-webkit-transform:scale(1.1)}
-#header{background-color:#fff;box-shadow:0 2px 3px rgba(7,0,2,.04);position:relative}
+/* 头部样式 */
+#header{
+	background-color:#fff;
+	box-shadow:0 2px 3px rgba(7,0,2,.04);
+	position: sticky;
+	top: 0;
+	z-index: 9999;
+}
 .lt-ie9 #header,.lt-ie9.lt-ie8 #header{border-bottom:1px solid #f2f2f2}
 #logo{float:left;width:220px;height:72px;overflow:hidden;margin:0 auto}
 #logo a{display:table-cell;vertical-align:middle;height:72px}
