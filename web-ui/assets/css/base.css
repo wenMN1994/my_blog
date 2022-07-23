@@ -5,7 +5,7 @@ ol, ul {list-style: none;}
 dl {-webkit-margin-before:0;-webkit-margin-after:0;}
 h1, h2, h3, h4, h5, h6 {font-size: 14px;}
 a {text-decoration: none;color:#424242;}
-a:hover, .color81 a:hover, .color81 a.cur {color: #000}
+a:hover, .color81 a:hover, .color81 a.cur {text-decoration: none;}
 a.red {color: #ff4a56;}
 a.red:hover {color: #950b11;}
 .color81, .color81 a {color:#818181;}

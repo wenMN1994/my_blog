@@ -149,12 +149,12 @@ var scrollLoad = (function (options) {
         return value == 'auto' ? '' : value;
     };
     var _init = function () {
-    	 if(document.getElementById("aCoursesList")==null){
+    	 if(document.getElementById("index-course-list")==null){
          	return;
          }
         var offsetPage = window.pageYOffset ? window.pageYOffset : window.document.documentElement.scrollTop,	//滚动条滚动高度
             offsetWindow = offsetPage + Number(window.innerHeight ? window.innerHeight : document.documentElement.clientHeight),
-            docImg = document.getElementById("aCoursesList").getElementsByTagName("img"),			//通过ID查找获取图片节点
+            docImg = document.getElementById("index-course-list").getElementsByTagName("img"),			//通过ID查找获取图片节点
             _len = docImg.length;
         if (!_len) return false;
         for (var i = 0; i < _len; i++) {

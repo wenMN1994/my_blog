@@ -13,19 +13,20 @@
     </div>
     <!-- 幻灯片 结束 -->
     
-    <div id="aCoursesList">
+    <div id="index-course-list">
       <!-- 热门课程 开始 -->
       <div>
         <section class="container">
           <header class="comm-title">
-            <h2 class="tac">
+            <h2 class="index-course-module-title">
               <span class="c-333">热门课程</span>
             </h2>
+            <a href="#">更多</a>
           </header>
           <div>
             <article class="comm-course-list">
               <ul class="of" id="bna">
-                <li v-for="course in eduList" :key="course.id">
+                <li v-for="course in hotCourseList" :key="course.id" @click="courseItemClick(course.id)">
                   <div class="cc-l-wrap">
                     <section class="course-img">
                       <img
@@ -33,8 +34,51 @@
                         class="img-responsive"
                         :alt="course.title"
                       >
-                      <div class="cc-mask">
-                        <a href="#" title="开始观看" class="comm-btn c-btn-1">开始观看</a>
+                    </section>
+                    <h3 class="hLh30 txtOf mt10">
+                      <a href="#" :title="course.title" class="course-title fsize18 c-333">{{course.title}}</a>
+                    </h3>
+                    <section class="mt10 hLh20 of">
+                      <span class="fr jgTag bg-green" v-if="Number(course.price) === 0">
+                        <i class="c-fff fsize12 f-fA">免费</i>
+                      </span>
+                      <span class="fl jgAttr c-ccc f-fA">
+                        <i class="c-999 f-fA">9634人学习</i>
+                        |
+                        <i class="c-999 f-fA">9634评论</i>
+                      </span>
+                    </section>
+                  </div>
+                </li>
+               
+              </ul>
+              <div class="clear"></div>
+            </article>
+          </div>
+        </section>
+      </div>
+      <!-- 热门课程 结束 -->
+      <!-- 新上好课 开始 -->
+      <div>
+        <section class="container">
+          <header class="comm-title">
+            <h2 class="index-course-module-title">
+              <span class="c-333">新上好课</span>
+            </h2>
+            <a href="#">更多</a>
+          </header>
+          <div>
+            <article class="comm-course-list">
+              <ul class="of" id="bna">
+                <li v-for="course in hotCourseList" :key="course.id">
+                  <div class="cc-l-wrap">
+                    <section class="course-img">
+                      <img
+                        :src="course.cover"
+                        class="img-responsive"
+                        :alt="course.title"
+                      >
+                      <div class="new-icon-text">
                       </div>
                     </section>
                     <h3 class="hLh30 txtOf mt10">
@@ -56,55 +100,10 @@
               </ul>
               <div class="clear"></div>
             </article>
-            <section class="tac pt20">
-              <a href="#" title="全部课程" class="comm-btn c-btn-2">全部课程</a>
-            </section>
           </div>
         </section>
       </div>
-      <!-- 热门课程 结束 -->
-      <!-- 新上好课 开始 -->
-      <div>
-        <section class="container">
-          <header class="comm-title">
-            <h2 class="tac">
-              <span class="c-333">新上好课</span>
-            </h2>
-          </header>
-          <div>
-            <article class="i-teacher-list">
-              <ul class="of">
-                <li v-for="teacher in teacherList" :key="teacher.id">
-                  <section class="i-teach-wrap">
-                    <div class="i-teach-pic">
-                      <a href="/teacher/1" :title="teacher.name">
-                        <img :alt="teacher.name" :src="teacher.avatar">
-                      </a>
-                    </div>
-                    <div class="mt10 hLh30 txtOf tac">
-                      <a href="/teacher/1" :title="teacher.name" class="fsize18 c-666">{{teacher.name}}</a>
-                    </div>
-                    <div class="hLh30 txtOf tac">
-                      <span class="fsize14 c-999">{{teacher.career}}</span>
-                    </div>
-                    <div class="mt15 i-q-txt">
-                      <p
-                        class="c-999 f-fA"
-                      >{{teacher.intro}}</p>
-                    </div>
-                  </section>
-                </li>
-                
-              </ul>
-              <div class="clear"></div>
-            </article>
-            <section class="tac pt20">
-              <a href="#" title="全部课程" class="comm-btn c-btn-2">全部课程</a>
-            </section>
-          </div>
-        </section>
-      </div>
-      <!-- 网校名师 结束 -->
+      <!-- 新上好课 结束 -->
     </div>
   </div>
 </template>
@@ -161,26 +160,87 @@ export default {
           "title": "JavaWeb"
         }
       ],
-      eduList:[],
+      hotCourseList:[
+        {
+          "id": 1,
+          "cover": "https://www.gulixueyuan.com/files/course/2021/11-16/1504320cd58c775881.jpg",
+          "title": "MySQL数据库",
+          "price": 10
+        },
+        {
+          "id": 2,
+          "cover": "https://www.gulixueyuan.com/files/default/2018/06-15/0918251905f6057842.jpg",
+          "title": "103集实战教学入门必备",
+          "price": 20
+        },
+        {
+          "id": 3,
+          "cover": "https://www.gulixueyuan.com/files/default/2018/06-15/0918146150a9565117.jpg",
+          "title": "103集实战教学入门必备",
+          "price": 0
+        },
+        {
+          "id": 4,
+          "cover": "https://www.gulixueyuan.com/files/course/2021/08-02/151735f53563259871.png",
+          "title": "2021全新SpringMVC框架教程",
+          "price": 100
+        },
+        {
+          "id": 5,
+          "cover": "https://www.gulixueyuan.com/files/course/2020/05-22/09381798ce4f507296.jpg",
+          "title": "尚硅谷Spring5视频教程",
+          "price": 100
+        },
+        {
+          "id": 6,
+          "cover": "https://www.gulixueyuan.com/files/course/2020/12-14/09031863b67d915337.png",
+          "title": "Vue3新特性",
+          "price": 100
+        },
+        {
+          "id": 7,
+          "cover": "https://www.gulixueyuan.com/files/course/2021/04-19/1548193e32c7847193.jpg",
+          "title": "2021最新Redis 6教程分布式锁，秒杀实战",
+          "price": 200
+        },
+        {
+          "id": 8,
+          "cover": "https://www.gulixueyuan.com/files/course/2021/03-09/171418a0c26f812243.jpg",
+          "title": "Java微服务+分布式+全栈项目【尚医通】",
+          "price": 200
+        },
+        {
+          "id": 9,
+          "cover": "https://www.gulixueyuan.com/files/course/2020/09-17/092058a40481921036.jpg",
+          "title": "Kubernetes（K8s）新版",
+          "price": 200
+        },
+        {
+          "id": 10,
+          "cover": "https://www.gulixueyuan.com/files/course/2020/12-11/09261240947f704907.png",
+          "title": "大数据项目之电商数仓3.0",
+          "price": 200
+        }
+      ],
       teacherList:[]
     }
   },
   created() {
-    //调用查询banner的方法
+    //调用查询轮播图的方法
     this.getBannerList()
-    //调用查询热门课程和名师的方法
-    this.getHotCourseTeacher()
+    //调用查询热门课程和新上好课的方法
+    this.getHotNewCourse()
   },
   methods:{
-    //查询热门课程和名师
-    getHotCourseTeacher() {
+    //查询热门课程和新上好课
+    getHotNewCourse() {
       index.getIndexData()
         .then(response => {
-          this.eduList = response.data.data.eduList
+          this.hotCourseList = response.data.data.eduList
           this.teacherList = response.data.data.teacherList
         })
     },
-    //查询banner数据
+    //查询轮播图数据
     getBannerList() {
       banner.getListBanner()
         .then(response => {

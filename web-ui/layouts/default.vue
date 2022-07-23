@@ -13,7 +13,7 @@
             <router-link to="/" tag="li" active-class="current" exact>
               <a>首页</a>
             </router-link>
-            <router-link to="/video" tag="li" active-class="current">
+            <router-link to="/course" tag="li" active-class="current">
               <a>课程</a>
             </router-link>
             <router-link to="/article" tag="li" active-class="current">
@@ -22,43 +22,43 @@
             <router-link to="/ask" tag="li" active-class="current">
               <a>问答</a>
             </router-link>
-            <router-link to="/entertainment" tag="li" active-class="current">
+            <router-link to="/amusement" tag="li" active-class="current">
               <a>娱乐</a>
             </router-link>
           </ul>
           <!-- / nav -->
           <!-- / nav -->
           <ul class="h-r-login">
-              <li v-if="!loginInfo.id" id="no-login">
-                  <a href="/login" title="登录">
-                      <em class="icon18 login-icon">&nbsp;</em>
-                      <span class="vam ml5">登录</span>
-                  </a>
-                  |
-                  <a href="/register" title="注册">
-                      <span class="vam ml5">注册</span>
-                  </a>
-              </li>
-              <li v-if="loginInfo.id" id="is-login-one" class="mr10">
-                  <a id="headerMsgCountId" href="#" title="消息">
-                      <em class="icon18 news-icon">&nbsp;</em>
-                  </a>
-                  <q class="red-point" style="display: none">&nbsp;</q>
-              </li>
-              <li v-if="loginInfo.id" id="is-login-two" class="h-r-user">
-                  <a href="/ucenter" title>
-                      <img
-                          :src="loginInfo.avatar"
-                          width="30"
-                          height="30"
-                          class="vam picImg"
-                          alt
-                          >
-                      <span id="userName" class="vam disIb">{{ loginInfo.nickname }}</span>
-                  </a>
-                  <a href="javascript:void(0);" title="退出" @click="logout()" class="ml5">退出</a>
-              </li>
-              <!-- /未登录显示第1 li；登录后显示第2，3 li -->
+            <li v-if="!loginInfo.id" id="no-login">
+              <a href="/login" title="登录">
+                <em class="icon18 login-icon">&nbsp;</em>
+                <span class="vam ml5">登录</span>
+              </a>
+              |
+              <a href="/register" title="注册">
+                <span class="vam ml5">注册</span>
+              </a>
+            </li>
+            <li v-if="loginInfo.id" id="is-login-one" class="mr10">
+              <a id="headerMsgCountId" href="#" title="消息">
+                <em class="icon18 news-icon">&nbsp;</em>
+              </a>
+              <q class="red-point" style="display: none">&nbsp;</q>
+            </li>
+            <li v-if="loginInfo.id" id="is-login-two" class="h-r-user">
+              <a href="/ucenter" title>
+                <img
+                  :src="loginInfo.avatar"
+                  width="30"
+                  height="30"
+                  class="vam picImg"
+                  alt
+                  >
+                <span id="userName" class="vam disIb">{{ loginInfo.nickname }}</span>
+              </a>
+              <a href="javascript:void(0);" title="退出" @click="logout()" class="ml5">退出</a>
+            </li>
+            <!-- /未登录显示第1 li；登录后显示第2，3 li -->
           </ul>
           <aside class="h-r-search">
             <form action="#" method="post">
@@ -78,7 +78,7 @@
       </section>
     </header>
     <!-- /公共头引入 -->
-      
+
     <nuxt/>
 
     <!-- 公共底引入 -->
@@ -96,7 +96,7 @@
                 <span>Email：wenwenxing@dragonwen.cn</span>
               </section>
               <section class="b-f-link mt10">
-                <span>©2018-2022 龙颜科技 
+                <span>©2018-2022 龙颜科技
                   <a href="https://beian.miit.gov.cn/" title="工信部链接" target="_blank">备案号：粤ICP备20001307号</a>
                 </span>
               </section>
