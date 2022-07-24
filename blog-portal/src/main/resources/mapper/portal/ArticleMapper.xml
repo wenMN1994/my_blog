@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dragon.portal.mapper.ArticleMapper">
+
+    <resultMap type="Article" id="ArticleResult">
+        <result property="articleId"    column="article_id"    />
+        <result property="articleTitle"    column="article_title"    />
+        <result property="articleType"    column="article_type"    />
+        <result property="cover"    column="cover"    />
+        <result property="summary"    column="summary"    />
+        <result property="publishType"    column="publish_type"    />
+        <result property="contentLevel"    column="content_level"    />
+        <result property="status"    column="status"    />
+        <result property="content"    column="content"    />
+        <result property="contentHtml"    column="content_html"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectArticleVo">
+        select article_id, article_title, article_type, cover, summary, publish_type, content_level, status, content, content_html, create_by, create_time, update_by, update_time from portal_article
+    </sql>
+
+    <select id="selectArticleList" parameterType="Article" resultMap="ArticleResult">
+        <include refid="selectArticleVo"/>
+        <where>
+            <if test="articleTitle != null and articleTitle != ''"> and article_title = #{articleTitle}</if>
+            <if test="articleType != null and articleType != ''"> and article_type = #{articleType}</if>
+            <if test="publishType != null and publishType != ''"> and publish_type = #{publishType}</if>
+            <if test="contentLevel != null and contentLevel != ''"> and content_level = #{contentLevel}</if>
+            <if test="status != null and status != ''"> and status = #{status}</if>
+            <if test="status == null or status == ''">and status != 1</if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="selectArticleByArticleId" parameterType="Long" resultMap="ArticleResult">
+        <include refid="selectArticleVo"/>
+        where article_id = #{articleId}
+    </select>
+
+    <insert id="insertArticle" parameterType="Article" useGeneratedKeys="true" keyProperty="articleId">
+        insert into portal_article
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="articleTitle != null and articleTitle != ''">article_title,</if>
+            <if test="articleType != null and articleType != ''">article_type,</if>
+            <if test="cover != null">cover,</if>
+            <if test="summary != null and summary != ''">summary,</if>
+            <if test="publishType != null and publishType != ''">publish_type,</if>
+            <if test="contentLevel != null and contentLevel != ''">content_level,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="content != null and content != ''">content,</if>
+            <if test="contentHtml != null and contentHtml != ''">content_html,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="articleTitle != null and articleTitle != ''">#{articleTitle},</if>
+            <if test="articleType != null and articleType != ''">#{articleType},</if>
+            <if test="cover != null">#{cover},</if>
+            <if test="summary != null and summary != ''">#{summary},</if>
+            <if test="publishType != null and publishType != ''">#{publishType},</if>
+            <if test="contentLevel != null and contentLevel != ''">#{contentLevel},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="content != null and content != ''">#{content},</if>
+            <if test="contentHtml != null and contentHtml != ''">#{contentHtml},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateArticle" parameterType="Article">
+        update portal_article
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="articleTitle != null and articleTitle != ''">article_title = #{articleTitle},</if>
+            <if test="articleType != null and articleType != ''">article_type = #{articleType},</if>
+            <if test="cover != null">cover = #{cover},</if>
+            <if test="summary != null and summary != ''">summary = #{summary},</if>
+            <if test="publishType != null and publishType != ''">publish_type = #{publishType},</if>
+            <if test="contentLevel != null and contentLevel != ''">content_level = #{contentLevel},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="content != null and content != ''">content = #{content},</if>
+            <if test="contentHtml != null and contentHtml != ''">content_html = #{contentHtml},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where article_id = #{articleId}
+    </update>
+
+    <update id="deleteArticleByArticleId" parameterType="Long">
+        update portal_article
+        <trim prefix="SET" suffixOverrides=",">
+            status = '1',
+            update_by = #{loginUser},
+            update_time = #{nowDate},
+        </trim>
+         where article_id = #{articleId}
+    </update>
+
+    <delete id="deleteArticleByArticleIds" parameterType="String">
+        <foreach item="articleId" index="index" collection="articleIds" open="" separator=";" close="">
+            update portal_article
+            <trim prefix="SET" suffixOverrides=",">
+                status = '1',
+                update_by = #{loginUser},
+                update_time = #{nowDate},
+            </trim>
+            where article_id = #{articleId}
+        </foreach>
+    </delete>
+</mapper>

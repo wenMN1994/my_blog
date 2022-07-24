@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dragon.system.mapper.SysFileMapper">
+
+    <resultMap type="SysFile" id="SysFileResult">
+        <result property="fileId"    column="file_id"    />
+        <result property="fileUrl"    column="file_url"    />
+        <result property="fileName"    column="file_name"    />
+        <result property="suffix"    column="suffix"    />
+        <result property="type"    column="type"    />
+        <result property="fileSize"    column="file_size"    />
+        <result property="isEnable"    column="is_enable"    />
+        <result property="ossKey"    column="oss_key"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectSysFileVo">
+        select file_id, file_url, file_name, suffix, type, file_size, is_enable, oss_key, create_by, create_time, update_by, update_time from sys_file
+    </sql>
+
+    <select id="selectSysFileList" parameterType="SysFile" resultMap="SysFileResult">
+        <include refid="selectSysFileVo"/>
+        <where>
+            <if test="fileUrl != null  and fileUrl != ''"> and file_url = #{fileUrl}</if>
+            <if test="fileName != null  and fileName != ''"> and file_name like concat('%', #{fileName}, '%')</if>
+            <if test="suffix != null  and suffix != ''"> and suffix = #{suffix}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="fileSize != null  and fileSize != ''"> and file_size = #{fileSize}</if>
+            <if test="isEnable != null  and isEnable != ''"> and is_enable = #{isEnable}</if>
+            <if test="ossKey != null  and ossKey != ''"> and oss_key = #{ossKey}</if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                and date_format(create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                and date_format(create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="selectSysFileByFileId" parameterType="Long" resultMap="SysFileResult">
+        <include refid="selectSysFileVo"/>
+        where file_id = #{fileId}
+    </select>
+
+    <insert id="insertSysFile" parameterType="SysFile" useGeneratedKeys="true" keyProperty="fileId" keyColumn="file_id">
+        insert into sys_file
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fileId != null">file_id,</if>
+            <if test="fileUrl != null and fileUrl != ''">file_url,</if>
+            <if test="fileName != null and fileName != ''">file_name,</if>
+            <if test="suffix != null and suffix != ''">suffix,</if>
+            <if test="type != null">type,</if>
+            <if test="fileSize != null">file_size,</if>
+            <if test="isEnable != null">is_enable,</if>
+            <if test="ossKey != null">oss_key,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fileId != null">#{fileId},</if>
+            <if test="fileUrl != null and fileUrl != ''">#{fileUrl},</if>
+            <if test="fileName != null and fileName != ''">#{fileName},</if>
+            <if test="suffix != null and suffix != ''">#{suffix},</if>
+            <if test="type != null">#{type},</if>
+            <if test="fileSize != null">#{fileSize},</if>
+            <if test="isEnable != null">#{isEnable},</if>
+            <if test="ossKey != null">#{ossKey},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSysFile" parameterType="SysFile">
+        update sys_file
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fileUrl != null and fileUrl != ''">file_url = #{fileUrl},</if>
+            <if test="fileName != null and fileName != ''">file_name = #{fileName},</if>
+            <if test="suffix != null and suffix != ''">suffix = #{suffix},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="fileSize != null">file_size = #{fileSize},</if>
+            <if test="isEnable != null">is_enable = #{isEnable},</if>
+            <if test="ossKey != null">oss_key = #{ossKey},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where file_id = #{fileId}
+    </update>
+
+    <update id="deleteSysFileByFileId" parameterType="Long">
+        update sys_file set is_enable = '1', update_time = sysdate() where is_enable = '0' and file_id = #{fileId}
+    </update>
+
+    <update id="deleteSysFileByFileIds" parameterType="String">
+        update sys_file set is_enable = '1', update_by = #{updateBy}, update_time = sysdate() where is_enable = '0' and file_id in
+        <foreach item="fileId" collection="fileIds" open="(" separator="," close=")">
+            #{fileId}
+        </foreach>
+    </update>
+
+</mapper>
