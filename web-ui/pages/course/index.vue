@@ -1,6 +1,6 @@
 <template>
   <div id="app-container">
-    <span>【更多课程】疯狂码砖中...</span>
+    <img src="~/assets/img/in-development.png" width="100%">
   </div>
 </template>
 <script>
