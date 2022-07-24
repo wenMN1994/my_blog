@@ -1,0 +1,4 @@
+# Spring配置激活
+spring:
+  profiles:
+    active: dev #dev：开发环境 prod：生产
