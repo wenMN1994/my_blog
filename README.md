@@ -4,7 +4,7 @@
 
 前端演示链接：http://www.dragonwen.cn/ 
 
-后台管理演示链接: http://www.dragonwen.cn/login（文明访问，请勿删除数据）
+后台管理演示链接: http://www.dragonwen.cn/admin（文明访问，请勿删除数据）
 
 账号：admin
 
