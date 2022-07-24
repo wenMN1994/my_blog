@@ -21,7 +21,7 @@
             <h2 class="index-course-module-title">
               <span class="c-333">热门课程</span>
             </h2>
-            <a href="#">更多</a>
+            <a href="/course">查看全部</a>
           </header>
           <div>
             <article class="comm-course-list">
@@ -65,7 +65,7 @@
             <h2 class="index-course-module-title">
               <span class="c-333">新上好课</span>
             </h2>
-            <a href="#">更多</a>
+            <a href="/course">查看全部</a>
           </header>
           <div>
             <article class="comm-course-list">

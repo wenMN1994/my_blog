@@ -161,8 +161,8 @@ input.iw80 {width: 80px;}
 .clearfix2:after{content:'\0020';display:block;height:0;font-size:0;line-height:0;clear:both;overflow:hidden;}
 
 
-/* 閫忔槑鑳屾櫙灞� */
-.mask, .Mask {width:100%;height:100%;position:fixed;background: url(https://s1.51cto.com/images/201611/95dc798763e7191d096823b51600438a1218c0.png);top:0px;left:0px;z-index:9999;display: none;}
+/* 登录或注册弹窗 */
+.mask, .Mask {width:100%;height:100%;position:fixed;background: url(../img/black-mask.png);top:0px;left:0px;z-index:9999;}
 
 /*ALL Pages use*/
 .Page {width:1200px;margin:auto;position: relative;z-index: 2;}
@@ -453,7 +453,7 @@ div.Empty {text-align: center;line-height: 40px;color:#666;}
 .exit_slide{ position: fixed; z-index:999; right:40px; top:50%; display:inline-block; line-height: 1;}
 .exit_slide .pre,.exit_slide .after{ height:50px;width:50px; display:inline-block; text-align: center;}
 .exit_slide .after,.exit_slide .cur .pre{ display:none;}
-.exit_slide .cur .after,.exit_slide .pre{ display:block;} 
+.exit_slide .cur .after,.exit_slide .pre{ display:block;}
 
 .exit_slide .customer{ border-radius: 5px; overflow:hidden;cursor: pointer;}
 .exit_slide .customer .pre {
