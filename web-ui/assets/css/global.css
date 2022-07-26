@@ -1,6 +1,9 @@
 @charset "utf-8";
 /* #custom
 ================================================== */
+.hide {
+    display: none;
+}
 .app-container{background: #eee;}
 .clearfix:after,.clearfix:before{content:"";display:table;font-size:0!important;line-height:0!important;height:0!important}
 .clearfix:after{clear:both}
