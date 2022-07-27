@@ -34,6 +34,7 @@
 	transform:translateX(-50%)
 }
 .po-link {
+	cursor:pointer;
 	color:#067bef
 }
 .po-link.color-out {
@@ -367,9 +368,9 @@
 .po-login-box .po-login .login-form .other-logins .three-list li:last-child {
 	margin-right:0
 }
-.po-login-box .po-login .login-form .other-logins .three-list li.link-to-account,.po-login-box .po-login .login-form .other-logins .three-list li.link-to-plogin,.po-login-box .po-login .login-form .other-logins .three-list li.link-to-pregister,.po-login-box .po-login .login-form .other-logins .three-list li.three-register,.po-login-box .po-login .login-form .other-logins .three-list li.wx-to-pregister {
+/* .po-login-box .po-login .login-form .other-logins .three-list li.link-to-account,.po-login-box .po-login .login-form .other-logins .three-list li.link-to-plogin,.po-login-box .po-login .login-form .other-logins .three-list li.link-to-pregister,.po-login-box .po-login .login-form .other-logins .three-list li.three-register,.po-login-box .po-login .login-form .other-logins .three-list li.wx-to-pregister {
 	display:none
-}
+} */
 .po-login-box .po-login .login-form .other-logins .three-list li:hover {
 	color:#067bef
 }

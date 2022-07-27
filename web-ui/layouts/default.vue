@@ -126,332 +126,215 @@
       center>
       <div id="po-login-box" class="po-login-box">
         <div id="po-login" class="po-login">
-          <ol id="login-tab" class="login-tab hide">
-            <li class="mr active" _data="pwd">
+          <!-- 登录方式切换Tab -->
+          <ol id="login-tab" :class="loginTab">
+            <li :class="mrActivePwd" @click="mrActive('pwd')">
               账号密码登录
             </li>
-            <li _data="dx">
+            <li :class="mrActiveDx" @click="mrActive('dx')">
               手机验证登录
             </li>
           </ol>
           <div id="login-form" class="login-form">
-            <div id="login-form-pwd" class="login-form-pwd hide">
+            <!-- 账号密码登录表单 -->
+            <div id="login-form-pwd" :class="loginFormPwd">
               <div class="inputs">
-                <input type="text" name="name" autocomplete="off" class="input" placeholder="请输入手机号码或邮箱"
-                />
-                <span class="input-error-notice hide">
-                </span>
+                <input type="text" name="name" autocomplete="off" class="input" placeholder="请输入手机号码或邮箱"/>
+                <span class="input-error-notice hide"></span>
               </div>
               <div class="inputs mb40">
-                <span class="input-btn show-pwd show-pwd__open">
-                </span>
-                <input type="password" name="pwd" autoComplete="new-password" class="input"
-                placeholder="输入密码" />
-                <span class="input-error-notice hide">
-                </span>
+                <span class="input-btn show-pwd show-pwd__open"></span>
+                <input type="password" name="pwd" autoComplete="new-password" class="input" placeholder="输入密码" />
+                <span class="input-error-notice hide"></span>
               </div>
               <div class="btns">
-                <button id="submit-pwd" class="po-button primary submit disabled">
-                  登录
-                </button>
-                <a class="po-link color-out link-forget lf">
-                  忘记密码?
-                </a>
-                <a class="po-link signup rt">
-                  新用户账号注册
-                </a>
+                <button id="submit-pwd" class="po-button primary submit disabled">登录</button>
+                <a class="po-link color-out link-forget lf" @click="initLoginFormForgetPwd()">忘记密码?</a>
+                <a class="po-link signup rt" @click="initPhoneRegister()">新用户账号注册</a>
               </div>
             </div>
-            <div id="login-form-dx" class="login-form-dx hide">
+            <!-- 手机验证码登录表单 -->
+            <div id="login-form-dx" :class="loginFormDx">
               <div class="inputs">
-                <input type="text" autocomplete="off" name="phone" class="input" placeholder="请输入手机号"
-                />
-                <span class="input-error-notice hide">
-                </span>
+                <input type="text" autocomplete="off" name="phone" class="input" placeholder="请输入手机号"/>
+                <span class="input-error-notice hide"></span>
               </div>
               <div class="inputs mb40">
                 <span class="input-btn get-code">
-                  <a class="po-link">
-                    获取验证码
-                  </a>
+                  <a class="po-link">获取验证码</a>
                 </span>
-                <input type="text" autocomplete="off" name="code" class="input" placeholder="请输入验证码"
-                />
-                <span class="input-error-notice hide">
-                </span>
+                <input type="text" autocomplete="off" name="code" class="input" placeholder="请输入验证码"/>
+                <span class="input-error-notice hide"></span>
               </div>
               <div class="btns">
-                <button id="submit-dx" class="po-button primary submit disabled">
-                  登录
-                </button>
-                <a class="po-link color-out link-forget lf">
-                  忘记密码?
-                </a>
-                <a class="po-link signup rt">
-                  新用户账号注册
-                </a>
+                <button id="submit-dx" class="po-button primary submit disabled">登录</button>
+                <a class="po-link color-out link-forget lf" @click="initLoginFormForgetPwd()">忘记密码?</a>
+                <a class="po-link signup rt" @click="initPhoneRegister()">新用户账号注册</a>
               </div>
             </div>
-            <div id="login-form-pregister" class="login-form-pregister hide">
+            <!-- 手机号码验证码注册表单 -->
+            <div id="login-form-pregister" :class="loginFormPregister">
               <div class="inputs">
-                <input type="text" autocomplete="off" name="phone" class="input" placeholder="请输入手机号"
-                />
-                <span class="input-error-notice hide">
-                </span>
+                <input type="text" autocomplete="off" name="phone" class="input" placeholder="请输入手机号"/>
+                <span class="input-error-notice hide"></span>
               </div>
               <input name="tampkey" id="tampkey" type="hidden" />
               <div class="inputs">
                 <span class="input-btn get-code">
-                  <a class="po-link">
-                    获取验证码
-                  </a>
+                  <a class="po-link">获取验证码</a>
                 </span>
-                <input type="text" autocomplete="off" name="code" class="input" placeholder="请输入验证码"
-                />
-                <span class="input-error-notice hide">
-                </span>
+                <input type="text" autocomplete="off" name="code" class="input" placeholder="请输入验证码"/>
+                <span class="input-error-notice hide"></span>
               </div>
               <div class="inputs mb40">
-                <span class="input-btn show-pwd show-pwd__open">
-                </span>
+                <span class="input-btn show-pwd show-pwd__open"></span>
                 <input type="password" autocomplete="off" name="pwd" class="input" placeholder="请输入密码"/>
-                <span class="input-error-notice hide">
-                </span>
+                <span class="input-error-notice hide"></span>
               </div>
               <div class="btns">
-                <button id="submit-pregister" class="po-button primary submit disabled">
-                  注册
-                </button>
+                <button id="submit-pregister" class="po-button primary submit disabled">注册</button>
                 <div class="btns-register">
                   已有账号？
-                  <a class="po-link color-black link-to-login" style="color:#067BEF;position:static">
+                  <a class="po-link color-black link-to-login" @click="initLoginFormPwd(true)" style="color:#067BEF;position:static">
                     去登录
                     <img src="~/assets/img/login/icons-arrow-r.svg" style="vertical-align: middle;margin-top:-2px">
                   </a>
                 </div>
               </div>
             </div>
+            <!-- 微信二维码登录或注册 -->
             <div id="login-form-qrcode" :class="loginFormQrcode">
               <div class="qrcode-notice">
-                <span class="code">
-                  打开
-                </span>
+                <span class="code">打开</span>
                 <img src="~/assets/img/login/icon-wx-svg.svg">
-                <span class="code">
-                  微信
-                  <b style="color:#212930">
-                    扫一扫
-                  </b>
-                  完成登录
-                </span>
+                <span class="code"> 微信<b style="color:#212930"> 扫一扫 </b>完成登录</span>
               </div>
               <div id="qrcode-wx" class="qrcode-wx">
                 <img src="~/assets/img/login/showqrcode.png" alt="">
               </div>
               <div class="qrcode-btns">
-                <div :class="btnsRegister">
-                  已有账号？
-                  <a class="po-link color-black link-to-login" style="color:#067BEF">
+                <div :class="btnsRegister">已有账号？
+                  <a class="po-link color-black link-to-login" @click="initLoginFormPwd(true)" style="color:#067BEF">
                     去登录
                     <img src="~/assets/img/login/icons-arrow-r.svg" style="vertical-align: middle;margin-top:-2px">
                   </a>
                 </div>
-                <div :class="btnsLogin">
-                  没有账号？
-                  <a class="po-link color-black link-to-register" style="color:#067BEF;position:static">
+                <div :class="btnsLogin">没有账号？
+                  <a class="po-link color-black link-to-register" @click="initPhoneRegister()" style="color:#067BEF;position:static">
                     去注册
                     <img src="~/assets/img/login/icons-arrow-r.svg" style="vertical-align: middle;margin-top:-2px">
                   </a>
                 </div>
               </div>
             </div>
-            <div id="login-form-register" class="login-form-register hide">
-              <div class="inputs">
-                <input type="text" name="phone" autocomplete="off" class="input" placeholder="请输入手机号"
-                />
-                <span class="input-error-notice hide">
-                </span>
-              </div>
-              <input name="tampkey" id="tampkey" type="hidden" />
-              <div class="inputs">
-                <span class="input-btn get-code">
-                  <a class="po-link">
-                    获取验证码
-                  </a>
-                </span>
-                <input type="text" name="code" autocomplete="off" class="input" placeholder="请输入验证码"
-                />
-                <span class="input-error-notice hide">
-                </span>
-              </div>
-              <div class="inputs  mb40">
-                <span class="input-btn show-pwd show-pwd__open">
-                </span>
-                <input type="password" name="pwd" autocomplete="off" class="input" placeholder="请输入密码"
-                />
-                <span class="input-error-notice hide">
-                </span>
-              </div>
-              <div class="btns">
-                <button class="po-button primary submit disabled">
-                  注册
-                </button>
-                <a class="po-link center link-to-login">
-                  登录已有账号
-                </a>
-              </div>
-            </div>
+            <!-- 扫码登录后绑定手机号码表单 -->
             <div id="login-form-bind" class="login-form-bind hide">
               <div class="login-title">
-                <h3 style="text-align: left;font-size:18px;">
-                  绑定手机号
-                </h3>
+                <h3 style="text-align: left;font-size:18px;">绑定手机号</h3>
                 <div style="font-size:14px;color:#6C7D8F;margin-top:16px;text-align: left">
                   为了您的账号安全和正常使用，请您绑定手机号。
                 </div>
               </div>
               <div class="inputs">
-                <input type="text" name="phone" autocomplete="off" class="input" placeholder="请输入手机号"
-                />
-                <span class="input-error-notice hide">
-                </span>
+                <input type="text" name="phone" autocomplete="off" class="input" placeholder="请输入手机号"/>
+                <span class="input-error-notice hide"></span>
               </div>
               <div class="inputs">
                 <span class="input-btn get-code">
-                  <a class="po-link">
-                    获取验证码
-                  </a>
+                  <a class="po-link">获取验证码</a>
                 </span>
-                <input type="text" name="code" autocomplete="off" oninput="if(value>6)value=value.slice(0,6)"
-                class="input" placeholder="请输入验证码" />
-                <span class="input-error-notice hide">
-                </span>
+                <input type="text" name="code" autocomplete="off" oninput="if(value>6)value=value.slice(0,6)" class="input" placeholder="请输入验证码" />
+                <span class="input-error-notice hide"></span>
               </div>
               <div class="po-buttons btns" style="text-align: right;">
-                <div class="po-button-small gray cancel" style="margin-right:16px">
-                  暂不绑定
-                </div>
-                <div id="bind_account" class="po-button-small primary submit disabled">
-                  确认绑定
-                </div>
+                <div class="po-button-small gray cancel" style="margin-right:16px">暂不绑定</div>
+                <div id="bind_account" class="po-button-small primary submit disabled">确认绑定</div>
               </div>
             </div>
+            <!-- 确认绑定手机号码成功 -->
             <div id="login-form-bindsucc" class="login-form-bindsucc hide">
               <div class="login-title">
                 <img src="~/assets/img/login/icon-succ.png">
-                <h3>
-                  绑定成功！
-                </h3>
-                <div style="font-size:14px;color:#6C7D8F;margin-top:10px">
-                  您可以在账号中心更换当前绑定信息
-                </div>
+                <h3>绑定成功！</h3>
+                <div style="font-size:14px;color:#6C7D8F;margin-top:10px">您可以在账号中心更换当前绑定信息</div>
               </div>
             </div>
+            <!-- 暂不绑定手机号码提示 -->
             <div id="login-form-bindtip" class="login-form-bindtip hide">
               <div class="login-title">
                 <img src="~/assets/img/login/icon-tip.png">
-                <h3>
-                  温馨提示
-                </h3>
+                <h3>温馨提示</h3>
                 <div style="font-size:14px;color:#6C7D8F;margin-top:10px">
                   后续可以在账号中心进行手机号绑定，账号更安全
                 </div>
               </div>
             </div>
-            <div id="login-form-forgetpwd" class="login-form-forgetpwd hide">
+            <!-- 重置密码表单 -->
+            <div id="login-form-forgetpwd" :class="loginFormForgetPwd">
               <div class="first-step">
                 <div class="inputs">
-                  <input type="text" autocomplete="off" name="name" class="input" placeholder="请输入手机号码或邮箱"
-                  />
-                  <span class="input-error-notice hide">
-                  </span>
+                  <input type="text" autocomplete="off" name="name" class="input" placeholder="请输入手机号码或邮箱"/>
+                  <span class="input-error-notice hide"></span>
                 </div>
                 <div class="inputs">
                   <span class="input-btn get-code">
-                    <a class="po-link">
-                      获取验证码
-                    </a>
+                    <a class="po-link">获取验证码</a>
                   </span>
-                  <input type="text" name="code" autocomplete="off" class="input" placeholder="请输入验证码"
-                  />
-                  <span class="input-error-notice hide">
-                  </span>
+                  <input type="text" name="code" autocomplete="off" class="input" placeholder="请输入验证码"/>
+                  <span class="input-error-notice hide"></span>
                 </div>
                 <div class="inputs mb40">
-                  <span class="input-btn show-pwd show-pwd__open">
-                  </span>
-                  <input type="password" name="pwd" autocomplete="off" class="input" placeholder="请输入8-16位数字和字母组合的密码"
-                  />
-                  <span class="input-error-notice hide">
-                  </span>
+                  <span class="input-btn show-pwd show-pwd__open"></span>
+                  <input type="password" name="pwd" autocomplete="off" class="input" placeholder="请输入8-16位数字和字母组合的密码"/>
+                  <span class="input-error-notice hide"></span>
                 </div>
                 <div class="btns">
-                  <button id="btn-forgetpwd-first" class="po-button primary submit disabled">
-                    确认重置
-                  </button>
-                  <a class="po-link link-to-login color-black lf">
-                    登录已有账户
-                  </a>
-                  <a class="po-link signup rt">
-                    新用户账号注册
-                  </a>
+                  <button id="btn-forgetpwd-first" class="po-button primary submit disabled">确认重置</button>
+                  <a class="po-link link-to-login color-black lf" @click="initLoginFormPwd(true)">登录已有账户</a>
+                  <a class="po-link signup rt" @click="initPhoneRegister()">新用户账号注册</a>
                 </div>
               </div>
             </div>
+            <!-- 其他登录方式 -->
             <div id="other-logins" :class="otherLogins">
               <div class="title">
-                <h3>
-                  其他方式登录
-                </h3>
+                <h3>其他方式登录</h3>
               </div>
               <ol class="three-list">
-                <li class="wx" onclick="loginModel.platform.loginForWeixin()">
+                <li :class="wxScanLogin" @click="initLoginQrcode();">
                   <img src="~/assets/img/login/icon-wx-svg.svg" alt="">
-                  <span>
-                    微信扫码登录
-                  </span>
+                  <span>微信扫码登录</span>
                 </li>
-                <li class="link-to-account">
+                <li :class="linkToAccount" @click="initLoginFormPwd(true)">
                   <img src="~/assets/img/login/icon-account.svg" alt="">
-                  <span>
-                    账号密码登录
-                  </span>
+                  <span>账号密码登录</span>
                 </li>
-                <li class="link-to-plogin">
+                <li :class="linkToPhoneLogin" @click="initLoginFormDx(true)">
                   <img src="~/assets/img/login/icon-phone.svg" alt="">
-                  <span>
-                    手机验证登录
-                  </span>
+                  <span>手机验证登录</span>
                 </li>
-                <li class="wx-to-pregister">
+                <li :class="wxScanRegister" @click="initRegisterQrcode()">
                   <img src="~/assets/img/login/icon-wx-svg.svg" alt="">
-                  <span>
-                    微信扫码注册
-                  </span>
+                  <span>微信扫码注册</span>
                 </li>
-                <li class="link-to-pregister">
+                <li :class="linkToPhoneRegister" @click="initPhoneRegister()">
                   <img src="~/assets/img/login/icon-phone.svg" alt="">
-                  <span>
-                    手机验证注册
-                  </span>
+                  <span>手机验证注册</span>
                 </li>
-                <li class="dropdown po-tool-button three-login" id="three-login" style="margin-right:0">
+                <li :class="qqLogin" id="three-login" style="margin-right:0">
                   <img src="~/assets/img/login/icon-qq-svg.svg" alt="">
-                  <span class="text">
-                    QQ登录
-                  </span>
+                  <span class="text">QQ登录</span>
                 </li>
-                <li onclick="loginModel.platform.login('qq')" class="three-register" style="margin-right:0">
+                <li onclick="loginModel.platform.login('qq')" :class="qqRegister" style="margin-right:0">
                   <img src="~/assets/img/login/icon-qq-svg.svg" alt="">
-                  <span class="text">
-                    QQ注册
-                  </span>
+                  <span class="text">QQ注册</span>
                 </li>
               </ol>
             </div>
           </div>
         </div>
-        <div class="po-copyright">
+        <!-- 服务条款 -->
+        <div :class="poCopyright">
           登录即表示您已阅读并同意
           <a href="https://www.processon.com/tos" target="_blank" class="po-link">
             服务条款
@@ -463,25 +346,19 @@
           <li class="po-menu-item" ac="qq">
             <div class="po-menu-item-box">
               <img src="~/assets/img/login/icon-qq-svg.svg" alt="">
-              <span class="text">
-                QQ登录
-              </span>
+              <span class="text">QQ登录</span>
             </div>
           </li>
           <li class="po-menu-item" ac="sina">
             <div class="po-menu-item-box">
               <img src="~/assets/img/login/icon-wb-svg.svg" alt="">
-              <span class="text">
-                微博登录
-              </span>
+              <span class="text">微博登录</span>
             </div>
           </li>
           <li class="po-menu-item" ac="google">
             <div class="po-menu-item-box">
               <img src="~/assets/img/login/icon-gg-svg.svg" alt="">
-              <span class="text">
-                谷歌登录
-              </span>
+              <span class="text">谷歌登录</span>
             </div>
           </li>
         </ul>
@@ -519,13 +396,48 @@ export default {
           nickname: '',
           sex: ''
         },
+        // 是否显示登录&注册弹窗
         loginRegisterDialogVisible: false,
+        // 登录 & 注册弹窗标题
         loginRegisterTitle: '',
+        // 登录方式切换Tab
+        loginTab: 'login-tab hide',
+        // 账号密码登录
+        mrActivePwd: 'mr active',
+        // 手机验证码登录
+        mrActiveDx: '',
+        // 账号密码登录表单
+        loginFormPwd: 'login-form-pwd hide',
+        // 手机验证码登录表单
+        loginFormDx: 'login-form-dx hide',
         // 微信二维码登录
         loginFormQrcode: 'login-form-qrcode hide',
+        // 去注册
         btnsRegister: 'btns-register hide',
+        // 去登录
         btnsLogin: 'btns-login hide',
-        otherLogins: 'other-logins hide'
+        // 手机验证码注册表单
+        loginFormPregister: 'login-form-pregister hide',
+        // 重置密码表单
+        loginFormForgetPwd: 'login-form-forgetpwd hide',
+        // 其他登录方式
+        otherLogins: 'other-logins hide',
+        // 服务条款
+        poCopyright: 'po-copyright',
+        // 微信扫码登录按钮
+        wxScanLogin: 'wx hide',
+        // 账号密码登录按钮
+        linkToAccount: 'link-to-account hide',
+        // 手机验证登录按钮
+        linkToPhoneLogin: 'link-to-plogin hide',
+        // 微信扫码注册按钮
+        wxScanRegister: 'wx-to-pregister hide',
+        // 手机验证注册按钮
+        linkToPhoneRegister: 'link-to-pregister hide',
+        // QQ登录按钮
+        qqLogin: 'dropdown po-tool-button three-login hide',
+        // QQ注册按钮
+        qqRegister: 'three-register hide'
     }
   },
   created() {
@@ -574,30 +486,159 @@ export default {
       window.location.href = "/";
     },
 
-    // 登录 && 注册
+    // 导航栏 登录 && 注册 按钮
     openLoginRegister(type) {
       this.loginRegisterDialogVisible = true
-      this.resetLoginRegisterDialog()
       if(type === 'login'){
-        this.loginRegisterTitle = "微信登录"
-        this.loginFormQrcode = 'login-form-qrcode'
-        this.btnsRegister = 'btns-register'
-        this.otherLogins = 'other-logins'
+        this.initLoginQrcode()
       }else{
-        this.loginRegisterTitle = "免费注册"
-        this.loginFormQrcode = 'login-form-qrcode'
-        this.btnsLogin = 'btns-login'
-        this.otherLogins = 'other-logins'
+        this.initRegisterQrcode()
+      }
+    },
+    // 初始化扫码注册
+    initRegisterQrcode() {
+      this.resetLoginRegisterDialog()
+      this.loginRegisterTitle = "免费注册"
+      this.loginFormQrcode = 'login-form-qrcode'
+      this.btnsRegister = 'btns-register'
+      // 其他登录方式
+      this.otherLogins = 'other-logins'
+      // 手机验证注册按钮
+      this.linkToPhoneRegister = 'link-to-pregister'
+      // QQ注册按钮
+      this.qqRegister = 'three-register'
+    },
+    // 初始化扫码登录
+    initLoginQrcode() {
+      this.resetLoginRegisterDialog()
+      this.loginRegisterTitle = "微信登录"
+      this.loginFormQrcode = 'login-form-qrcode'
+      this.btnsLogin = 'btns-login'
+      // 其他登录方式
+      this.otherLogins = 'other-logins'
+      // 账号密码登录按钮
+      this.linkToAccount = 'link-to-account'
+      // 手机验证登录按钮
+      this.linkToPhoneLogin = 'link-to-plogin'
+      // QQ登录按钮
+      this.qqLogin = 'dropdown po-tool-button three-login'
+    },
+    // 初始化账号密码表单登陆
+    initLoginFormPwd(flag) {
+      if(flag) {
+        this.resetLoginRegisterDialog()
+      }
+      this.loginRegisterTitle = "欢迎使用"
+      this.loginTab = 'login-tab'
+      // 账号密码登录表单
+      this.loginFormPwd = 'login-form-pwd'
+      // 其他登录方式
+      this.otherLogins = 'other-logins'
+      // 微信扫码登录按钮
+      this.wxScanLogin = 'wx'
+      // QQ登录按钮
+      this.qqLogin = 'dropdown po-tool-button three-login'
+    },
+    // 初始化手机验证码表单登陆
+    initLoginFormDx(flag) {
+      if(flag) {
+        this.resetLoginRegisterDialog()
+      }
+      this.loginRegisterTitle = "欢迎使用"
+      this.loginTab = 'login-tab'
+      // 手机验证码登录表单
+      this.loginFormDx = 'login-form-dx'
+      // 其他登录方式
+      this.otherLogins = 'other-logins'
+      // 微信扫码登录按钮
+      this.wxScanLogin = 'wx'
+      // QQ登录按钮
+      this.qqLogin = 'dropdown po-tool-button three-login'
+    },
+    // 初始化手机号验证码注册
+    initPhoneRegister() {
+      this.resetLoginRegisterDialog()
+      this.loginRegisterTitle = "免费注册"
+      // 手机验证码注册表单
+      this.loginFormPregister = 'login-form-pregister'
+      // 其他登录方式
+      this.otherLogins = 'other-logins'
+      // 微信扫码注册按钮
+      this.wxScanRegister = 'wx-to-pregister',
+      // QQ注册按钮
+      this.qqRegister = 'three-register'
+    },
+    // 初始化重置密码表单
+    initLoginFormForgetPwd(){
+      this.resetLoginRegisterDialog()
+      this.loginRegisterTitle = "重置密码"
+      // 重置密码表单
+      this.loginFormForgetPwd = 'login-form-forgetpwd'
+      // 服务条款
+      this.poCopyright = 'po-copyright hide'
+    },
+    // 登录方式切换Tab点击
+    mrActive(type) {
+      if(type === 'pwd'){
+        // 账号密码登录
+        this.mrActivePwd = 'mr active'
+        // 手机验证码登录
+        this.mrActiveDx = ''
+        // 手机验证码登录表单
+        this.loginFormDx = 'login-form-dx hide'
+        this.initLoginFormPwd(false)
+      } else if(type === 'dx') {
+        // 账号密码登录
+        this.mrActivePwd = 'mr'
+        // 手机验证码登录
+        this.mrActiveDx = 'active'
+        // 账号密码登录表单
+        this.loginFormPwd = 'login-form-pwd hide'
+        this.initLoginFormDx(false)
       }
     },
     // 登录弹窗还原
     resetLoginRegisterDialog(){
-      this.loginRegisterTitle = '',
+      // 登录&注册标题
+      this.loginRegisterTitle = ''
+      // 登录方式切换Tab
+      this.loginTab = 'login-tab hide'
+      // 账号密码登录
+      this.mrActivePwd = 'mr active',
+      // 手机验证码登录
+      this.mrActiveDx = '',
+      // 账号密码登录表单
+      this.loginFormPwd = 'login-form-pwd hide'
+      // 手机验证码登录表单
+      this.loginFormDx = 'login-form-dx hide'
       // 微信二维码登录
-      this.loginFormQrcode = 'login-form-qrcode hide',
-      this.btnsRegister = 'btns-register hide',
-      this.btnsLogin = 'btns-login hide',
+      this.loginFormQrcode = 'login-form-qrcode hide'
+      // 去注册
+      this.btnsRegister = 'btns-register hide'
+      // 去登录
+      this.btnsLogin = 'btns-login hide'
+      // 手机验证码注册
+      this.loginFormPregister = 'login-form-pregister hide'
+      // 重置密码表单
+      this.loginFormForgetPwd = 'login-form-forgetpwd hide'
+      // 其他登录方式
       this.otherLogins = 'other-logins hide'
+      // 服务条款
+      this.poCopyright = 'po-copyright'
+      // 微信扫码登录按钮
+      this.wxScanLogin = 'wx hide',
+      // 账号密码登录按钮
+      this.linkToAccount = 'link-to-account hide',
+      // 手机验证登录按钮
+      this.linkToPhoneLogin = 'link-to-plogin hide',
+      // 微信扫码注册按钮
+      this.wxScanRegister = 'wx-to-pregister hide',
+      // 手机验证注册按钮
+      this.linkToPhoneRegister = 'link-to-pregister hide',
+      // QQ登录按钮
+      this.qqLogin = 'dropdown po-tool-button three-login hide',
+      // QQ注册按钮
+      this.qqRegister = 'three-register hide'
     }
   }
 };
