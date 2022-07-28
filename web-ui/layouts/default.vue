@@ -211,6 +211,10 @@
               </div>
               <div id="qrcode-wx" class="qrcode-wx">
                 <img src="~/assets/img/login/showqrcode.png" alt="">
+                <div :class="codeInvalid" style="width:200px;height:200px;line-height:200px;background:rgba(255,255,255,0.95);position:absolute;top:0;left:0">
+                  二维码已过期，
+                  <span @click="loginForWxCode();" style="color:#067BEF;cursor: pointer">刷新</span>
+                </div>
               </div>
               <div class="qrcode-btns">
                 <div :class="btnsRegister">已有账号？
@@ -403,7 +407,12 @@ export default {
         // 微信扫码注册按钮
         wxScanRegister: 'wx-to-pregister hide',
         // 手机验证注册按钮
-        linkToPhoneRegister: 'link-to-pregister hide'
+        linkToPhoneRegister: 'link-to-pregister hide',
+        // 二维码过期模态框
+        codeInvalid: 'code-invalid hide',
+        // 二维码失效变量
+        count: '',
+		    timer: null,
     }
   },
   created() {
@@ -460,6 +469,7 @@ export default {
       }else{
         this.initRegisterQrcode()
       }
+      this.loginForWxCode()
     },
     // 初始化扫码注册
     initRegisterQrcode() {
@@ -590,7 +600,27 @@ export default {
       // 微信扫码注册按钮
       this.wxScanRegister = 'wx-to-pregister hide',
       // 手机验证注册按钮
-      this.linkToPhoneRegister = 'link-to-pregister hide'
+      this.linkToPhoneRegister = 'link-to-pregister hide',
+      // 二维码过期模态框
+      this.codeInvalid = 'code-invalid hide'
+    },
+    // 获取微信二维码
+    loginForWxCode() {
+      this.codeInvalid = 'code-invalid hide'
+      const TIME_COUNT = 10
+      if (!this.timer) {
+        this.count = TIME_COUNT;
+        this.show = false;
+        this.timer = setInterval(() => {
+            if (this.count > 0 && this.count <= TIME_COUNT) {
+                this.count--
+            } else {
+                this.codeInvalid = 'code-invalid'
+                clearInterval(this.timer)
+                this.timer = null
+            }
+        }, 1000)
+      }
     }
   }
 };
