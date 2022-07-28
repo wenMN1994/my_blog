@@ -368,9 +368,6 @@
 .po-login-box .po-login .login-form .other-logins .three-list li:last-child {
 	margin-right:0
 }
-/* .po-login-box .po-login .login-form .other-logins .three-list li.link-to-account,.po-login-box .po-login .login-form .other-logins .three-list li.link-to-plogin,.po-login-box .po-login .login-form .other-logins .three-list li.link-to-pregister,.po-login-box .po-login .login-form .other-logins .three-list li.three-register,.po-login-box .po-login .login-form .other-logins .three-list li.wx-to-pregister {
-	display:none
-} */
 .po-login-box .po-login .login-form .other-logins .three-list li:hover {
 	color:#067bef
 }
@@ -573,15 +570,6 @@
 	background:0 0;
 	padding:0 14px 0 2px
 }
-.po-login-box .three-list li.dropdown:after {
-	position:absolute;
-	content:'\e618 ';
-	right:-1px;
-	top:2px;
-	font-family:icons;
-	font-size:16px;
-	color:#9aa5b8
-}
 .po-login-box .login-form-bindsucc .login-title h3,.po-login-box .login-form-bindtip .login-title h3 {
 	text-align:center
 }
@@ -608,43 +596,4 @@
 }
 .po-login-box .po-copyright .po-link:hover {
 	color:#067bef
-}
-.po-menu {
-	position:absolute;
-	background:#fff;
-	border:#e9edf2;
-	box-shadow:0 8px 20px 0 rgb(0 0 0 / 10%);
-	border-radius:4px;
-	padding:4px 0;
-	color:#212930;
-	font-size:14px
-}
-.po-menu .po-menu-item {
-	padding:0 4px;
-	position:relative
-}
-.po-menu .po-menu-item .po-menu-item-box {
-	height:32px;
-	line-height:32px;
-	border-radius:4px;
-	cursor:pointer;
-	padding-left:32px;
-	padding-right:8px;
-	white-space:nowrap;
-	display:flex;
-	justify-content:space-between;
-	align-items:center;
-	position:relative
-}
-.po-menu .po-menu-item .po-menu-item-box:hover {
-	background-color:#f3f5f9
-}
-.po-menu .po-menu-item img {
-	position:absolute;
-	width:16px;
-	height:16px;
-	left:12px
-}
-.po-menu .po-menu-item span {
-	font-size:12px
 }

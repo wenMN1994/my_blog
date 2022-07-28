@@ -321,14 +321,6 @@
                   <img src="~/assets/img/login/icon-phone.svg" alt="">
                   <span>手机验证注册</span>
                 </li>
-                <li :class="qqLogin" id="three-login" style="margin-right:0">
-                  <img src="~/assets/img/login/icon-qq-svg.svg" alt="">
-                  <span class="text">QQ登录</span>
-                </li>
-                <li onclick="loginModel.platform.login('qq')" :class="qqRegister" style="margin-right:0">
-                  <img src="~/assets/img/login/icon-qq-svg.svg" alt="">
-                  <span class="text">QQ注册</span>
-                </li>
               </ol>
             </div>
           </div>
@@ -340,28 +332,6 @@
             服务条款
           </a>
         </div>
-      </div>
-      <div class="menu-container">
-        <ul id="three-login-list" class="po-menu" style="display: none">
-          <li class="po-menu-item" ac="qq">
-            <div class="po-menu-item-box">
-              <img src="~/assets/img/login/icon-qq-svg.svg" alt="">
-              <span class="text">QQ登录</span>
-            </div>
-          </li>
-          <li class="po-menu-item" ac="sina">
-            <div class="po-menu-item-box">
-              <img src="~/assets/img/login/icon-wb-svg.svg" alt="">
-              <span class="text">微博登录</span>
-            </div>
-          </li>
-          <li class="po-menu-item" ac="google">
-            <div class="po-menu-item-box">
-              <img src="~/assets/img/login/icon-gg-svg.svg" alt="">
-              <span class="text">谷歌登录</span>
-            </div>
-          </li>
-        </ul>
       </div>
     </el-dialog>
     <!-- /登录 && 注册 -->
@@ -433,11 +403,7 @@ export default {
         // 微信扫码注册按钮
         wxScanRegister: 'wx-to-pregister hide',
         // 手机验证注册按钮
-        linkToPhoneRegister: 'link-to-pregister hide',
-        // QQ登录按钮
-        qqLogin: 'dropdown po-tool-button three-login hide',
-        // QQ注册按钮
-        qqRegister: 'three-register hide'
+        linkToPhoneRegister: 'link-to-pregister hide'
     }
   },
   created() {
@@ -505,8 +471,6 @@ export default {
       this.otherLogins = 'other-logins'
       // 手机验证注册按钮
       this.linkToPhoneRegister = 'link-to-pregister'
-      // QQ注册按钮
-      this.qqRegister = 'three-register'
     },
     // 初始化扫码登录
     initLoginQrcode() {
@@ -520,8 +484,6 @@ export default {
       this.linkToAccount = 'link-to-account'
       // 手机验证登录按钮
       this.linkToPhoneLogin = 'link-to-plogin'
-      // QQ登录按钮
-      this.qqLogin = 'dropdown po-tool-button three-login'
     },
     // 初始化账号密码表单登陆
     initLoginFormPwd(flag) {
@@ -536,8 +498,6 @@ export default {
       this.otherLogins = 'other-logins'
       // 微信扫码登录按钮
       this.wxScanLogin = 'wx'
-      // QQ登录按钮
-      this.qqLogin = 'dropdown po-tool-button three-login'
     },
     // 初始化手机验证码表单登陆
     initLoginFormDx(flag) {
@@ -552,8 +512,6 @@ export default {
       this.otherLogins = 'other-logins'
       // 微信扫码登录按钮
       this.wxScanLogin = 'wx'
-      // QQ登录按钮
-      this.qqLogin = 'dropdown po-tool-button three-login'
     },
     // 初始化手机号验证码注册
     initPhoneRegister() {
@@ -564,9 +522,7 @@ export default {
       // 其他登录方式
       this.otherLogins = 'other-logins'
       // 微信扫码注册按钮
-      this.wxScanRegister = 'wx-to-pregister',
-      // QQ注册按钮
-      this.qqRegister = 'three-register'
+      this.wxScanRegister = 'wx-to-pregister'
     },
     // 初始化重置密码表单
     initLoginFormForgetPwd(){
@@ -634,11 +590,7 @@ export default {
       // 微信扫码注册按钮
       this.wxScanRegister = 'wx-to-pregister hide',
       // 手机验证注册按钮
-      this.linkToPhoneRegister = 'link-to-pregister hide',
-      // QQ登录按钮
-      this.qqLogin = 'dropdown po-tool-button three-login hide',
-      // QQ注册按钮
-      this.qqRegister = 'three-register hide'
+      this.linkToPhoneRegister = 'link-to-pregister hide'
     }
   }
 };
