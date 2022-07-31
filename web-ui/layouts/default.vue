@@ -161,7 +161,8 @@
               </div>
               <div class="inputs mb40">
                 <span class="input-btn get-code">
-                  <a class="po-link">获取验证码</a>
+                  <a v-show="loginVerifyCode" class="po-link" @click="getLoginPhoneVerifyCode()">获取验证码</a>
+                  <i v-show="!loginVerifyCode" class="verify-code" style="font-style:normal;color:#9aa5b8;">{{loginVerifyCodeCount}}秒后重新获取</i>
                 </span>
                 <input type="text" autocomplete="off" name="code" class="input" placeholder="请输入验证码"/>
                 <span class="input-error-notice hide"></span>
@@ -181,7 +182,8 @@
               <input name="tampkey" id="tampkey" type="hidden" />
               <div class="inputs">
                 <span class="input-btn get-code">
-                  <a class="po-link">获取验证码</a>
+                  <a v-show="registerVerifyCode" class="po-link" @click="getRegisterPhoneVerifyCode()">获取验证码</a>
+                  <i v-show="!registerVerifyCode" class="verify-code" style="font-style:normal;color:#9aa5b8;">{{registerVerifyCodeCount}}秒后重新获取</i>
                 </span>
                 <input type="text" autocomplete="off" name="code" class="input" placeholder="请输入验证码"/>
                 <span class="input-error-notice hide"></span>
@@ -282,7 +284,8 @@
                 </div>
                 <div class="inputs">
                   <span class="input-btn get-code">
-                    <a class="po-link">获取验证码</a>
+                    <a v-show="forgetPwdVerifyCode" class="po-link" @click="getForgetPwdPhoneVerifyCode()">获取验证码</a>
+                    <i v-show="!forgetPwdVerifyCode" class="verify-code" style="font-style:normal;color:#9aa5b8;">{{forgetPwdVerifyCodeCount}}秒后重新获取</i>
                   </span>
                   <input type="text" name="code" autocomplete="off" class="input" placeholder="请输入验证码"/>
                   <span class="input-error-notice hide"></span>
@@ -413,6 +416,19 @@ export default {
         // 二维码失效变量
         count: '',
 		    timer: null,
+        // 登录验证码失效参数
+        loginVerifyCode: true,
+        loginVerifyCodeTimer: null,
+        loginVerifyCodeCount: '',
+        // 重置密码验证码失效参数
+        forgetPwdVerifyCode: true,
+        forgetPwdVerifyCodeTimer: null,
+        forgetPwdVerifyCodeCount: '',
+        // 手机注册验证码失效参数
+        registerVerifyCode: true,
+        registerVerifyCodeTimer: null,
+        registerVerifyCodeCount: ''
+
     }
   },
   created() {
@@ -607,18 +623,69 @@ export default {
     // 获取微信二维码
     loginForWxCode() {
       this.codeInvalid = 'code-invalid hide'
-      const TIME_COUNT = 10
+      const TIME_COUNT = 30
       if (!this.timer) {
         this.count = TIME_COUNT;
         this.show = false;
         this.timer = setInterval(() => {
-            if (this.count > 0 && this.count <= TIME_COUNT) {
-                this.count--
-            } else {
-                this.codeInvalid = 'code-invalid'
-                clearInterval(this.timer)
-                this.timer = null
-            }
+          if (this.count > 0 && this.count <= TIME_COUNT) {
+            this.count--
+          } else {
+            this.codeInvalid = 'code-invalid'
+            clearInterval(this.timer)
+            this.timer = null
+          }
+        }, 1000)
+      }
+    },
+    // 获取登录手机验证码
+    getLoginPhoneVerifyCode() {
+      const TIME_COUNT = 60
+      if (!this.loginVerifyCodeTimer) {
+        this.loginVerifyCodeCount = TIME_COUNT;
+        this.loginVerifyCode = false;
+        this.loginVerifyCodeTimer = setInterval(() => {
+          if (this.loginVerifyCodeCount > 0 && this.loginVerifyCodeCount <= TIME_COUNT) {
+            this.loginVerifyCodeCount--
+          } else {
+            this.loginVerifyCode = true;
+            clearInterval(this.loginVerifyCodeTimer)
+            this.loginVerifyCodeTimer = null
+          }
+        }, 1000)
+      }
+    },
+    // 重置密码获取手机验证码
+    getForgetPwdPhoneVerifyCode() {
+      const TIME_COUNT = 60
+      if (!this.forgetPwdVerifyCodeTimer) {
+        this.forgetPwdVerifyCodeCount = TIME_COUNT;
+        this.forgetPwdVerifyCode = false;
+        this.forgetPwdVerifyCodeTimer = setInterval(() => {
+          if (this.forgetPwdVerifyCodeCount > 0 && this.forgetPwdVerifyCodeCount <= TIME_COUNT) {
+            this.forgetPwdVerifyCodeCount--
+          } else {
+            this.forgetPwdVerifyCode = true;
+            clearInterval(this.forgetPwdVerifyCodeTimer)
+            this.forgetPwdVerifyCodeTimer = null
+          }
+        }, 1000)
+      }
+    },
+    // 手机注册获取手机验证码
+    getRegisterPhoneVerifyCode() {
+      const TIME_COUNT = 60
+      if (!this.registerVerifyCodeTimer) {
+        this.registerVerifyCodeCount = TIME_COUNT;
+        this.registerVerifyCode = false;
+        this.registerVerifyCodeTimer = setInterval(() => {
+          if (this.registerVerifyCodeCount > 0 && this.registerVerifyCodeCount <= TIME_COUNT) {
+            this.registerVerifyCodeCount--
+          } else {
+            this.registerVerifyCode = true;
+            clearInterval(this.registerVerifyCodeTimer)
+            this.registerVerifyCodeTimer = null
+          }
         }, 1000)
       }
     }
