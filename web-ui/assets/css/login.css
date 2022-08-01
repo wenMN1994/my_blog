@@ -163,14 +163,6 @@
 	font-size:14px;
 	cursor:pointer
 }
-.po-login-box .po-login .login-form .inputs .input-btn.show-pwd__open {
-	background:url(../img/login/icon-close-pwd-2x.png) no-repeat center;
-	background-size:100%
-}
-.po-login-box .po-login .login-form .inputs .input-btn.show-pwd__close {
-	background:url(../img/login/icon-show-pwd-2x.png) no-repeat center;
-	background-size:100%
-}
 .po-login-box .po-login .login-form .inputs .input-btn.get-code {
 	width:auto
 }
@@ -205,7 +197,6 @@
 }
 .po-login-box .po-login .login-form .inputs .input-error-notice {
 	color:#eb5555;
-	display:none;
 	padding-left:16px;
 	line-height:17px;
 	height:17px;

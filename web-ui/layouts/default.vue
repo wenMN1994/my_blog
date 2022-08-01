@@ -1,6 +1,6 @@
 <template>
   <div class="in-wrap">
-    <!-- 公共头引入 -->
+    <!-- 开始-公共头引入 -->
     <header id="header">
       <section class="container">
         <h1 id="logo">
@@ -77,11 +77,11 @@
         <div class="clear"></div>
       </section>
     </header>
-    <!-- /公共头引入 -->
+    <!-- 结束-公共头引入 -->
 
     <nuxt/>
 
-    <!-- 公共底引入 -->
+    <!-- 开始-公共底引入 -->
     <footer id="footer">
       <section class="container">
         <div class="b-foot">
@@ -117,11 +117,13 @@
         </div>
       </section>
     </footer>
-    <!-- /公共底引入 -->
-    <!-- 登录 && 注册 -->
+    <!-- 结束-公共底引入 -->
+
+    <!-- 开始-登录 && 注册 -->
     <el-dialog
       :title="loginRegisterTitle"
       :visible.sync="loginRegisterDialogVisible"
+      :close-on-click-modal="false"
       width="30%"
       center>
       <div id="po-login-box" class="po-login-box">
@@ -139,16 +141,15 @@
             <!-- 账号密码登录表单 -->
             <div id="login-form-pwd" :class="loginFormPwd">
               <div class="inputs">
-                <input type="text" name="name" autocomplete="off" class="input" placeholder="请输入手机号码或邮箱"/>
+                <input v-model="loginFormPassword.name" autocomplete="off" type="text" class="input" placeholder="请输入手机号码或邮箱"/>
                 <span class="input-error-notice hide"></span>
               </div>
               <div class="inputs mb40">
-                <span class="input-btn show-pwd show-pwd__open"></span>
-                <input type="password" name="pwd" autoComplete="new-password" class="input" placeholder="输入密码" />
+                <el-input v-model="loginFormPassword.password" autocomplete="off" placeholder="请输入密码" type="password" show-password/>
                 <span class="input-error-notice hide"></span>
               </div>
               <div class="btns">
-                <button id="submit-pwd" class="po-button primary submit disabled">登录</button>
+                <button id="submit-pwd" class="po-button primary submit" @click="loginSubmit(1)">登录</button>
                 <a class="po-link color-out link-forget lf" @click="initLoginFormForgetPwd()">忘记密码?</a>
                 <a class="po-link signup rt" @click="initPhoneRegister()">新用户账号注册</a>
               </div>
@@ -156,7 +157,7 @@
             <!-- 手机验证码登录表单 -->
             <div id="login-form-dx" :class="loginFormDx">
               <div class="inputs">
-                <input type="text" autocomplete="off" name="phone" class="input" placeholder="请输入手机号"/>
+                <input v-model="phoneCodeLogin.phone" autocomplete="off" type="text" class="input" placeholder="请输入手机号"/>
                 <span class="input-error-notice hide"></span>
               </div>
               <div class="inputs mb40">
@@ -164,11 +165,11 @@
                   <a v-show="loginVerifyCode" class="po-link" @click="getLoginPhoneVerifyCode()">获取验证码</a>
                   <i v-show="!loginVerifyCode" class="verify-code" style="font-style:normal;color:#9aa5b8;">{{loginVerifyCodeCount}}秒后重新获取</i>
                 </span>
-                <input type="text" autocomplete="off" name="code" class="input" placeholder="请输入验证码"/>
+                <input v-model="phoneCodeLogin.code" autocomplete="off" type="text" class="input" placeholder="请输入验证码"/>
                 <span class="input-error-notice hide"></span>
               </div>
               <div class="btns">
-                <button id="submit-dx" class="po-button primary submit disabled">登录</button>
+                <button id="submit-dx" class="po-button primary submit" @click="loginSubmit(2)">登录</button>
                 <a class="po-link color-out link-forget lf" @click="initLoginFormForgetPwd()">忘记密码?</a>
                 <a class="po-link signup rt" @click="initPhoneRegister()">新用户账号注册</a>
               </div>
@@ -176,25 +177,23 @@
             <!-- 手机号码验证码注册表单 -->
             <div id="login-form-pregister" :class="loginFormPregister">
               <div class="inputs">
-                <input type="text" autocomplete="off" name="phone" class="input" placeholder="请输入手机号"/>
+                <input v-model="phoneRegister.phone" autocomplete="off" type="text" class="input" placeholder="请输入手机号"/>
                 <span class="input-error-notice hide"></span>
               </div>
-              <input name="tampkey" id="tampkey" type="hidden" />
               <div class="inputs">
                 <span class="input-btn get-code">
                   <a v-show="registerVerifyCode" class="po-link" @click="getRegisterPhoneVerifyCode()">获取验证码</a>
                   <i v-show="!registerVerifyCode" class="verify-code" style="font-style:normal;color:#9aa5b8;">{{registerVerifyCodeCount}}秒后重新获取</i>
                 </span>
-                <input type="text" autocomplete="off" name="code" class="input" placeholder="请输入验证码"/>
+                <input v-model="phoneRegister.code" autocomplete="off" type="text" class="input" placeholder="请输入验证码"/>
                 <span class="input-error-notice hide"></span>
               </div>
               <div class="inputs mb40">
-                <span class="input-btn show-pwd show-pwd__open"></span>
-                <input type="password" autocomplete="off" name="pwd" class="input" placeholder="请输入密码"/>
+                <el-input v-model="phoneRegister.password" autocomplete="off" placeholder="请输入密码" type="password" show-password/>
                 <span class="input-error-notice hide"></span>
               </div>
               <div class="btns">
-                <button id="submit-pregister" class="po-button primary submit disabled">注册</button>
+                <button id="submit-pregister" class="po-button primary submit" @click="registerSubmit()">注册</button>
                 <div class="btns-register">
                   已有账号？
                   <a class="po-link color-black link-to-login" @click="initLoginFormPwd(true)" style="color:#067BEF;position:static">
@@ -279,7 +278,7 @@
             <div id="login-form-forgetpwd" :class="loginFormForgetPwd">
               <div class="first-step">
                 <div class="inputs">
-                  <input type="text" autocomplete="off" name="name" class="input" placeholder="请输入手机号码或邮箱"/>
+                  <input v-model="forgetpwd.name" autocomplete="off" type="text" class="input" placeholder="请输入手机号码或邮箱"/>
                   <span class="input-error-notice hide"></span>
                 </div>
                 <div class="inputs">
@@ -287,16 +286,15 @@
                     <a v-show="forgetPwdVerifyCode" class="po-link" @click="getForgetPwdPhoneVerifyCode()">获取验证码</a>
                     <i v-show="!forgetPwdVerifyCode" class="verify-code" style="font-style:normal;color:#9aa5b8;">{{forgetPwdVerifyCodeCount}}秒后重新获取</i>
                   </span>
-                  <input type="text" name="code" autocomplete="off" class="input" placeholder="请输入验证码"/>
+                  <input v-model="forgetpwd.code" autocomplete="off" type="text" class="input" placeholder="请输入验证码"/>
                   <span class="input-error-notice hide"></span>
                 </div>
                 <div class="inputs mb40">
-                  <span class="input-btn show-pwd show-pwd__open"></span>
-                  <input type="password" name="pwd" autocomplete="off" class="input" placeholder="请输入8-16位数字和字母组合的密码"/>
+                  <el-input v-model="forgetpwd.password" autocomplete="off" placeholder="请输入8-16位数字和字母组合的密码" type="password" show-password/>
                   <span class="input-error-notice hide"></span>
                 </div>
                 <div class="btns">
-                  <button id="btn-forgetpwd-first" class="po-button primary submit disabled">确认重置</button>
+                  <button id="btn-forgetpwd-first" class="po-button primary submit" @click="confirmReset()">确认重置</button>
                   <a class="po-link link-to-login color-black lf" @click="initLoginFormPwd(true)">登录已有账户</a>
                   <a class="po-link signup rt" @click="initPhoneRegister()">新用户账号注册</a>
                 </div>
@@ -341,7 +339,7 @@
         </div>
       </div>
     </el-dialog>
-    <!-- /登录 && 注册 -->
+    <!-- 结束-登录 && 注册 -->
   </div>
 </template>
 <script>
@@ -427,8 +425,29 @@ export default {
         // 手机注册验证码失效参数
         registerVerifyCode: true,
         registerVerifyCodeTimer: null,
-        registerVerifyCodeCount: ''
-
+        registerVerifyCodeCount: '',
+        // 重置密码表单
+        forgetpwd: {
+          name: '',
+          code: '',
+          confirmPassword: ''
+        },
+        // 账号密码登录表单
+        loginFormPassword: {
+          name: '',
+          password: ''
+        },
+        // 手机验证码注册表单
+        phoneRegister: {
+          phone: '',
+          code: '',
+          password: ''
+        },
+        // 手机验证码登录表单
+        phoneCodeLogin: {
+          phone: '',
+          code: ''
+        }
     }
   },
   created() {
@@ -618,7 +637,29 @@ export default {
       // 手机验证注册按钮
       this.linkToPhoneRegister = 'link-to-pregister hide',
       // 二维码过期模态框
-      this.codeInvalid = 'code-invalid hide'
+      this.codeInvalid = 'code-invalid hide',
+      // 重置密码表单
+      this.forgetpwd = {
+        name: '',
+        code: '',
+        confirmPassword: ''
+      },
+      // 账号密码登录表单
+      this.loginFormPassword = {
+        name: '',
+        password: ''
+      },
+      // 手机验证码注册表单
+      this.phoneRegister = {
+        phone: '',
+        code: '',
+        password: ''
+      },
+      // 手机验证码登录表单
+      this.phoneCodeLogin = {
+        phone: '',
+        code: ''
+      }
     },
     // 获取微信二维码
     loginForWxCode() {
@@ -688,6 +729,32 @@ export default {
           }
         }, 1000)
       }
+    },
+    // 登录按钮点击 type=1 账号密码登录; type=2手机验证码登录
+    loginSubmit(type) {
+      if(type === 1) {
+        if(this.loginFormPassword.name === '') {
+          return false
+        }
+        if(this.loginFormPassword.password === '') {
+          return false
+        }
+      } else if(type == 2) {
+        if(this.phoneCodeLogin.phone === '') {
+          return false
+        }
+        if(this.phoneCodeLogin.code === '') {
+          return false
+        }
+      }
+    },
+    // 确认重置密码按钮点击
+    confirmReset() {
+      
+    },
+    // 手机号码注册按钮点击
+    registerSubmit() {
+
     }
   }
 };
