@@ -141,12 +141,22 @@
             <!-- 账号密码登录表单 -->
             <div id="login-form-pwd" :class="loginFormPwd">
               <div class="inputs">
-                <input v-model="loginFormPassword.name" autocomplete="off" type="text" class="input" placeholder="请输入手机号码或邮箱"/>
-                <span class="input-error-notice hide"></span>
+                <input v-model="loginFormPassword.name" 
+                  @focus="focusLoginFormPwdName()"
+                  autocomplete="off" 
+                  type="text" 
+                  class="input" 
+                  placeholder="请输入手机号码或邮箱"/>
+                <span class="input-error-notice">{{loginFormPwdNameError}}</span>
               </div>
               <div class="inputs mb40">
-                <el-input v-model="loginFormPassword.password" autocomplete="off" placeholder="请输入密码" type="password" show-password/>
-                <span class="input-error-notice hide"></span>
+                <el-input v-model="loginFormPassword.password" 
+                  @focus="focusLoginFormPwdPassword()"
+                  autocomplete="off" 
+                  placeholder="请输入密码" 
+                  type="password" 
+                  show-password/>
+                <span class="input-error-notice">{{loginFormPwdPasswordError}}</span>
               </div>
               <div class="btns">
                 <button id="submit-pwd" class="po-button primary submit" @click="loginSubmit(1)">登录</button>
@@ -157,16 +167,26 @@
             <!-- 手机验证码登录表单 -->
             <div id="login-form-dx" :class="loginFormDx">
               <div class="inputs">
-                <input v-model="phoneCodeLogin.phone" autocomplete="off" type="text" class="input" placeholder="请输入手机号"/>
-                <span class="input-error-notice hide"></span>
+                <input v-model="phoneCodeLogin.phone" 
+                  @focus="focusLoginFormDxPhone()"
+                  autocomplete="off" 
+                  type="text" 
+                  class="input" 
+                  placeholder="请输入手机号"/>
+                <span class="input-error-notice">{{loginFormDxPhoneError}}</span>
               </div>
               <div class="inputs mb40">
                 <span class="input-btn get-code">
                   <a v-show="loginVerifyCode" class="po-link" @click="getLoginPhoneVerifyCode()">获取验证码</a>
                   <i v-show="!loginVerifyCode" class="verify-code" style="font-style:normal;color:#9aa5b8;">{{loginVerifyCodeCount}}秒后重新获取</i>
                 </span>
-                <input v-model="phoneCodeLogin.code" autocomplete="off" type="text" class="input" placeholder="请输入验证码"/>
-                <span class="input-error-notice hide"></span>
+                <input v-model="phoneCodeLogin.code" 
+                  @focus="focusLoginFormDxCode()"
+                  autocomplete="off" 
+                  type="text" 
+                  class="input" 
+                  placeholder="请输入验证码"/>
+                <span class="input-error-notice">{{loginFormDxCodeError}}</span>
               </div>
               <div class="btns">
                 <button id="submit-dx" class="po-button primary submit" @click="loginSubmit(2)">登录</button>
@@ -177,20 +197,35 @@
             <!-- 手机号码验证码注册表单 -->
             <div id="login-form-pregister" :class="loginFormPregister">
               <div class="inputs">
-                <input v-model="phoneRegister.phone" autocomplete="off" type="text" class="input" placeholder="请输入手机号"/>
-                <span class="input-error-notice hide"></span>
+                <input v-model="phoneRegister.phone" 
+                  @focus="focusLoginFormRegisterPhone()"
+                  autocomplete="off" 
+                  type="text" 
+                  class="input" 
+                  placeholder="请输入手机号"/>
+                <span class="input-error-notice">{{loginFormRegisterPhoneError}}</span>
               </div>
               <div class="inputs">
                 <span class="input-btn get-code">
                   <a v-show="registerVerifyCode" class="po-link" @click="getRegisterPhoneVerifyCode()">获取验证码</a>
                   <i v-show="!registerVerifyCode" class="verify-code" style="font-style:normal;color:#9aa5b8;">{{registerVerifyCodeCount}}秒后重新获取</i>
                 </span>
-                <input v-model="phoneRegister.code" autocomplete="off" type="text" class="input" placeholder="请输入验证码"/>
-                <span class="input-error-notice hide"></span>
+                <input v-model="phoneRegister.code" 
+                  @focus="focusLoginFormRegisterCode()"
+                  autocomplete="off" 
+                  type="text" 
+                  class="input" 
+                  placeholder="请输入验证码"/>
+                <span class="input-error-notice">{{loginFormRegisterCodeError}}</span>
               </div>
               <div class="inputs mb40">
-                <el-input v-model="phoneRegister.password" autocomplete="off" placeholder="请输入密码" type="password" show-password/>
-                <span class="input-error-notice hide"></span>
+                <el-input v-model="phoneRegister.password" 
+                  @focus="focusLoginFormRegisterPassword()"
+                  autocomplete="off" 
+                  placeholder="请输入密码" 
+                  type="password" 
+                  show-password/>
+                <span class="input-error-notice">{{loginFormRegisterPasswordError}}</span>
               </div>
               <div class="btns">
                 <button id="submit-pregister" class="po-button primary submit" @click="registerSubmit()">注册</button>
@@ -278,20 +313,35 @@
             <div id="login-form-forgetpwd" :class="loginFormForgetPwd">
               <div class="first-step">
                 <div class="inputs">
-                  <input v-model="forgetpwd.name" autocomplete="off" type="text" class="input" placeholder="请输入手机号码或邮箱"/>
-                  <span class="input-error-notice hide"></span>
+                  <input v-model="forgetpwd.name" 
+                    @focus="focusLoginFormForgetName()"
+                    autocomplete="off" 
+                    type="text" 
+                    class="input" 
+                    placeholder="请输入手机号码或邮箱"/>
+                  <span class="input-error-notice">{{loginFormForgetNameError}}</span>
                 </div>
                 <div class="inputs">
                   <span class="input-btn get-code">
                     <a v-show="forgetPwdVerifyCode" class="po-link" @click="getForgetPwdPhoneVerifyCode()">获取验证码</a>
                     <i v-show="!forgetPwdVerifyCode" class="verify-code" style="font-style:normal;color:#9aa5b8;">{{forgetPwdVerifyCodeCount}}秒后重新获取</i>
                   </span>
-                  <input v-model="forgetpwd.code" autocomplete="off" type="text" class="input" placeholder="请输入验证码"/>
-                  <span class="input-error-notice hide"></span>
+                  <input v-model="forgetpwd.code" 
+                    @focus="focusLoginFormForgetCode()"
+                    autocomplete="off" 
+                    type="text" 
+                    class="input" 
+                    placeholder="请输入验证码"/>
+                  <span class="input-error-notice">{{loginFormForgetCodeError}}</span>
                 </div>
                 <div class="inputs mb40">
-                  <el-input v-model="forgetpwd.password" autocomplete="off" placeholder="请输入8-16位数字和字母组合的密码" type="password" show-password/>
-                  <span class="input-error-notice hide"></span>
+                  <el-input v-model="forgetpwd.password" 
+                    @focus="focusLoginFormForgetPassword()"
+                    autocomplete="off" 
+                    placeholder="请输入8-16位数字和字母组合的密码" 
+                    type="password" 
+                    show-password/>
+                  <span class="input-error-notice">{{loginFormForgetPasswordError}}</span>
                 </div>
                 <div class="btns">
                   <button id="btn-forgetpwd-first" class="po-button primary submit" @click="confirmReset()">确认重置</button>
@@ -430,24 +480,34 @@ export default {
         forgetpwd: {
           name: '',
           code: '',
-          confirmPassword: ''
+          password: ''
         },
+        loginFormForgetNameError: '',
+        loginFormForgetCodeError: '',
+        loginFormForgetPasswordError: '',
         // 账号密码登录表单
         loginFormPassword: {
           name: '',
           password: ''
         },
+        loginFormPwdNameError: '',
+        loginFormPwdPasswordError: '',
         // 手机验证码注册表单
         phoneRegister: {
           phone: '',
           code: '',
           password: ''
         },
+        loginFormRegisterPhoneError: '',
+        loginFormRegisterCodeError: '',
+        loginFormRegisterPasswordError: '',
         // 手机验证码登录表单
         phoneCodeLogin: {
           phone: '',
           code: ''
-        }
+        },
+        loginFormDxPhoneError: '',
+        loginFormDxCodeError: ''
     }
   },
   created() {
@@ -535,6 +595,13 @@ export default {
       if(flag) {
         this.resetLoginRegisterDialog()
       }
+      // 账号密码登录
+      this.mrActivePwd = 'mr active'
+      // 手机验证码登录
+      this.mrActiveDx = ''
+      // 手机验证码登录表单
+      this.loginFormDx = 'login-form-dx hide'
+
       this.loginRegisterTitle = "欢迎使用"
       this.loginTab = 'login-tab'
       // 账号密码登录表单
@@ -549,6 +616,13 @@ export default {
       if(flag) {
         this.resetLoginRegisterDialog()
       }
+      // 账号密码登录
+      this.mrActivePwd = 'mr'
+      // 手机验证码登录
+      this.mrActiveDx = 'active'
+      // 账号密码登录表单
+      this.loginFormPwd = 'login-form-pwd hide'
+
       this.loginRegisterTitle = "欢迎使用"
       this.loginTab = 'login-tab'
       // 手机验证码登录表单
@@ -581,20 +655,8 @@ export default {
     // 登录方式切换Tab点击
     mrActive(type) {
       if(type === 'pwd'){
-        // 账号密码登录
-        this.mrActivePwd = 'mr active'
-        // 手机验证码登录
-        this.mrActiveDx = ''
-        // 手机验证码登录表单
-        this.loginFormDx = 'login-form-dx hide'
         this.initLoginFormPwd(false)
       } else if(type === 'dx') {
-        // 账号密码登录
-        this.mrActivePwd = 'mr'
-        // 手机验证码登录
-        this.mrActiveDx = 'active'
-        // 账号密码登录表单
-        this.loginFormPwd = 'login-form-pwd hide'
         this.initLoginFormDx(false)
       }
     },
@@ -642,24 +704,34 @@ export default {
       this.forgetpwd = {
         name: '',
         code: '',
-        confirmPassword: ''
+        password: ''
       },
+      this.loginFormForgetNameError = '',
+      this.loginFormForgetCodeError = '',
+      this.loginFormForgetPasswordError = '',
       // 账号密码登录表单
       this.loginFormPassword = {
         name: '',
         password: ''
       },
+      this.loginFormPwdNameError = '',
+      this.loginFormPwdPasswordError = ''
       // 手机验证码注册表单
       this.phoneRegister = {
         phone: '',
         code: '',
         password: ''
       },
+      this.loginFormRegisterPhoneError = '',
+      this.loginFormRegisterCodeError = '',
+      this.loginFormRegisterPasswordError = '',
       // 手机验证码登录表单
       this.phoneCodeLogin = {
         phone: '',
         code: ''
-      }
+      },
+      this.loginFormDxPhoneError = '',
+      this.loginFormDxCodeError = ''
     },
     // 获取微信二维码
     loginForWxCode() {
@@ -681,6 +753,10 @@ export default {
     },
     // 获取登录手机验证码
     getLoginPhoneVerifyCode() {
+      if(this.phoneCodeLogin.phone === '') {
+        this.loginFormDxPhoneError = '请输入手机号码'
+        return false
+      }
       const TIME_COUNT = 60
       if (!this.loginVerifyCodeTimer) {
         this.loginVerifyCodeCount = TIME_COUNT;
@@ -698,6 +774,10 @@ export default {
     },
     // 重置密码获取手机验证码
     getForgetPwdPhoneVerifyCode() {
+      if(this.forgetpwd.name === '') {
+        this.loginFormForgetNameError = '请输入手机号码或邮箱'
+        return false
+      }
       const TIME_COUNT = 60
       if (!this.forgetPwdVerifyCodeTimer) {
         this.forgetPwdVerifyCodeCount = TIME_COUNT;
@@ -715,6 +795,10 @@ export default {
     },
     // 手机注册获取手机验证码
     getRegisterPhoneVerifyCode() {
+      if(this.phoneRegister.phone === '') {
+        this.loginFormRegisterPhoneError = '请输入手机号码'
+        return false
+      }
       const TIME_COUNT = 60
       if (!this.registerVerifyCodeTimer) {
         this.registerVerifyCodeCount = TIME_COUNT;
@@ -734,28 +818,89 @@ export default {
     loginSubmit(type) {
       if(type === 1) {
         if(this.loginFormPassword.name === '') {
+          this.loginFormPwdNameError = '请输入手机号码或邮箱'
           return false
         }
         if(this.loginFormPassword.password === '') {
+          this.loginFormPwdPasswordError = '请输入密码'
           return false
         }
       } else if(type == 2) {
         if(this.phoneCodeLogin.phone === '') {
+          this.loginFormDxPhoneError = '请输入手机号码'
           return false
         }
         if(this.phoneCodeLogin.code === '') {
+          this.loginFormDxCodeError = '请输入验证码'
           return false
         }
       }
     },
     // 确认重置密码按钮点击
     confirmReset() {
-      
+      if(this.forgetpwd.name === '') {
+        this.loginFormForgetNameError = '请输入手机号码或邮箱'
+        return false
+      }
+      if(this.forgetpwd.code === '') {
+        this.loginFormForgetCodeError = '请输入验证码'
+        return false
+      }
+      if(this.forgetpwd.password === '') {
+        this.loginFormForgetPasswordError = '请输入8-16位数字和字母组合的密码'
+        return false
+      }
     },
     // 手机号码注册按钮点击
     registerSubmit() {
-
-    }
+      if(this.phoneRegister.phone === '') {
+        this.loginFormRegisterPhoneError = '请输入手机号码'
+        return false
+      }
+      if(this.phoneRegister.code === '') {
+        this.loginFormRegisterCodeError = '请输入验证码'
+        return false
+      }
+      if(this.phoneRegister.password === '') {
+        this.loginFormRegisterPasswordError = '请输入密码'
+        return false
+      }
+      
+    },
+    // 账号密码登录input框触发事件
+    focusLoginFormPwdName() {
+      this.loginFormPwdNameError = ''
+    },
+    focusLoginFormPwdPassword() {
+      this.loginFormPwdPasswordError = ''
+    },
+    // 手机验证码登录input框触发事件
+    focusLoginFormDxPhone () {
+      this.loginFormDxPhoneError = ''
+    },
+    focusLoginFormDxCode() {
+      this.loginFormDxCodeError = ''
+    },
+    // 手机验证码注册input框触发事件
+    focusLoginFormRegisterPhone() {
+      this.loginFormRegisterPhoneError = ''
+    },
+    focusLoginFormRegisterCode() {
+      this.loginFormRegisterCodeError = ''
+    },
+    focusLoginFormRegisterPassword() {
+      this.loginFormRegisterPasswordError = ''
+    },
+    // 重置密码input框触发事件
+    focusLoginFormForgetName() {
+      this.loginFormForgetNameError = ''
+    },
+    focusLoginFormForgetCode() {
+      this.loginFormForgetCodeError = ''
+    },
+    focusLoginFormForgetPassword() {
+      this.loginFormForgetPasswordError = ''
+    },
   }
 };
 </script>
