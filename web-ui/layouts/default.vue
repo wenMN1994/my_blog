@@ -507,7 +507,13 @@ export default {
           code: ''
         },
         loginFormDxPhoneError: '',
-        loginFormDxCodeError: ''
+        loginFormDxCodeError: '',
+        // 手机号码正则表达式
+        phonePattern: /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/,
+        // Email正则表达式
+        emailPattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+        // 密码正则表达式
+        passwordPattern: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/,
     }
   },
   created() {
@@ -756,6 +762,9 @@ export default {
       if(this.phoneCodeLogin.phone === '') {
         this.loginFormDxPhoneError = '请输入手机号码'
         return false
+      }else if(!this.phonePattern.test(this.phoneCodeLogin.phone)){
+        this.loginFormDxPhoneError = '请输入正确的手机号码'
+        return false
       }
       const TIME_COUNT = 60
       if (!this.loginVerifyCodeTimer) {
@@ -777,6 +786,9 @@ export default {
       if(this.forgetpwd.name === '') {
         this.loginFormForgetNameError = '请输入手机号码或邮箱'
         return false
+      }else if(!this.phonePattern.test(this.forgetpwd.name) && !this.emailPattern.test(this.forgetpwd.name)){
+          this.loginFormForgetNameError = '请输入正确的手机号码或邮箱'
+          return false
       }
       const TIME_COUNT = 60
       if (!this.forgetPwdVerifyCodeTimer) {
@@ -798,6 +810,9 @@ export default {
       if(this.phoneRegister.phone === '') {
         this.loginFormRegisterPhoneError = '请输入手机号码'
         return false
+      }else if(!this.phonePattern.test(this.phoneRegister.phone)){
+        this.loginFormRegisterPhoneError = '请输入正确的手机号码'
+        return false
       }
       const TIME_COUNT = 60
       if (!this.registerVerifyCodeTimer) {
@@ -816,56 +831,79 @@ export default {
     },
     // 登录按钮点击 type=1 账号密码登录; type=2手机验证码登录
     loginSubmit(type) {
+      let returnFlag = false
       if(type === 1) {
         if(this.loginFormPassword.name === '') {
           this.loginFormPwdNameError = '请输入手机号码或邮箱'
-          return false
+          returnFlag = true
+        }else if(!this.phonePattern.test(this.loginFormPassword.name) && !this.emailPattern.test(this.loginFormPassword.name)){
+          this.loginFormPwdNameError = '请输入正确的手机号码或邮箱'
+          returnFlag = true
         }
         if(this.loginFormPassword.password === '') {
           this.loginFormPwdPasswordError = '请输入密码'
-          return false
+          returnFlag = true
         }
       } else if(type == 2) {
         if(this.phoneCodeLogin.phone === '') {
           this.loginFormDxPhoneError = '请输入手机号码'
-          return false
+          returnFlag = true
+        }else if(!this.phonePattern.test(this.phoneCodeLogin.phone)){
+          this.loginFormDxPhoneError = '请输入正确的手机号码'
+          returnFlag = true
         }
         if(this.phoneCodeLogin.code === '') {
           this.loginFormDxCodeError = '请输入验证码'
-          return false
+          returnFlag = true
         }
+      }
+      if(returnFlag){
+        return !returnFlag
       }
     },
     // 确认重置密码按钮点击
     confirmReset() {
+      let returnFlag = false
       if(this.forgetpwd.name === '') {
         this.loginFormForgetNameError = '请输入手机号码或邮箱'
-        return false
+        returnFlag = true
+      }else if(!this.phonePattern.test(this.forgetpwd.name) && !this.emailPattern.test(this.forgetpwd.name)){
+          this.loginFormForgetNameError = '请输入正确的手机号码或邮箱'
+          returnFlag = true
       }
       if(this.forgetpwd.code === '') {
         this.loginFormForgetCodeError = '请输入验证码'
-        return false
+        returnFlag = true
       }
-      if(this.forgetpwd.password === '') {
+      if(!this.passwordPattern.test(this.forgetpwd.password)) {
         this.loginFormForgetPasswordError = '请输入8-16位数字和字母组合的密码'
-        return false
+        returnFlag = true
+      }
+      if(returnFlag){
+        return !returnFlag
       }
     },
     // 手机号码注册按钮点击
     registerSubmit() {
+      let returnFlag = false
       if(this.phoneRegister.phone === '') {
         this.loginFormRegisterPhoneError = '请输入手机号码'
-        return false
+        returnFlag = true
+      }else if(!this.phonePattern.test(this.phoneRegister.phone)){
+        this.loginFormRegisterPhoneError = '请输入正确的手机号码'
+        returnFlag = true
       }
       if(this.phoneRegister.code === '') {
         this.loginFormRegisterCodeError = '请输入验证码'
-        return false
+        returnFlag = true
       }
       if(this.phoneRegister.password === '') {
         this.loginFormRegisterPasswordError = '请输入密码'
-        return false
+        returnFlag = true
       }
-      
+      if(returnFlag){
+        return !returnFlag
+      }
     },
     // 账号密码登录input框触发事件
     focusLoginFormPwdName() {
