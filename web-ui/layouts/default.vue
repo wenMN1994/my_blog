@@ -416,7 +416,6 @@
   </div>
 </template>
 <script>
-import '~/assets/css/sliderCaptcha.css'
 import '~/assets/css/login.css'
 import '~/assets/css/reset.css'
 import '~/assets/css/theme.css'

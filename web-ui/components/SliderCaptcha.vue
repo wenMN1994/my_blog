@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import '~/assets/css/sliderCaptcha.css'
 
 function sum(x, y) {
   return x + y
