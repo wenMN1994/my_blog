@@ -11,7 +11,7 @@ dragon:
     # 文件路径 示例（ Windows配置D:/dragon/uploadPath，Linux配置 /home/dragon/uploadPath）
     profile: D:/dragon/uploadPath
     # 获取ip地址开关
-    addressEnabled: false
+    addressEnabled: true
     # 验证码类型 math 数组计算 char 字符验证
     captchaType: math
 
