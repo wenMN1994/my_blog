@@ -10,8 +10,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @ConfigurationProperties(prefix = "dragon")
-public class BlogConfig
-{
+public class BlogConfig {
     /** 项目名称 */
     private String name;
 
@@ -33,63 +32,51 @@ public class BlogConfig
     /** 验证码类型 */
     private static String captchaType;
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getVersion()
-    {
+    public String getVersion() {
         return version;
     }
 
-    public void setVersion(String version)
-    {
+    public void setVersion(String version) {
         this.version = version;
     }
 
-    public String getCopyrightYear()
-    {
+    public String getCopyrightYear() {
         return copyrightYear;
     }
 
-    public void setCopyrightYear(String copyrightYear)
-    {
+    public void setCopyrightYear(String copyrightYear) {
         this.copyrightYear = copyrightYear;
     }
 
-    public boolean isDemoEnabled()
-    {
+    public boolean isDemoEnabled() {
         return demoEnabled;
     }
 
-    public void setDemoEnabled(boolean demoEnabled)
-    {
+    public void setDemoEnabled(boolean demoEnabled) {
         this.demoEnabled = demoEnabled;
     }
 
-    public static String getProfile()
-    {
+    public static String getProfile() {
         return profile;
     }
 
-    public void setProfile(String profile)
-    {
+    public void setProfile(String profile) {
         BlogConfig.profile = profile;
     }
 
-    public static boolean isAddressEnabled()
-    {
+    public static boolean isAddressEnabled() {
         return addressEnabled;
     }
 
-    public void setAddressEnabled(boolean addressEnabled)
-    {
+    public void setAddressEnabled(boolean addressEnabled) {
         BlogConfig.addressEnabled = addressEnabled;
     }
 
@@ -104,32 +91,28 @@ public class BlogConfig
     /**
      * 获取导入上传路径
      */
-    public static String getImportPath()
-    {
+    public static String getImportPath() {
         return getProfile() + "/import";
     }
 
     /**
      * 获取头像上传路径
      */
-    public static String getAvatarPath()
-    {
+    public static String getAvatarPath() {
         return getProfile() + "/avatar";
     }
 
     /**
      * 获取下载路径
      */
-    public static String getDownloadPath()
-    {
+    public static String getDownloadPath() {
         return getProfile() + "/download/";
     }
 
     /**
      * 获取上传路径
      */
-    public static String getUploadPath()
-    {
+    public static String getUploadPath() {
         return getProfile() + "/upload";
     }
 }

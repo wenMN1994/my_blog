@@ -16,6 +16,7 @@ import com.dragon.common.utils.StringUtils;
 import com.dragon.common.utils.ip.IpUtils;
 import com.dragon.framework.manager.AsyncManager;
 import com.dragon.framework.manager.factory.AsyncFactory;
+import com.dragon.framework.security.context.AuthenticationContextHolder;
 import com.dragon.system.service.ISysConfigService;
 import com.dragon.system.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,9 +68,10 @@ public class SysLoginService {
         // 用户验证
         Authentication authentication = null;
         try {
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
+            AuthenticationContextHolder.setContext(authenticationToken);
             // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
-            authentication = authenticationManager
-                    .authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            authentication = authenticationManager.authenticate(authenticationToken);
         } catch (Exception e) {
             if (e instanceof BadCredentialsException) {
                 AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.password.not.match")));

@@ -1,6 +1,9 @@
 @charset "utf-8";
 /* #custom
 ================================================== */
+.hide {
+    display: none;
+}
 .app-container{background: #eee;}
 .clearfix:after,.clearfix:before{content:"";display:table;font-size:0!important;line-height:0!important;height:0!important}
 .clearfix:after{clear:both}
@@ -156,7 +159,7 @@ a.current-2 .lh-p-icon{background-position:0 -254px}
 	box-shadow:0 2px 3px rgba(7,0,2,.04);
 	position: sticky;
 	top: 0;
-	z-index: 9999;
+	z-index: 2000;
 }
 .lt-ie9 #header,.lt-ie9.lt-ie8 #header{border-bottom:1px solid #f2f2f2}
 #logo{float:left;width:220px;height:72px;overflow:hidden;margin:0 auto}
