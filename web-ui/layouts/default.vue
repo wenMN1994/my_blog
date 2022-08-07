@@ -839,7 +839,13 @@ export default {
           this.loginFormForgetNameError = '请输入正确的手机号码或邮箱'
           return false
       }
-      const TIME_COUNT = 60
+      this.innerVisible = true
+      this.loginOrRegisterType = 'FORGET_PWD'
+      this.getImageVerifyCode(this.forgetpwd.name, this.loginOrRegisterType)
+    },
+    // 重置密码倒计时
+    forgetPwPhoneVerifyCodeCountDown() {
+      const TIME_COUNT = 120
       if (!this.forgetPwdVerifyCodeTimer) {
         this.forgetPwdVerifyCodeCount = TIME_COUNT;
         this.forgetPwdVerifyCode = false;
@@ -863,7 +869,13 @@ export default {
         this.loginFormRegisterPhoneError = '请输入正确的手机号码'
         return false
       }
-      const TIME_COUNT = 60
+      this.innerVisible = true
+      this.loginOrRegisterType = 'REGISTER_PHONE'
+      this.getImageVerifyCode(this.phoneRegister.phone, this.loginOrRegisterType)
+    },
+    // 手机号码注册验证码倒计时
+    registerPhoneVerifyCodeCountDown(){
+      const TIME_COUNT = 120
       if (!this.registerVerifyCodeTimer) {
         this.registerVerifyCodeCount = TIME_COUNT;
         this.registerVerifyCode = false;
@@ -1028,7 +1040,11 @@ export default {
             this.phoneEmailVerifyKey = res.data.phoneEmailVerifyKey
             // 倒计时执行
             if(this.loginOrRegisterType === 'LOGIN_PHONE'){
-              this.loginPhoneVerifyCodeCountDown();
+              this.loginPhoneVerifyCodeCountDown()
+            } else if(this.loginOrRegisterType === 'FORGET_PWD'){
+              this.forgetPwPhoneVerifyCodeCountDown()
+            } else if(this.loginOrRegisterType === 'REGISTER_PHONE'){
+              this.registerPhoneVerifyCodeCountDown()
             }
           }, 1000)
         } else {

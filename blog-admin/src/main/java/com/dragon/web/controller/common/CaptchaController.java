@@ -201,8 +201,8 @@ public class CaptchaController {
         // 发送短信或邮箱验证码
         if(PHONE.equals(accountType)){
             try {
-                String sendSms = smsClientUtil.sendSms(sliderCaptcha.getName(), phoneEmailVerifyValue);
-                log.info("sendSms：", sendSms);
+                // String sendSms = smsClientUtil.sendSms(sliderCaptcha.getName(), phoneEmailVerifyValue);
+                // log.info("sendSms：", sendSms);
             } catch (Exception e) {
                 throw new RuntimeException("服务异常，请稍后再试！");
             }
