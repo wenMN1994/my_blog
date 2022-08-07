@@ -126,6 +126,29 @@
       :close-on-click-modal="false"
       width="30%"
       center>
+      <el-dialog
+        style="margin-top: 10vh;"
+        width="25%"
+        title="安全验证"
+        :visible.sync="innerVisible"
+        :close-on-click-modal="false"
+        v-if="innerVisible"
+        append-to-body>
+        <SliderCaptcha
+          ref="sliderCaptchaRef"
+          :l="42"
+          :r="10"
+          :bigImageWidth="catcha.bigImageWidth"
+          :bigImageHeight="catcha.bigImageHeight"
+          :yHeight="catcha.yHeight"
+          :bigImage="catcha.bigImage"
+          :smallImage="catcha.smallImage"
+          :slider-text="catcha.text"
+          @success="onSuccess"
+          @fail="onFail"
+          @refresh="onRefresh"
+        ></SliderCaptcha>
+      </el-dialog>
       <div id="po-login-box" class="po-login-box">
         <div id="po-login" class="po-login">
           <!-- 登录方式切换Tab -->
@@ -406,6 +429,8 @@ import '~/assets/css/order.css'
 import '~/assets/css/swiper-3.3.1.min.css'
 import "~/assets/css/pages-weixinpay.css"
 
+import SliderCaptcha from "~/components/SliderCaptcha.vue"
+
 import cookie from 'js-cookie'
 import loginApi from '@/api/login'
 
@@ -423,6 +448,20 @@ export default {
         },
         // 是否显示登录&注册弹窗
         loginRegisterDialogVisible: false,
+        // 滑块验证码弹出框
+        innerVisible: false,
+        // 图片验证码传值
+        catcha: {
+          yHeight: 0,
+          bigImage: '',
+          smallImage: '',
+          text: '向右滑动完成拼图',
+          bigImageWidth: 350,
+          bigImageHeight: 218,
+          modifyImg: '',
+          verifyKey: '',
+          emailOrPhone: ''
+        },
         // 登录 & 注册弹窗标题
         loginRegisterTitle: '',
         // 登录方式切换Tab
@@ -514,6 +553,10 @@ export default {
         emailPattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
         // 密码正则表达式
         passwordPattern: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/,
+        // 登录或注册方式全局标识
+        loginOrRegisterType: '',
+        // 短信或邮箱验证码Redis Key
+        phoneEmailVerifyKey: ''
     }
   },
   created() {
@@ -527,7 +570,7 @@ export default {
 
     this.showInfo()
   },
-  methods:{
+  methods: {
     // 微信登录显示的方法
     wxLogin() {
       // console.log('************'+this.token)
@@ -766,7 +809,13 @@ export default {
         this.loginFormDxPhoneError = '请输入正确的手机号码'
         return false
       }
-      const TIME_COUNT = 60
+      this.innerVisible = true
+      this.loginOrRegisterType = 'LOGIN_PHONE'
+      this.getImageVerifyCode(this.phoneCodeLogin.phone, this.loginOrRegisterType)
+    },
+    // 手机号码登录倒计时
+    loginPhoneVerifyCodeCountDown(){
+      const TIME_COUNT = 120
       if (!this.loginVerifyCodeTimer) {
         this.loginVerifyCodeCount = TIME_COUNT;
         this.loginVerifyCode = false;
@@ -939,6 +988,66 @@ export default {
     focusLoginFormForgetPassword() {
       this.loginFormForgetPasswordError = ''
     },
+    // 获取图形验证码
+    getImageVerifyCode(name) {
+      loginApi.getSliderCaptcha({emailOrPhone: name}).then(res => {
+        if (res.data.code === 200) {
+          let imgObj = res.data
+          this.catcha.yHeight = imgObj.yHeight
+          this.catcha.bigImage = imgObj.bigImage
+          this.catcha.smallImage = imgObj.smallImage
+          this.catcha.bigImageWidth = imgObj.bWidth
+          this.catcha.bigImageHeight = imgObj.bHeight
+          this.catcha.verifyKey = imgObj.verifyKey
+          this.catcha.emailOrPhone = imgObj.emailOrPhone
+          this.$nextTick(() => {
+            if (this.$refs.sliderCaptchaRef) {
+              this.$refs.sliderCaptchaRef.reset(imgObj.yHeight)
+            }
+          })
+        }
+      })
+    },
+    onFail() {
+      console.log('fail')
+    },
+    onSuccess(code) {
+      let params = {
+        code: code, 
+        name: this.catcha.emailOrPhone, 
+        verifyKey: this.catcha.verifyKey
+      }
+      // 验证是否成功checkSliderCaptcha是后台验证接口方法 
+      loginApi.checkSliderCaptcha(params).then(res => {
+        if (res.data.code == 200) {
+          this.$refs.sliderCaptchaRef.handleSuccess()
+          setTimeout(() => {
+            this.innerVisible = false
+            this.bigImage = ''
+            this.smallImage = ''
+            this.phoneEmailVerifyKey = res.data.phoneEmailVerifyKey
+            // 倒计时执行
+            if(this.loginOrRegisterType === 'LOGIN_PHONE'){
+              this.loginPhoneVerifyCodeCountDown();
+            }
+          }, 1000)
+        } else {
+          this.$refs.sliderCaptchaRef.handleFail()
+          setTimeout(() => {
+            this.getImageVerifyCode(this.catcha.emailOrPhone, this.loginOrRegisterType)
+          }, 500)
+        }
+      }).catch(() => {})
+    },
+    // 刷新
+    onRefresh() {
+      this.bigImage = ''
+      this.smallImage = ''
+      this.getImageVerifyCode(this.catcha.emailOrPhone, this.loginOrRegisterType)
+    }
+  },
+  components: {
+    SliderCaptcha
   }
 };
 </script>
