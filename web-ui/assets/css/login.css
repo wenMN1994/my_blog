@@ -78,13 +78,13 @@
 .po-login-box .po-login .login-exchange .exchange-box .login-icon.login-for-wx {
 	right:0;
 	top:0;
-	/* background:url(../img/login/icon-exchange-wx.png) no-repeat; */
+	/* background:url(../img/icon-exchange-wx.png) no-repeat; */
 	background-size:52px
 }
 .po-login-box .po-login .login-exchange .exchange-box .login-icon.login-for-phone {
 	right:52px;
 	top:52px;
-	/* background:url(../img/login/icon-exchange-phone.png) no-repeat; */
+	/* background:url(../img/icon-exchange-phone.png) no-repeat; */
 	background-size:52px
 }
 .po-login-box .po-login ol.login-tab {
