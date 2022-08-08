@@ -2,7 +2,7 @@ module.exports = {
   // some nuxt config...
   plugins: [{
     src: '~/plugins/nuxt-plugin.js',
-    ssr: false
+    ssr: true
   }],
   css: [
     '~node_modules/swiper/swiper-bundle.css'
