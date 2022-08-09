@@ -876,7 +876,7 @@ public class ExcelUtil<T> {
                 } else if (StringUtils.isNotEmpty(dictType) && StringUtils.isNotNull(value)) {
                     cell.setCellValue(convertDictByExp(Convert.toStr(value), dictType, separator));
                 } else if (value instanceof BigDecimal && -1 != attr.scale()) {
-                    cell.setCellValue((((BigDecimal) value).setScale(attr.scale(), attr.roundingMode())).toString());
+                    cell.setCellValue((((BigDecimal) value).setScale(attr.scale(), attr.roundingMode())).doubleValue());
                 } else if (!attr.handler().equals(ExcelHandlerAdapter.class)) {
                     cell.setCellValue(dataFormatHandlerAdapter(value, attr));
                 } else {
