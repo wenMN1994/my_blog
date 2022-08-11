@@ -1,13 +1,18 @@
 module.exports = {
   // some nuxt config...
-  plugins: [{
-    src: '~/plugins/nuxt-plugin.js',
-    ssr: false
-  }],
+  vender:[
+    'element-ui', 'axios'
+  ],
   css: [
+    'element-ui/lib/theme-chalk/index.css',
     '~node_modules/swiper/swiper-bundle.css'
   ],
 
+  plugins: [
+    { src: '~/plugins/nuxt-plugin', ssr: false},
+    { src: '~/plugins/element-ui', ssr: true },
+  ],
+  
   /*
 	 ** Headers of the page
 	 */
