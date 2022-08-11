@@ -256,7 +256,7 @@
                   已有账号？
                   <a class="po-link color-black link-to-login" @click="initLoginFormPwd(true)" style="color:#067BEF;position:static">
                     去登录
-                    <img src="~/assets/img/icons-arrow-r.svg" style="vertical-align: middle;margin-top:-2px">
+                    <img src="~/assets/img/login/icons-arrow-r.svg" style="vertical-align: middle;margin-top:-2px">
                   </a>
                 </div>
               </div>
@@ -265,11 +265,11 @@
             <div id="login-form-qrcode" :class="loginFormQrcode">
               <div class="qrcode-notice">
                 <span class="code">打开</span>
-                <img src="~/assets/img/icon-wx-svg.svg">
+                <img src="~/assets/img/login/icon-wx-svg.svg">
                 <span class="code"> 微信<b style="color:#212930"> 扫一扫 </b>完成登录</span>
               </div>
               <div id="qrcode-wx" class="qrcode-wx">
-                <img src="~/assets/img/showqrcode.png" alt="">
+                <img src="~/assets/img/login/showqrcode.png" alt="">
                 <div :class="codeInvalid" style="width:200px;height:200px;line-height:200px;background:rgba(255,255,255,0.95);position:absolute;top:0;left:0">
                   二维码已过期，
                   <span @click="loginForWxCode();" style="color:#067BEF;cursor: pointer">刷新</span>
@@ -279,13 +279,13 @@
                 <div :class="btnsRegister">已有账号？
                   <a class="po-link color-black link-to-login" @click="initLoginFormPwd(true)" style="color:#067BEF">
                     去登录
-                    <img src="~/assets/img/icons-arrow-r.svg" style="vertical-align: middle;margin-top:-2px">
+                    <img src="~/assets/img/login/icons-arrow-r.svg" style="vertical-align: middle;margin-top:-2px">
                   </a>
                 </div>
                 <div :class="btnsLogin">没有账号？
                   <a class="po-link color-black link-to-register" @click="initPhoneRegister()" style="color:#067BEF;position:static">
                     去注册
-                    <img src="~/assets/img/icons-arrow-r.svg" style="vertical-align: middle;margin-top:-2px">
+                    <img src="~/assets/img/login/icons-arrow-r.svg" style="vertical-align: middle;margin-top:-2px">
                   </a>
                 </div>
               </div>
@@ -317,7 +317,7 @@
             <!-- 确认绑定手机号码成功 -->
             <div id="login-form-bindsucc" class="login-form-bindsucc hide">
               <div class="login-title">
-                <img src="~/assets/img/icon-succ.png">
+                <img src="~/assets/img/login/icon-succ.png">
                 <h3>绑定成功！</h3>
                 <div style="font-size:14px;color:#6C7D8F;margin-top:10px">您可以在账号中心更换当前绑定信息</div>
               </div>
@@ -325,7 +325,7 @@
             <!-- 暂不绑定手机号码提示 -->
             <div id="login-form-bindtip" class="login-form-bindtip hide">
               <div class="login-title">
-                <img src="~/assets/img/icon-tip.png">
+                <img src="~/assets/img/login/icon-tip.png">
                 <h3>温馨提示</h3>
                 <div style="font-size:14px;color:#6C7D8F;margin-top:10px">
                   后续可以在账号中心进行手机号绑定，账号更安全
@@ -380,23 +380,23 @@
               </div>
               <ol class="three-list">
                 <li :class="wxScanLogin" @click="initLoginQrcode();">
-                  <img src="~/assets/img/icon-wx-svg.svg" alt="">
+                  <img src="~/assets/img/login/icon-wx-svg.svg" alt="">
                   <span>微信扫码登录</span>
                 </li>
                 <li :class="linkToAccount" @click="initLoginFormPwd(true)">
-                  <img src="~/assets/img/icon-account.svg" alt="">
+                  <img src="~/assets/img/login/icon-account.svg" alt="">
                   <span>账号密码登录</span>
                 </li>
                 <li :class="linkToPhoneLogin" @click="initLoginFormDx(true)">
-                  <img src="~/assets/img/icon-phone.svg" alt="">
+                  <img src="~/assets/img/login/icon-phone.svg" alt="">
                   <span>手机验证登录</span>
                 </li>
                 <li :class="wxScanRegister" @click="initRegisterQrcode()">
-                  <img src="~/assets/img/icon-wx-svg.svg" alt="">
+                  <img src="~/assets/img/login/icon-wx-svg.svg" alt="">
                   <span>微信扫码注册</span>
                 </li>
                 <li :class="linkToPhoneRegister" @click="initPhoneRegister()">
-                  <img src="~/assets/img/icon-phone.svg" alt="">
+                  <img src="~/assets/img/login/icon-phone.svg" alt="">
                   <span>手机验证注册</span>
                 </li>
               </ol>
@@ -416,8 +416,8 @@
   </div>
 </template>
 <script>
-import '~/assets/css/sliderCaptcha.css'
-import '~/assets/css/login.css'
+import '~/assets/css/login/sliderCaptcha.css'
+import '~/assets/css/login/login.css'
 import '~/assets/css/reset.css'
 import '~/assets/css/theme.css'
 import '~/assets/css/global.css'
