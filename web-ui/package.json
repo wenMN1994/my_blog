@@ -6,9 +6,9 @@
   "private": true,
   "scripts": {
     "dev": "cross-env baseUrl=http://localhost:8080 nuxt",
-    "build": "cross-env baseUrl=http://dragonwen.cn/prod-api nuxt build",
-    "start": "cross-env baseUrl=http://dragonwen.cn/prod-api nuxt start",
-    "generate": "cross-env baseUrl=http://dragonwen.cn/prod-api nuxt generate"
+    "build": "cross-env baseUrl=http://dragonwen.cn nuxt build",
+    "start": "cross-env baseUrl=http://dragonwen.cn nuxt start",
+    "generate": "cross-env baseUrl=http://dragonwen.cn nuxt generate"
   },
   "dependencies": {
     "axios": "^0.26.1",

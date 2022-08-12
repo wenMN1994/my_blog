@@ -5,7 +5,7 @@ import cookie from 'js-cookie'
 // 创建axios实例
 const service = axios.create({
   baseURL: process.env.baseUrl, // api的base_url
-  timeout: 20000 // 请求超时时间
+  timeout: 30000 // 请求超时时间
 })
 
 // //第三步 创建拦截器  http request 拦截器

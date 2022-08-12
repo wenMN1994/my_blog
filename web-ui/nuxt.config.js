@@ -12,7 +12,7 @@ module.exports = {
     { src: '~/plugins/nuxt-plugin', ssr: false},
     { src: '~/plugins/element-ui', ssr: true },
   ],
-  
+
   /*
 	 ** Headers of the page
 	 */
@@ -72,6 +72,6 @@ module.exports = {
   },
 
   env: {
-    baseUrl: process.env.BASE_URL
+    baseUrl: process.env.BASE_URL + '/prod-api'
   },
 }
