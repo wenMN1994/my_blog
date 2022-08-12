@@ -5,12 +5,10 @@
   "author": "DragonWen",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint"
+    "dev": "cross-env baseUrl=http://localhost:8080 nuxt",
+    "build": "cross-env baseUrl=http://dragonwen.cn/prod-api nuxt build",
+    "start": "cross-env baseUrl=http://dragonwen.cn/prod-api nuxt start",
+    "generate": "cross-env baseUrl=http://dragonwen.cn/prod-api nuxt generate"
   },
   "dependencies": {
     "axios": "^0.26.1",
@@ -25,6 +23,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
+    "cross-env": "^7.0.3",
     "eslint": "^4.19.1",
     "eslint-friendly-formatter": "^4.0.1",
     "eslint-loader": "^2.1.1",
