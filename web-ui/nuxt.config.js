@@ -1,4 +1,41 @@
 module.exports = {
+  env: {
+    // 对应package.json及request.js
+    BASE_URL: process.env.BASE_URL,
+    // 对应环境production、test等
+    NODE_ENV: process.env.NODE_ENV
+  },
+  // 本地服务启动yarn dev的端口号
+  server: {
+      port: 3000
+  },
+  // 必须引入，不然无法使用axios跟代理
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy'
+  ],
+  axios: {
+    proxy: true, // 开启代理
+    prefix: process.env.BASE_URL, // baseURL
+    baseURL: '',
+    withCredentials: true,
+    credentials: true,
+  },
+  // 配置反向代理，记得使用的时候需要带上/prod-api
+  // 下面举了例子可以参考一下
+  // 但是配置了env环境，根本用不上proxy代理的
+  // 例如：https://dragonwen.cn/prod-api/xxx/xxx
+  proxy: {
+    [process.env.BASE_URL]: {
+      target: 'http://localhost:8080',
+      changeOrigin: true, // 表示是否跨域
+      pathRewrite: {
+        ['^' + process.env.BASE_URL]: ''
+      },
+      secure: true
+    }
+  },
+
   // some nuxt config...
   vender:[
     'element-ui', 'axios'
@@ -69,9 +106,5 @@ module.exports = {
         })
       }
     }
-  },
-
-  env: {
-    baseUrl: process.env.BASE_URL + '/prod-api'
-  },
+  }
 }

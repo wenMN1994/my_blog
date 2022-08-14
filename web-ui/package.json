@@ -5,12 +5,13 @@
   "author": "DragonWen",
   "private": true,
   "scripts": {
-    "dev": "cross-env baseUrl=http://localhost:8080 nuxt",
-    "build": "cross-env baseUrl=http://dragonwen.cn nuxt build",
-    "start": "cross-env baseUrl=http://dragonwen.cn nuxt start",
-    "generate": "cross-env baseUrl=http://dragonwen.cn nuxt generate"
+    "dev": "cross-env BASE_URL=/dev-api NODE_ENV=development nuxt",
+    "build": "cross-env BASE_URL=/prod-api NODE_ENV=production nuxt build",
+    "start": "cross-env BASE_URL=/prod-api NODE_ENV=production nuxt start",
+    "generate": "cross-env nuxt generate"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.13.6",
     "axios": "^0.26.1",
     "element-ui": "^2.15.8",
     "js-cookie": "^3.0.1",
