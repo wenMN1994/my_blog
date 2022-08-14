@@ -1,5 +1,6 @@
 package com.dragon.web.controller.common;
 
+import com.alibaba.fastjson2.JSONArray;
 import com.dragon.common.constant.CacheConstants;
 import com.dragon.common.constant.RegExpConstants;
 import com.dragon.common.utils.SliderCaptchaUtils;
@@ -27,6 +28,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
@@ -130,7 +132,11 @@ public class CaptchaController {
     public AjaxResult sliderCaptcha(HttpServletResponse response, String emailOrPhone){
         AjaxResult ajax = AjaxResult.success();
         Map<String,Object> result = new HashMap<>(16);
-        String imageUrl = "https://blog-dragon.oss-cn-shenzhen.aliyuncs.com/2022-06-10/1.png";
+        JSONArray jsonArray = configService.selectSliderCaptcha();
+        Random random = new Random();
+        int nextInt = random.nextInt(jsonArray.size());
+        Map<String, Object> imageUrlMap = (Map<String, Object>) jsonArray.get(nextInt);
+        String imageUrl = imageUrlMap.get("imgUrl").toString();
         SliderCaptchaUtils.createImage(null, imageUrl, result);
         if(!CollectionUtils.isEmpty(result)){
             // 保存验证码信息

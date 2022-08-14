@@ -1,5 +1,6 @@
 package com.dragon.system.service;
 
+import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.dragon.system.domain.SysConfig;
 
@@ -10,8 +11,7 @@ import java.util.List;
  * 
  * @author dragon
  */
-public interface ISysConfigService
-{
+public interface ISysConfigService {
     /**
      * 查询参数配置信息
      * 
@@ -102,4 +102,10 @@ public interface ISysConfigService
      * @return 结果
      */
     public String checkConfigKeyUnique(SysConfig config);
+
+    /**
+     * 获取账号自助-拼图验证码图片
+     * @return 结果
+     */
+    public JSONArray selectSliderCaptcha();
 }
