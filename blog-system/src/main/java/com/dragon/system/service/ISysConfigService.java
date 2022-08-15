@@ -108,4 +108,10 @@ public interface ISysConfigService {
      * @return 结果
      */
     public JSONArray selectSliderCaptcha();
+
+    /**
+     * 获取阿里云短信服务配置
+     * @return 结果
+     */
+    public JSONObject selectAliyunSms();
 }

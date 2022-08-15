@@ -5,8 +5,7 @@ package com.dragon.common.constant;
  * 
  * @author dragon
  */
-public class HttpStatus
-{
+public class HttpStatus {
     /**
      * 操作成功
      */

@@ -239,6 +239,20 @@ public class SysConfigServiceImpl implements ISysConfigService {
     }
 
     /**
+     * 获取阿里云短信服务配置
+     * @return 结果
+     */
+    @Override
+    public JSONObject selectAliyunSms() {
+        String aliyunSms = selectConfigByKey("sys.aliyun.sms");
+        if(StringUtils.isEmpty(aliyunSms)){
+            JSONObject obj = JSON.parseObject("{\"signature\":\"DragonWen\",\"templateCode\":\"SMS_248095388\"}");
+            return obj;
+        }
+        return JSON.parseObject(aliyunSms);
+    }
+
+    /**
      * 设置cache key
      * 
      * @param configKey 参数键

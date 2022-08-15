@@ -1,6 +1,7 @@
 package com.dragon.web.controller.common;
 
 import com.alibaba.fastjson2.JSONArray;
+import com.alibaba.fastjson2.JSONObject;
 import com.dragon.common.constant.CacheConstants;
 import com.dragon.common.constant.RegExpConstants;
 import com.dragon.common.utils.SliderCaptchaUtils;
@@ -207,7 +208,10 @@ public class CaptchaController {
         // 发送短信或邮箱验证码
         if(PHONE.equals(accountType)){
             try {
-                String sendSms = smsClientUtil.sendSms(sliderCaptcha.getName(), phoneEmailVerifyValue);
+                JSONObject jsonObject = configService.selectAliyunSms();
+                String signature = jsonObject.get("signature").toString();
+                String templateCode = jsonObject.get("templateCode").toString();
+                String sendSms = smsClientUtil.sendSms(sliderCaptcha.getName(), signature, templateCode, phoneEmailVerifyValue);
                 log.info("sendSms：", sendSms);
             } catch (Exception e) {
                 throw new RuntimeException("服务异常，请稍后再试！");
