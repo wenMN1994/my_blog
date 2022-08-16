@@ -406,7 +406,7 @@
         <!-- 服务条款 -->
         <div :class="poCopyright">
           登录即表示您已阅读并同意
-          <a href="https://www.processon.com/tos" target="_blank" class="po-link">
+          <a href="https://www.dragonwen.cn" target="_blank" class="po-link">
             服务条款
           </a>
         </div>
