@@ -27,11 +27,13 @@ public class SmsClientUtil {
     /**
      * 使用AK&SK初始化账号Client 并发送短信
      * @param phone 手机号码
+     * @param signature 签名
+     * @param templateCode 模板Code
      * @param code 验证码
      * @throws Exception
      * @return
      */
-    public String sendSms(String phone, String code) throws Exception {
+    public String sendSms(String phone, String signature, String templateCode, String code) throws Exception {
         String errorMsg = "";
         Config config = new Config()
                 // 您的 AccessKey ID
@@ -42,8 +44,8 @@ public class SmsClientUtil {
         // 1.发送短信
         SendSmsRequest sendReq = new SendSmsRequest()
                 .setPhoneNumbers(phone)
-                .setSignName("阿里云短信测试")
-                .setTemplateCode("SMS_154950909")
+                .setSignName(signature)
+                .setTemplateCode(templateCode)
                 .setTemplateParam("{\"code\":\"" + code + "\"}");
         SendSmsResponse sendResp = client.sendSms(sendReq);
         String codeResp = sendResp.body.code;

@@ -66,7 +66,7 @@
 
 <script>
   import '~/assets/css/sign.css'
-  import '~/assets/css/iconfont.css'
+  import '~/assets/css/fonts/iconfont.css'
 
   import registerApi from '@/api/register'
 

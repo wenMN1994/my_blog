@@ -1,6 +1,7 @@
 package com.dragon.system.service.impl;
 
 import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.dragon.common.annotation.DataSource;
 import com.dragon.common.constant.CacheConstants;
@@ -221,6 +222,34 @@ public class SysConfigServiceImpl implements ISysConfigService {
             return UserConstants.NOT_UNIQUE;
         }
         return UserConstants.UNIQUE;
+    }
+
+    /**
+     * 获取账号自助-拼图验证码图片
+     * @return 结果
+     */
+    @Override
+    public JSONArray selectSliderCaptcha() {
+        String sliderCaptcha = selectConfigByKey("sys.account.sliderCaptcha");
+        if(StringUtils.isEmpty(sliderCaptcha)){
+            JSONArray jsonArray = JSON.parseArray("[{\"imgUrl\":\"https://blog-dragon.oss-cn-shenzhen.aliyuncs.com/slider-captcha/slider_captcha_1.png\"},{\"imgUrl\":\"https://blog-dragon.oss-cn-shenzhen.aliyuncs.com/slider-captcha/slider_captcha_2.png\"},{\"imgUrl\":\"https://blog-dragon.oss-cn-shenzhen.aliyuncs.com/slider-captcha/slider_captcha_3.png\"},{\"imgUrl\":\"https://blog-dragon.oss-cn-shenzhen.aliyuncs.com/slider-captcha/slider_captcha_4.png\"}]");
+            return jsonArray;
+        }
+        return JSON.parseArray(sliderCaptcha);
+    }
+
+    /**
+     * 获取阿里云短信服务配置
+     * @return 结果
+     */
+    @Override
+    public JSONObject selectAliyunSms() {
+        String aliyunSms = selectConfigByKey("sys.aliyun.sms");
+        if(StringUtils.isEmpty(aliyunSms)){
+            JSONObject obj = JSON.parseObject("{\"signature\":\"DragonWen\",\"templateCode\":\"SMS_248095388\"}");
+            return obj;
+        }
+        return JSON.parseObject(aliyunSms);
     }
 
     /**

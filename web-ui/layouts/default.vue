@@ -416,8 +416,8 @@
   </div>
 </template>
 <script>
-import '~/assets/css/sliderCaptcha.css'
-import '~/assets/css/login.css'
+import '~/assets/css/login/sliderCaptcha.css'
+import '~/assets/css/login/login.css'
 import '~/assets/css/reset.css'
 import '~/assets/css/theme.css'
 import '~/assets/css/global.css'
@@ -430,9 +430,8 @@ import '~/assets/css/order.css'
 import '~/assets/css/swiper-3.3.1.min.css'
 import "~/assets/css/pages-weixinpay.css"
 
-import SliderCaptcha from "~/components/SliderCaptcha.vue"
-
 import cookie from 'js-cookie'
+import SliderCaptcha from "~/components/SliderCaptcha.vue"
 import loginApi from '@/api/login'
 
 export default {
