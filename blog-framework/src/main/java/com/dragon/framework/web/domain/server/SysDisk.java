@@ -5,8 +5,7 @@ package com.dragon.framework.web.domain.server;
  * 
  * @author dragon
  */
-public class SysDisk
-{
+public class SysDisk {
     /**
      * 盘符路径
      */
@@ -42,73 +41,59 @@ public class SysDisk
      */
     private double usage;
 
-    public String getDirName()
-    {
+    public String getDirName() {
         return dirName;
     }
 
-    public void setDirName(String dirName)
-    {
+    public void setDirName(String dirName) {
         this.dirName = dirName;
     }
 
-    public String getSysTypeName()
-    {
+    public String getSysTypeName() {
         return sysTypeName;
     }
 
-    public void setSysTypeName(String sysTypeName)
-    {
+    public void setSysTypeName(String sysTypeName) {
         this.sysTypeName = sysTypeName;
     }
 
-    public String getTypeName()
-    {
+    public String getTypeName() {
         return typeName;
     }
 
-    public void setTypeName(String typeName)
-    {
+    public void setTypeName(String typeName) {
         this.typeName = typeName;
     }
 
-    public String getTotal()
-    {
+    public String getTotal() {
         return total;
     }
 
-    public void setTotal(String total)
-    {
+    public void setTotal(String total) {
         this.total = total;
     }
 
-    public String getFree()
-    {
+    public String getFree() {
         return free;
     }
 
-    public void setFree(String free)
-    {
+    public void setFree(String free) {
         this.free = free;
     }
 
-    public String getUsed()
-    {
+    public String getUsed() {
         return used;
     }
 
-    public void setUsed(String used)
-    {
+    public void setUsed(String used) {
         this.used = used;
     }
 
-    public double getUsage()
-    {
+    public double getUsage() {
         return usage;
     }
 
-    public void setUsage(double usage)
-    {
+    public void setUsage(double usage) {
         this.usage = usage;
     }
 }
