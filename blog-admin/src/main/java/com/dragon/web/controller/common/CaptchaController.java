@@ -6,6 +6,7 @@ import com.dragon.common.constant.CacheConstants;
 import com.dragon.common.constant.RegExpConstants;
 import com.dragon.common.utils.SliderCaptchaUtils;
 import com.dragon.common.utils.StringUtils;
+import com.dragon.common.utils.email.MailUtil;
 import com.dragon.common.utils.sms.SmsClientUtil;
 import com.dragon.system.domain.CheckSliderCaptcha;
 import com.google.code.kaptcha.Producer;
@@ -75,6 +76,9 @@ public class CaptchaController {
 
     @Autowired
     private SmsClientUtil smsClientUtil;
+
+    @Autowired
+    private MailUtil mailUtil;
 
     /**
      * 生成验证码
@@ -207,6 +211,7 @@ public class CaptchaController {
         String phoneEmailVerifyValue = StringUtils.generateCaptcha();
         // 发送短信或邮箱验证码
         if(PHONE.equals(accountType)){
+            // 短信发送
             try {
                 JSONObject jsonObject = configService.selectAliyunSms();
                 String signature = jsonObject.get("signature").toString();
@@ -217,7 +222,13 @@ public class CaptchaController {
                 throw new RuntimeException("服务异常，请稍后再试！");
             }
         }else if(EMAIL.equals(accountType)){
-            // @TODO 邮件发送
+            // 邮件发送
+            try {
+                String content = "您的验证码"+phoneEmailVerifyValue+"，该验证码5分钟内有效，请勿泄露于他人！";
+                mailUtil.sendText(sliderCaptcha.getName(), "", "", "龙颜科技", content);
+            } catch (Exception e) {
+                throw new RuntimeException("服务异常，请稍后再试！");
+            }
         }
 
         // 缓存当前手机号码或邮箱地址+验证码到Redis 2分钟内不允许重复发送验证码
