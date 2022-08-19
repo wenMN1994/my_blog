@@ -19,6 +19,9 @@ import com.dragon.common.utils.uuid.IdUtils;
 import com.dragon.system.service.ISysConfigService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.common.TemplateParserContext;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.FastByteArrayOutputStream;
 import org.springframework.web.bind.annotation.*;
@@ -224,7 +227,13 @@ public class CaptchaController {
         }else if(EMAIL.equals(accountType)){
             // 邮件发送
             try {
-                String content = "您的验证码"+phoneEmailVerifyValue+"，该验证码5分钟内有效，请勿泄露于他人！";
+                String emailTemplate = configService.selectEmailTemplateVerificationCode();
+                Map<String, Object> params = new HashMap<>(2);
+                params.put("code", phoneEmailVerifyValue);
+                params.put("expires", Constants.CAPTCHA_EXPIRATION);
+                ExpressionParser parser = new SpelExpressionParser();
+                TemplateParserContext parserContext = new TemplateParserContext();
+                String content = parser.parseExpression(emailTemplate,parserContext).getValue(params, String.class);
                 mailUtil.sendText(sliderCaptcha.getName(), "", "", "龙颜科技", content);
             } catch (Exception e) {
                 throw new RuntimeException("服务异常，请稍后再试！");
