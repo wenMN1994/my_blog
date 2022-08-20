@@ -95,7 +95,8 @@ public class ArticleController extends BaseController {
     @Log(title = "文章信息", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody Article article) {
-        return toAjax(articleService.updateArticle(article));
+        LoginUser loginUser = getLoginUser();
+        return toAjax(articleService.updateArticle(article, loginUser));
     }
 
     /**

@@ -308,6 +308,11 @@ export default {
       return height;
     }
   },
+  watch: {
+    "form.coverUrl"(value){
+      this.form.cover = "";
+    }
+  },
   created() {
     this.getList();
   },

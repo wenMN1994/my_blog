@@ -23,9 +23,9 @@
     <!-- 上传提示 -->
     <div class="el-upload__tip" slot="tip" v-if="showTip">
       请上传
-      <template v-if="filePixel"> 像素等于 <b style="color: #f56c6c">{{ filePixel.join(" * ") }}px</b> </template>
+      <template v-if="filePixel.length"> 像素等于 <b style="color: #f56c6c">{{ filePixel.join(" * ") }}px</b> </template>
       <template v-if="fileSize"> 大小不超过 <b style="color: #f56c6c">{{ fileSize }}MB</b> </template>
-      <template v-if="fileType"> 格式为 <b style="color: #f56c6c">{{ fileType.join("/") }}</b> </template>
+      <template v-if="fileType.length"> 格式为 <b style="color: #f56c6c">{{ fileType.join("/") }}</b> </template>
       的文件
     </div>
 
@@ -57,7 +57,7 @@ export default {
     // 文件像素限制
     filePixel: {
       type: Array,
-      default: () => [1920, 460],
+      default: () => [],
     },
     // 大小限制(MB)
     fileSize: {
