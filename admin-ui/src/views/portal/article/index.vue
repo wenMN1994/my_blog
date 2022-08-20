@@ -234,6 +234,7 @@ export default {
   dicts: ['portal_article_status', 'portal_article_content_level', 'portal_article_publish_type', 'portal_article_type'],
   data() {
     return {
+      // 封面图片上传数量
       limit: 1,
       // 编辑记录
       articleData: {},
@@ -463,7 +464,7 @@ export default {
     handleExport() {
       this.download('portal/article/export', {
         ...this.queryParams
-      }, `article_${new Date().getTime()}.xlsx`)
+      }, `文章_${new Date().getTime()}.xlsx`)
     }
   }
 };

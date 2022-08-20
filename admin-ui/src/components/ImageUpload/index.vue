@@ -3,7 +3,7 @@
     <el-upload
       multiple
       :action="uploadImgUrl"
-      list-type="picture-card"
+      :list-type="listType"
       :on-success="handleUploadSuccess"
       :before-upload="handleBeforeUpload"
       :limit="limit"
@@ -23,6 +23,7 @@
     <!-- 上传提示 -->
     <div class="el-upload__tip" slot="tip" v-if="showTip">
       请上传
+      <template v-if="filePixel"> 像素等于 <b style="color: #f56c6c">{{ filePixel.join(" * ") }}px</b> </template>
       <template v-if="fileSize"> 大小不超过 <b style="color: #f56c6c">{{ fileSize }}MB</b> </template>
       <template v-if="fileType"> 格式为 <b style="color: #f56c6c">{{ fileType.join("/") }}</b> </template>
       的文件
@@ -53,6 +54,11 @@ export default {
       type: Number,
       default: 5,
     },
+    // 文件像素限制
+    filePixel: {
+      type: Array,
+      default: () => [1920, 460],
+    },
     // 大小限制(MB)
     fileSize: {
       type: Number,
@@ -62,6 +68,11 @@ export default {
     fileType: {
       type: Array,
       default: () => ["png", "jpg", "jpeg"],
+    },
+    // 文件列表的类型 text/picture/picture-card
+    listType: {
+      type: String,
+      default: "picture-card",
     },
     // 是否显示提示
     isShowTip: {
@@ -159,8 +170,24 @@ export default {
           return false;
         }
       }
-      this.$modal.loading("正在上传图片，请稍候...");
-      this.number++;
+      return new Promise((resolve,reject) => {
+        const URL = window.URL || window.webkitURL
+        const img = new Image()
+        img.onload = () => {
+          let [imgWidth, imgHeight] = this.filePixel
+          if (this.filePixel.length && (img.width !== imgWidth || img.height !== imgHeight)) {
+            this.$modal.msgError("上传文件的图片大小不合符标准"+this.filePixel.join(" * ")+" px!")
+            return reject(false)
+          } else {
+            return resolve(true)
+          }
+        }
+        img.src = URL.createObjectURL(file)
+        this.$modal.loading("正在上传图片，请稍候...");
+        this.number++;
+      }).finally(() => {
+        this.$modal.closeLoading();
+      })
     },
     // 文件个数超出
     handleExceed() {
