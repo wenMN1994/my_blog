@@ -3,9 +3,9 @@
     <!-- 幻灯片 开始 -->
     <div v-swiper:mySwiper="swiperOption">
       <div class="swiper-wrapper">
-          <div v-for="banner in bannerList" :key="banner.id" class="swiper-slide" style="background: #040B1B;">
-              <a target="_blank" :href="banner.linkUrl">
-                  <img :src="banner.imageUrl" :alt="banner.title">
+          <div v-for="slideshow in slideshowList" :key="slideshow.slideshowId" class="swiper-slide" style="background: #040B1B;">
+              <a :target="slideshow.target === '0' ? '_self' : '_blank'" :href="slideshow.linkUrl">
+                  <img :src="slideshow.slideshowImageUrl" :alt="slideshow.title">
               </a>
           </div>
       </div>
@@ -109,8 +109,7 @@
 </template>
 
 <script>
-import banner from '@/api/banner'
-import index from '@/api/index'
+import indexApi from '@/api/index'
 
 export default {
   data () {
@@ -133,33 +132,8 @@ export default {
           prevEl: '.swiper-button-prev'//前一页dom节点
         }
       },
-      //banner数组
-      bannerList:[
-        {
-          "id": 1,
-          "linkUrl": "www.dragonwen.cn",
-          "imageUrl": "https://www.gulixueyuan.com/files/system/2022/01-26/172605dc29fe231548.jpg?version=20.4.6",
-          "title": "Flink性能调优"
-        },
-        {
-          "id": 2,
-          "linkUrl": "www.dragonwen.cn",
-          "imageUrl": "https://www.gulixueyuan.com/files/system/2022/02-16/1502113c1947586168.jpg?version=20.4.6",
-          "title": "Kafka3.0"
-        },
-        {
-          "id": 3,
-          "linkUrl": "www.dragonwen.cn",
-          "imageUrl": "https://www.gulixueyuan.com/files/system/2021/12-29/171400881c0d537063.jpg?version=20.4.6",
-          "title": "Canal数据实时同步神器"
-        },
-        {
-          "id": 4,
-          "linkUrl": "www.dragonwen.cn",
-          "imageUrl": "https://www.gulixueyuan.com/files/system/2022/01-19/15375531895e994953.jpg?version=20.4.6",
-          "title": "JavaWeb"
-        }
-      ],
+      // 轮播图数组数组
+      slideshowList:[],
       hotCourseList:[
         {
           "id": 1,
@@ -222,29 +196,29 @@ export default {
           "price": 200
         }
       ],
-      teacherList:[]
+      newCourseList:[]
     }
   },
   created() {
     // 调用查询轮播图的方法
-    this.getBannerList()
+    this.getSlideshowList()
     // 调用查询热门课程和新上好课的方法
     this.getHotNewCourse()
   },
   methods:{
     // 查询热门课程和新上好课
     getHotNewCourse() {
-      index.getIndexData()
-        .then(response => {
-          this.hotCourseList = response.data.data.eduList
-          this.teacherList = response.data.data.teacherList
+      indexApi.getIndexData()
+        .then(res => {
+          this.hotCourseList = res.data.data
+          this.newCourseList = res.data.data
         })
     },
     // 查询轮播图数据
-    getBannerList() {
-      banner.getListBanner()
+    getSlideshowList() {
+      indexApi.getSlideshowList()
         .then(response => {
-          // this.bannerList = response.data.data.list
+          this.slideshowList = response.data.data
         })
     },
     // 课程点击跳转

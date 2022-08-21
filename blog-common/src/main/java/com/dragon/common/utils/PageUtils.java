@@ -10,13 +10,11 @@ import com.dragon.common.utils.sql.SqlUtil;
  * 
  * @author dragon
  */
-public class PageUtils extends PageHelper
-{
+public class PageUtils extends PageHelper {
     /**
      * 设置请求分页数据
      */
-    public static void startPage()
-    {
+    public static void startPage() {
         PageDomain pageDomain = TableSupport.buildPageRequest();
         Integer pageNum = pageDomain.getPageNum();
         Integer pageSize = pageDomain.getPageSize();
@@ -28,8 +26,7 @@ public class PageUtils extends PageHelper
     /**
      * 清理分页的线程变量
      */
-    public static void clearPage()
-    {
+    public static void clearPage() {
         PageHelper.clearPage();
     }
 }

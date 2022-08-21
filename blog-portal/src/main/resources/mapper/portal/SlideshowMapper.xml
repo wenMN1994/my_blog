@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dragon.portal.mapper.SlideshowMapper">
+
+    <resultMap type="Slideshow" id="SlideshowResult">
+        <result property="slideshowId"    column="slideshow_id"    />
+        <result property="slideshow"    column="slideshow"    />
+        <result property="title"    column="title"    />
+        <result property="subTitle"    column="sub_title"    />
+        <result property="linkUrl"    column="link_url"    />
+        <result property="target"    column="target"    />
+        <result property="clicks"    column="clicks"    />
+        <result property="isEnable"    column="is_enable"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <!--查询轮播图列表-->
+    <sql id="selectSlideshowVo">
+        select slideshow_id, slideshow, title, sub_title, link_url, target, clicks, is_enable, create_by, create_time, update_by, update_time from portal_slideshow
+    </sql>
+
+    <select id="selectSlideshowList" parameterType="Slideshow" resultMap="SlideshowResult">
+        <include refid="selectSlideshowVo"/>
+        <where>
+            <if test="slideshow != null "> and slideshow = #{slideshow}</if>
+            <if test="title != null  and title != ''"> and title = #{title}</if>
+            <if test="subTitle != null  and subTitle != ''"> and sub_title = #{subTitle}</if>
+            <if test="linkUrl != null  and linkUrl != ''"> and link_url = #{linkUrl}</if>
+            <if test="target != null  and target != ''"> and target = #{target}</if>
+            <if test="clicks != null "> and clicks = #{clicks}</if>
+            <if test="isEnable != null  and isEnable != ''"> and is_enable = #{isEnable}</if>
+        </where>
+    </select>
+
+    <!--查询轮播图-->
+    <select id="selectSlideshowBySlideshowId" parameterType="Long" resultMap="SlideshowResult">
+        <include refid="selectSlideshowVo"/>
+        where slideshow_id = #{slideshowId}
+    </select>
+
+    <!--新增轮播图-->
+    <insert id="insertSlideshow" parameterType="Slideshow" useGeneratedKeys="true" keyProperty="slideshowId">
+        insert into portal_slideshow
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="slideshow != null">slideshow,</if>
+            <if test="title != null and title != ''">title,</if>
+            <if test="subTitle != null and subTitle != ''">sub_title,</if>
+            <if test="linkUrl != null and linkUrl != ''">link_url,</if>
+            <if test="target != null and target != ''">target,</if>
+            <if test="clicks != null">clicks,</if>
+            <if test="isEnable != null and isEnable != ''">is_enable,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="slideshow != null">#{slideshow},</if>
+            <if test="title != null and title != ''">#{title},</if>
+            <if test="subTitle != null and subTitle != ''">#{subTitle},</if>
+            <if test="linkUrl != null and linkUrl != ''">#{linkUrl},</if>
+            <if test="target != null and target != ''">#{target},</if>
+            <if test="clicks != null">#{clicks},</if>
+            <if test="isEnable != null and isEnable != ''">#{isEnable},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <!--修改轮播图-->
+    <update id="updateSlideshow" parameterType="Slideshow">
+        update portal_slideshow
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="slideshow != null">slideshow = #{slideshow},</if>
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="subTitle != null and subTitle != ''">sub_title = #{subTitle},</if>
+            <if test="linkUrl != null and linkUrl != ''">link_url = #{linkUrl},</if>
+            <if test="target != null and target != ''">target = #{target},</if>
+            <if test="clicks != null">clicks = #{clicks},</if>
+            <if test="isEnable != null and isEnable != ''">is_enable = #{isEnable},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where slideshow_id = #{slideshowId}
+    </update>
+
+    <!--删除轮播图-->
+    <delete id="deleteSlideshowBySlideshowId" parameterType="Long">
+        update portal_slideshow
+        <trim prefix="SET" suffixOverrides=",">
+            is_enable = '1',
+            update_by = #{loginUser},
+            update_time = #{nowDate},
+        </trim>
+        where slideshow_id = #{slideshowId}
+    </delete>
+
+    <!--批量删除轮播图-->
+    <delete id="deleteSlideshowBySlideshowIds" parameterType="String">
+        <foreach item="slideshowId" index="index" collection="slideshowIds" open="(" separator=";" close=")">
+            update portal_slideshow
+            <trim prefix="SET" suffixOverrides=",">
+                is_enable = '1',
+                update_by = #{loginUser},
+                update_time = #{nowDate},
+            </trim>
+            where slideshow_id = #{slideshowId}
+        </foreach>
+    </delete>
+</mapper>
