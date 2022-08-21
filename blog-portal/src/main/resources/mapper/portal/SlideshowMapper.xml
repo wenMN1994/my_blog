@@ -28,9 +28,9 @@
         <include refid="selectSlideshowVo"/>
         <where>
             <if test="slideshow != null "> and slideshow = #{slideshow}</if>
-            <if test="title != null  and title != ''"> and title = #{title}</if>
-            <if test="subTitle != null  and subTitle != ''"> and sub_title = #{subTitle}</if>
-            <if test="linkUrl != null  and linkUrl != ''"> and link_url = #{linkUrl}</if>
+            <if test="title != null  and title != ''"> and title like concat('%', #{title}, '%')</if>
+            <if test="subTitle != null  and subTitle != ''"> and sub_title like concat('%', #{subTitle}, '%')</if>
+            <if test="linkUrl != null  and linkUrl != ''"> and link_url like concat('%', #{linkUrl}, '%')</if>
             <if test="target != null  and target != ''"> and target = #{target}</if>
             <if test="clicks != null "> and clicks = #{clicks}</if>
             <if test="isEnable != null  and isEnable != ''"> and is_enable = #{isEnable}</if>
