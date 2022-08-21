@@ -89,12 +89,15 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="slideshowList" @selection-change="handleSelectionChange">
+    <el-table 
+      v-loading="loading" 
+      :data="slideshowList" 
+      @selection-change="handleSelectionChange" 
+      :max-height="tableMaxHeight">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="主键ID" align="center" prop="slideshowId" />
-      <el-table-column label="轮播图" align="center" prop="slideshowImageUrl" width="100">
+      <el-table-column label="轮播图" align="center" prop="slideshowImageUrl" width="200">
         <template slot-scope="scope">
-          <image-preview :src="scope.row.slideshowImageUrl" :width="50" :height="50"/>
+          <image-preview :src="scope.row.slideshowImageUrl" :width="100" :height="100"/>
         </template>
       </el-table-column>
       <el-table-column label="标题" align="center" prop="title" />
@@ -140,10 +143,16 @@
     />
 
     <!-- 添加或修改轮播图管理对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
+    <el-dialog 
+      :title="title" 
+      :visible.sync="open" 
+      width="600px" 
+      :close-on-click-modal="false" 
+      append-to-body 
+      class="scrollbar">
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="轮播图">
-          <image-upload v-model="form.slideshowImageUrl" :limit="limit" :filePixel="filePixel" :listType="listType"/>
+        <el-form-item label="轮播图" prop="slideshowImageUrl">
+          <image-upload :limit="limit" :filePixel="filePixel" :listType="listType" v-model="form.slideshowImageUrl" />
         </el-form-item>
         <el-form-item label="标题" prop="title">
           <el-input v-model="form.title" placeholder="请输入标题" />
@@ -190,6 +199,8 @@ export default {
   dicts: ['slideshow_open_type', 'sys_normal_disable'],
   data() {
     return {
+      // table最大高度
+      tableMaxHeight: 0,
       // 轮播图图片上传数量
       limit: 1,
       // 轮播图图片像素限制
@@ -250,8 +261,32 @@ export default {
     };
   },
   watch: {
-    "form.slideshowImageUrl"(value){
+    // 编辑轮播图图片变更监听
+    "form.slideshowImageUrl"(){
       this.form.slideshow = "";
+    },
+    // 数据加载完毕初始化table最大高度
+    slideshowList(){
+      if(this.showSearch){
+        this.$nextTick(() => {
+          let appMainHeight = document.querySelector('.app-main').offsetHeight;
+          let queryFormHeight = this.$refs.queryForm.$el.offsetHeight + 130;
+          this.tableMaxHeight = appMainHeight - queryFormHeight;
+        })
+      }
+    },
+    // 显示隐藏搜索重置table最大高度
+    showSearch(){
+      if(this.showSearch){
+        let appMainHeight = document.querySelector('.app-main').offsetHeight;
+        this.$nextTick(() => {
+          let queryFormHeight = this.$refs.queryForm.$el.offsetHeight + 130;
+          this.tableMaxHeight = appMainHeight - queryFormHeight;
+        })
+      }else{
+        let appMainHeight = document.querySelector('.app-main').offsetHeight;
+        this.tableMaxHeight = appMainHeight - 130;
+      } 
     }
   },
   created() {

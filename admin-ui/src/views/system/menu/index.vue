@@ -55,7 +55,7 @@
       row-key="menuId"
       :default-expand-all="isExpandAll"
       :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
-    >
+      :max-height="tableMaxHeight">
       <el-table-column prop="menuName" label="菜单名称" :show-overflow-tooltip="true" width="160"></el-table-column>
       <el-table-column prop="icon" label="图标" align="center" width="100">
         <template slot-scope="scope">
@@ -103,7 +103,13 @@
     </el-table>
 
     <!-- 添加或修改菜单对话框 -->
-    <el-dialog :title="title" :visible.sync="open" :close-on-click-modal="false" width="680px" append-to-body class="scrollbar">
+    <el-dialog 
+      :title="title" 
+      :visible.sync="open" 
+      :close-on-click-modal="false" 
+      width="680px" 
+      append-to-body 
+      class="scrollbar">
       <el-form ref="form" :model="form" :rules="rules" label-width="100px">
         <el-row>
           <el-col :span="24">
@@ -286,6 +292,8 @@ export default {
   components: { Treeselect, IconSelect },
   data() {
     return {
+      // table最大高度
+      tableMaxHeight: 0,
       // 遮罩层
       loading: true,
       // 显示搜索条件
@@ -322,6 +330,31 @@ export default {
         ]
       }
     };
+  },
+  watch: {
+    // 数据加载完毕初始化table最大高度
+    menuList(){
+      if(this.showSearch){
+        this.$nextTick(() => {
+          let appMainHeight = document.querySelector('.app-main').offsetHeight;
+          let queryFormHeight = this.$refs.queryForm.$el.offsetHeight + 80;
+          this.tableMaxHeight = appMainHeight - queryFormHeight;
+        })
+      }
+    },
+    // 显示隐藏搜索重置table最大高度
+    showSearch(){
+      if(this.showSearch){
+        let appMainHeight = document.querySelector('.app-main').offsetHeight;
+        this.$nextTick(() => {
+          let queryFormHeight = this.$refs.queryForm.$el.offsetHeight + 80;
+          this.tableMaxHeight = appMainHeight - queryFormHeight;
+        })
+      }else{
+        let appMainHeight = document.querySelector('.app-main').offsetHeight;
+        this.tableMaxHeight = appMainHeight - 80;
+      } 
+    }
   },
   created() {
     this.getList();

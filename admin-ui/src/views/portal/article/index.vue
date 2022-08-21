@@ -1,6 +1,6 @@
 <template>
-  <div class="app-container" style="max-height: calc(100vh - 84px);">
-    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
+  <div class="app-container">
+    <el-form class="query-form" :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
       <el-form-item label="文章标题" prop="articleTitle">
         <el-input
           v-model="queryParams.articleTitle"
@@ -101,7 +101,7 @@
 
     <div class="infinite-list-wrapper article-list"
       v-if="!showAddOrUpdate"
-      :style="{height:scrollerHeight}">
+      :style="{height:articleListHeight}">
       <ul
         class="list"
         v-infinite-scroll="loadMore"
@@ -176,7 +176,13 @@
 
 
     <!-- 添加或修改文章信息对话框 -->
-    <el-dialog :title="title" :visible.sync="open" :close-on-click-modal="false" width="800px" append-to-body class="scrollbar">
+    <el-dialog 
+      :title="title" 
+      :visible.sync="open" 
+      :close-on-click-modal="false" 
+      width="800px" 
+      append-to-body 
+      class="scrollbar">
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="文章标题" prop="articleTitle">
           <el-input v-model="form.articleTitle" placeholder="请输入文章标题" />
@@ -234,6 +240,8 @@ export default {
   dicts: ['portal_article_status', 'portal_article_content_level', 'portal_article_publish_type', 'portal_article_type'],
   data() {
     return {
+      // 数据加载区域高度设置
+      articleListHeight: "",
       // 封面图片上传数量
       limit: 1,
       // 编辑记录
@@ -295,22 +303,33 @@ export default {
     },
     disabled () {
       return this.loading || this.noMore
-    },
-    scrollerHeight(){
-      let height = "";
-      if(this.showSearch){
-        // let queryFormHeight = this.$refs.queryForm.offsetHeight;
-        let queryFormHeight = 100 + 140;
-        height = 'calc(100vh - '+queryFormHeight+'px)';
-      }else{
-        height = 'calc(100vh - 140px)';
-      }
-      return height;
     }
   },
   watch: {
-    "form.coverUrl"(value){
+    // 监听文章编辑封面图片变更监听
+    "form.coverUrl"(){
       this.form.cover = "";
+    },
+    // 数据加载完毕初始化table最大高度
+    total(){
+      if(this.showSearch){
+        this.$nextTick(() => {
+          console.log(this.$refs.queryForm.$el.offsetHeight);
+          let queryFormHeight = this.$refs.queryForm.$el.offsetHeight + 140;
+          this.articleListHeight = 'calc(100vh - ' + queryFormHeight + 'px)';
+        })
+      }
+    },
+    // 显示隐藏搜索重置table最大高度
+    showSearch(){
+      if(this.showSearch){
+        this.$nextTick(() => {
+          let queryFormHeight = this.$refs.queryForm.$el.offsetHeight + 140;
+          this.articleListHeight = 'calc(100vh - ' + queryFormHeight + 'px)';
+        })
+      }else{
+        this.articleListHeight = 'calc(100vh - 140px)';
+      } 
     }
   },
   created() {
