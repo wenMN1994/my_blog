@@ -4,7 +4,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import com.dragon.common.constant.CacheConstants;
 import com.dragon.common.core.domain.model.LoginUser;
+import com.dragon.common.core.redis.RedisCache;
 import com.dragon.common.utils.DateUtils;
 import com.dragon.system.domain.SysFile;
 import com.dragon.system.service.ISysFileService;
@@ -29,6 +31,9 @@ public class SlideshowServiceImpl implements ISlideshowService {
 
     @Autowired
     private SlideshowMapper slideshowMapper;
+
+    @Autowired
+    private RedisCache redisCache;
 
     /**
      * 查询轮播图
@@ -87,7 +92,11 @@ public class SlideshowServiceImpl implements ISlideshowService {
             slideshow.setSlideshow(sysFile.getFileId());
             slideshow.setCreateBy(loginUser.getUsername());
             slideshow.setCreateTime(DateUtils.getNowDate());
-            return slideshowMapper.insertSlideshow(slideshow);
+            int count = slideshowMapper.insertSlideshow(slideshow);
+            if(count > 0){
+                redisCache.deleteObject(CacheConstants.INDEX_FRONT_SLIDESHOW_KEY);
+            }
+            return count;
         } catch (Exception e) {
             throw new RuntimeException("新增失败！");
         }
@@ -113,7 +122,11 @@ public class SlideshowServiceImpl implements ISlideshowService {
         }
         slideshow.setUpdateBy(loginUser.getUsername());
         slideshow.setUpdateTime(DateUtils.getNowDate());
-        return slideshowMapper.updateSlideshow(slideshow);
+        int count = slideshowMapper.updateSlideshow(slideshow);
+        if(count > 0){
+            redisCache.deleteObject(CacheConstants.INDEX_FRONT_SLIDESHOW_KEY);
+        }
+        return count;
     }
 
     /**
@@ -126,7 +139,11 @@ public class SlideshowServiceImpl implements ISlideshowService {
     @Override
     public int deleteSlideshowBySlideshowIds(Long[] slideshowIds, LoginUser loginUser) {
         Date nowDate = DateUtils.getNowDate();
-        return slideshowMapper.deleteSlideshowBySlideshowIds(slideshowIds, loginUser, nowDate);
+        int count = slideshowMapper.deleteSlideshowBySlideshowIds(slideshowIds, loginUser, nowDate);
+        if(count > 0){
+            redisCache.deleteObject(CacheConstants.INDEX_FRONT_SLIDESHOW_KEY);
+        }
+        return count;
     }
 
     /**
@@ -139,6 +156,10 @@ public class SlideshowServiceImpl implements ISlideshowService {
     @Override
     public int deleteSlideshowBySlideshowId(Long slideshowId, LoginUser loginUser) {
         Date nowDate = DateUtils.getNowDate();
-        return slideshowMapper.deleteSlideshowBySlideshowId(slideshowId, loginUser, nowDate);
+        int count = slideshowMapper.deleteSlideshowBySlideshowId(slideshowId, loginUser, nowDate);
+        if(count > 0){
+            redisCache.deleteObject(CacheConstants.INDEX_FRONT_SLIDESHOW_KEY);
+        }
+        return count;
     }
 }

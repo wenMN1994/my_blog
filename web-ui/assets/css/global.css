@@ -127,7 +127,7 @@ a.current-2 .lh-p-icon{background-position:0 -254px}
 .comm-course-list li{float:left;width:20%}
 .lt-ie9.lt-ie8 .comm-course-list li{width:24.98%}
 .lt-ie9 .u-course-list .comm-course-list li,.lt-ie9.lt-ie8 .u-course-list .comm-course-list li{width:33.33%}
-.comm-course-list li .cc-l-wrap{display:block;margin:0 0 25px 15px;overflow:hidden}
+.comm-course-list li .cc-l-wrap{display:block;margin:0 0 25px 15px;overflow:hidden;background-color: #f5f7fa;}
 .new-icon-text:before{
     content: '新';
     display: block;

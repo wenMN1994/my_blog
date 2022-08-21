@@ -3,11 +3,11 @@
     <!-- 幻灯片 开始 -->
     <div v-swiper:mySwiper="swiperOption">
       <div class="swiper-wrapper">
-          <div v-for="slideshow in slideshowList" :key="slideshow.slideshowId" class="swiper-slide" style="background: #040B1B;">
-              <a :target="slideshow.target === '0' ? '_self' : '_blank'" :href="slideshow.linkUrl">
-                  <img :src="slideshow.slideshowImageUrl" :alt="slideshow.title">
-              </a>
-          </div>
+        <div v-for="slideshow in slideshowList" :key="slideshow.slideshowId" class="swiper-slide" style="background: #040B1B;">
+            <a :target="slideshow.target === '0' ? '_self' : '_blank'" :href="slideshow.linkUrl">
+                <img :src="slideshow.slideshowImageUrl" :alt="slideshow.title">
+            </a>
+        </div>
       </div>
       <div class="swiper-pagination" slot="pagination"></div>
     </div>

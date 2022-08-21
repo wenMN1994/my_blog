@@ -36,7 +36,7 @@ public class SlideshowController extends BaseController {
     private ISlideshowService slideshowService;
 
     /**
-     * 查询轮播图管理列表
+     * 查询轮播图列表
      */
     @PreAuthorize("@ss.hasPermi('portal:slideshow:list')")
     @GetMapping("/list")
@@ -47,7 +47,7 @@ public class SlideshowController extends BaseController {
     }
 
     /**
-     * 导出轮播图管理列表
+     * 导出轮播图列表
      */
     @PreAuthorize("@ss.hasPermi('portal:slideshow:export')")
     @Log(title = "轮播图管理", businessType = BusinessType.EXPORT)
@@ -55,11 +55,11 @@ public class SlideshowController extends BaseController {
     public void export(HttpServletResponse response, Slideshow slideshow) {
         List<Slideshow> list = slideshowService.selectSlideshowList(slideshow);
         ExcelUtil<Slideshow> util = new ExcelUtil<Slideshow>(Slideshow.class);
-        util.exportExcel(response, list, "轮播图管理数据");
+        util.exportExcel(response, list, "轮播图数据");
     }
 
     /**
-     * 获取轮播图管理详细信息
+     * 获取轮播图详细信息
      */
     @PreAuthorize("@ss.hasPermi('portal:slideshow:query')")
     @GetMapping(value = "/{slideshowId}")
@@ -90,7 +90,7 @@ public class SlideshowController extends BaseController {
     }
 
     /**
-     * 删除轮播图管理
+     * 删除轮播图
      */
     @PreAuthorize("@ss.hasPermi('portal:slideshow:remove')")
     @Log(title = "轮播图管理", businessType = BusinessType.DELETE)
