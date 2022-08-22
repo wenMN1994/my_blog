@@ -27,7 +27,7 @@
       v-loading="loading"
       :data="list.slice((pageNum-1)*pageSize,pageNum*pageSize)"
       style="width: 100%;"
-    >
+      :max-height="tableMaxHeight">
       <el-table-column label="序号" type="index" align="center">
         <template slot-scope="scope">
           <span>{{(pageNum - 1) * pageSize + scope.$index + 1}}</span>
@@ -68,6 +68,8 @@ export default {
   name: "Online",
   data() {
     return {
+      // table最大高度
+      tableMaxHeight: 0,
       // 遮罩层
       loading: true,
       // 总条数
@@ -82,6 +84,31 @@ export default {
         userName: undefined
       }
     };
+  },
+  watch: {
+    // 数据加载完毕初始化table最大高度
+    list(){
+      if(this.showSearch){
+        this.$nextTick(() => {
+          let appMainHeight = document.querySelector('.app-main').offsetHeight;
+          let queryFormHeight = this.$refs.queryForm.$el.offsetHeight + 130;
+          this.tableMaxHeight = appMainHeight - queryFormHeight;
+        })
+      }
+    },
+    // 显示隐藏搜索重置table最大高度
+    showSearch(){
+      if(this.showSearch){
+        let appMainHeight = document.querySelector('.app-main').offsetHeight;
+        this.$nextTick(() => {
+          let queryFormHeight = this.$refs.queryForm.$el.offsetHeight + 130;
+          this.tableMaxHeight = appMainHeight - queryFormHeight;
+        })
+      }else{
+        let appMainHeight = document.querySelector('.app-main').offsetHeight;
+        this.tableMaxHeight = appMainHeight - 130;
+      } 
+    }
   },
   created() {
     this.getList();
