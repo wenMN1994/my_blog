@@ -21,8 +21,8 @@
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
       </el-form-item>
-
     </el-form>
+
     <el-table
       v-loading="loading"
       :data="list.slice((pageNum-1)*pageSize,pageNum*pageSize)"
@@ -88,26 +88,10 @@ export default {
   watch: {
     // 数据加载完毕初始化table最大高度
     list(){
-      if(this.showSearch){
-        this.$nextTick(() => {
-          let appMainHeight = document.querySelector('.app-main').offsetHeight;
-          let queryFormHeight = this.$refs.queryForm.$el.offsetHeight + 130;
-          this.tableMaxHeight = appMainHeight - queryFormHeight;
-        })
-      }
-    },
-    // 显示隐藏搜索重置table最大高度
-    showSearch(){
-      if(this.showSearch){
-        let appMainHeight = document.querySelector('.app-main').offsetHeight;
-        this.$nextTick(() => {
-          let queryFormHeight = this.$refs.queryForm.$el.offsetHeight + 130;
-          this.tableMaxHeight = appMainHeight - queryFormHeight;
-        })
-      }else{
+      this.$nextTick(() => {
         let appMainHeight = document.querySelector('.app-main').offsetHeight;
         this.tableMaxHeight = appMainHeight - 130;
-      } 
+      })
     }
   },
   created() {
