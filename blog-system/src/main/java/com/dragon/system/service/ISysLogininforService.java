@@ -9,8 +9,7 @@ import java.util.List;
  * 
  * @author dragon
  */
-public interface ISysLogininforService
-{
+public interface ISysLogininforService {
     /**
      * 新增系统登录日志
      * 

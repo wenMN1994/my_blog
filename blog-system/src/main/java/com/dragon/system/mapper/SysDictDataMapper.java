@@ -10,8 +10,7 @@ import java.util.List;
  * 
  * @author dragon
  */
-public interface SysDictDataMapper
-{
+public interface SysDictDataMapper {
     /**
      * 根据条件分页查询字典数据
      * 

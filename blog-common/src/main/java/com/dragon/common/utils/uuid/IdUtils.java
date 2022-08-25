@@ -5,15 +5,13 @@ package com.dragon.common.utils.uuid;
  * 
  * @author dragon
  */
-public class IdUtils
-{
+public class IdUtils {
     /**
      * 获取随机UUID
      * 
      * @return 随机UUID
      */
-    public static String randomUUID()
-    {
+    public static String randomUUID() {
         return UUID.randomUUID().toString();
     }
 
@@ -22,8 +20,7 @@ public class IdUtils
      * 
      * @return 简化的UUID，去掉了横线
      */
-    public static String simpleUUID()
-    {
+    public static String simpleUUID() {
         return UUID.randomUUID().toString(true);
     }
 
@@ -32,8 +29,7 @@ public class IdUtils
      * 
      * @return 随机UUID
      */
-    public static String fastUUID()
-    {
+    public static String fastUUID() {
         return UUID.fastUUID().toString();
     }
 
@@ -42,8 +38,7 @@ public class IdUtils
      * 
      * @return 简化的UUID，去掉了横线
      */
-    public static String fastSimpleUUID()
-    {
+    public static String fastSimpleUUID() {
         return UUID.fastUUID().toString(true);
     }
 }

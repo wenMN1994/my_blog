@@ -8,11 +8,9 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  * 
  * @author dragon
  */
-public class BlogServletInitializer extends SpringBootServletInitializer
-{
+public class BlogServletInitializer extends SpringBootServletInitializer {
     @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application)
-    {
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(BlogApplication.class);
     }
 }

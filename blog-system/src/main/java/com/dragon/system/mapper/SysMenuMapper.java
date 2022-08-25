@@ -10,8 +10,7 @@ import java.util.List;
  *
  * @author dragon
  */
-public interface SysMenuMapper
-{
+public interface SysMenuMapper {
     /**
      * 查询系统菜单列表
      *

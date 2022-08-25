@@ -8,31 +8,26 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * 
  * @author dragon
  */
-public class SysRoleMenu
-{
+public class SysRoleMenu {
     /** 角色ID */
     private Long roleId;
     
     /** 菜单ID */
     private Long menuId;
 
-    public Long getRoleId()
-    {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Long roleId)
-    {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 
-    public Long getMenuId()
-    {
+    public Long getMenuId() {
         return menuId;
     }
 
-    public void setMenuId(Long menuId)
-    {
+    public void setMenuId(Long menuId) {
         this.menuId = menuId;
     }
 

@@ -25,10 +25,10 @@ public class GlobalException extends RuntimeException {
      * 空构造方法，避免反序列化问题
      */
     public GlobalException() {
+
     }
 
-    public GlobalException(String message)
-    {
+    public GlobalException(String message) {
         this.message = message;
     }
 

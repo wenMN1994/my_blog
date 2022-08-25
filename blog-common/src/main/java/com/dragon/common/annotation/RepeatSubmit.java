@@ -12,8 +12,7 @@ import java.lang.annotation.*;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface RepeatSubmit
-{
+public @interface RepeatSubmit {
     /**
      * 间隔时间(ms)，小于此时间视为重复提交
      */

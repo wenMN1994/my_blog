@@ -9,8 +9,7 @@ import java.util.List;
  * 
  * @author dragon
  */
-public interface SysConfigMapper
-{
+public interface SysConfigMapper {
     /**
      * 查询参数配置信息
      * 

@@ -95,9 +95,9 @@
       @selection-change="handleSelectionChange" 
       :max-height="tableMaxHeight">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="轮播图" align="center" prop="slideshowImageUrl" width="200">
+      <el-table-column label="轮播图" align="center" prop="slideshowImageUrl" width="100">
         <template slot-scope="scope">
-          <image-preview :src="scope.row.slideshowImageUrl" :width="100" :height="100"/>
+          <image-preview :src="scope.row.slideshowImageUrl" :width="50" :height="50"/>
         </template>
       </el-table-column>
       <el-table-column label="标题" align="center" prop="title" />

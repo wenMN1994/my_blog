@@ -9,8 +9,7 @@ import java.util.List;
  * 
  * @author dragon
  */
-public interface ISysDictDataService
-{
+public interface ISysDictDataService {
     /**
      * 根据条件分页查询字典数据
      * 

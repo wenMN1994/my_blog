@@ -12,11 +12,9 @@ package com.dragon.quartz.config;//package com.dragon.quartz.config;
 // * @author dragon
 // */
 //@Configuration
-//public class ScheduleConfig
-//{
+//public class ScheduleConfig{
 //    @Bean
-//    public SchedulerFactoryBean schedulerFactoryBean(DataSource dataSource)
-//    {
+//    public SchedulerFactoryBean schedulerFactoryBean(DataSource dataSource) {
 //        SchedulerFactoryBean factory = new SchedulerFactoryBean();
 //        factory.setDataSource(dataSource);
 //

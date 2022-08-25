@@ -5,8 +5,7 @@ package com.dragon.common.enums;
  * 
  * @author dragon
  */
-public enum OperatorType
-{
+public enum OperatorType {
     /**
      * 其它
      */

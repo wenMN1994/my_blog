@@ -10,8 +10,7 @@ import java.util.List;
  * 
  * @author dragon
  */
-public interface SysUserRoleMapper
-{
+public interface SysUserRoleMapper {
     /**
      * 通过用户ID删除用户和角色关联
      * 

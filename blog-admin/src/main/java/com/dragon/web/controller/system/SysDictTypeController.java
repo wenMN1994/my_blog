@@ -24,15 +24,13 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/system/dict/type")
-public class SysDictTypeController extends BaseController
-{
+public class SysDictTypeController extends BaseController {
     @Autowired
     private ISysDictTypeService dictTypeService;
 
     @PreAuthorize("@ss.hasPermi('system:dict:list')")
     @GetMapping("/list")
-    public TableDataInfo list(SysDictType dictType)
-    {
+    public TableDataInfo list(SysDictType dictType) {
         startPage();
         List<SysDictType> list = dictTypeService.selectDictTypeList(dictType);
         return getDataTable(list);
@@ -41,8 +39,7 @@ public class SysDictTypeController extends BaseController
     @Log(title = "字典类型", businessType = BusinessType.EXPORT)
     @PreAuthorize("@ss.hasPermi('system:dict:export')")
     @PostMapping("/export")
-    public void export(HttpServletResponse response, SysDictType dictType)
-    {
+    public void export(HttpServletResponse response, SysDictType dictType) {
         List<SysDictType> list = dictTypeService.selectDictTypeList(dictType);
         ExcelUtil<SysDictType> util = new ExcelUtil<SysDictType>(SysDictType.class);
         util.exportExcel(response, list, "字典类型");
@@ -53,8 +50,7 @@ public class SysDictTypeController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('system:dict:query')")
     @GetMapping(value = "/{dictId}")
-    public AjaxResult getInfo(@PathVariable Long dictId)
-    {
+    public AjaxResult getInfo(@PathVariable Long dictId) {
         return AjaxResult.success(dictTypeService.selectDictTypeById(dictId));
     }
 
@@ -64,10 +60,8 @@ public class SysDictTypeController extends BaseController
     @PreAuthorize("@ss.hasPermi('system:dict:add')")
     @Log(title = "字典类型", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@Validated @RequestBody SysDictType dict)
-    {
-        if (UserConstants.NOT_UNIQUE.equals(dictTypeService.checkDictTypeUnique(dict)))
-        {
+    public AjaxResult add(@Validated @RequestBody SysDictType dict) {
+        if (UserConstants.NOT_UNIQUE.equals(dictTypeService.checkDictTypeUnique(dict))) {
             return AjaxResult.error("新增字典'" + dict.getDictName() + "'失败，字典类型已存在");
         }
         dict.setCreateBy(getUsername());
@@ -80,10 +74,8 @@ public class SysDictTypeController extends BaseController
     @PreAuthorize("@ss.hasPermi('system:dict:edit')")
     @Log(title = "字典类型", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@Validated @RequestBody SysDictType dict)
-    {
-        if (UserConstants.NOT_UNIQUE.equals(dictTypeService.checkDictTypeUnique(dict)))
-        {
+    public AjaxResult edit(@Validated @RequestBody SysDictType dict) {
+        if (UserConstants.NOT_UNIQUE.equals(dictTypeService.checkDictTypeUnique(dict))) {
             return AjaxResult.error("修改字典'" + dict.getDictName() + "'失败，字典类型已存在");
         }
         dict.setUpdateBy(getUsername());
@@ -96,8 +88,7 @@ public class SysDictTypeController extends BaseController
     @PreAuthorize("@ss.hasPermi('system:dict:remove')")
     @Log(title = "字典类型", businessType = BusinessType.DELETE)
     @DeleteMapping("/{dictIds}")
-    public AjaxResult remove(@PathVariable Long[] dictIds)
-    {
+    public AjaxResult remove(@PathVariable Long[] dictIds) {
         dictTypeService.deleteDictTypeByIds(dictIds);
         return success();
     }
@@ -108,8 +99,7 @@ public class SysDictTypeController extends BaseController
     @PreAuthorize("@ss.hasPermi('system:dict:remove')")
     @Log(title = "字典类型", businessType = BusinessType.CLEAN)
     @DeleteMapping("/refreshCache")
-    public AjaxResult refreshCache()
-    {
+    public AjaxResult refreshCache() {
         dictTypeService.resetDictCache();
         return AjaxResult.success();
     }
@@ -118,8 +108,7 @@ public class SysDictTypeController extends BaseController
      * 获取字典选择框列表
      */
     @GetMapping("/optionselect")
-    public AjaxResult optionselect()
-    {
+    public AjaxResult optionselect() {
         List<SysDictType> dictTypes = dictTypeService.selectDictTypeAll();
         return AjaxResult.success(dictTypes);
     }

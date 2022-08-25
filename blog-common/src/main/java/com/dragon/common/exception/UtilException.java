@@ -5,12 +5,10 @@ package com.dragon.common.exception;
  * 
  * @author dragon
  */
-public class UtilException extends RuntimeException
-{
+public class UtilException extends RuntimeException {
     private static final long serialVersionUID = 8247610319171014183L;
 
-    public UtilException(Throwable e)
-    {
+    public UtilException(Throwable e) {
         super(e.getMessage(), e);
     }
 

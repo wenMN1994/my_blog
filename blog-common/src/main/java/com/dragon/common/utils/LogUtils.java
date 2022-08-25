@@ -5,12 +5,9 @@ package com.dragon.common.utils;
  * 
  * @author dragon
  */
-public class LogUtils
-{
-    public static String getBlock(Object msg)
-    {
-        if (msg == null)
-        {
+public class LogUtils {
+    public static String getBlock(Object msg) {
+        if (msg == null) {
             msg = "";
         }
         return "[" + msg.toString() + "]";

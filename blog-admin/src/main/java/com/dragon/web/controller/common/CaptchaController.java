@@ -187,7 +187,6 @@ public class CaptchaController {
         } else {
             throw new RuntimeException("请输入正确的手机号码或邮箱");
         }
-
         if (!redisCache.hasKey(sliderCaptcha.getVerifyKey())) {
             throw new RuntimeException("验证码不合法");
         }
@@ -195,13 +194,11 @@ public class CaptchaController {
         if (codeObj == null) {
             throw new RuntimeException("验证码不合法");
         }
-
         String saveCode = codeObj.toString();
         if (StringUtils.isEmpty(saveCode)) {
             redisCache.deleteObject(sliderCaptcha.getVerifyKey());
             throw new RuntimeException("验证码不合法");
         }
-
         // 判断验证值 加减15 是否在范围内
         Integer saveCodeInt1 = Integer.parseInt(saveCode) - 15;
         Integer saveCodeInt2 = Integer.parseInt(saveCode) + 15;
@@ -209,7 +206,6 @@ public class CaptchaController {
         if (saveCodeInt1 > sliderCaptcha.getCode() || saveCodeInt2 < sliderCaptcha.getCode()) {
             throw new RuntimeException("验证码不合法");
         }
-
         // 保存验证码信息
         String phoneEmailVerifyValue = StringUtils.generateCaptcha();
         // 发送短信或邮箱验证码
@@ -239,7 +235,6 @@ public class CaptchaController {
                 throw new RuntimeException("服务异常，请稍后再试！");
             }
         }
-
         // 缓存当前手机号码或邮箱地址+验证码到Redis 2分钟内不允许重复发送验证码
         redisCache.setCacheObject(phoneEmailVerifyKey, phoneEmailVerifyValue, Constants.CAPTCHA_EXPIRATION, TimeUnit.MINUTES);
         ajax.put("phoneEmailVerifyKey", phoneEmailVerifyKey);

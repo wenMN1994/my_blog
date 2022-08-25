@@ -19,8 +19,7 @@ import java.util.List;
  * 
  * @author dragon
  */
-public class SysUser extends BaseEntity
-{
+public class SysUser extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /** 用户ID */
@@ -80,101 +79,83 @@ public class SysUser extends BaseEntity
     /** 角色ID */
     private Long roleId;
 
-    public SysUser()
-    {
+    public SysUser() {
 
     }
 
-    public SysUser(Long userId)
-    {
+    public SysUser(Long userId) {
         this.userId = userId;
     }
 
-    public Long getUserId()
-    {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId)
-    {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public boolean isAdmin()
-    {
+    public boolean isAdmin() {
         return isAdmin(this.userId);
     }
 
-    public static boolean isAdmin(Long userId)
-    {
+    public static boolean isAdmin(Long userId) {
         return userId != null && 1L == userId;
     }
 
     @Xss(message = "用户昵称不能包含脚本字符")
     @Size(min = 0, max = 30, message = "用户昵称长度不能超过30个字符")
-    public String getNickName()
-    {
+    public String getNickName() {
         return nickName;
     }
 
-    public void setNickName(String nickName)
-    {
+    public void setNickName(String nickName) {
         this.nickName = nickName;
     }
 
     @Xss(message = "用户账号不能包含脚本字符")
     @NotBlank(message = "用户账号不能为空")
     @Size(min = 0, max = 30, message = "用户账号长度不能超过30个字符")
-    public String getUserName()
-    {
+    public String getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName)
-    {
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 
     @Email(message = "邮箱格式不正确")
     @Size(min = 0, max = 50, message = "邮箱长度不能超过50个字符")
-    public String getEmail()
-    {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email)
-    {
+    public void setEmail(String email) {
         this.email = email;
     }
 
     @Size(min = 0, max = 11, message = "手机号码长度不能超过11个字符")
-    public String getPhonenumber()
-    {
+    public String getPhonenumber() {
         return phonenumber;
     }
 
-    public void setPhonenumber(String phonenumber)
-    {
+    public void setPhonenumber(String phonenumber) {
         this.phonenumber = phonenumber;
     }
 
-    public String getSex()
-    {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(String sex)
-    {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
-    public String getAvatar()
-    {
+    public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(String avatar)
-    {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 
@@ -186,83 +167,67 @@ public class SysUser extends BaseEntity
         this.avatarId = avatarId;
     }
 
-    public String getPassword()
-    {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password)
-    {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public String getStatus()
-    {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status)
-    {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public String getDelFlag()
-    {
+    public String getDelFlag() {
         return delFlag;
     }
 
-    public void setDelFlag(String delFlag)
-    {
+    public void setDelFlag(String delFlag) {
         this.delFlag = delFlag;
     }
 
-    public String getLoginIp()
-    {
+    public String getLoginIp() {
         return loginIp;
     }
 
-    public void setLoginIp(String loginIp)
-    {
+    public void setLoginIp(String loginIp) {
         this.loginIp = loginIp;
     }
 
-    public Date getLoginDate()
-    {
+    public Date getLoginDate() {
         return loginDate;
     }
 
-    public void setLoginDate(Date loginDate)
-    {
+    public void setLoginDate(Date loginDate) {
         this.loginDate = loginDate;
     }
 
-    public List<SysRole> getRoles()
-    {
+    public List<SysRole> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<SysRole> roles)
-    {
+    public void setRoles(List<SysRole> roles) {
         this.roles = roles;
     }
 
-    public Long[] getRoleIds()
-    {
+    public Long[] getRoleIds() {
         return roleIds;
     }
 
-    public void setRoleIds(Long[] roleIds)
-    {
+    public void setRoleIds(Long[] roleIds) {
         this.roleIds = roleIds;
     }
 
-    public Long getRoleId()
-    {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Long roleId)
-    {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 

@@ -5,8 +5,7 @@ package com.dragon.common.utils.file;
  * 
  * @author dragon
  */
-public class MimeTypeUtils
-{
+public class MimeTypeUtils {
     public static final String IMAGE_PNG = "image/png";
 
     public static final String IMAGE_JPG = "image/jpg";
@@ -38,10 +37,8 @@ public class MimeTypeUtils
             // pdf
             "pdf" };
 
-    public static String getExtension(String prefix)
-    {
-        switch (prefix)
-        {
+    public static String getExtension(String prefix) {
+        switch (prefix) {
             case IMAGE_PNG:
                 return "png";
             case IMAGE_JPG:

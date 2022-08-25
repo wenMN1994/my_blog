@@ -12,8 +12,7 @@ import java.util.Date;
  * 
  * @author dragon
  */
-public class SysLogininfor extends BaseEntity
-{
+public class SysLogininfor extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /** ID */
@@ -53,93 +52,75 @@ public class SysLogininfor extends BaseEntity
     @Excel(name = "访问时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
     private Date loginTime;
 
-    public Long getInfoId()
-    {
+    public Long getInfoId() {
         return infoId;
     }
 
-    public void setInfoId(Long infoId)
-    {
+    public void setInfoId(Long infoId) {
         this.infoId = infoId;
     }
 
-    public String getUserName()
-    {
+    public String getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName)
-    {
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    public String getStatus()
-    {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status)
-    {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public String getIpaddr()
-    {
+    public String getIpaddr() {
         return ipaddr;
     }
 
-    public void setIpaddr(String ipaddr)
-    {
+    public void setIpaddr(String ipaddr) {
         this.ipaddr = ipaddr;
     }
 
-    public String getLoginLocation()
-    {
+    public String getLoginLocation() {
         return loginLocation;
     }
 
-    public void setLoginLocation(String loginLocation)
-    {
+    public void setLoginLocation(String loginLocation) {
         this.loginLocation = loginLocation;
     }
 
-    public String getBrowser()
-    {
+    public String getBrowser() {
         return browser;
     }
 
-    public void setBrowser(String browser)
-    {
+    public void setBrowser(String browser) {
         this.browser = browser;
     }
 
-    public String getOs()
-    {
+    public String getOs() {
         return os;
     }
 
-    public void setOs(String os)
-    {
+    public void setOs(String os) {
         this.os = os;
     }
 
-    public String getMsg()
-    {
+    public String getMsg() {
         return msg;
     }
 
-    public void setMsg(String msg)
-    {
+    public void setMsg(String msg) {
         this.msg = msg;
     }
 
-    public Date getLoginTime()
-    {
+    public Date getLoginTime() {
         return loginTime;
     }
 
-    public void setLoginTime(Date loginTime)
-    {
+    public void setLoginTime(Date loginTime) {
         this.loginTime = loginTime;
     }
 }
