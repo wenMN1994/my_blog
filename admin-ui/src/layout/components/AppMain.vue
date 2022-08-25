@@ -32,7 +32,7 @@
     min-height: calc(100vh - 50px);
     width: 100%;
     position: relative;
-    overflow: hidden;
+    overflow-y: auto;
   }
 
   .fixed-header + .app-main {
@@ -42,7 +42,7 @@
   .hasTagsView {
     .app-main {
       /* 84 = navbar + tags-view = 50 + 34 */
-      min-height: calc(100vh - 84px);
+      max-height: calc(100vh - 84px);
     }
 
     .fixed-header + .app-main {
