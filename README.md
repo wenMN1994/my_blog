@@ -25,7 +25,8 @@
 
 - admin/admin123  
 
-演示地址：http://dragonwen.cn
+后端演示地址：http://dragonwen.cn/admin
+前端演示地址：http://dragonwen.cn
 
 ## 演示图
 
