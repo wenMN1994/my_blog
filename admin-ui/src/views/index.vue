@@ -82,6 +82,8 @@ export default {
   padding: 32px;
   background-color: rgb(240, 242, 245);
   position: relative;
+  max-height: calc(100vh - 84px);
+  overflow-y: auto;
 
   .chart-wrapper {
     background: #fff;

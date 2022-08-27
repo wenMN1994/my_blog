@@ -32,7 +32,6 @@
     min-height: calc(100vh - 50px);
     width: 100%;
     position: relative;
-    overflow-y: auto;
   }
 
   .fixed-header + .app-main {

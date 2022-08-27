@@ -83,3 +83,10 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+.app-container {
+  /* 84 = navbar + tags-view = 50 + 34 */
+  max-height: calc(100vh - 84px);
+  overflow-y: auto;
+}
+</style>

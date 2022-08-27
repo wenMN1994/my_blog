@@ -247,7 +247,7 @@ export default {
       if(this.showSearch){
         this.$nextTick(() => {
           let appMainHeight = document.querySelector('.app-main').offsetHeight;
-          let queryFormHeight = this.$refs.queryForm.$el.offsetHeight + 130;
+          let queryFormHeight = this.$refs.queryForm.$el.offsetHeight + 160;
           this.tableMaxHeight = appMainHeight - queryFormHeight;
         })
       }
@@ -257,7 +257,7 @@ export default {
       if(this.showSearch){
         let appMainHeight = document.querySelector('.app-main').offsetHeight;
         this.$nextTick(() => {
-          let queryFormHeight = this.$refs.queryForm.$el.offsetHeight + 130;
+          let queryFormHeight = this.$refs.queryForm.$el.offsetHeight + 160;
           this.tableMaxHeight = appMainHeight - queryFormHeight;
         })
       }else{

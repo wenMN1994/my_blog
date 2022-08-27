@@ -337,7 +337,7 @@ export default {
       if(this.showSearch){
         this.$nextTick(() => {
           let appMainHeight = document.querySelector('.app-main').offsetHeight;
-          let queryFormHeight = this.$refs.queryForm.$el.offsetHeight + 80;
+          let queryFormHeight = this.$refs.queryForm.$el.offsetHeight + 100;
           this.tableMaxHeight = appMainHeight - queryFormHeight;
         })
       }
@@ -347,12 +347,12 @@ export default {
       if(this.showSearch){
         let appMainHeight = document.querySelector('.app-main').offsetHeight;
         this.$nextTick(() => {
-          let queryFormHeight = this.$refs.queryForm.$el.offsetHeight + 80;
+          let queryFormHeight = this.$refs.queryForm.$el.offsetHeight + 100;
           this.tableMaxHeight = appMainHeight - queryFormHeight;
         })
       }else{
         let appMainHeight = document.querySelector('.app-main').offsetHeight;
-        this.tableMaxHeight = appMainHeight - 80;
+        this.tableMaxHeight = appMainHeight - 100;
       }
     }
   },
