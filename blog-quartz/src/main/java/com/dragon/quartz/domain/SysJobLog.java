@@ -12,8 +12,7 @@ import java.util.Date;
  * 
  * @author dragon
  */
-public class SysJobLog extends BaseEntity
-{
+public class SysJobLog extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /** ID */
@@ -50,93 +49,75 @@ public class SysJobLog extends BaseEntity
     /** 停止时间 */
     private Date stopTime;
 
-    public Long getJobLogId()
-    {
+    public Long getJobLogId() {
         return jobLogId;
     }
 
-    public void setJobLogId(Long jobLogId)
-    {
+    public void setJobLogId(Long jobLogId) {
         this.jobLogId = jobLogId;
     }
 
-    public String getJobName()
-    {
+    public String getJobName() {
         return jobName;
     }
 
-    public void setJobName(String jobName)
-    {
+    public void setJobName(String jobName) {
         this.jobName = jobName;
     }
 
-    public String getJobGroup()
-    {
+    public String getJobGroup() {
         return jobGroup;
     }
 
-    public void setJobGroup(String jobGroup)
-    {
+    public void setJobGroup(String jobGroup) {
         this.jobGroup = jobGroup;
     }
 
-    public String getInvokeTarget()
-    {
+    public String getInvokeTarget() {
         return invokeTarget;
     }
 
-    public void setInvokeTarget(String invokeTarget)
-    {
+    public void setInvokeTarget(String invokeTarget) {
         this.invokeTarget = invokeTarget;
     }
 
-    public String getJobMessage()
-    {
+    public String getJobMessage() {
         return jobMessage;
     }
 
-    public void setJobMessage(String jobMessage)
-    {
+    public void setJobMessage(String jobMessage) {
         this.jobMessage = jobMessage;
     }
 
-    public String getStatus()
-    {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status)
-    {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public String getExceptionInfo()
-    {
+    public String getExceptionInfo() {
         return exceptionInfo;
     }
 
-    public void setExceptionInfo(String exceptionInfo)
-    {
+    public void setExceptionInfo(String exceptionInfo) {
         this.exceptionInfo = exceptionInfo;
     }
 
-    public Date getStartTime()
-    {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime)
-    {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
     
-    public Date getStopTime()
-    {
+    public Date getStopTime() {
         return stopTime;
     }
 
-    public void setStopTime(Date stopTime)
-    {
+    public void setStopTime(Date stopTime) {
         this.stopTime = stopTime;
     }
 

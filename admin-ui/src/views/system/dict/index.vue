@@ -107,7 +107,11 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="typeList" @selection-change="handleSelectionChange">
+    <el-table 
+      v-loading="loading" 
+      :data="typeList" 
+      @selection-change="handleSelectionChange"
+      :max-height="tableMaxHeight">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="字典编号" align="center" prop="dictId" />
       <el-table-column label="字典名称" align="center" prop="dictName" :show-overflow-tooltip="true" />
@@ -158,7 +162,13 @@
     />
 
     <!-- 添加或修改参数配置对话框 -->
-    <el-dialog :title="title" :visible.sync="open" :close-on-click-modal="false" width="500px" append-to-body class="scrollbar">
+    <el-dialog 
+      :title="title" 
+      :visible.sync="open" 
+      :close-on-click-modal="false" 
+      width="500px" 
+      append-to-body 
+      class="scrollbar">
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="字典名称" prop="dictName">
           <el-input v-model="form.dictName" placeholder="请输入字典名称" />
@@ -195,6 +205,8 @@ export default {
   dicts: ['sys_normal_disable'],
   data() {
     return {
+      // table最大高度
+      tableMaxHeight: 0,
       // 遮罩层
       loading: true,
       // 选中数组
@@ -235,6 +247,31 @@ export default {
         ]
       }
     };
+  },
+  watch: {
+    // 数据加载完毕初始化table最大高度
+    typeList(){
+      if(this.showSearch){
+        this.$nextTick(() => {
+          let appMainHeight = document.querySelector('.app-main').offsetHeight;
+          let queryFormHeight = this.$refs.queryForm.$el.offsetHeight + 130;
+          this.tableMaxHeight = appMainHeight - queryFormHeight;
+        })
+      }
+    },
+    // 显示隐藏搜索重置table最大高度
+    showSearch(){
+      if(this.showSearch){
+        let appMainHeight = document.querySelector('.app-main').offsetHeight;
+        this.$nextTick(() => {
+          let queryFormHeight = this.$refs.queryForm.$el.offsetHeight + 130;
+          this.tableMaxHeight = appMainHeight - queryFormHeight;
+        })
+      }else{
+        let appMainHeight = document.querySelector('.app-main').offsetHeight;
+        this.tableMaxHeight = appMainHeight - 130;
+      } 
+    }
   },
   created() {
     this.getList();

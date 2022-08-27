@@ -21,13 +21,13 @@
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
       </el-form-item>
-
     </el-form>
+
     <el-table
       v-loading="loading"
       :data="list.slice((pageNum-1)*pageSize,pageNum*pageSize)"
       style="width: 100%;"
-    >
+      :max-height="tableMaxHeight">
       <el-table-column label="序号" type="index" align="center">
         <template slot-scope="scope">
           <span>{{(pageNum - 1) * pageSize + scope.$index + 1}}</span>
@@ -68,6 +68,8 @@ export default {
   name: "Online",
   data() {
     return {
+      // table最大高度
+      tableMaxHeight: 0,
       // 遮罩层
       loading: true,
       // 总条数
@@ -82,6 +84,15 @@ export default {
         userName: undefined
       }
     };
+  },
+  watch: {
+    // 数据加载完毕初始化table最大高度
+    list(){
+      this.$nextTick(() => {
+        let appMainHeight = document.querySelector('.app-main').offsetHeight;
+        this.tableMaxHeight = appMainHeight - 130;
+      })
+    }
   },
   created() {
     this.getList();

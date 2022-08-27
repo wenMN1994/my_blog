@@ -5,8 +5,7 @@ package com.dragon.common.utils.poi;
  * 
  * @author dragon
  */
-public interface ExcelHandlerAdapter
-{
+public interface ExcelHandlerAdapter {
     /**
      * 格式化
      * 

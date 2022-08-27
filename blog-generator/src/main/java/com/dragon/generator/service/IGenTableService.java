@@ -10,8 +10,7 @@ import java.util.Map;
  * 
  * @author dragon
  */
-public interface IGenTableService
-{
+public interface IGenTableService {
     /**
      * 查询业务列表
      * 

@@ -6,6 +6,7 @@ import com.dragon.common.constant.CacheConstants;
 import com.dragon.common.constant.RegExpConstants;
 import com.dragon.common.utils.SliderCaptchaUtils;
 import com.dragon.common.utils.StringUtils;
+import com.dragon.common.utils.email.MailUtil;
 import com.dragon.common.utils.sms.SmsClientUtil;
 import com.dragon.system.domain.CheckSliderCaptcha;
 import com.google.code.kaptcha.Producer;
@@ -18,6 +19,9 @@ import com.dragon.common.utils.uuid.IdUtils;
 import com.dragon.system.service.ISysConfigService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.common.TemplateParserContext;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.FastByteArrayOutputStream;
 import org.springframework.web.bind.annotation.*;
@@ -75,6 +79,9 @@ public class CaptchaController {
 
     @Autowired
     private SmsClientUtil smsClientUtil;
+
+    @Autowired
+    private MailUtil mailUtil;
 
     /**
      * 生成验证码
@@ -180,7 +187,6 @@ public class CaptchaController {
         } else {
             throw new RuntimeException("请输入正确的手机号码或邮箱");
         }
-
         if (!redisCache.hasKey(sliderCaptcha.getVerifyKey())) {
             throw new RuntimeException("验证码不合法");
         }
@@ -188,13 +194,11 @@ public class CaptchaController {
         if (codeObj == null) {
             throw new RuntimeException("验证码不合法");
         }
-
         String saveCode = codeObj.toString();
         if (StringUtils.isEmpty(saveCode)) {
             redisCache.deleteObject(sliderCaptcha.getVerifyKey());
             throw new RuntimeException("验证码不合法");
         }
-
         // 判断验证值 加减15 是否在范围内
         Integer saveCodeInt1 = Integer.parseInt(saveCode) - 15;
         Integer saveCodeInt2 = Integer.parseInt(saveCode) + 15;
@@ -202,11 +206,11 @@ public class CaptchaController {
         if (saveCodeInt1 > sliderCaptcha.getCode() || saveCodeInt2 < sliderCaptcha.getCode()) {
             throw new RuntimeException("验证码不合法");
         }
-
         // 保存验证码信息
         String phoneEmailVerifyValue = StringUtils.generateCaptcha();
         // 发送短信或邮箱验证码
         if(PHONE.equals(accountType)){
+            // 短信发送
             try {
                 JSONObject jsonObject = configService.selectAliyunSms();
                 String signature = jsonObject.get("signature").toString();
@@ -217,9 +221,20 @@ public class CaptchaController {
                 throw new RuntimeException("服务异常，请稍后再试！");
             }
         }else if(EMAIL.equals(accountType)){
-            // @TODO 邮件发送
+            // 邮件发送
+            try {
+                String emailTemplate = configService.selectEmailTemplateVerificationCode();
+                Map<String, Object> params = new HashMap<>(2);
+                params.put("code", phoneEmailVerifyValue);
+                params.put("expires", Constants.CAPTCHA_EXPIRATION);
+                ExpressionParser parser = new SpelExpressionParser();
+                TemplateParserContext parserContext = new TemplateParserContext();
+                String content = parser.parseExpression(emailTemplate,parserContext).getValue(params, String.class);
+                mailUtil.sendText(sliderCaptcha.getName(), "", "", "龙颜科技", content);
+            } catch (Exception e) {
+                throw new RuntimeException("服务异常，请稍后再试！");
+            }
         }
-
         // 缓存当前手机号码或邮箱地址+验证码到Redis 2分钟内不允许重复发送验证码
         redisCache.setCacheObject(phoneEmailVerifyKey, phoneEmailVerifyValue, Constants.CAPTCHA_EXPIRATION, TimeUnit.MINUTES);
         ajax.put("phoneEmailVerifyKey", phoneEmailVerifyKey);

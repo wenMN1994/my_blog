@@ -5,7 +5,6 @@ package com.dragon.common.core.domain.model;
  * 
  * @author dragon
  */
-public class RegisterBody extends LoginBody
-{
+public class RegisterBody extends LoginBody {
 
 }

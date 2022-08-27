@@ -9,8 +9,7 @@ import java.util.List;
  * 
  * @author dragon
  */
-public interface ISysNoticeService
-{
+public interface ISysNoticeService {
     /**
      * 查询公告信息
      * 

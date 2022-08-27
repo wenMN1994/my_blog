@@ -2,6 +2,7 @@ package com.dragon.portal.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import com.dragon.common.core.domain.model.LoginUser;
 import com.dragon.common.utils.DateUtils;
@@ -98,10 +99,20 @@ public class ArticleServiceImpl implements IArticleService {
      * 修改文章信息
      *
      * @param article 文章信息
+     * @param loginUser 登录用户信息
      * @return 结果
      */
     @Override
-    public int updateArticle(Article article) {
+    public int updateArticle(Article article, LoginUser loginUser) {
+        if(article.getCover() == null || Objects.equals(0, article.getCover())){
+            SysFile sysFile = new SysFile();
+            sysFile.setFileUrl(article.getCoverUrl());
+            sysFile.setIsEnable("0");
+            sysFile.setCreateBy(loginUser.getUsername());
+            iSysFileService.insertSysFile(sysFile);
+            article.setCover(sysFile.getFileId());
+        }
+        article.setUpdateBy(loginUser.getUsername());
         article.setUpdateTime(DateUtils.getNowDate());
         return articleMapper.updateArticle(article);
     }

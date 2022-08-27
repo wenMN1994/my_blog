@@ -5,8 +5,7 @@ package com.dragon.common.enums;
  * 
  * @author dragon
  */
-public enum DataSourceType
-{
+public enum DataSourceType {
     /**
      * 主库
      */

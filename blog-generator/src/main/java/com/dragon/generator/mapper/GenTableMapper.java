@@ -9,8 +9,7 @@ import java.util.List;
  * 
  * @author dragon
  */
-public interface GenTableMapper
-{
+public interface GenTableMapper {
     /**
      * 查询业务列表
      * 

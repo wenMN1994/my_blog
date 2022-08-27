@@ -5,8 +5,7 @@ package com.dragon.common.constant;
  * 
  * @author dragon
  */
-public class ScheduleConstants
-{
+public class ScheduleConstants {
     public static final String TASK_CLASS_NAME = "TASK_CLASS_NAME";
 
     /** 执行目标key */

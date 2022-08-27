@@ -3,14 +3,14 @@
     <el-upload
       multiple
       :action="uploadImgUrl"
-      list-type="picture-card"
+      :list-type="listType"
       :on-success="handleUploadSuccess"
       :before-upload="handleBeforeUpload"
       :limit="limit"
       :on-error="handleUploadError"
       :on-exceed="handleExceed"
-      name="file"
-      :on-remove="handleRemove"
+      ref="imageUpload"
+      :on-remove="handleDelete"
       :show-file-list="true"
       :headers="headers"
       :file-list="fileList"
@@ -19,12 +19,13 @@
     >
       <i class="el-icon-plus"></i>
     </el-upload>
-    
+
     <!-- 上传提示 -->
     <div class="el-upload__tip" slot="tip" v-if="showTip">
       请上传
+      <template v-if="filePixel.length"> 像素等于 <b style="color: #f56c6c">{{ filePixel.join(" * ") }}px</b> </template>
       <template v-if="fileSize"> 大小不超过 <b style="color: #f56c6c">{{ fileSize }}MB</b> </template>
-      <template v-if="fileType"> 格式为 <b style="color: #f56c6c">{{ fileType.join("/") }}</b> </template>
+      <template v-if="fileType.length"> 格式为 <b style="color: #f56c6c">{{ fileType.join("/") }}</b> </template>
       的文件
     </div>
 
@@ -53,6 +54,11 @@ export default {
       type: Number,
       default: 5,
     },
+    // 文件像素限制
+    filePixel: {
+      type: Array,
+      default: () => [],
+    },
     // 大小限制(MB)
     fileSize: {
       type: Number,
@@ -62,6 +68,11 @@ export default {
     fileType: {
       type: Array,
       default: () => ["png", "jpg", "jpeg"],
+    },
+    // 文件列表的类型 text/picture/picture-card
+    listType: {
+      type: String,
+      default: "picture-card",
     },
     // 是否显示提示
     isShowTip: {
@@ -112,25 +123,6 @@ export default {
     },
   },
   methods: {
-    // 删除图片
-    handleRemove(file, fileList) {
-      const findex = this.fileList.map(f => f.name).indexOf(file.name);
-      if(findex > -1) {
-        this.fileList.splice(findex, 1);
-        this.$emit("input", this.listToString(this.fileList));
-      }
-    },
-    // 上传成功回调
-    handleUploadSuccess(res) {
-      this.uploadList.push({ name: res.fileName, url: res.url });
-      if (this.uploadList.length === this.number) {
-        this.fileList = this.fileList.concat(this.uploadList);
-        this.uploadList = [];
-        this.number = 0;
-        this.$emit("input", this.listToString(this.fileList));
-        this.$modal.closeLoading();
-      }
-    },
     // 上传前loading加载
     handleBeforeUpload(file) {
       let isImg = false;
@@ -159,17 +151,64 @@ export default {
           return false;
         }
       }
-      this.$modal.loading("正在上传图片，请稍候...");
-      this.number++;
+      return new Promise((resolve,reject) => {
+        const URL = window.URL || window.webkitURL
+        const img = new Image()
+        img.onload = () => {
+          let [imgWidth, imgHeight] = this.filePixel
+          if (this.filePixel.length && (img.width !== imgWidth || img.height !== imgHeight)) {
+            this.$modal.msgError("上传文件的图片大小不合符标准"+this.filePixel.join(" * ")+" px!")
+            return reject(false)
+          } else {
+            return resolve(true)
+          }
+        }
+        img.src = URL.createObjectURL(file)
+        this.$modal.loading("正在上传图片，请稍候...");
+        this.number++;
+      }).finally(() => {
+        this.$modal.closeLoading();
+      })
     },
     // 文件个数超出
     handleExceed() {
       this.$modal.msgError(`上传文件数量不能超过 ${this.limit} 个!`);
     },
+    // 上传成功回调
+    handleUploadSuccess(res, file) {
+      if (res.code === 200) {
+        this.uploadList.push({ name: res.fileName, url: res.fileName });
+        this.uploadedSuccessfully();
+      } else {
+        this.number--;
+        this.$modal.closeLoading();
+        this.$modal.msgError(res.msg);
+        this.$refs.imageUpload.handleRemove(file);
+        this.uploadedSuccessfully();
+      }
+    },
+    // 删除图片
+    handleDelete(file) {
+      const findex = this.fileList.map(f => f.name).indexOf(file.name);
+      if(findex > -1) {
+        this.fileList.splice(findex, 1);
+        this.$emit("input", this.listToString(this.fileList));
+      }
+    },
     // 上传失败
     handleUploadError() {
       this.$modal.msgError("上传图片失败，请重试");
       this.$modal.closeLoading();
+    },
+    // 上传结束处理
+    uploadedSuccessfully() {
+      if (this.number > 0 && this.uploadList.length === this.number) {
+        this.fileList = this.fileList.concat(this.uploadList);
+        this.uploadList = [];
+        this.number = 0;
+        this.$emit("input", this.listToString(this.fileList));
+        this.$modal.closeLoading();
+      }
     },
     // 预览
     handlePictureCardPreview(file) {
@@ -181,7 +220,9 @@ export default {
       let strs = "";
       separator = separator || ",";
       for (let i in list) {
-        strs += list[i].url + separator;
+        if (list[i].url) {
+          strs += list[i].url.replace(this.baseUrl, "") + separator;
+        }
       }
       return strs != '' ? strs.substr(0, strs.length - 1) : '';
     }

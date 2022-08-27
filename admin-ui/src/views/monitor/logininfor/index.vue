@@ -97,7 +97,14 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table ref="tables" v-loading="loading" :data="list" @selection-change="handleSelectionChange" :default-sort="defaultSort" @sort-change="handleSortChange">
+    <el-table 
+      ref="tables" 
+      v-loading="loading" 
+      :data="list" 
+      @selection-change="handleSelectionChange" 
+      :default-sort="defaultSort" 
+      @sort-change="handleSortChange"
+      :max-height="tableMaxHeight">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="访问编号" align="center" prop="infoId" />
       <el-table-column label="用户名称" align="center" prop="userName" :show-overflow-tooltip="true" sortable="custom" :sort-orders="['descending', 'ascending']" />
@@ -136,6 +143,8 @@
     dicts: ['sys_common_status'],
     data() {
       return {
+        // table最大高度
+        tableMaxHeight: 0,
         // 遮罩层
         loading: true,
         // 选中数组
@@ -165,6 +174,31 @@
           status: undefined
         }
       };
+    },
+    watch: {
+      // 数据加载完毕初始化table最大高度
+      list(){
+        if(this.showSearch){
+          this.$nextTick(() => {
+            let appMainHeight = document.querySelector('.app-main').offsetHeight;
+            let queryFormHeight = this.$refs.queryForm.$el.offsetHeight + 130;
+            this.tableMaxHeight = appMainHeight - queryFormHeight;
+          })
+        }
+      },
+      // 显示隐藏搜索重置table最大高度
+      showSearch(){
+        if(this.showSearch){
+          let appMainHeight = document.querySelector('.app-main').offsetHeight;
+          this.$nextTick(() => {
+            let queryFormHeight = this.$refs.queryForm.$el.offsetHeight + 130;
+            this.tableMaxHeight = appMainHeight - queryFormHeight;
+          })
+        }else{
+          let appMainHeight = document.querySelector('.app-main').offsetHeight;
+          this.tableMaxHeight = appMainHeight - 130;
+        } 
+      }
     },
     created() {
       this.getList();

@@ -1,10 +1,17 @@
 import request from '@/utils/request'
 
 export default {
-    //查询热门课程和名师
+  // 查询轮播图数据
+  getSlideshowList() {
+    return request({
+      url: '/publicApi/indexFront/getSlideshowList',
+      method: 'get'
+    })
+  },
+  // 查询轮播图数据
   getIndexData() {
     return request({
-      url: '/eduservice/indexfront/index',
+      url: '/publicApi/indexFront/getIndexData',
       method: 'get'
     })
   }

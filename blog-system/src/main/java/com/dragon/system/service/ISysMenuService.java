@@ -12,8 +12,7 @@ import java.util.Set;
  * 
  * @author dragon
  */
-public interface ISysMenuService
-{
+public interface ISysMenuService {
     /**
      * 根据用户查询系统菜单列表
      * 

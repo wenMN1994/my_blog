@@ -19,7 +19,7 @@ export default {
   props: {
     src: {
       type: String,
-      required: true
+      default: ""
     },
     width: {
       type: [Number, String],

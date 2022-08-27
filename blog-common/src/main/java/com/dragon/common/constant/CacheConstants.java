@@ -41,4 +41,9 @@ public class CacheConstants {
      * 登录账户密码错误次数 redis key
      */
     public static final String PWD_ERR_CNT_KEY = "pwd_err_cnt:";
+
+    /**
+     * 网站首页轮播图缓存 redis key
+     */
+    public static final String INDEX_FRONT_SLIDESHOW_KEY = "index_front:slideshow";
 }

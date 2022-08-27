@@ -25,6 +25,7 @@
         select article_id, article_title, article_type, cover, summary, publish_type, content_level, status, content, content_html, create_by, create_time, update_by, update_time from portal_article
     </sql>
 
+    <!--查询文章信息列表-->
     <select id="selectArticleList" parameterType="Article" resultMap="ArticleResult">
         <include refid="selectArticleVo"/>
         <where>
@@ -38,11 +39,13 @@
         order by create_time desc
     </select>
 
+    <!--查询文章信息-->
     <select id="selectArticleByArticleId" parameterType="Long" resultMap="ArticleResult">
         <include refid="selectArticleVo"/>
         where article_id = #{articleId}
     </select>
 
+    <!--新增文章信息-->
     <insert id="insertArticle" parameterType="Article" useGeneratedKeys="true" keyProperty="articleId">
         insert into portal_article
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -77,6 +80,7 @@
         </trim>
     </insert>
 
+    <!--修改文章信息-->
     <update id="updateArticle" parameterType="Article">
         update portal_article
         <trim prefix="SET" suffixOverrides=",">
@@ -97,6 +101,7 @@
         where article_id = #{articleId}
     </update>
 
+    <!--删除文章信息-->
     <update id="deleteArticleByArticleId" parameterType="Long">
         update portal_article
         <trim prefix="SET" suffixOverrides=",">
@@ -107,6 +112,7 @@
          where article_id = #{articleId}
     </update>
 
+    <!--批量删除文章信息-->
     <delete id="deleteArticleByArticleIds" parameterType="String">
         <foreach item="articleId" index="index" collection="articleIds" open="" separator=";" close="">
             update portal_article

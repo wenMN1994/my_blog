@@ -97,7 +97,11 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="roleList" @selection-change="handleSelectionChange">
+    <el-table 
+      v-loading="loading" 
+      :data="roleList" 
+      @selection-change="handleSelectionChange"
+      :max-height="tableMaxHeight">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="角色编号" prop="roleId" width="120" />
       <el-table-column label="角色名称" prop="roleName" :show-overflow-tooltip="true" width="150" />
@@ -156,7 +160,13 @@
     />
 
     <!-- 添加或修改角色配置对话框 -->
-    <el-dialog :title="title" :visible.sync="open" :close-on-click-modal="false" width="500px" append-to-body class="scrollbar">
+    <el-dialog 
+      :title="title" 
+      :visible.sync="open" 
+      :close-on-click-modal="false" 
+      width="500px" 
+      append-to-body 
+      class="scrollbar">
       <el-form ref="form" :model="form" :rules="rules" label-width="100px">
         <el-form-item label="角色名称" prop="roleName">
           <el-input v-model="form.roleName" placeholder="请输入角色名称" />
@@ -218,6 +228,8 @@ export default {
   dicts: ['sys_normal_disable'],
   data() {
     return {
+      // table最大高度
+      tableMaxHeight: 0,
       // 遮罩层
       loading: true,
       // 选中数组
@@ -269,6 +281,31 @@ export default {
         ]
       }
     };
+  },
+  watch: {
+    // 数据加载完毕初始化table最大高度
+    roleList(){
+      if(this.showSearch){
+        this.$nextTick(() => {
+          let appMainHeight = document.querySelector('.app-main').offsetHeight;
+          let queryFormHeight = this.$refs.queryForm.$el.offsetHeight + 130;
+          this.tableMaxHeight = appMainHeight - queryFormHeight;
+        })
+      }
+    },
+    // 显示隐藏搜索重置table最大高度
+    showSearch(){
+      if(this.showSearch){
+        let appMainHeight = document.querySelector('.app-main').offsetHeight;
+        this.$nextTick(() => {
+          let queryFormHeight = this.$refs.queryForm.$el.offsetHeight + 130;
+          this.tableMaxHeight = appMainHeight - queryFormHeight;
+        })
+      }else{
+        let appMainHeight = document.querySelector('.app-main').offsetHeight;
+        this.tableMaxHeight = appMainHeight - 130;
+      } 
+    }
   },
   created() {
     this.getList();

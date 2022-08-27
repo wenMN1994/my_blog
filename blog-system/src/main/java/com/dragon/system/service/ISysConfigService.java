@@ -114,4 +114,10 @@ public interface ISysConfigService {
      * @return 结果
      */
     public JSONObject selectAliyunSms();
+
+    /**
+     * 获取邮件发送模板
+     * @return
+     */
+    public String selectEmailTemplateVerificationCode();
 }

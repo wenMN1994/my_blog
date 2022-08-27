@@ -6,8 +6,7 @@ package com.dragon.common.enums;
  * @author dragon
  *
  */
-public enum BusinessStatus
-{
+public enum BusinessStatus {
     /**
      * 成功
      */

@@ -253,6 +253,19 @@ public class SysConfigServiceImpl implements ISysConfigService {
     }
 
     /**
+     *
+     * @return
+     */
+    @Override
+    public String selectEmailTemplateVerificationCode() {
+        String emailTemplate = selectConfigByKey("sys.emailTemplate.verificationCode");
+        if(StringUtils.isEmpty(emailTemplate)){
+            emailTemplate = "【DragonWen】您的验证码#{[code]}，该验证码#{[expires]}分钟内有效，请勿泄露于他人！";
+        }
+        return emailTemplate;
+    }
+
+    /**
      * 设置cache key
      * 
      * @param configKey 参数键

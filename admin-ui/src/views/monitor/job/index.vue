@@ -91,7 +91,11 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="jobList" @selection-change="handleSelectionChange">
+    <el-table 
+      v-loading="loading" 
+      :data="jobList" 
+      @selection-change="handleSelectionChange"
+      :max-height="tableMaxHeight">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="任务编号" width="100" align="center" prop="jobId" />
       <el-table-column label="任务名称" align="center" prop="jobName" :show-overflow-tooltip="true" />
@@ -154,7 +158,13 @@
     />
 
     <!-- 添加或修改定时任务对话框 -->
-    <el-dialog :title="title" :visible.sync="open" :close-on-click-modal="false" width="800px" append-to-body class="scrollbar">
+    <el-dialog 
+      :title="title" 
+      :visible.sync="open" 
+      :close-on-click-modal="false" 
+      width="800px" 
+      append-to-body 
+      class="scrollbar">
       <el-form ref="form" :model="form" :rules="rules" label-width="120px">
         <el-row>
           <el-col :span="12">
@@ -243,7 +253,13 @@
     </el-dialog>
 
     <!-- 任务日志详细 -->
-    <el-dialog title="任务详细" :visible.sync="openView" :close-on-click-modal="false" width="700px" append-to-body class="scrollbar">
+    <el-dialog 
+      title="任务详细" 
+      :visible.sync="openView" 
+      :close-on-click-modal="false"
+       width="700px" 
+       append-to-body 
+       class="scrollbar">
       <el-form ref="form" :model="form" label-width="120px" size="mini">
         <el-row>
           <el-col :span="12">
@@ -302,6 +318,8 @@ export default {
   dicts: ['sys_job_group', 'sys_job_status'],
   data() {
     return {
+      // table最大高度
+      tableMaxHeight: 0,
       // 遮罩层
       loading: true,
       // 选中数组
@@ -349,6 +367,31 @@ export default {
         ]
       }
     };
+  },
+  watch: {
+    // 数据加载完毕初始化table最大高度
+    jobList(){
+      if(this.showSearch){
+        this.$nextTick(() => {
+          let appMainHeight = document.querySelector('.app-main').offsetHeight;
+          let queryFormHeight = this.$refs.queryForm.$el.offsetHeight + 130;
+          this.tableMaxHeight = appMainHeight - queryFormHeight;
+        })
+      }
+    },
+    // 显示隐藏搜索重置table最大高度
+    showSearch(){
+      if(this.showSearch){
+        let appMainHeight = document.querySelector('.app-main').offsetHeight;
+        this.$nextTick(() => {
+          let queryFormHeight = this.$refs.queryForm.$el.offsetHeight + 130;
+          this.tableMaxHeight = appMainHeight - queryFormHeight;
+        })
+      }else{
+        let appMainHeight = document.querySelector('.app-main').offsetHeight;
+        this.tableMaxHeight = appMainHeight - 130;
+      } 
+    }
   },
   created() {
     this.getList();

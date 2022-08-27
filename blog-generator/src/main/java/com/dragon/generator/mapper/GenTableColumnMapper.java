@@ -9,8 +9,7 @@ import java.util.List;
  * 
  * @author dragon
  */
-public interface GenTableColumnMapper
-{
+public interface GenTableColumnMapper {
     /**
      * 根据表名称查询列信息
      * 

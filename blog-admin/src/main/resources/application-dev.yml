@@ -143,6 +143,19 @@ spring:
                 wall:
                     config:
                         multi-statement-allow: true
+    # 邮件配置
+    mail:
+        host: smtp.163.com
+        username: 邮箱登录用户名
+        password: 设置自己的授权码
+        default-encoding: utf-8
+        properties:
+            mail:
+                smtp:
+                    auth: true
+                    starttls:
+                        enable: true
+                        required: true
 
 # token配置
 token:

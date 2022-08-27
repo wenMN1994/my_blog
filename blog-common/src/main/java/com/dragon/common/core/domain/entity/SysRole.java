@@ -14,8 +14,7 @@ import javax.validation.constraints.Size;
  * 
  * @author dragon
  */
-public class SysRole extends BaseEntity
-{
+public class SysRole extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /** 角色ID */
@@ -50,45 +49,37 @@ public class SysRole extends BaseEntity
     /** 菜单组 */
     private Long[] menuIds;
 
-    public SysRole()
-    {
+    public SysRole() {
 
     }
 
-    public SysRole(Long roleId)
-    {
+    public SysRole(Long roleId) {
         this.roleId = roleId;
     }
 
-    public Long getRoleId()
-    {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Long roleId)
-    {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 
-    public boolean isAdmin()
-    {
+    public boolean isAdmin() {
         return isAdmin(this.roleId);
     }
 
-    public static boolean isAdmin(Long roleId)
-    {
+    public static boolean isAdmin(Long roleId) {
         return roleId != null && 1L == roleId;
     }
 
     @NotBlank(message = "角色名称不能为空")
     @Size(min = 0, max = 30, message = "角色名称长度不能超过30个字符")
-    public String getRoleName()
-    {
+    public String getRoleName() {
         return roleName;
     }
 
-    public void setRoleName(String roleName)
-    {
+    public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
 
@@ -99,69 +90,56 @@ public class SysRole extends BaseEntity
         return roleKey;
     }
 
-    public void setRoleKey(String roleKey)
-    {
+    public void setRoleKey(String roleKey) {
         this.roleKey = roleKey;
     }
 
     @NotBlank(message = "显示顺序不能为空")
-    public String getRoleSort()
-    {
+    public String getRoleSort() {
         return roleSort;
     }
 
-    public void setRoleSort(String roleSort)
-    {
+    public void setRoleSort(String roleSort) {
         this.roleSort = roleSort;
     }
 
-    public boolean isMenuCheckStrictly()
-    {
+    public boolean isMenuCheckStrictly() {
         return menuCheckStrictly;
     }
 
-    public void setMenuCheckStrictly(boolean menuCheckStrictly)
-    {
+    public void setMenuCheckStrictly(boolean menuCheckStrictly) {
         this.menuCheckStrictly = menuCheckStrictly;
     }
 
-    public String getStatus()
-    {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status)
-    {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public String getDelFlag()
-    {
+    public String getDelFlag() {
         return delFlag;
     }
 
-    public void setDelFlag(String delFlag)
-    {
+    public void setDelFlag(String delFlag) {
         this.delFlag = delFlag;
     }
 
-    public boolean isFlag()
-    {
+    public boolean isFlag() {
         return flag;
     }
 
-    public void setFlag(boolean flag)
-    {
+    public void setFlag(boolean flag) {
         this.flag = flag;
     }
 
-    public Long[] getMenuIds()
-    {
+    public Long[] getMenuIds() {
         return menuIds;
     }
 
-    public void setMenuIds(Long[] menuIds)
-    {
+    public void setMenuIds(Long[] menuIds) {
         this.menuIds = menuIds;
     }
     

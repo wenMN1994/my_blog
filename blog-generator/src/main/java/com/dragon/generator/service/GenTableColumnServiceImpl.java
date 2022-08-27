@@ -14,8 +14,7 @@ import java.util.List;
  * @author dragon
  */
 @Service
-public class GenTableColumnServiceImpl implements IGenTableColumnService 
-{
+public class GenTableColumnServiceImpl implements IGenTableColumnService {
 	@Autowired
 	private GenTableColumnMapper genTableColumnMapper;
 
@@ -26,8 +25,7 @@ public class GenTableColumnServiceImpl implements IGenTableColumnService
      * @return 业务字段集合
      */
 	@Override
-	public List<GenTableColumn> selectGenTableColumnListByTableId(Long tableId)
-	{
+	public List<GenTableColumn> selectGenTableColumnListByTableId(Long tableId) {
 	    return genTableColumnMapper.selectGenTableColumnListByTableId(tableId);
 	}
 	
@@ -38,8 +36,7 @@ public class GenTableColumnServiceImpl implements IGenTableColumnService
      * @return 结果
      */
 	@Override
-	public int insertGenTableColumn(GenTableColumn genTableColumn)
-	{
+	public int insertGenTableColumn(GenTableColumn genTableColumn) {
 	    return genTableColumnMapper.insertGenTableColumn(genTableColumn);
 	}
 	
@@ -50,8 +47,7 @@ public class GenTableColumnServiceImpl implements IGenTableColumnService
      * @return 结果
      */
 	@Override
-	public int updateGenTableColumn(GenTableColumn genTableColumn)
-	{
+	public int updateGenTableColumn(GenTableColumn genTableColumn) {
 	    return genTableColumnMapper.updateGenTableColumn(genTableColumn);
 	}
 
@@ -62,8 +58,7 @@ public class GenTableColumnServiceImpl implements IGenTableColumnService
      * @return 结果
      */
 	@Override
-	public int deleteGenTableColumnByIds(String ids)
-	{
+	public int deleteGenTableColumnByIds(String ids) {
 		return genTableColumnMapper.deleteGenTableColumnByIds(Convert.toLongArray(ids));
 	}
 }

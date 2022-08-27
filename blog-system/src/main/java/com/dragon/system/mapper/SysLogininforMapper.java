@@ -9,8 +9,7 @@ import java.util.List;
  * 
  * @author dragon
  */
-public interface SysLogininforMapper
-{
+public interface SysLogininforMapper {
     /**
      * 新增系统登录日志
      * 

@@ -5,8 +5,7 @@ package com.dragon.common.enums;
  * 
  * @author dragon
  */
-public enum BusinessType
-{
+public enum BusinessType {
     /**
      * 其它
      */

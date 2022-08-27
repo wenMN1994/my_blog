@@ -42,9 +42,10 @@ public interface IArticleService
      * 修改文章信息
      *
      * @param article 文章信息
+     * @param loginUser 登录用户信息
      * @return 结果
      */
-    public int updateArticle(Article article);
+    public int updateArticle(Article article, LoginUser loginUser);
 
     /**
      * 批量删除文章信息
