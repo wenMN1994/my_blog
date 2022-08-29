@@ -14,5 +14,12 @@ export default {
       url: '/publicApi/indexFront/getIndexData',
       method: 'get'
     })
+  },
+  // 查询网站配置信息
+  getWebsiteConfigInfo() {
+    return request({
+      url: '/getWebsiteConfigInfo',
+      method: 'get'
+    })
   }
 }
