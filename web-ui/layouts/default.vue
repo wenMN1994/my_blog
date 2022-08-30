@@ -831,6 +831,12 @@ export default {
         this.loginFormDxPhoneError = '请输入正确的手机号码'
         return false
       }
+      // 校验账户是否已注册？
+      let verifyAccount = this.verifyAccount(this.phoneCodeLogin.phone)
+      if(!verifyAccount){
+        this.loginFormDxPhoneError = '账号不存在'
+        return false
+      }
       this.innerVisible = true
       this.loginOrRegisterType = 'LOGIN_PHONE'
       this.getImageVerifyCode(this.phoneCodeLogin.phone, this.loginOrRegisterType)
@@ -861,6 +867,12 @@ export default {
           this.loginFormForgetNameError = '请输入正确的手机号码或邮箱'
           return false
       }
+      // 校验账户是否已注册？
+      let verifyAccount = this.verifyAccount(this.phoneCodeLogin.phone)
+      if(!verifyAccount){
+        this.loginFormForgetNameError = '账号不存在'
+        return false
+      }
       this.innerVisible = true
       this.loginOrRegisterType = 'FORGET_PWD'
       this.getImageVerifyCode(this.forgetpwd.name, this.loginOrRegisterType)
@@ -889,6 +901,12 @@ export default {
         return false
       }else if(!this.phonePattern.test(this.phoneRegister.phone)){
         this.loginFormRegisterPhoneError = '请输入正确的手机号码'
+        return false
+      }
+      // 校验账户是否已注册？
+      let verifyAccount = this.verifyAccount(this.phoneCodeLogin.phone)
+      if(!verifyAccount){
+        this.loginFormRegisterPhoneError = '账号已存在'
         return false
       }
       this.innerVisible = true
@@ -1082,6 +1100,14 @@ export default {
       this.bigImage = ''
       this.smallImage = ''
       this.getImageVerifyCode(this.catcha.emailOrPhone, this.loginOrRegisterType)
+    },
+    // 校验账号、手机号码、邮箱是否已注册
+    verifyAccount(account) {
+      loginApi.verifyAccount({account: account}).then(res => {
+        if (res.data.code === 200) {
+          return res.data.account
+        }
+      })
     }
   },
   components: {

@@ -34,6 +34,14 @@ export default {
       method: 'post',
       data: params
     })
-  }
+  },
 
+  // 校验账号、手机号码、邮箱是否已注册
+  verifyAccount() {
+    return request({
+      url: `/verifyAccount`,
+      method: 'get',
+      params: param
+    })
+  }
 }
