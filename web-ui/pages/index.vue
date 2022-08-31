@@ -209,8 +209,8 @@ export default {
     // 查询热门课程和新上好课
     getHotNewCourse() {
       indexApi.getIndexData().then(res => {
-        this.hotCourseList = res.data.data
-        this.newCourseList = res.data.data
+        // this.hotCourseList = res.data.data
+        // this.newCourseList = res.data.data
       })
     },
     // 查询轮播图数据

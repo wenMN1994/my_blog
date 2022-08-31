@@ -8,7 +8,7 @@ export default {
       method: 'get'
     })
   },
-  // 查询轮播图数据
+  // 查询热门课程和新上好课
   getIndexData() {
     return request({
       url: '/publicApi/indexFront/getIndexData',

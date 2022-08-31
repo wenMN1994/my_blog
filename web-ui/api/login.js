@@ -37,9 +37,9 @@ export default {
   },
 
   // 校验账号、手机号码、邮箱是否已注册
-  verifyAccount() {
+  verifyAccount(param) {
     return request({
-      url: `/verifyAccount`,
+      url: `/publicApi/indexFront/verifyAccount`,
       method: 'get',
       params: param
     })

@@ -832,14 +832,15 @@ export default {
         return false
       }
       // 校验账户是否已注册？
-      let verifyAccount = this.verifyAccount(this.phoneCodeLogin.phone)
-      if(!verifyAccount){
-        this.loginFormDxPhoneError = '账号不存在'
-        return false
-      }
-      this.innerVisible = true
-      this.loginOrRegisterType = 'LOGIN_PHONE'
-      this.getImageVerifyCode(this.phoneCodeLogin.phone, this.loginOrRegisterType)
+      loginApi.verifyAccount({account: this.phoneCodeLogin.phone}).then(res => {
+        if (res.data.code === 200 && res.data.data) {
+          this.innerVisible = true
+          this.loginOrRegisterType = 'LOGIN_PHONE'
+          this.getImageVerifyCode(this.phoneCodeLogin.phone, this.loginOrRegisterType)
+        }else {
+          this.loginFormDxPhoneError = '账号不存在'
+        }
+      })
     },
     // 手机号码登录倒计时
     loginPhoneVerifyCodeCountDown(){
@@ -868,14 +869,15 @@ export default {
           return false
       }
       // 校验账户是否已注册？
-      let verifyAccount = this.verifyAccount(this.phoneCodeLogin.phone)
-      if(!verifyAccount){
-        this.loginFormForgetNameError = '账号不存在'
-        return false
-      }
-      this.innerVisible = true
-      this.loginOrRegisterType = 'FORGET_PWD'
-      this.getImageVerifyCode(this.forgetpwd.name, this.loginOrRegisterType)
+      loginApi.verifyAccount({account: this.forgetpwd.name}).then(res => {
+        if (res.data.code === 200 && res.data.data) {
+          this.innerVisible = true
+          this.loginOrRegisterType = 'FORGET_PWD'
+          this.getImageVerifyCode(this.forgetpwd.name, this.loginOrRegisterType)
+        }else {
+          this.loginFormForgetNameError = '账号不存在'
+        }
+      })
     },
     // 重置密码倒计时
     forgetPwPhoneVerifyCodeCountDown() {
@@ -904,14 +906,15 @@ export default {
         return false
       }
       // 校验账户是否已注册？
-      let verifyAccount = this.verifyAccount(this.phoneCodeLogin.phone)
-      if(!verifyAccount){
-        this.loginFormRegisterPhoneError = '账号已存在'
-        return false
-      }
-      this.innerVisible = true
-      this.loginOrRegisterType = 'REGISTER_PHONE'
-      this.getImageVerifyCode(this.phoneRegister.phone, this.loginOrRegisterType)
+      loginApi.verifyAccount({account: this.phoneRegister.phone}).then(res => {
+        if (res.data.code === 200 && !res.data.data) {
+          this.innerVisible = true
+          this.loginOrRegisterType = 'REGISTER_PHONE'
+          this.getImageVerifyCode(this.phoneRegister.phone, this.loginOrRegisterType)
+        }else {
+          this.loginFormRegisterPhoneError = '账号已存在'
+        }
+      })
     },
     // 手机号码注册验证码倒计时
     registerPhoneVerifyCodeCountDown(){
@@ -1100,14 +1103,6 @@ export default {
       this.bigImage = ''
       this.smallImage = ''
       this.getImageVerifyCode(this.catcha.emailOrPhone, this.loginOrRegisterType)
-    },
-    // 校验账号、手机号码、邮箱是否已注册
-    verifyAccount(account) {
-      loginApi.verifyAccount({account: account}).then(res => {
-        if (res.data.code === 200) {
-          return res.data.account
-        }
-      })
     }
   },
   components: {
