@@ -208,18 +208,16 @@ export default {
   methods:{
     // 查询热门课程和新上好课
     getHotNewCourse() {
-      indexApi.getIndexData()
-        .then(res => {
-          this.hotCourseList = res.data.data
-          this.newCourseList = res.data.data
-        })
+      indexApi.getIndexData().then(res => {
+        // this.hotCourseList = res.data.data
+        // this.newCourseList = res.data.data
+      })
     },
     // 查询轮播图数据
     getSlideshowList() {
-      indexApi.getSlideshowList()
-        .then(response => {
-          this.slideshowList = response.data.data
-        })
+      indexApi.getSlideshowList().then(response => {
+        this.slideshowList = response.data.data
+      })
     },
     // 课程点击跳转
     courseItemClick(courseId) {
