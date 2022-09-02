@@ -96,8 +96,9 @@
                 <span>Email：wenwenxing@dragonwen.cn</span>
               </section>
               <section class="b-f-link mt10">
-                <span>©2018-2022 龙颜科技
-                  <a href="https://beian.miit.gov.cn/" title="工信部链接" target="_blank">备案号：粤ICP备20001307号</a>
+                <span>©{{websiteConfig.year}} 
+                  <a :href="websiteConfig.domainName" title="龙颜科技" target="_self">龙颜科技</a>
+                  <a :href="websiteConfig.MIIT" title="工信部链接" target="_blank">备案号：{{websiteConfig.ICP}}</a>
                 </span>
               </section>
             </section>
@@ -433,6 +434,7 @@ import "~/assets/css/pages-weixinpay.css"
 import cookie from 'js-cookie'
 import SliderCaptcha from "~/components/SliderCaptcha.vue"
 import loginApi from '@/api/login'
+import indexApi from '@/api/index'
 
 export default {
   data() {
@@ -445,6 +447,13 @@ export default {
           mobile: '',
           nickname: '',
           sex: ''
+        },
+        // 网站配置信息
+        websiteConfig: {
+          ICP: '粤ICP备20001307号',
+          domainName: 'www.dragonwen.cn',
+          year: '2018-2022',
+          MIIT: 'https://beian.miit.gov.cn/'
         },
         // 是否显示登录&注册弹窗
         loginRegisterDialogVisible: false,
@@ -560,6 +569,8 @@ export default {
     }
   },
   created() {
+    // 获取网站配置信息
+    this.getWebsiteConfig()
     // 获取路径里面token值
     this.token = this.$route.query.token
     console.log(this.token)
@@ -571,25 +582,36 @@ export default {
     this.showInfo()
   },
   methods: {
+    // 获取网站配置信息
+    getWebsiteConfig(){
+      indexApi.getWebsiteConfigInfo().then(res => {
+        if(res.data.code === 200){
+          this.websiteConfig.ICP = res.data.ICP
+          this.websiteConfig.domainName = res.data.domainName
+          this.websiteConfig.year = res.data.year
+          this.websiteConfig.MIIT = res.data.MIIT
+        }
+      })
+    },
     // 微信登录显示的方法
     wxLogin() {
       // console.log('************'+this.token)
       // 把token值放到cookie里面
-      cookie.set('guli_token',this.token,{domain: 'localhost'})
-      cookie.set('guli_ucenter','',{domain: 'localhost'})
-      // console.log('====='+cookie.get('guli_token'))
+      cookie.set('dragon_token',this.token,{domain: 'localhost'})
+      cookie.set('dragon_ucenter','',{domain: 'localhost'})
+      // console.log('====='+cookie.get('dragon_ucenter'))
       // 调用接口，根据token值获取用户信息
       loginApi.getLoginUserInfo()
         .then(response => {
           // console.log('################'+response.data.data.userInfo)
            this.loginInfo = response.data.data.userInfo
-           cookie.set('guli_ucenter',this.loginInfo,{domain: 'localhost'})
+           cookie.set('dragon_ucenter',this.loginInfo,{domain: 'localhost'})
         })
     },
     // 创建方法，从cookie获取用户信息
     showInfo() {
       // 从cookie获取用户信息
-      var userStr = cookie.get('guli_ucenter')
+      var userStr = cookie.get('dragon_ucenter')
       // 把字符串转换json对象(js对象)
       if(userStr) {
         this.loginInfo = JSON.parse(userStr)
@@ -599,8 +621,8 @@ export default {
     // 退出
     logout() {
       // 清空cookie值
-      cookie.set('guli_token','',{domain: 'localhost'})
-      cookie.set('guli_ucenter','',{domain: 'localhost'})
+      cookie.set('dragon_token','',{domain: 'localhost'})
+      cookie.set('dragon_ucenter','',{domain: 'localhost'})
       // 回到首页面
       window.location.href = "/";
     },
@@ -809,9 +831,16 @@ export default {
         this.loginFormDxPhoneError = '请输入正确的手机号码'
         return false
       }
-      this.innerVisible = true
-      this.loginOrRegisterType = 'LOGIN_PHONE'
-      this.getImageVerifyCode(this.phoneCodeLogin.phone, this.loginOrRegisterType)
+      // 校验账户是否已注册？
+      loginApi.verifyAccount({account: this.phoneCodeLogin.phone}).then(res => {
+        if (res.data.code === 200 && res.data.data) {
+          this.innerVisible = true
+          this.loginOrRegisterType = 'LOGIN_PHONE'
+          this.getImageVerifyCode(this.phoneCodeLogin.phone, this.loginOrRegisterType)
+        }else {
+          this.loginFormDxPhoneError = '账号不存在'
+        }
+      })
     },
     // 手机号码登录倒计时
     loginPhoneVerifyCodeCountDown(){
@@ -839,9 +868,16 @@ export default {
           this.loginFormForgetNameError = '请输入正确的手机号码或邮箱'
           return false
       }
-      this.innerVisible = true
-      this.loginOrRegisterType = 'FORGET_PWD'
-      this.getImageVerifyCode(this.forgetpwd.name, this.loginOrRegisterType)
+      // 校验账户是否已注册？
+      loginApi.verifyAccount({account: this.forgetpwd.name}).then(res => {
+        if (res.data.code === 200 && res.data.data) {
+          this.innerVisible = true
+          this.loginOrRegisterType = 'FORGET_PWD'
+          this.getImageVerifyCode(this.forgetpwd.name, this.loginOrRegisterType)
+        }else {
+          this.loginFormForgetNameError = '账号不存在'
+        }
+      })
     },
     // 重置密码倒计时
     forgetPwPhoneVerifyCodeCountDown() {
@@ -869,9 +905,16 @@ export default {
         this.loginFormRegisterPhoneError = '请输入正确的手机号码'
         return false
       }
-      this.innerVisible = true
-      this.loginOrRegisterType = 'REGISTER_PHONE'
-      this.getImageVerifyCode(this.phoneRegister.phone, this.loginOrRegisterType)
+      // 校验账户是否已注册？
+      loginApi.verifyAccount({account: this.phoneRegister.phone}).then(res => {
+        if (res.data.code === 200 && !res.data.data) {
+          this.innerVisible = true
+          this.loginOrRegisterType = 'REGISTER_PHONE'
+          this.getImageVerifyCode(this.phoneRegister.phone, this.loginOrRegisterType)
+        }else {
+          this.loginFormRegisterPhoneError = '账号已存在'
+        }
+      })
     },
     // 手机号码注册验证码倒计时
     registerPhoneVerifyCodeCountDown(){

@@ -9,6 +9,7 @@ import com.dragon.portal.service.ISlideshowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -46,5 +47,26 @@ public class IndexApiController extends BaseController {
             redisCache.setCacheList(CacheConstants.INDEX_FRONT_SLIDESHOW_KEY, slideshowList);
         }
         return AjaxResult.success(slideshowList);
+    }
+
+    /**
+     * 查询热门课程和新上好课
+     * @return
+     */
+    @GetMapping("/getIndexData")
+    public AjaxResult getIndexData() {
+        // @TODO 查询热门课程和新上好课
+        return AjaxResult.success();
+    }
+
+    /**
+     * 校验账号、手机号码、邮箱是否已注册
+     * @param account
+     * @return
+     */
+    @GetMapping("/verifyAccount")
+    public AjaxResult verifyAccount(@RequestParam(name = "account") String account) {
+        // @TODO 查询数据库校验账号、手机号码、邮箱是否已注册
+        return AjaxResult.success(true);
     }
 }
