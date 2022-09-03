@@ -104,16 +104,28 @@
             </section>
           </section>
           <aside class="fl col-3 tac mt15">
-            <section class="gf-tx">
-              <span>
-                <img src="~/assets/img/wx-icon.png" alt>
-              </span>
-            </section>
-            <section class="gf-tx">
-              <span>
-                <img src="~/assets/img/wb-icon.png" alt>
-              </span>
-            </section>
+            <el-tooltip placement="top" effect="light">
+              <div slot="content">
+                <img src="~/assets/img/wechat.png" alt>
+              </div>
+              <section class="gf-tx">
+                <span>
+                  <img src="~/assets/img/wechat-icon.png" alt>
+                </span>
+              </section>
+            </el-tooltip>
+            <el-tooltip placement="top" effect="light">
+              <div slot="content">
+                <img src="~/assets/img/ali-pay.png" alt>
+                <img src="~/assets/img/wechat-pay.png" alt>
+              </div>
+              <section class="gf-tx">
+                <span>
+                  <img src="~/assets/img/dashang-icon.png" alt>
+                </span>
+              </section>
+            </el-tooltip>
+            
           </aside>
         </div>
       </section>
