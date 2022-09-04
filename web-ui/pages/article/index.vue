@@ -60,7 +60,7 @@
               </div>
               <div class="template-cont" v-for="item in 4" :key="item">
                 <a target="_blank">
-                  <img src="https://img-bss.csdnimg.cn/1642063594643.png">
+                  <img src="https://img-bss.csdn.net/1642139156620.jpg">
                   <p>详细后端开发知识讲解</p>
                 </a>
               </div>
@@ -73,7 +73,7 @@
               </div>
               <div class="template-cont" v-for="item in 4" :key="item">
                 <a target="_blank">
-                  <img src="https://img-bss.csdnimg.cn/1642063797339.png">
+                  <img src="https://img-bss.csdn.net/1642139177006.jpg">
                   <p>后端成长之路：从菜鸟到架构</p>
                 </a>
               </div>
