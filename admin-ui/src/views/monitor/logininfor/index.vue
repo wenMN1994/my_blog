@@ -97,12 +97,12 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table 
-      ref="tables" 
-      v-loading="loading" 
-      :data="list" 
-      @selection-change="handleSelectionChange" 
-      :default-sort="defaultSort" 
+    <el-table
+      ref="tables"
+      v-loading="loading"
+      :data="list"
+      @selection-change="handleSelectionChange"
+      :default-sort="defaultSort"
       @sort-change="handleSortChange"
       :max-height="tableMaxHeight">
       <el-table-column type="selection" width="55" align="center" />
@@ -199,7 +199,7 @@
         }else{
           let appMainHeight = document.querySelector('.app-main').offsetHeight;
           this.tableMaxHeight = appMainHeight - 130;
-        } 
+        }
       }
     },
     created() {
@@ -225,8 +225,8 @@
       resetQuery() {
         this.dateRange = [];
         this.resetForm("queryForm");
+        this.queryParams.pageNum = 1;
         this.$refs.tables.sort(this.defaultSort.prop, this.defaultSort.order)
-        this.handleQuery();
       },
       /** 多选框选中数据 */
       handleSelectionChange(selection) {

@@ -86,4 +86,12 @@ public class R<T> implements Serializable {
     public void setData(T data) {
         this.data = data;
     }
+
+    public static <T> Boolean isError(R<T> ret) {
+        return !isSuccess(ret);
+    }
+
+    public static <T> Boolean isSuccess(R<T> ret) {
+        return R.SUCCESS == ret.getCode();
+    }
 }

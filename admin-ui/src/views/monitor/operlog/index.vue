@@ -101,12 +101,12 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table 
-      ref="tables" 
-      v-loading="loading" 
-      :data="list" 
-      @selection-change="handleSelectionChange" 
-      :default-sort="defaultSort" 
+    <el-table
+      ref="tables"
+      v-loading="loading"
+      :data="list"
+      @selection-change="handleSelectionChange"
+      :default-sort="defaultSort"
       @sort-change="handleSortChange"
       :max-height="tableMaxHeight">
       <el-table-column type="selection" width="55" align="center" />
@@ -153,12 +153,12 @@
     />
 
     <!-- 操作日志详细 -->
-    <el-dialog 
-      title="操作日志详细" 
-      :visible.sync="open" 
-      :close-on-click-modal="false" 
-      width="700px" 
-      append-to-body 
+    <el-dialog
+      title="操作日志详细"
+      :visible.sync="open"
+      :close-on-click-modal="false"
+      width="700px"
+      append-to-body
       class="scrollbar">
       <el-form ref="form" :model="form" label-width="100px" size="mini">
         <el-row>
@@ -265,7 +265,7 @@ export default {
       }else{
         let appMainHeight = document.querySelector('.app-main').offsetHeight;
         this.tableMaxHeight = appMainHeight - 130;
-      } 
+      }
     }
   },
   created() {
@@ -295,8 +295,8 @@ export default {
     resetQuery() {
       this.dateRange = [];
       this.resetForm("queryForm");
+      this.queryParams.pageNum = 1;
       this.$refs.tables.sort(this.defaultSort.prop, this.defaultSort.order)
-      this.handleQuery();
     },
     /** 多选框选中数据 */
     handleSelectionChange(selection) {
