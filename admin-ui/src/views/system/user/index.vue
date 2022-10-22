@@ -108,9 +108,9 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList" :columns="columns"></right-toolbar>
     </el-row>
 
-    <el-table 
-      v-loading="loading" 
-      :data="userList" 
+    <el-table
+      v-loading="loading"
+      :data="userList"
       @selection-change="handleSelectionChange"
       :max-height="tableMaxHeight">
       <el-table-column type="selection" width="50" align="center" />
@@ -178,12 +178,12 @@
     />
 
     <!-- 添加或修改用户配置对话框 -->
-    <el-dialog 
-      :title="title" 
-      :visible.sync="open" 
-      :close-on-click-modal="false" 
-      width="600px" 
-      append-to-body 
+    <el-dialog
+      :title="title"
+      :visible.sync="open"
+      :close-on-click-modal="false"
+      width="600px"
+      append-to-body
       class="scrollbar">
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-row>
@@ -426,7 +426,7 @@ export default {
       }else{
         let appMainHeight = document.querySelector('.app-main').offsetHeight;
         this.tableMaxHeight = appMainHeight - 130;
-      } 
+      }
     }
   },
   created() {
@@ -525,7 +525,7 @@ export default {
       getUser(userId).then(response => {
         this.form = response.data;
         this.roleOptions = response.roles;
-        this.form.roleIds = response.roleIds;
+        this.$set(this.form, "roleIds", response.roleIds);
         this.open = true;
         this.title = "修改用户";
         this.form.password = "";
