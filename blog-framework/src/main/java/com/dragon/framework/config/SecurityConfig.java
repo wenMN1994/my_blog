@@ -99,6 +99,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 // CSRF禁用，因为不使用session
                 .csrf().disable()
+                // 禁用HTTP响应标头
+                .headers().cacheControl().disable().and()
                 // 认证失败处理类
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 // 基于token，所以不需要session
@@ -107,7 +109,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // 对于登录login 注册register 验证码captchaImage 网站配置信息/getWebsiteConfigInfo 允许匿名访问
                 .antMatchers("/login", "/register", "/publicApi/**",
-                        "/captchaImage", "/sliderCaptcha", "/checkSliderCaptcha", "/getWebsiteConfigInfo").anonymous()
+                        "/captchaImage", "/sliderCaptcha", "/checkSliderCaptcha", "/getWebsiteConfigInfo").permitAll()
                 // 静态资源，可匿名访问
                 .antMatchers(HttpMethod.GET, "/", "/*.html", "/**/*.html", "/**/*.css", "/**/*.js", "/profile/**").permitAll()
                 .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/webjars/**", "/*/api-docs", "/druid/**").permitAll()
@@ -122,8 +124,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 添加CORS filter
         httpSecurity.addFilterBefore(corsFilter, JwtAuthenticationTokenFilter.class);
         httpSecurity.addFilterBefore(corsFilter, LogoutFilter.class);
-        // 禁用缓存
-        httpSecurity.headers().cacheControl().disable();
     }
 
     /**
