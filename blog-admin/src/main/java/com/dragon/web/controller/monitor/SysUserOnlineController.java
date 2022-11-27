@@ -70,6 +70,6 @@ public class SysUserOnlineController extends BaseController {
     @DeleteMapping("/{tokenId}")
     public AjaxResult forceLogout(@PathVariable String tokenId) {
         redisCache.deleteObject(CacheConstants.LOGIN_TOKEN_KEY + tokenId);
-        return AjaxResult.success();
+        return success();
     }
 }

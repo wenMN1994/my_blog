@@ -55,6 +55,6 @@ public class SysOperlogController extends BaseController {
     @DeleteMapping("/clean")
     public AjaxResult clean() {
         operLogService.cleanOperLog();
-        return AjaxResult.success();
+        return success();
     }
 }
