@@ -101,9 +101,9 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table 
-      v-loading="loading" 
-      :data="jobLogList" 
+    <el-table
+      v-loading="loading"
+      :data="jobLogList"
       @selection-change="handleSelectionChange"
       :max-height="tableMaxHeight">
       <el-table-column type="selection" width="55" align="center" />
@@ -148,12 +148,12 @@
     />
 
     <!-- 调度日志详细 -->
-    <el-dialog 
-      title="调度日志详细" 
-      :visible.sync="open" 
-      :close-on-click-modal="false" 
-      width="700px" 
-      append-to-body 
+    <el-dialog
+      title="调度日志详细"
+      :visible.sync="open"
+      :close-on-click-modal="false"
+      width="700px"
+      append-to-body
       class="scrollbar">
       <el-form ref="form" :model="form" label-width="100px" size="mini">
         <el-row>
@@ -250,11 +250,11 @@ export default {
       }else{
         let appMainHeight = document.querySelector('.app-main').offsetHeight;
         this.tableMaxHeight = appMainHeight - 130;
-      } 
+      }
     }
   },
   created() {
-    const jobId = this.$route.query.jobId;
+    const jobId = this.$route.params && this.$route.params.jobId;
     if (jobId !== undefined && jobId != 0) {
       getJob(jobId).then(response => {
         this.queryParams.jobName = response.data.jobName;
