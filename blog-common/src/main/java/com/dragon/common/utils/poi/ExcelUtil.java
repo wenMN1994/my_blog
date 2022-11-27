@@ -793,6 +793,9 @@ public class ExcelUtil<T> {
             if (StringUtils.startsWithAny(cellValue, FORMULA_STR)) {
                 cellValue = RegExUtils.replaceFirst(cellValue, FORMULA_REGEX_STR, "\t$0");
             }
+            if (value instanceof Collection && StringUtils.equals("[]", cellValue)) {
+                cellValue = StringUtils.EMPTY;
+            }
             cell.setCellValue(StringUtils.isNull(cellValue) ? attr.defaultValue() : cellValue + attr.suffix());
         } else if (ColumnType.NUMERIC == attr.cellType()) {
             if (StringUtils.isNotNull(value)) {
