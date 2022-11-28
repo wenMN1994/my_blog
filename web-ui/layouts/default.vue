@@ -103,7 +103,7 @@
               </section>
             </section>
           </section>
-          <aside class="fl col-3 tac mt15">
+          <aside class="fl col-3 tac">
             <el-tooltip placement="top" effect="light">
               <div slot="content">
                 <img src="~/assets/img/wechat.png" alt>

@@ -7,6 +7,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -31,7 +32,7 @@ public class SysRole extends BaseEntity {
 
     /** 角色排序 */
     @Excel(name = "角色排序")
-    private String roleSort;
+    private Integer roleSort;
 
     /** 菜单树选择项是否关联显示（ 0：父子不互相关联显示 1：父子互相关联显示） */
     private boolean menuCheckStrictly;
@@ -94,12 +95,12 @@ public class SysRole extends BaseEntity {
         this.roleKey = roleKey;
     }
 
-    @NotBlank(message = "显示顺序不能为空")
-    public String getRoleSort() {
+    @NotNull(message = "显示顺序不能为空")
+    public Integer getRoleSort() {
         return roleSort;
     }
 
-    public void setRoleSort(String roleSort) {
+    public void setRoleSort(Integer roleSort) {
         this.roleSort = roleSort;
     }
 

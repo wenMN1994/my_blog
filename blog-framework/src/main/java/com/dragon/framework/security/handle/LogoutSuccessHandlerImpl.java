@@ -2,7 +2,6 @@ package com.dragon.framework.security.handle;
 
 import com.alibaba.fastjson2.JSON;
 import com.dragon.common.constant.Constants;
-import com.dragon.common.constant.HttpStatus;
 import com.dragon.common.core.domain.AjaxResult;
 import com.dragon.common.core.domain.model.LoginUser;
 import com.dragon.common.utils.ServletUtils;
@@ -46,6 +45,6 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
             // 记录用户退出日志
             AsyncManager.me().execute(AsyncFactory.recordLogininfor(userName, Constants.LOGOUT, "退出成功"));
         }
-        ServletUtils.renderString(response, JSON.toJSONString(AjaxResult.error(HttpStatus.SUCCESS, "退出成功")));
+        ServletUtils.renderString(response, JSON.toJSONString(AjaxResult.success("退出成功")));
     }
 }

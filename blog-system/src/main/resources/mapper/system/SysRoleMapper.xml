@@ -95,7 +95,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			<if test="roleId != null and roleId != 0">role_id,</if>
  			<if test="roleName != null and roleName != ''">role_name,</if>
  			<if test="roleKey != null and roleKey != ''">role_key,</if>
- 			<if test="roleSort != null and roleSort != ''">role_sort,</if>
+ 			<if test="roleSort != null">role_sort,</if>
  			<if test="menuCheckStrictly != null">menu_check_strictly,</if>
  			<if test="status != null and status != ''">status,</if>
  			<if test="remark != null and remark != ''">remark,</if>
@@ -105,7 +105,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			<if test="roleId != null and roleId != 0">#{roleId},</if>
  			<if test="roleName != null and roleName != ''">#{roleName},</if>
  			<if test="roleKey != null and roleKey != ''">#{roleKey},</if>
- 			<if test="roleSort != null and roleSort != ''">#{roleSort},</if>
+ 			<if test="roleSort != null">#{roleSort},</if>
  			<if test="menuCheckStrictly != null">#{menuCheckStrictly},</if>
  			<if test="status != null and status != ''">#{status},</if>
  			<if test="remark != null and remark != ''">#{remark},</if>
@@ -119,7 +119,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<set>
  			<if test="roleName != null and roleName != ''">role_name = #{roleName},</if>
  			<if test="roleKey != null and roleKey != ''">role_key = #{roleKey},</if>
- 			<if test="roleSort != null and roleSort != ''">role_sort = #{roleSort},</if>
+ 			<if test="roleSort != null">role_sort = #{roleSort},</if>
  			<if test="menuCheckStrictly != null">menu_check_strictly = #{menuCheckStrictly},</if>
  			<if test="status != null and status != ''">status = #{status},</if>
  			<if test="remark != null">remark = #{remark},</if>

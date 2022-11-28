@@ -1,6 +1,8 @@
 package com.dragon.common.core.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
@@ -17,6 +19,7 @@ public class BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /** 搜索值 */
+    @JsonIgnore
     @ApiModelProperty("搜索值")
     private String searchValue;
 
@@ -43,6 +46,7 @@ public class BaseEntity implements Serializable {
     private String remark;
 
     /** 请求参数 */
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Map<String, Object> params;
 
     public String getSearchValue() {

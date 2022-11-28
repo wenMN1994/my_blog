@@ -446,7 +446,17 @@ a.current-2 .lh-p-icon{background-position:0 -254px}
 .c-cou-item {margin: 0 0 10px 10px;padding: 0 20px 10px 0;}
 .c-cou-item .wid85 {width: 85%;}
 .u-o-left {width: 74%!important;}
-#footer{background-color:#323232;border-top-width:5px;border-top-style:solid;color:#999;width:100%;overflow:hidden}
+#footer{
+	background-color:#323232;
+	border-top-width:3px;
+	border-top-style:solid;
+	color:#999;
+	width:100%;
+	overflow:hidden;
+	position: sticky;
+	bottom: 0;
+	z-index: 2000;
+}
 .flink-list li{float:left;margin:15px 30px 0 0}
 .flink-list li a{color:#666;font-size:12px}
 .b-f-link a:hover,.flink-list li a:hover{color:#888;text-decoration:none;transition:.3s;-webkit-transition:.3s}

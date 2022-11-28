@@ -60,7 +60,7 @@ public class GenController extends BaseController {
         map.put("info", table);
         map.put("rows", list);
         map.put("tables", tables);
-        return AjaxResult.success(map);
+        return success(map);
     }
 
     /**
@@ -98,7 +98,7 @@ public class GenController extends BaseController {
         // 查询表信息
         List<GenTable> tableList = genTableService.selectDbTableListByNames(tableNames);
         genTableService.importGenTable(tableList);
-        return AjaxResult.success();
+        return success();
     }
 
     /**
@@ -110,7 +110,7 @@ public class GenController extends BaseController {
     public AjaxResult editSave(@Validated @RequestBody GenTable genTable) {
         genTableService.validateEdit(genTable);
         genTableService.updateGenTable(genTable);
-        return AjaxResult.success();
+        return success();
     }
 
     /**
@@ -121,7 +121,7 @@ public class GenController extends BaseController {
     @DeleteMapping("/{tableIds}")
     public AjaxResult remove(@PathVariable Long[] tableIds) {
         genTableService.deleteGenTableByIds(tableIds);
-        return AjaxResult.success();
+        return success();
     }
 
     /**
@@ -131,7 +131,7 @@ public class GenController extends BaseController {
     @GetMapping("/preview/{tableId}")
     public AjaxResult preview(@PathVariable("tableId") Long tableId) throws IOException {
         Map<String, String> dataMap = genTableService.previewCode(tableId);
-        return AjaxResult.success(dataMap);
+        return success(dataMap);
     }
 
     /**
@@ -153,7 +153,7 @@ public class GenController extends BaseController {
     @GetMapping("/genCode/{tableName}")
     public AjaxResult genCode(@PathVariable("tableName") String tableName) {
         genTableService.generatorCode(tableName);
-        return AjaxResult.success();
+        return success();
     }
 
     /**
@@ -164,7 +164,7 @@ public class GenController extends BaseController {
     @GetMapping("/synchDb/{tableName}")
     public AjaxResult synchDb(@PathVariable("tableName") String tableName) {
         genTableService.synchDb(tableName);
-        return AjaxResult.success();
+        return success();
     }
 
     /**
