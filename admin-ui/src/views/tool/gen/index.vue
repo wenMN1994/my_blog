@@ -80,9 +80,9 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table 
-      v-loading="loading" 
-      :data="tableList" 
+    <el-table
+      v-loading="loading"
+      :data="tableList"
       @selection-change="handleSelectionChange"
       :max-height="tableMaxHeight">
       <el-table-column type="selection" align="center" width="55"></el-table-column>
@@ -162,13 +162,13 @@
       @pagination="getList"
     />
     <!-- 预览界面 -->
-    <el-dialog 
-      :title="preview.title" 
-      :visible.sync="preview.open" 
-      :close-on-click-modal="false" 
-      width="80%" 
-      top="5vh" 
-      append-to-body 
+    <el-dialog
+      :title="preview.title"
+      :visible.sync="preview.open"
+      :close-on-click-modal="false"
+      width="80%"
+      top="5vh"
+      append-to-body
       class="scrollbar">
       <el-tabs v-model="preview.activeName">
         <el-tab-pane
@@ -263,7 +263,7 @@ export default {
       }else{
         let appMainHeight = document.querySelector('.app-main').offsetHeight;
         this.tableMaxHeight = appMainHeight - 130;
-      } 
+      }
     }
   },
   created() {
@@ -305,7 +305,7 @@ export default {
           this.$modal.msgSuccess("成功生成到自定义路径：" + row.genPath);
         });
       } else {
-        this.$download.zip("/tool/gen/batchGenCode?tables=" + tableNames, "blog");
+        this.$download.zip("/tool/gen/batchGenCode?tables=" + tableNames, "dragon.zip");
       }
     },
     /** 同步数据库操作 */
