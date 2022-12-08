@@ -27,11 +27,11 @@ public class ArticleApiController extends BaseController {
     private IArticleService articleService;
 
     /**
-     * 查询文章信息列表
+     * 分页查询文章列表
      */
-    @ApiOperation(value = "获取文章列表")
-    @GetMapping("/list")
-    public TableDataInfo list(Article article) {
+    @ApiOperation(value = "分页查询文章列表")
+    @GetMapping("/getArticlePageList")
+    public TableDataInfo getArticlePageList(Article article) {
         startPage();
         List<Article> list = articleService.selectArticleList(article);
         return getDataTable(list);

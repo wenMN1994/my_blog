@@ -317,8 +317,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
                 && UserConstants.NO_FRAME.equals(menu.getIsFrame())) {
             // 非外链并且是一级目录（类型为目录）
             routerPath = "/" + menu.getPath();
-        }
-        else if (isMenuFrame(menu)) {
+        } else if (isMenuFrame(menu)) {
             // 非外链并且是一级目录（类型为菜单）
             routerPath = "/";
         }
