@@ -66,6 +66,13 @@ public class ArticleServiceImpl implements IArticleService {
             articleVo.setContentLevelStr(contentLevelStr);
             String statusStr = DictUtils.getDictLabel("portal_article_status", articleVo.getStatus());
             articleVo.setStatusStr(statusStr);
+            // 获取文章封面Url
+            if(articleVo.getCover() != null){
+                SysFile sysFile = iSysFileService.selectSysFileByFileId(articleVo.getCover());
+                if(sysFile != null){
+                    articleVo.setCoverUrl(sysFile.getFileUrl());
+                }
+            }
         }
         return articleList;
     }

@@ -16,7 +16,7 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * 文件处理工具类
- * 
+ *
  * @author dragon
  */
 public class FileUtils {
@@ -24,7 +24,7 @@ public class FileUtils {
 
     /**
      * 输出指定文件的byte数组
-     * 
+     *
      * @param filePath 文件路径
      * @param os 输出流
      * @return
@@ -86,7 +86,7 @@ public class FileUtils {
 
     /**
      * 删除文件
-     * 
+     *
      * @param filePath 文件
      * @return
      */
@@ -95,15 +95,14 @@ public class FileUtils {
         File file = new File(filePath);
         // 路径为文件且不为空则进行删除
         if (file.isFile() && file.exists()) {
-            file.delete();
-            flag = true;
+            flag = file.delete();
         }
         return flag;
     }
 
     /**
      * 文件名称验证
-     * 
+     *
      * @param filename 文件名称
      * @return true 正常 false 非法
      */
@@ -113,7 +112,7 @@ public class FileUtils {
 
     /**
      * 检查文件是否可下载
-     * 
+     *
      * @param resource 需要下载的文件
      * @return true 正常 false 非法
      */
@@ -134,7 +133,7 @@ public class FileUtils {
 
     /**
      * 下载文件名重新编码
-     * 
+     *
      * @param request 请求对象
      * @param fileName 文件名
      * @return 编码后的文件名
@@ -194,7 +193,7 @@ public class FileUtils {
 
     /**
      * 获取图像后缀
-     * 
+     *
      * @param photoByte 图像数据
      * @return 后缀名
      */

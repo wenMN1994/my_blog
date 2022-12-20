@@ -454,8 +454,6 @@ a.current-2 .lh-p-icon{background-position:0 -254px}
 	width:100%;
 	overflow:hidden;
 	position: sticky;
-	bottom: 0;
-	z-index: 2000;
 }
 .flink-list li{float:left;margin:15px 30px 0 0}
 .flink-list li a{color:#666;font-size:12px}

@@ -4,15 +4,15 @@
       <el-row :gutter="20">
         <el-col :span="16">
           <div class="Community">
-            <div class="active-blog" v-for="article in 10" :key="article.id">
+            <div class="active-blog" v-for="article in articleList" :key="article.id">
               <div class="Community-item-active">
                 <a target="_blank" class="Community-h-tag">
-                  <span class="blog-text">Node.js | 从前端到全栈的必经之路</span>
+                  <span class="blog-text">{{article.articleTitle}}</span>
                 </a>
                 <div class="Community-item">
                   <div class="content">
                     <a target="_blank">
-                      <p class="desc">深入浅出Node.js，最适合前端开发人员进入全栈时学习的服务端语言，以JavaScript为基础，使前端人员能够平滑过渡到全栈，赶快来认识一下Node.js吧！</p>
+                      <p class="desc">{{article.summary}}</p>
                     </a>
                     <div class="operation">
                       <p>
@@ -35,11 +35,21 @@
                   </div>
                   <div class="right">
                     <a target="_blank">
-                      <img alt class="img" src="https://img-blog.csdnimg.cn/7052425b88514dbd855002995856212c.png?x-oss-process=image/resize,m_fixed,h_300,image/format,png">
+                      <img alt class="img" :src="article.coverUrl">
                     </a>
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="block">
+              <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page.sync="currentPage"
+                :page-size="pageSize"
+                layout="prev, pager, next, jumper"
+                :total="total">
+              </el-pagination>
             </div>
           </div>
         </el-col>
@@ -85,14 +95,35 @@
   </div>
 </template>
 <script>
+import articleApi from '@/api/article'
 export default {
   data () {
     return {
-      articleList:[]
+      articleList:[],
+      total: 0,
+      pageSize: 10,
+      currentPage: 1,
     }
   },
-  created() {},
-  methods:{}
+  created() {
+    this.getArticlePageList();
+  },
+  methods:{
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+    },
+    // 查询轮播图数据
+    getArticlePageList() {
+      articleApi.getArticlePageList().then(response => {
+        console.log(response.data.rows);
+        this.articleList = response.data.rows
+        this.total = response.data.total
+      })
+    },
+  }
 }
 </script>
 <style>
@@ -288,5 +319,8 @@ export default {
   }
   a {
     cursor: pointer;
+  }
+  .block {
+    float: right;
   }
 </style>
