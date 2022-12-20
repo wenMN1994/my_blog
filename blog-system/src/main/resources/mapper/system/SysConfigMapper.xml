@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dragon.system.mapper.SysConfigMapper">
-    
+
     <resultMap type="SysConfig" id="SysConfigResult">
     	<id     property="configId"      column="config_id"      />
         <result property="configName"    column="config_name"    />
@@ -15,12 +15,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="updateBy"      column="update_by"      />
         <result property="updateTime"    column="update_time"    />
     </resultMap>
-    
+
     <sql id="selectConfigVo">
-        select config_id, config_name, config_key, config_value, config_type, create_by, create_time, update_by, update_time, remark 
+        select config_id, config_name, config_key, config_value, config_type, create_by, create_time, update_by, update_time, remark
 		from sys_config
     </sql>
-    
+
     <!-- 查询条件 -->
 	<sql id="sqlwhereSearch">
 		<where>
@@ -32,12 +32,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 		</where>
 	</sql>
-    
+
     <select id="selectConfig" parameterType="SysConfig" resultMap="SysConfigResult">
         <include refid="selectConfigVo"/>
         <include refid="sqlwhereSearch"/>
     </select>
-    
+
     <select id="selectConfigList" parameterType="SysConfig" resultMap="SysConfigResult">
         <include refid="selectConfigVo"/>
         <where>
@@ -58,12 +58,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 		</where>
     </select>
-    
+
+    <select id="selectConfigById" parameterType="Long" resultMap="SysConfigResult">
+        <include refid="selectConfigVo"/>
+        where config_id = #{configId}
+    </select>
+
     <select id="checkConfigKeyUnique" parameterType="String" resultMap="SysConfigResult">
         <include refid="selectConfigVo"/>
         where config_key = #{configKey} limit 1
     </select>
-    
+
     <insert id="insertConfig" parameterType="SysConfig">
         insert into sys_config (
 			<if test="configName != null and configName != '' ">config_name,</if>
@@ -83,9 +88,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			sysdate()
 		)
     </insert>
-	 
+
     <update id="updateConfig" parameterType="SysConfig">
-        update sys_config 
+        update sys_config
         <set>
             <if test="configName != null and configName != ''">config_name = #{configName},</if>
             <if test="configKey != null and configKey != ''">config_key = #{configKey},</if>
@@ -97,16 +102,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </set>
         where config_id = #{configId}
     </update>
-	
+
     <delete id="deleteConfigById" parameterType="Long">
         delete from sys_config where config_id = #{configId}
     </delete>
-    
+
     <delete id="deleteConfigByIds" parameterType="Long">
-        delete from sys_config where config_id in 
+        delete from sys_config where config_id in
         <foreach item="configId" collection="array" open="(" separator="," close=")">
         	#{configId}
         </foreach>
     </delete>
-    
+
 </mapper>
