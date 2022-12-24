@@ -106,18 +106,23 @@ export default {
     }
   },
   created() {
-    this.getArticlePageList();
+    this.getArticlePageList(1);
   },
   methods:{
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      // console.log(`当前页: ${val}`);
+      this.getArticlePageList(val);
     },
     // 查询轮播图数据
-    getArticlePageList() {
-      articleApi.getArticlePageList().then(response => {
+    getArticlePageList(currentPageValue) {
+      let queryParams = {
+        pageNum: currentPageValue,
+        pageSize: 10,
+      }
+      articleApi.getArticlePageList(queryParams).then(response => {
         console.log(response.data.rows);
         this.articleList = response.data.rows
         this.total = response.data.total
