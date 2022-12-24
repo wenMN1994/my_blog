@@ -15,7 +15,7 @@ import java.io.IOException;
 
 /**
  * XSS过滤处理
- * 
+ *
  * @author dragon
  */
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
@@ -32,12 +32,12 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         String[] values = super.getParameterValues(name);
         if (values != null) {
             int length = values.length;
-            String[] escapseValues = new String[length];
+            String[] escapesValues = new String[length];
             for (int i = 0; i < length; i++) {
                 // 防xss攻击和过滤前后空格
-                escapseValues[i] = EscapeUtil.clean(values[i]).trim();
+                escapesValues[i] = EscapeUtil.clean(values[i]).trim();
             }
-            return escapseValues;
+            return escapesValues;
         }
         return super.getParameterValues(name);
     }
@@ -90,7 +90,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     /**
      * 是否是Json请求
-     * 
+     *
      * @param request
      */
     public boolean isJsonRequest() {

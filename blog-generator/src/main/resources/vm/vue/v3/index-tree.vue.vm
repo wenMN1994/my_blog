@@ -166,7 +166,6 @@
             value-key="${treeCode}"
             placeholder="请选择${comment}"
             check-strictly
-            :render-after-expand="false"
           />
         </el-form-item>
 #elseif($column.htmlType == "input")
@@ -356,7 +355,7 @@ function getTreeselect() {
     ${businessName}Options.value.push(data);
   });
 }
-	
+
 // 取消按钮
 function cancel() {
   open.value = false;
