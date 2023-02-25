@@ -60,7 +60,7 @@ public class ArticleController extends BaseController {
     @PostMapping("/export")
     public void export(HttpServletResponse response, Article article) {
         List<Article> list = articleService.selectArticleList(article);
-        ExcelUtil<Article> util = new ExcelUtil<Article>(Article.class);
+        ExcelUtil<Article> util = new ExcelUtil<>(Article.class);
         util.exportExcel(response, list, "文章信息数据");
     }
 
