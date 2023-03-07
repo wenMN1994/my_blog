@@ -3,7 +3,6 @@ package com.dragon.framework.aspectj;
 import com.dragon.common.annotation.RateLimiter;
 import com.dragon.common.enums.LimitType;
 import com.dragon.common.exception.ServiceException;
-import com.dragon.common.utils.ServletUtils;
 import com.dragon.common.utils.StringUtils;
 import com.dragon.common.utils.ip.IpUtils;
 import org.aspectj.lang.JoinPoint;
@@ -68,7 +67,7 @@ public class RateLimiterAspect {
     public String getCombineKey(RateLimiter rateLimiter, JoinPoint point) {
         StringBuffer stringBuffer = new StringBuffer(rateLimiter.key());
         if (rateLimiter.limitType() == LimitType.IP) {
-            stringBuffer.append(IpUtils.getIpAddr(ServletUtils.getRequest())).append("-");
+            stringBuffer.append(IpUtils.getIpAddr()).append("-");
         }
         MethodSignature signature = (MethodSignature) point.getSignature();
         Method method = signature.getMethod();
