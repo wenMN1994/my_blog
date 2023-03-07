@@ -303,7 +303,7 @@ public class IpUtils {
      * @return boolean 结果
      */
     public static boolean isMatchedIp(String filter, String ip) {
-        if (StringUtils.isEmpty(filter) && StringUtils.isEmpty(ip)) {
+        if (StringUtils.isEmpty(filter) || StringUtils.isEmpty(ip)) {
             return false;
         }
         String[] ips = filter.split(";");
