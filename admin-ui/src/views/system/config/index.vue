@@ -102,16 +102,16 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table 
-      v-loading="loading" 
-      :data="configList" 
+    <el-table
+      v-loading="loading"
+      :data="configList"
       @selection-change="handleSelectionChange"
       :max-height="tableMaxHeight">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="参数主键" align="center" prop="configId" />
       <el-table-column label="参数名称" align="center" prop="configName" :show-overflow-tooltip="true" />
       <el-table-column label="参数键名" align="center" prop="configKey" :show-overflow-tooltip="true" />
-      <el-table-column label="参数键值" align="center" prop="configValue" :show-overflow-tooltip="true"/>
+      <el-table-column label="参数键值" align="center" prop="configValue" :show-overflow-tooltip="true" />
       <el-table-column label="系统内置" align="center" prop="configType">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_yes_no" :value="scope.row.configType"/>
@@ -152,12 +152,12 @@
     />
 
     <!-- 添加或修改参数配置对话框 -->
-    <el-dialog 
-      :title="title" 
-      :visible.sync="open" 
-      :close-on-click-modal="false" 
-      width="500px" 
-      append-to-body 
+    <el-dialog
+      :title="title"
+      :visible.sync="open"
+      :close-on-click-modal="false"
+      width="500px"
+      append-to-body
       class="scrollbar">
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="参数名称" prop="configName">
@@ -266,7 +266,7 @@ export default {
       }else{
         let appMainHeight = document.querySelector('.app-main').offsetHeight;
         this.tableMaxHeight = appMainHeight - 130;
-      } 
+      }
     }
   },
   created() {
