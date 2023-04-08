@@ -230,7 +230,7 @@ public class CaptchaController {
                 ExpressionParser parser = new SpelExpressionParser();
                 TemplateParserContext parserContext = new TemplateParserContext();
                 String content = parser.parseExpression(emailTemplate,parserContext).getValue(params, String.class);
-                mailUtil.sendText(sliderCaptcha.getName(), "", "", "龙颜科技", content);
+                mailUtil.sendText(sliderCaptcha.getName(), "", "", "龙颜博客", content);
             } catch (Exception e) {
                 throw new RuntimeException("服务异常，请稍后再试！");
             }

@@ -1,7 +1,7 @@
 {
   "name": "blog-web",
   "version": "1.0.0",
-  "description": "龙颜科技",
+  "description": "龙颜博客",
   "author": "DragonWen",
   "private": true,
   "scripts": {
