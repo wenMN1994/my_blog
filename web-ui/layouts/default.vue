@@ -4,8 +4,8 @@
     <header id="header">
       <section class="container">
         <h1 id="logo">
-          <a href="#" title="龙颜科技">
-            <img src="~/assets/img/logo.png" width="100%" alt="龙颜科技">
+          <a href="#" title="龙颜博客">
+            <img src="~/assets/img/logo.png" width="100%" alt="龙颜博客">
           </a>
         </h1>
         <div class="h-r-nsl">
@@ -96,8 +96,8 @@
                 <span>Email：wenwenxing@dragonwen.cn</span>
               </section>
               <section class="b-f-link mt10">
-                <span>©{{websiteConfig.year}} 
-                  <a :href="websiteConfig.domainName" title="龙颜科技" target="_self">龙颜科技</a>
+                <span>©{{websiteConfig.year}}
+                  <a :href="websiteConfig.domainName" title="龙颜博客" target="_self">龙颜博客</a>
                   <a :href="websiteConfig.MIIT" title="工信部链接" target="_blank">备案号：{{websiteConfig.ICP}}</a>
                 </span>
               </section>
@@ -125,7 +125,7 @@
                 </span>
               </section>
             </el-tooltip>
-            
+
           </aside>
         </div>
       </section>
@@ -177,20 +177,20 @@
             <!-- 账号密码登录表单 -->
             <div id="login-form-pwd" :class="loginFormPwd">
               <div class="inputs">
-                <input v-model="loginFormPassword.name" 
+                <input v-model="loginFormPassword.name"
                   @focus="focusLoginFormPwdName()"
-                  autocomplete="off" 
-                  type="text" 
-                  class="input" 
+                  autocomplete="off"
+                  type="text"
+                  class="input"
                   placeholder="请输入手机号码或邮箱"/>
                 <span class="input-error-notice">{{loginFormPwdNameError}}</span>
               </div>
               <div class="inputs mb40">
-                <el-input v-model="loginFormPassword.password" 
+                <el-input v-model="loginFormPassword.password"
                   @focus="focusLoginFormPwdPassword()"
-                  autocomplete="off" 
-                  placeholder="请输入密码" 
-                  type="password" 
+                  autocomplete="off"
+                  placeholder="请输入密码"
+                  type="password"
                   show-password/>
                 <span class="input-error-notice">{{loginFormPwdPasswordError}}</span>
               </div>
@@ -203,11 +203,11 @@
             <!-- 手机验证码登录表单 -->
             <div id="login-form-dx" :class="loginFormDx">
               <div class="inputs">
-                <input v-model="phoneCodeLogin.phone" 
+                <input v-model="phoneCodeLogin.phone"
                   @focus="focusLoginFormDxPhone()"
-                  autocomplete="off" 
-                  type="text" 
-                  class="input" 
+                  autocomplete="off"
+                  type="text"
+                  class="input"
                   placeholder="请输入手机号"/>
                 <span class="input-error-notice">{{loginFormDxPhoneError}}</span>
               </div>
@@ -216,11 +216,11 @@
                   <a v-show="loginVerifyCode" class="po-link" @click="getLoginPhoneVerifyCode()">获取验证码</a>
                   <i v-show="!loginVerifyCode" class="verify-code" style="font-style:normal;color:#9aa5b8;">{{loginVerifyCodeCount}}秒后重新获取</i>
                 </span>
-                <input v-model="phoneCodeLogin.code" 
+                <input v-model="phoneCodeLogin.code"
                   @focus="focusLoginFormDxCode()"
-                  autocomplete="off" 
-                  type="text" 
-                  class="input" 
+                  autocomplete="off"
+                  type="text"
+                  class="input"
                   placeholder="请输入验证码"/>
                 <span class="input-error-notice">{{loginFormDxCodeError}}</span>
               </div>
@@ -233,11 +233,11 @@
             <!-- 手机号码验证码注册表单 -->
             <div id="login-form-pregister" :class="loginFormPregister">
               <div class="inputs">
-                <input v-model="phoneRegister.phone" 
+                <input v-model="phoneRegister.phone"
                   @focus="focusLoginFormRegisterPhone()"
-                  autocomplete="off" 
-                  type="text" 
-                  class="input" 
+                  autocomplete="off"
+                  type="text"
+                  class="input"
                   placeholder="请输入手机号"/>
                 <span class="input-error-notice">{{loginFormRegisterPhoneError}}</span>
               </div>
@@ -246,20 +246,20 @@
                   <a v-show="registerVerifyCode" class="po-link" @click="getRegisterPhoneVerifyCode()">获取验证码</a>
                   <i v-show="!registerVerifyCode" class="verify-code" style="font-style:normal;color:#9aa5b8;">{{registerVerifyCodeCount}}秒后重新获取</i>
                 </span>
-                <input v-model="phoneRegister.code" 
+                <input v-model="phoneRegister.code"
                   @focus="focusLoginFormRegisterCode()"
-                  autocomplete="off" 
-                  type="text" 
-                  class="input" 
+                  autocomplete="off"
+                  type="text"
+                  class="input"
                   placeholder="请输入验证码"/>
                 <span class="input-error-notice">{{loginFormRegisterCodeError}}</span>
               </div>
               <div class="inputs mb40">
-                <el-input v-model="phoneRegister.password" 
+                <el-input v-model="phoneRegister.password"
                   @focus="focusLoginFormRegisterPassword()"
-                  autocomplete="off" 
-                  placeholder="请输入密码" 
-                  type="password" 
+                  autocomplete="off"
+                  placeholder="请输入密码"
+                  type="password"
                   show-password/>
                 <span class="input-error-notice">{{loginFormRegisterPasswordError}}</span>
               </div>
@@ -349,11 +349,11 @@
             <div id="login-form-forgetpwd" :class="loginFormForgetPwd">
               <div class="first-step">
                 <div class="inputs">
-                  <input v-model="forgetpwd.name" 
+                  <input v-model="forgetpwd.name"
                     @focus="focusLoginFormForgetName()"
-                    autocomplete="off" 
-                    type="text" 
-                    class="input" 
+                    autocomplete="off"
+                    type="text"
+                    class="input"
                     placeholder="请输入手机号码或邮箱"/>
                   <span class="input-error-notice">{{loginFormForgetNameError}}</span>
                 </div>
@@ -362,20 +362,20 @@
                     <a v-show="forgetPwdVerifyCode" class="po-link" @click="getForgetPwdPhoneVerifyCode()">获取验证码</a>
                     <i v-show="!forgetPwdVerifyCode" class="verify-code" style="font-style:normal;color:#9aa5b8;">{{forgetPwdVerifyCodeCount}}秒后重新获取</i>
                   </span>
-                  <input v-model="forgetpwd.code" 
+                  <input v-model="forgetpwd.code"
                     @focus="focusLoginFormForgetCode()"
-                    autocomplete="off" 
-                    type="text" 
-                    class="input" 
+                    autocomplete="off"
+                    type="text"
+                    class="input"
                     placeholder="请输入验证码"/>
                   <span class="input-error-notice">{{loginFormForgetCodeError}}</span>
                 </div>
                 <div class="inputs mb40">
-                  <el-input v-model="forgetpwd.password" 
+                  <el-input v-model="forgetpwd.password"
                     @focus="focusLoginFormForgetPassword()"
-                    autocomplete="off" 
-                    placeholder="请输入8-16位数字和字母组合的密码" 
-                    type="password" 
+                    autocomplete="off"
+                    placeholder="请输入8-16位数字和字母组合的密码"
+                    type="password"
                     show-password/>
                   <span class="input-error-notice">{{loginFormForgetPasswordError}}</span>
                 </div>
@@ -1080,11 +1080,11 @@ export default {
     },
     onSuccess(code) {
       let params = {
-        code: code, 
-        name: this.catcha.emailOrPhone, 
+        code: code,
+        name: this.catcha.emailOrPhone,
         verifyKey: this.catcha.verifyKey
       }
-      // 验证是否成功checkSliderCaptcha是后台验证接口方法 
+      // 验证是否成功checkSliderCaptcha是后台验证接口方法
       loginApi.checkSliderCaptcha(params).then(res => {
         if (res.data.code == 200) {
           this.$refs.sliderCaptchaRef.handleSuccess()

@@ -1,8 +1,8 @@
 <template>
   <div class="guli-player">
     <div class="head">
-      <a href="#" title="龙颜科技">
-        <img class="logo" src="~/assets/img/logo.png" lt="龙颜科技">
+      <a href="#" title="龙颜博客">
+        <img class="logo" src="~/assets/img/logo.png" lt="龙颜博客">
     </a></div>
     <div class="body">
       <div class="content"><nuxt/></div>
