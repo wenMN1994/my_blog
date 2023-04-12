@@ -70,7 +70,7 @@
           <div>
             <article class="comm-course-list">
               <ul class="of" id="bna">
-                <li v-for="course in hotCourseList" :key="course.id">
+                <li v-for="course in newCourseList" :key="course.id" @click="courseItemClick(course.id)">
                   <div class="cc-l-wrap">
                     <section class="course-img">
                       <img
@@ -196,7 +196,68 @@ export default {
           "price": 200
         }
       ],
-      newCourseList:[]
+      newCourseList:[
+        {
+          "id": 1,
+          "cover": "https://www.gulixueyuan.com/files/course/2021/11-16/1504320cd58c775881.jpg",
+          "title": "MySQL数据库",
+          "price": 10
+        },
+        {
+          "id": 2,
+          "cover": "https://www.gulixueyuan.com/files/default/2018/06-15/0918251905f6057842.jpg",
+          "title": "103集实战教学入门必备",
+          "price": 20
+        },
+        {
+          "id": 3,
+          "cover": "https://www.gulixueyuan.com/files/default/2018/06-15/0918146150a9565117.jpg",
+          "title": "103集实战教学入门必备",
+          "price": 0
+        },
+        {
+          "id": 4,
+          "cover": "https://www.gulixueyuan.com/files/course/2021/08-02/151735f53563259871.png",
+          "title": "2021全新SpringMVC框架教程",
+          "price": 100
+        },
+        {
+          "id": 5,
+          "cover": "https://www.gulixueyuan.com/files/course/2020/05-22/09381798ce4f507296.jpg",
+          "title": "尚硅谷Spring5视频教程",
+          "price": 100
+        },
+        {
+          "id": 6,
+          "cover": "https://www.gulixueyuan.com/files/course/2020/12-14/09031863b67d915337.png",
+          "title": "Vue3新特性",
+          "price": 100
+        },
+        {
+          "id": 7,
+          "cover": "https://www.gulixueyuan.com/files/course/2021/04-19/1548193e32c7847193.jpg",
+          "title": "2021最新Redis 6教程分布式锁，秒杀实战",
+          "price": 200
+        },
+        {
+          "id": 8,
+          "cover": "https://www.gulixueyuan.com/files/course/2021/03-09/171418a0c26f812243.jpg",
+          "title": "Java微服务+分布式+全栈项目【尚医通】",
+          "price": 200
+        },
+        {
+          "id": 9,
+          "cover": "https://www.gulixueyuan.com/files/course/2020/09-17/092058a40481921036.jpg",
+          "title": "Kubernetes（K8s）新版",
+          "price": 200
+        },
+        {
+          "id": 10,
+          "cover": "https://www.gulixueyuan.com/files/course/2020/12-11/09261240947f704907.png",
+          "title": "大数据项目之电商数仓3.0",
+          "price": 200
+        }
+      ],
     }
   },
   created() {
