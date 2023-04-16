@@ -54,7 +54,7 @@ module.exports = {
 	 ** Headers of the page
 	 */
   head: {
-    title: '龙颜博客',
+    title: '龙颜问世',
     meta: [{
       charset: 'utf-8'
     },
@@ -65,12 +65,12 @@ module.exports = {
     {
       hid: 'keywords',
       name: 'keywords',
-      content: '龙颜博客'
+      content: '龙颜问世'
     },
     {
       hid: 'description',
       name: 'description',
-      content: '龙颜博客'
+      content: '龙颜问世'
     }
     ],
     link: [{

@@ -6,12 +6,12 @@
           <div class="Community">
             <div class="active-blog" v-for="article in articleList" :key="article.id">
               <div class="Community-item-active">
-                <a target="_blank" class="Community-h-tag">
+                <a target="_blank" class="Community-h-tag" @click="articleItemClick(article.id)">
                   <span class="blog-text">{{article.articleTitle}}</span>
                 </a>
                 <div class="Community-item">
                   <div class="content">
-                    <a target="_blank">
+                    <a target="_blank" @click="articleItemClick(article.id)">
                       <p class="desc">{{article.summary}}</p>
                     </a>
                     <div class="operation">
@@ -34,7 +34,7 @@
                     </div>
                   </div>
                   <div class="right">
-                    <a target="_blank">
+                    <a target="_blank" @click="articleItemClick(article.id)">
                       <img alt class="img" :src="article.coverUrl">
                     </a>
                   </div>
@@ -58,7 +58,7 @@
             <el-carousel height="230px">
               <el-carousel-item v-for="item in 4" :key="item">
                 <h3 class="small">
-                  <img src="https://img-blog.csdnimg.cn/cb7f2c4391384d389da2053c52171c92.jpeg?x-oss-process=image/resize,m_fixed,h_300,image/format,png">
+                  <img src="https://s0.2mdn.net/simgad/3380672590489704266">
                 </h3>
               </el-carousel-item>
             </el-carousel>
@@ -69,7 +69,7 @@
                 <span>热门推荐</span>
               </div>
               <div class="template-cont" v-for="item in 4" :key="item">
-                <a target="_blank">
+                <a target="_blank" @click="articleItemClick(1)">
                   <img src="https://img-bss.csdn.net/1642139156620.jpg">
                   <p>详细后端开发知识讲解</p>
                 </a>
@@ -82,7 +82,7 @@
                 <span>猜你喜欢</span>
               </div>
               <div class="template-cont" v-for="item in 4" :key="item">
-                <a target="_blank">
+                <a target="_blank" @click="articleItemClick(1)">
                   <img src="https://img-bss.csdn.net/1642139177006.jpg">
                   <p>后端成长之路：从菜鸟到架构</p>
                 </a>
@@ -128,6 +128,12 @@ export default {
         this.total = response.data.total
       })
     },
+    // 文章点击跳转
+    articleItemClick(articleId) {
+      this.$router.push({
+        path: `/article/${articleId}`,
+      })	
+    }
   }
 }
 </script>

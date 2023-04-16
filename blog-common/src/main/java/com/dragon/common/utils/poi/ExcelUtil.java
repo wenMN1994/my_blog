@@ -79,6 +79,11 @@ public class ExcelUtil<T> {
     public static final String[] FORMULA_STR = { "=", "-", "+", "@" };
 
     /**
+     * 用于dictType属性数据存储，避免重复查缓存
+     */
+    public Map<String,String> sysDictMap = new HashMap<String,String>();
+
+    /**
      * Excel sheet最大行数，默认65536
      */
     public static final int sheetSize = 65536;
@@ -866,7 +871,11 @@ public class ExcelUtil<T> {
                 } else if (StringUtils.isNotEmpty(readConverterExp) && StringUtils.isNotNull(value)) {
                     cell.setCellValue(convertByExp(Convert.toStr(value), readConverterExp, separator));
                 } else if (StringUtils.isNotEmpty(dictType) && StringUtils.isNotNull(value)) {
-                    cell.setCellValue(convertDictByExp(Convert.toStr(value), dictType, separator));
+                    if (!sysDictMap.containsKey(dictType + value)) {
+                        String label = convertDictByExp(Convert.toStr(value), dictType, separator);
+                        sysDictMap.put(dictType + value,label);
+                    }
+                    cell.setCellValue(sysDictMap.get(dictType + value));
                 } else if (value instanceof BigDecimal && -1 != attr.scale()) {
                     cell.setCellValue((((BigDecimal) value).setScale(attr.scale(), attr.roundingMode())).doubleValue());
                 } else if (!attr.handler().equals(ExcelHandlerAdapter.class)) {

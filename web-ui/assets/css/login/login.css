@@ -5,7 +5,7 @@
 	float:right
 }
 .po-login-box {
-	max-width:448px;
+	/* max-width:448px; */
 	width:100%;
 	min-height:450px;
 	padding:0 40px;

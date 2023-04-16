@@ -4,8 +4,8 @@
     <header id="header">
       <section class="container">
         <h1 id="logo">
-          <a href="#" title="龙颜博客">
-            <img src="~/assets/img/logo.png" width="100%" alt="龙颜博客">
+          <a href="#" title="龙颜问世">
+            <img src="~/assets/img/logo.png" width="100%" alt="龙颜问世">
           </a>
         </h1>
         <div class="h-r-nsl">
@@ -88,16 +88,16 @@
           <section class="fl col-7">
             <section class="mr20">
               <section class="b-f-link">
-                <a href="#" title="关于我们" target="_blank">关于我们</a>|
-                <a href="#" title="联系我们" target="_blank">联系我们</a>|
+                <a href="#" title="个人简历" target="_blank">个人简历</a>|
+                <a href="#" title="发展历程" target="_blank">发展历程</a>|
                 <a href="#" title="帮助中心" target="_blank">帮助中心</a>|
                 <a href="#" title="资源下载" target="_blank">资源下载</a>|
-                <span>服务热线：0755-1234567(深圳)</span>
-                <span>Email：wenwenxing@dragonwen.cn</span>
+                <span>手机：18475536452</span>
+                <span>邮箱：18475536452@163.com</span>
               </section>
               <section class="b-f-link mt10">
                 <span>©{{websiteConfig.year}}
-                  <a :href="websiteConfig.domainName" title="龙颜博客" target="_self">龙颜博客</a>
+                  <a :href="websiteConfig.domainName" title="龙颜问世" target="_self">龙颜问世</a>
                   <a :href="websiteConfig.MIIT" title="工信部链接" target="_blank">备案号：{{websiteConfig.ICP}}</a>
                 </span>
               </section>
