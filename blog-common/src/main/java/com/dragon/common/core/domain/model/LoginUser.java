@@ -66,6 +66,20 @@ public class LoginUser implements UserDetails {
      */
     private SysUser user;
 
+    public LoginUser() {
+    }
+
+    public LoginUser(SysUser user, Set<String> permissions) {
+        this.user = user;
+        this.permissions = permissions;
+    }
+
+    public LoginUser(Long userId, SysUser user, Set<String> permissions) {
+        this.userId = userId;
+        this.user = user;
+        this.permissions = permissions;
+    }
+
     public Long getUserId() {
         return userId;
     }
@@ -80,20 +94,6 @@ public class LoginUser implements UserDetails {
 
     public void setToken(String token) {
         this.token = token;
-    }
-
-    public LoginUser() {
-    }
-
-    public LoginUser(SysUser user, Set<String> permissions) {
-        this.user = user;
-        this.permissions = permissions;
-    }
-
-    public LoginUser(Long userId, SysUser user, Set<String> permissions) {
-        this.userId = userId;
-        this.user = user;
-        this.permissions = permissions;
     }
 
     @JSONField(serialize = false)
