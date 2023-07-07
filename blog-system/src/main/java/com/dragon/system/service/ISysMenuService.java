@@ -47,6 +47,14 @@ public interface ISysMenuService {
     public List<SysMenu> selectMenuTreeByUserId(Long userId);
 
     /**
+     * 根据用户ID查询菜单树信息
+     *
+     * @param userId 用户ID
+     * @return 菜单列表
+     */
+    Set<String> selectMenuPermsByRoleId(Long roleId);
+
+    /**
      * 根据角色ID查询菜单树信息
      * 
      * @param roleId 角色ID
