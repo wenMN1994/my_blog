@@ -4,6 +4,7 @@ import com.dragon.common.core.domain.entity.SysRole;
 import com.dragon.common.core.domain.model.LoginUser;
 import com.dragon.common.utils.SecurityUtils;
 import com.dragon.common.utils.StringUtils;
+import com.dragon.framework.security.context.PermissionContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -40,6 +41,7 @@ public class PermissionService {
         if (StringUtils.isNull(loginUser) || CollectionUtils.isEmpty(loginUser.getPermissions())) {
             return false;
         }
+        PermissionContextHolder.setContext(permission);
         return hasPermissions(loginUser.getPermissions(), permission);
     }
 
