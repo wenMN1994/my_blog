@@ -10,6 +10,7 @@ import org.springframework.http.CacheControl;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -40,6 +41,7 @@ public class ResourcesConfig implements WebMvcConfigurer {
 
     /**
      * 自定义拦截规则
+     * @param registry
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -48,6 +50,7 @@ public class ResourcesConfig implements WebMvcConfigurer {
 
     /**
      * 跨域配置
+     * @return
      */
     @Bean
     public CorsFilter corsFilter() {
@@ -67,4 +70,14 @@ public class ResourcesConfig implements WebMvcConfigurer {
         // 返回新的CorsFilter
         return new CorsFilter(source);
     }
+
+    /**
+     * 国际化
+     * @return
+     */
+    @Bean
+    public LocaleResolver localeResolver(){
+        return new BlogLocaleResolver();
+    }
+
 }
