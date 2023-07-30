@@ -167,7 +167,7 @@ public class CommonController {
     }
 
     /**
-     * 本地通用上传请求（多个）
+     * OSS通用上传请求（多个）
      */
     @PostMapping("/uploadFilesToOss")
     public AjaxResult uploadFilesToOss(List<MultipartFile> files) throws Exception {
