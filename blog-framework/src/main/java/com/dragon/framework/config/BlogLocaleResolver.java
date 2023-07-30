@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Locale;
 
 /**
- * 程序注解配置
+ * 国际化语言设置
  *
  * @author dragon
  */
