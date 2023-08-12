@@ -1,5 +1,6 @@
 package com.dragon.web.controller.api;
 
+import com.dragon.common.annotation.RateLimiter;
 import com.dragon.common.constant.CacheConstants;
 import com.dragon.common.core.controller.BaseController;
 import com.dragon.common.core.domain.AjaxResult;
@@ -38,6 +39,7 @@ public class IndexApiController extends BaseController {
      * @return
      */
     @GetMapping("/getSlideshowList")
+    @RateLimiter
     public AjaxResult getSlideshowList(Slideshow slideshow) {
         List<Slideshow> slideshowList = new ArrayList<>();
         if(redisCache.hasKey(CacheConstants.INDEX_FRONT_SLIDESHOW_KEY)){
@@ -54,6 +56,7 @@ public class IndexApiController extends BaseController {
      * @return
      */
     @GetMapping("/getIndexData")
+    @RateLimiter
     public AjaxResult getIndexData() {
         // @TODO 查询热门课程和新上好课
         return AjaxResult.success();
@@ -65,6 +68,7 @@ public class IndexApiController extends BaseController {
      * @return
      */
     @GetMapping("/verifyAccount")
+    @RateLimiter
     public AjaxResult verifyAccount(@RequestParam(name = "account") String account) {
         // @TODO 查询数据库校验账号、手机号码、邮箱是否已注册
         return AjaxResult.success(true);

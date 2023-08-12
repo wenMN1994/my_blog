@@ -1,5 +1,6 @@
 package com.dragon.web.controller.api;
 
+import com.dragon.common.annotation.RateLimiter;
 import com.dragon.common.core.controller.BaseController;
 import com.dragon.common.core.page.TableDataInfo;
 import com.dragon.portal.domain.Article;
@@ -31,6 +32,7 @@ public class ArticleApiController extends BaseController {
      */
     @ApiOperation(value = "分页查询文章列表")
     @GetMapping("/getArticlePageList")
+    @RateLimiter
     public TableDataInfo getArticlePageList(Article article) {
         startPage();
         List<Article> list = articleService.selectArticleList(article);

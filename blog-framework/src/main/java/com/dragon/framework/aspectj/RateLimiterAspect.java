@@ -13,12 +13,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
-import java.util.Collections;
-import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 限流处理
@@ -44,19 +44,37 @@ public class RateLimiterAspect {
         this.limitScript = limitScript;
     }
 
+    /**
+     * 实现限流
+     *
+     * @param point
+     * @param rateLimiter
+     * @throws Throwable
+     */
     @Before("@annotation(rateLimiter)")
     public void doBefore(JoinPoint point, RateLimiter rateLimiter) throws Throwable {
-        int time = rateLimiter.time();
-        int count = rateLimiter.count();
-
-        String combineKey = getCombineKey(rateLimiter, point);
-        List<Object> keys = Collections.singletonList(combineKey);
         try {
-            Long number = redisTemplate.execute(limitScript, keys, count, time);
-            if (StringUtils.isNull(number) || number.intValue() > count) {
+            // 在 {time} 秒内仅允许访问 {count} 次。
+            int time = rateLimiter.time();
+            int count = rateLimiter.count();
+            // 根据用户IP（可选）和接口方法，构造key
+            String combineKey = getCombineKey(rateLimiter, point);
+            // 限流逻辑实现
+            ZSetOperations zSetOperations = redisTemplate.opsForZSet();
+            // 记录本次访问的时间结点
+            long currentMs = System.currentTimeMillis();
+            zSetOperations.add(combineKey, currentMs, currentMs);
+            // 这一步是为了防止member一直存在于内存中
+            redisTemplate.expire(combineKey, time, TimeUnit.SECONDS);
+            // 移除{time}秒之前的访问记录（滑动窗口思想）
+            zSetOperations.removeRangeByScore(combineKey, 0, currentMs - time * 1000);
+            // 获得当前窗口内的访问记录数
+            Long currCount = zSetOperations.zCard(combineKey);
+            // 限流判断
+            if (currCount > count) {
+                log.info("限制请求数'{}',当前请求数'{}',缓存key'{}'", count, currCount, combineKey);
                 throw new ServiceException("访问过于频繁，请稍候再试");
             }
-            log.info("限制请求'{}',当前请求'{}',缓存key'{}'", count, number.intValue(), combineKey);
         } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
@@ -64,6 +82,11 @@ public class RateLimiterAspect {
         }
     }
 
+    /**
+     * @param rateLimiter
+     * @param point
+     * @return
+     */
     public String getCombineKey(RateLimiter rateLimiter, JoinPoint point) {
         StringBuffer stringBuffer = new StringBuffer(rateLimiter.key());
         if (rateLimiter.limitType() == LimitType.IP) {
