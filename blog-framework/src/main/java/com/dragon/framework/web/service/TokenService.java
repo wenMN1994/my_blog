@@ -13,6 +13,8 @@ import eu.bitwalker.useragentutils.UserAgent;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -29,6 +31,8 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 public class TokenService {
+    private static final Logger log = LoggerFactory.getLogger(TokenService.class);
+
     /**
      * 令牌自定义标识
      */
@@ -73,7 +77,7 @@ public class TokenService {
                 LoginUser user = redisCache.getCacheObject(userKey);
                 return user;
             } catch (Exception e) {
-
+                log.error("获取用户信息异常'{}'", e.getMessage());
             }
         }
         return null;
