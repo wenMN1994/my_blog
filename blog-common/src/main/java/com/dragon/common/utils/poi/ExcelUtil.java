@@ -384,7 +384,8 @@ public class ExcelUtil<T> {
                         String propertyName = field.getName();
                         if (StringUtils.isNotEmpty(attr.targetAttr())) {
                             propertyName = field.getName() + "." + attr.targetAttr();
-                        } else if (StringUtils.isNotEmpty(attr.readConverterExp())) {
+                        }
+                        if (StringUtils.isNotEmpty(attr.readConverterExp())) {
                             val = reverseByExp(Convert.toStr(val), attr.readConverterExp(), attr.separator());
                         } else if (StringUtils.isNotEmpty(attr.dictType())) {
                             val = reverseDictByExp(Convert.toStr(val), attr.dictType(), attr.separator());
