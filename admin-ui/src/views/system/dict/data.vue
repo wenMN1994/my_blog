@@ -90,17 +90,17 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table 
-      v-loading="loading" 
-      :data="dataList" 
+    <el-table
+      v-loading="loading"
+      :data="dataList"
       @selection-change="handleSelectionChange"
       :max-height="tableMaxHeight">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="字典编码" align="center" prop="dictCode" />
       <el-table-column label="字典标签" align="center" prop="dictLabel">
         <template slot-scope="scope">
-          <span v-if="scope.row.listClass == '' || scope.row.listClass == 'default'">{{scope.row.dictLabel}}</span>
-          <el-tag v-else :type="scope.row.listClass == 'primary' ? '' : scope.row.listClass">{{scope.row.dictLabel}}</el-tag>
+          <span v-if="(scope.row.listClass == '' || scope.row.listClass == 'default') && (scope.row.cssClass == '' || scope.row.cssClass == null)">{{ scope.row.dictLabel }}</span>
+          <el-tag v-else :type="scope.row.listClass == 'primary' ? '' : scope.row.listClass" :class="scope.row.cssClass">{{ scope.row.dictLabel }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="字典键值" align="center" prop="dictValue" />
@@ -145,12 +145,12 @@
     />
 
     <!-- 添加或修改参数配置对话框 -->
-    <el-dialog 
-      :title="title" 
-      :visible.sync="open" 
-      :close-on-click-modal="false" 
-      width="500px" 
-      append-to-body 
+    <el-dialog
+      :title="title"
+      :visible.sync="open"
+      :close-on-click-modal="false"
+      width="500px"
+      append-to-body
       class="scrollbar">
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="字典类型">
@@ -263,8 +263,8 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        dictName: undefined,
         dictType: undefined,
+        dictLabel: undefined,
         status: undefined
       },
       // 表单参数
@@ -305,7 +305,7 @@ export default {
       }else{
         let appMainHeight = document.querySelector('.app-main').offsetHeight;
         this.tableMaxHeight = appMainHeight - 130;
-      } 
+      }
     }
   },
   created() {

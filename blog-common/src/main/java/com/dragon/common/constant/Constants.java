@@ -64,6 +64,26 @@ public class Constants {
     public static final String LOGIN_FAIL = "Error";
 
     /**
+     * 所有权限标识
+     */
+    public static final String ALL_PERMISSION = "*:*:*";
+
+    /**
+     * 管理员角色权限标识
+     */
+    public static final String SUPER_ADMIN = "admin";
+
+    /**
+     * 角色权限分隔符
+     */
+    public static final String ROLE_DELIMETER = ",";
+
+    /**
+     * 权限标识分隔符
+     */
+    public static final String PERMISSION_DELIMETER = ",";
+
+    /**
      * 验证码有效期（分钟）
      */
     public static final Integer CAPTCHA_EXPIRATION = 2;
@@ -138,6 +158,14 @@ public class Constants {
      */
     public static final String LOOKUP_LDAPS = "ldaps:";
 
+    /**
+     * 自动识别json对象白名单配置（仅允许解析的包名，范围越小越安全）
+     */
+    public static final String[] JSON_WHITELIST_STR = { "org.springframework", "com.dragon" };
+
+    /**
+     * 无缓存key
+     */
     public static final String NO_SUCH_KEY = "NoSuchKey";
 
     /**

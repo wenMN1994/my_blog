@@ -257,8 +257,17 @@ public class ExcelUtil<T> {
      * @param is 输入流
      * @return 转换后集合
      */
-    public List<T> importExcel(InputStream is) throws Exception {
-        return importExcel(is, 0);
+    public List<T> importExcel(InputStream is) {
+        List<T> list = null;
+        try {
+            list = importExcel(is, 0);
+        } catch (Exception e) {
+            log.error("导入Excel异常{}", e.getMessage());
+            throw new UtilException(e.getMessage());
+        } finally {
+            IOUtils.closeQuietly(is);
+        }
+        return list;
     }
 
     /**
@@ -298,7 +307,6 @@ public class ExcelUtil<T> {
         }
         // 获取最后一个非空行的行下标，比如总行数为n，则返回的为n-1
         int rows = sheet.getLastRowNum();
-
         if (rows > 0) {
             // 定义一个map用于存放excel列的序号和field.
             Map<String, Integer> cellMap = new HashMap<String, Integer>();
@@ -376,12 +384,13 @@ public class ExcelUtil<T> {
                         String propertyName = field.getName();
                         if (StringUtils.isNotEmpty(attr.targetAttr())) {
                             propertyName = field.getName() + "." + attr.targetAttr();
-                        } else if (StringUtils.isNotEmpty(attr.readConverterExp())) {
+                        }
+                        if (StringUtils.isNotEmpty(attr.readConverterExp())) {
                             val = reverseByExp(Convert.toStr(val), attr.readConverterExp(), attr.separator());
                         } else if (StringUtils.isNotEmpty(attr.dictType())) {
                             val = reverseDictByExp(Convert.toStr(val), attr.dictType(), attr.separator());
                         } else if (!attr.handler().equals(ExcelHandlerAdapter.class)) {
-                            val = dataFormatHandlerAdapter(val, attr);
+                            val = dataFormatHandlerAdapter(val, attr, null);
                         } else if (ColumnType.IMAGE == attr.cellType() && StringUtils.isNotEmpty(pictures)) {
                             PictureData image = pictures.get(row.getRowNum() + "_" + entry.getKey());
                             if (image == null) {
@@ -879,7 +888,7 @@ public class ExcelUtil<T> {
                 } else if (value instanceof BigDecimal && -1 != attr.scale()) {
                     cell.setCellValue((((BigDecimal) value).setScale(attr.scale(), attr.roundingMode())).doubleValue());
                 } else if (!attr.handler().equals(ExcelHandlerAdapter.class)) {
-                    cell.setCellValue(dataFormatHandlerAdapter(value, attr));
+                    cell.setCellValue(dataFormatHandlerAdapter(value, attr, cell));
                 } else {
                     // 设置列类型
                     setCellVo(value, attr, cell);
@@ -1057,13 +1066,14 @@ public class ExcelUtil<T> {
      *
      * @param value 数据值
      * @param excel 数据注解
+     * @param cell 单元格对象
      * @return
      */
-    public String dataFormatHandlerAdapter(Object value, Excel excel) {
+    public String dataFormatHandlerAdapter(Object value, Excel excel, Cell cell) {
         try {
             Object instance = excel.handler().newInstance();
-            Method formatMethod = excel.handler().getMethod("format", new Class[] { Object.class, String[].class });
-            value = formatMethod.invoke(instance, value, excel.args());
+            Method formatMethod = excel.handler().getMethod("format", new Class[]{Object.class, String[].class, Cell.class, Workbook.class});
+            value = formatMethod.invoke(instance, value, excel.args(), cell, this.wb);
         } catch (Exception e) {
             log.error("不能格式化数据 " + excel.handler(), e.getMessage());
         }

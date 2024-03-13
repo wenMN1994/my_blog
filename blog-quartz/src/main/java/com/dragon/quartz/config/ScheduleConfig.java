@@ -31,7 +31,7 @@ package com.dragon.quartz.config;//package com.dragon.quartz.config;
 //        // 集群配置
 //        prop.put("org.quartz.jobStore.isClustered", "true");
 //        prop.put("org.quartz.jobStore.clusterCheckinInterval", "15000");
-//        prop.put("org.quartz.jobStore.maxMisfiresToHandleAtATime", "1");
+//        prop.put("org.quartz.jobStore.maxMisfiresToHandleAtATime", "10");
 //        prop.put("org.quartz.jobStore.txIsolationLevelSerializable", "true");
 //
 //        // sqlserver 启用

@@ -444,7 +444,7 @@ import '~/assets/css/swiper-3.3.1.min.css'
 import "~/assets/css/pages-weixinpay.css"
 
 import cookie from 'js-cookie'
-import SliderCaptcha from "~/components/SliderCaptcha.vue"
+import SliderCaptcha from "~/components/sliderCaptcha.vue"
 import loginApi from '@/api/login'
 import indexApi from '@/api/index'
 

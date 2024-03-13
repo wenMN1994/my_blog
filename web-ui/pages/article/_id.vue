@@ -1,8 +1,35 @@
 <template>
   <div id="app-container">
-    <img src="~/assets/img/in-development.png" width="100%">
+    <my-markdown :initial-content="markdownContent"></my-markdown>
   </div>
 </template>
-<script>
 
+<script>
+import MyMarkdown from '~/components/myMarkdown.vue';
+import articleApi from '@/api/article'
+
+export default {
+  components: {
+    MyMarkdown
+  },
+  data() {
+    return {
+      markdownContent: ''
+    };
+  },
+  async mounted() {
+    await this.getArticleInfo();
+  },
+  methods: {
+    async getArticleInfo() {
+      let queryParams = {
+        articleId: 2
+      }
+      articleApi.getArticleInfo(queryParams).then(response => {
+        console.log(response.data.data.content);
+        this.markdownContent = response.data.data.content;
+      })
+    }
+  }
+};
 </script>

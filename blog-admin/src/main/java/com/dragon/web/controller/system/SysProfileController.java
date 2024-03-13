@@ -58,23 +58,19 @@ public class SysProfileController extends BaseController {
     @PutMapping
     public AjaxResult updateProfile(@RequestBody SysUser user) {
         LoginUser loginUser = getLoginUser();
-        SysUser sysUser = loginUser.getUser();
-        user.setUserName(sysUser.getUserName());
-        if (StringUtils.isNotEmpty(user.getPhonenumber()) && !userService.checkPhoneUnique(user)) {
-            return error("修改用户'" + user.getUserName() + "'失败，手机号码已存在");
+        SysUser currentUser = loginUser.getUser();
+        currentUser.setNickName(user.getNickName());
+        currentUser.setEmail(user.getEmail());
+        currentUser.setPhonenumber(user.getPhonenumber());
+        currentUser.setSex(user.getSex());
+        if (StringUtils.isNotEmpty(user.getPhonenumber()) && !userService.checkPhoneUnique(currentUser)) {
+            return error("修改用户'" + loginUser.getUsername() + "'失败，手机号码已存在");
         }
-        if (StringUtils.isNotEmpty(user.getEmail()) && !userService.checkEmailUnique(user)) {
-            return error("修改用户'" + user.getUserName() + "'失败，邮箱账号已存在");
+        if (StringUtils.isNotEmpty(user.getEmail()) && !userService.checkEmailUnique(currentUser)) {
+            return error("修改用户'" + loginUser.getUsername() + "'失败，邮箱账号已存在");
         }
-        user.setUserId(sysUser.getUserId());
-        user.setPassword(null);
-        user.setAvatar(null);
-        if (userService.updateUserProfile(user) > 0) {
+        if (userService.updateUserProfile(currentUser) > 0) {
             // 更新缓存用户信息
-            sysUser.setNickName(user.getNickName());
-            sysUser.setPhonenumber(user.getPhonenumber());
-            sysUser.setEmail(user.getEmail());
-            sysUser.setSex(user.getSex());
             tokenService.setLoginUser(loginUser);
             return success();
         }
@@ -96,9 +92,10 @@ public class SysProfileController extends BaseController {
         if (SecurityUtils.matchesPassword(newPassword, password)) {
             return error("新密码不能与旧密码相同");
         }
-        if (userService.resetUserPwd(userName, SecurityUtils.encryptPassword(newPassword)) > 0) {
+        newPassword = SecurityUtils.encryptPassword(newPassword);
+        if (userService.resetUserPwd(userName, newPassword) > 0) {
             // 更新缓存用户密码
-            loginUser.getUser().setPassword(SecurityUtils.encryptPassword(newPassword));
+            loginUser.getUser().setPassword(newPassword);
             tokenService.setLoginUser(loginUser);
             return success();
         }

@@ -11,8 +11,7 @@ import com.dragon.portal.domain.Article;
  * @author dragon
  * @date 2022-05-08
  */
-public interface IArticleService
-{
+public interface IArticleService {
     /**
      * 查询文章信息
      *
