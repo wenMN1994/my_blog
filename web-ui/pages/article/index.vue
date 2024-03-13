@@ -110,7 +110,7 @@ export default {
   },
   methods:{
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      // console.log(`每页 ${val} 条`);
     },
     handleCurrentChange(val) {
       // console.log(`当前页: ${val}`);
@@ -123,7 +123,7 @@ export default {
         pageSize: 10,
       }
       articleApi.getArticlePageList(queryParams).then(response => {
-        console.log(response.data.rows);
+        // console.log(response.data.rows);
         this.articleList = response.data.rows
         this.total = response.data.total
       })

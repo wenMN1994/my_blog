@@ -9,4 +9,12 @@ export default {
       params: query
     })
   },
+  // 根据文章ID获取文章详细信息
+  getArticleInfo(query) {
+    return request({
+      url: '/publicApi/articleFront/getArticleInfo',
+      method: 'get',
+      params: query
+    })
+  },
 }

@@ -12,7 +12,8 @@ module.exports = {
   // 必须引入，不然无法使用axios跟代理
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/proxy'
+    '@nuxtjs/proxy',
+    '@nuxtjs/markdownit'
   ],
   axios: {
     proxy: true, // 开启代理
@@ -34,6 +35,20 @@ module.exports = {
       },
       secure: true
     }
+  },
+  markdownit: {
+    preset: 'default',
+    linkify: true,
+    breaks: true,
+    use: [
+      'markdown-it-toc', // 自动生成目录插件
+      ['markdown-it-prism', {
+        plugins: [
+          'line-numbers', // 代码行号插件
+          'highlight-keywords' // 代码高亮关键字插件
+        ]
+      }]
+    ]
   },
 
   // some nuxt config...
