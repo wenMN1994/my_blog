@@ -19,7 +19,7 @@ public interface ArticleMapper
      * @param articleId 文章信息主键
      * @return 文章信息
      */
-    public Article selectArticleByArticleId(Long articleId);
+    public Article selectArticleByArticleId(@Param("articleId") Long articleId);
 
     /**
      * 查询文章信息列表
@@ -64,4 +64,10 @@ public interface ArticleMapper
      * @return 结果
      */
     public int deleteArticleByArticleIds(@Param("articleIds") Long[] articleIds, @Param("loginUser") String loginUser, @Param("nowDate") Date nowDate);
+
+    /**
+     * 获取文章最大权重
+     * @return
+     */
+    public Integer selectMaxWeight();
 }

@@ -1,18 +1,20 @@
 package com.dragon.portal.service.impl;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.dragon.common.core.domain.model.LoginUser;
 import com.dragon.common.utils.DateUtils;
 import com.dragon.common.utils.DictUtils;
+import com.dragon.portal.domain.*;
+import com.dragon.portal.mapper.*;
 import com.dragon.system.domain.SysFile;
 import com.dragon.system.service.ISysFileService;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.compress.utils.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.dragon.portal.mapper.ArticleMapper;
-import com.dragon.portal.domain.Article;
 import com.dragon.portal.service.IArticleService;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,12 +25,25 @@ import org.springframework.transaction.annotation.Transactional;
  * @date 2022-05-08
  */
 @Service
+@Slf4j
 public class ArticleServiceImpl implements IArticleService {
     @Autowired
     private ISysFileService iSysFileService;
 
     @Autowired
     private ArticleMapper articleMapper;
+    
+    @Autowired
+    private ArticleCategoryMapper articleCategoryMapper;
+
+    @Autowired
+    private ArticleCategoryRelMapper articleCategoryRelMapper;
+
+    @Autowired
+    private ArticleTagMapper articleTagMapper;
+
+    @Autowired
+    private ArticleTagRelMapper articleTagRelMapper;
 
     /**
      * 查询文章信息
@@ -38,12 +53,31 @@ public class ArticleServiceImpl implements IArticleService {
      */
     @Override
     public Article selectArticleByArticleId(Long articleId) {
+        // 获取文章信息
         Article article = articleMapper.selectArticleByArticleId(articleId);
+        if (Objects.isNull(article)) {
+            log.warn("==> 查询的文章不存在，articleId: {}", articleId);
+            throw new RuntimeException("该文章不存在！");
+        }
+        // 获取封面URL
         if(article != null && article.getCover() != null){
             SysFile sysFile = iSysFileService.selectSysFileByFileId(article.getCover());
             if(sysFile != null){
                 article.setCoverUrl(sysFile.getFileUrl());
             }
+        }
+        // 获取文章所属分类
+        ArticleCategoryRel articleCategoryRel = articleCategoryRelMapper.selectByArticleId(articleId);
+        if (Objects.nonNull(articleCategoryRel)) {
+            article.setArticleCategoryId(articleCategoryRel.getCategoryId());
+        }
+        // 获取文章对应标签
+        ArticleTagRel articleTagRel = new ArticleTagRel();
+        articleTagRel.setArticleId(articleId);
+        List<ArticleTagRel> articleTagRelList = articleTagRelMapper.selectArticleTagRelList(articleTagRel);
+        if (CollectionUtil.isNotEmpty(articleTagRelList)) {
+            List<String> tagIds = articleTagRelList.stream().map(e -> String.valueOf(e.getTagId())).collect(Collectors.toList());
+            article.setArticleTags(tagIds);
         }
         return article;
     }
@@ -73,6 +107,20 @@ public class ArticleServiceImpl implements IArticleService {
                     articleVo.setCoverUrl(sysFile.getFileUrl());
                 }
             }
+            articleVo.setIsTop(articleVo.getWeight() > 0);
+            // 获取文章所属分类
+            ArticleCategoryRel articleCategoryRel = articleCategoryRelMapper.selectByArticleId(articleVo.getArticleId());
+            if (Objects.nonNull(articleCategoryRel)) {
+                article.setArticleCategoryId(articleCategoryRel.getCategoryId());
+            }
+            // 获取文章对应标签
+            ArticleTagRel articleTagRel = new ArticleTagRel();
+            articleTagRel.setArticleId(articleVo.getArticleId());
+            List<ArticleTagRel> articleTagRelList = articleTagRelMapper.selectArticleTagRelList(articleTagRel);
+            if (CollectionUtil.isNotEmpty(articleTagRelList)) {
+                List<String> tagIds = articleTagRelList.stream().map(e -> String.valueOf(e.getTagId())).collect(Collectors.toList());
+                articleVo.setArticleTags(tagIds);
+            }
         }
         return articleList;
     }
@@ -96,7 +144,27 @@ public class ArticleServiceImpl implements IArticleService {
             article.setCover(sysFile.getFileId());
             article.setCreateBy(loginUser.getUsername());
             article.setCreateTime(DateUtils.getNowDate());
-            return articleMapper.insertArticle(article);
+            int count = articleMapper.insertArticle(article);
+            // 拿到插入记录的主键 ID
+            Long articleId = article.getArticleId();
+            // 更新文章分类
+            Long articleCategoryId = article.getArticleCategoryId();
+            // 校验提交的分类是否真实存在
+            ArticleCategory articleCategory = articleCategoryMapper.selectArticleCategoryById(articleCategoryId);
+            if (Objects.isNull(articleCategory)) {
+                log.warn("==> 分类不存在, categoryId: {}", articleCategoryId);
+                throw new RuntimeException("该文章分类不存在！");
+            }
+
+            // 插入文章分类关联表
+            ArticleCategoryRel articleCategoryRel = new ArticleCategoryRel();
+            articleCategoryRel.setArticleId(articleId);
+            articleCategoryRel.setCategoryId(articleCategoryId);
+            articleCategoryRelMapper.insertArticleCategoryRel(articleCategoryRel);
+            // 保存文章关联的标签集合
+            List<String> publishTags = article.getArticleTags();
+            insertArticleTags(articleId, publishTags, loginUser);
+            return count;
         } catch (Exception e) {
             throw new RuntimeException("新增失败！");
         }
@@ -110,7 +178,11 @@ public class ArticleServiceImpl implements IArticleService {
      * @return 结果
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int updateArticle(Article article, LoginUser loginUser) {
+        // 文章ID
+        Long articleId = article.getArticleId();
+        // 1、保存文章封面并返回封面ID
         if(article.getCover() == null || Objects.equals(0, article.getCover())){
             SysFile sysFile = new SysFile();
             sysFile.setFileUrl(article.getCoverUrl());
@@ -119,9 +191,34 @@ public class ArticleServiceImpl implements IArticleService {
             iSysFileService.insertSysFile(sysFile);
             article.setCover(sysFile.getFileId());
         }
+        // 2、保存文章信息
         article.setUpdateBy(loginUser.getUsername());
         article.setUpdateTime(DateUtils.getNowDate());
-        return articleMapper.updateArticle(article);
+        int count = articleMapper.updateArticle(article);
+        // 根据更新是否成功，来判断该文章是否存在
+        if (Objects.equals(0, count)) {
+            log.warn("==> 该文章不存在, articleId: {}", articleId);
+            throw new RuntimeException("该文章不存在！");
+        }
+        // 3、更新文章分类
+        Long articleCategoryId = article.getArticleCategoryId();
+        // 3.1、校验提交的分类是否真实存在
+        ArticleCategory articleCategory = articleCategoryMapper.selectArticleCategoryById(articleCategoryId);
+        if (Objects.isNull(articleCategory)) {
+            log.warn("==> 分类不存在, categoryId: {}", articleCategoryId);
+            throw new RuntimeException("该文章分类不存在！");
+        }
+        // 先删除该文章关联的分类记录，再插入新的关联关系
+        articleCategoryRelMapper.deleteByArticleId(articleId);
+        ArticleCategoryRel articleCategoryRel = new ArticleCategoryRel();
+        articleCategoryRel.setCategoryId(articleCategoryId);
+        articleCategoryRel.setArticleId(articleId);
+        articleCategoryRelMapper.insertArticleCategoryRel(articleCategoryRel);
+        // 4、先删除该文章对应的标签，再保存文章关联的标签集合
+        articleTagRelMapper.deleteByArticleId(articleId);
+        List<String> publishTags = article.getArticleTags();
+        insertArticleTags(articleId, publishTags, loginUser);
+        return count;
     }
 
     /**
@@ -132,9 +229,18 @@ public class ArticleServiceImpl implements IArticleService {
      * @return 结果
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int deleteArticleByArticleIds(Long[] articleIds, LoginUser loginUser) {
         Date nowDate = DateUtils.getNowDate();
-        return articleMapper.deleteArticleByArticleIds(articleIds, loginUser.getUsername(), nowDate);
+        // 批量删除文章
+        int count = articleMapper.deleteArticleByArticleIds(articleIds, loginUser.getUsername(), nowDate);
+        if (count > 0) {
+            // 批量删除文章分类关联表
+            articleCategoryRelMapper.deleteArticleCategoryRelByArticleIds(articleIds);
+            // 批量删除文章标签关联表
+            articleTagRelMapper.deleteArticleTagRelByArticleIds(articleIds);
+        }
+        return count;
     }
 
     /**
@@ -148,5 +254,104 @@ public class ArticleServiceImpl implements IArticleService {
     public int deleteArticleByArticleId(Long articleId, LoginUser loginUser) {
         Date nowDate = DateUtils.getNowDate();
         return articleMapper.deleteArticleByArticleId(articleId, loginUser.getUsername(), nowDate);
+    }
+
+    /**
+     * 更新文章置顶状态
+     * @param articleId
+     * @param isTop
+     * @param loginUser
+     * @return
+     */
+    @Override
+    public int updateArticleIsTop(Long articleId, Boolean isTop, LoginUser loginUser) {
+        // 默认权重为 0
+        Integer weight = 0;
+        // 若设置为置顶
+        if (isTop) {
+            // 查询出表中最大的权重值
+            Integer maxWeight = articleMapper.selectMaxWeight();
+            // 最大权重值加一
+            weight = maxWeight + 1;
+        }
+        // 更新该篇文章的权重值
+        Article article = new Article();
+        article.setArticleId(articleId);
+        article.setWeight(weight);
+        article.setUpdateBy(loginUser.getUsername());
+        article.setUpdateTime(DateUtils.getNowDate());
+        return articleMapper.updateArticle(article);
+    }
+
+    /**
+     * 保存文章标签
+     *
+     * @param articleId
+     * @param publishTags
+     * @param loginUser
+     */
+    private void insertArticleTags(Long articleId, List<String> publishTags, LoginUser loginUser) {
+        // 筛选提交的标签（表中不存在的标签）
+        List<String> notExistTags = null;
+        // 筛选提交的标签（表中已存在的标签）
+        List<String> existedTags = null;
+        // 查询出所有标签
+        List<ArticleTag> articleTags = articleTagMapper.selectArticleTagList(new ArticleTag());
+        if (CollectionUtil.isEmpty(articleTags)) {
+            notExistTags = publishTags;
+        } else {
+            List<String> tagIds = articleTags.stream().map(e -> String.valueOf(e.getTagId())).collect(Collectors.toList());
+            // 通过标签 ID 来筛选，包含对应 ID 则表示提交的标签是表中存在的
+            existedTags = publishTags.stream().filter(publishTag -> tagIds.contains(publishTag)).collect(Collectors.toList());
+            // 否则则是不存在的
+            notExistTags = publishTags.stream().filter(publishTag -> !tagIds.contains(publishTag)).collect(Collectors.toList());
+            // 还有一种可能：按字符串名称提交上来的标签，也有可能是表中已存在的，比如表中已经有了 Java 标签，用户提交了个 java 小写的标签，需要内部装换为 Java 标签
+            Map<String, Long> tagNameIdMap = articleTags.stream().collect(Collectors.toMap(tagDO -> tagDO.getName().toLowerCase(), ArticleTag::getTagId));
+            // 使用迭代器进行安全的删除操作
+            Iterator<String> iterator = notExistTags.iterator();
+            while (iterator.hasNext()) {
+                String notExistTag = iterator.next();
+                // 转小写, 若 Map 中相同的 key，则表示该新标签是重复标签
+                if (tagNameIdMap.containsKey(notExistTag.toLowerCase())) {
+                    // 从不存在的标签集合中清除
+                    iterator.remove();
+                    // 并将对应的 ID 添加到已存在的标签集合
+                    existedTags.add(String.valueOf(tagNameIdMap.get(notExistTag.toLowerCase())));
+                }
+            }
+            // 将提交的上来的，已存在于表中的标签，文章-标签关联关系入库
+            if (CollectionUtil.isNotEmpty(existedTags)) {
+                List<ArticleTagRel> articleTagRelDOS = Lists.newArrayList();
+                existedTags.forEach(existedTag -> {
+                    ArticleTagRel articleTagRelDO = new ArticleTagRel();
+                    articleTagRelDO.setArticleId(articleId);
+                    articleTagRelDO.setTagId(Long.valueOf(existedTag));
+                    articleTagRelDOS.add(articleTagRelDO);
+                });
+                // 批量插入文章-标签关联关系
+                articleTagRelMapper.insertBatchArticleTagRel(articleTagRelDOS);
+            }
+            // 将提交的上来的，不存在于表中的标签，入库保存
+            if (CollectionUtil.isNotEmpty(notExistTags)) {
+                // 需要先将标签入库，拿到对应标签 ID 后，再把文章-标签关联关系入库
+                List<ArticleTagRel> articleTagRelDOS = Lists.newArrayList();
+                notExistTags.forEach(tagName -> {
+                    ArticleTag tagDO = new ArticleTag();
+                    tagDO.setName(tagName);
+                    tagDO.setCreateBy(loginUser.getUsername());
+                    tagDO.setCreateTime(DateUtils.getNowDate());
+                    articleTagMapper.insertArticleTag(tagDO);
+                    // 拿到保存的标签 ID
+                    Long tagId = tagDO.getTagId();
+                    // 文章-标签关联关系
+                    ArticleTagRel articleTagRelDO = new ArticleTagRel();
+                    articleTagRelDO.setArticleId(articleId);
+                    articleTagRelDO.setTagId(tagId);
+                    articleTagRelDOS.add(articleTagRelDO);
+                });
+                // 批量插入
+                articleTagRelMapper.insertBatchArticleTagRel(articleTagRelDOS);
+            }
+        }
     }
 }

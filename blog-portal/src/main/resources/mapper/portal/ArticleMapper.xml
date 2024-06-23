@@ -22,7 +22,7 @@
     </resultMap>
 
     <sql id="selectArticleVo">
-        select article_id, article_title, article_type, cover, summary, publish_type, content_level, status, content, content_html, create_by, create_time, update_by, update_time from portal_article
+        select article_id, article_title, article_type, cover, summary, publish_type, content_level, status, content, content_html, weight, create_by, create_time, update_by, update_time from portal_article
     </sql>
 
     <!--查询文章信息列表-->
@@ -42,7 +42,12 @@
     <!--查询文章信息-->
     <select id="selectArticleByArticleId" parameterType="Long" resultMap="ArticleResult">
         <include refid="selectArticleVo"/>
-        where article_id = #{articleId}
+        where article_id = #{articleId,jdbcType=BIGINT}
+    </select>
+
+    <!--获取文章最大权重-->
+    <select id="selectMaxWeight" resultType="java.lang.Integer">
+        select max(weight) from portal_article t
     </select>
 
     <!--新增文章信息-->
@@ -93,35 +98,37 @@
             <if test="status != null and status != ''">status = #{status},</if>
             <if test="content != null and content != ''">content = #{content},</if>
             <if test="contentHtml != null and contentHtml != ''">content_html = #{contentHtml},</if>
+            <if test="weight != null">weight = #{weight,jdbcType=INTEGER},</if>
             <if test="createBy != null">create_by = #{createBy},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateBy != null">update_by = #{updateBy},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
         </trim>
-        where article_id = #{articleId}
+        where article_id = #{articleId,jdbcType=BIGINT}
     </update>
 
     <!--删除文章信息-->
-    <update id="deleteArticleByArticleId" parameterType="Long">
+    <update id="deleteArticleByArticleId">
         update portal_article
         <trim prefix="SET" suffixOverrides=",">
             status = '1',
-            update_by = #{loginUser},
-            update_time = #{nowDate},
+            update_by = #{loginUser,jdbcType=VARCHAR},
+            update_time = #{nowDate,jdbcType=DATE},
         </trim>
-         where article_id = #{articleId}
+         where article_id = #{articleId,jdbcType=BIGINT}
     </update>
 
     <!--批量删除文章信息-->
-    <delete id="deleteArticleByArticleIds" parameterType="String">
-        <foreach item="articleId" index="index" collection="articleIds" open="" separator=";" close="">
-            update portal_article
-            <trim prefix="SET" suffixOverrides=",">
-                status = '1',
-                update_by = #{loginUser},
-                update_time = #{nowDate},
-            </trim>
-            where article_id = #{articleId}
+    <delete id="deleteArticleByArticleIds">
+        update portal_article
+        <trim prefix="SET" suffixOverrides=",">
+            status = '1',
+            update_by = #{loginUser,jdbcType=VARCHAR},
+            update_time = #{nowDate,jdbcType=DATE},
+        </trim>
+        where article_id in
+        <foreach item="articleId" index="index" collection="articleIds" open="(" separator=";" close=")">
+            #{articleId,jdbcType=BIGINT}
         </foreach>
     </delete>
 </mapper>

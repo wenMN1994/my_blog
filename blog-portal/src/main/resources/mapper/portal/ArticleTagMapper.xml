@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dragon.portal.mapper.ArticleTagMapper">
+    
+    <resultMap type="ArticleTag" id="ArticleTagResult">
+        <result property="tagId"    column="tag_id"    />
+        <result property="name"    column="name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="isDeleted"    column="is_deleted"    />
+        <result property="articlesTotal"    column="articles_total"    />
+    </resultMap>
+
+    <sql id="selectArticleTagVo">
+        select tag_id, name, create_by, create_time, update_by, update_time, is_deleted, articles_total from portal_article_tag
+    </sql>
+
+    <select id="selectArticleTagList" parameterType="ArticleTag" resultMap="ArticleTagResult">
+        <include refid="selectArticleTagVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectArticleTagById" parameterType="Long" resultMap="ArticleTagResult">
+        <include refid="selectArticleTagVo"/>
+        where tag_id = #{tagId,jdbcType=BIGINT}
+    </select>
+        
+    <insert id="insertArticleTag" parameterType="ArticleTag" useGeneratedKeys="true" keyProperty="tagId">
+        insert into portal_article_tag
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="isDeleted != null">is_deleted,</if>
+            <if test="articlesTotal != null">articles_total,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="articlesTotal != null">#{articlesTotal},</if>
+         </trim>
+    </insert>
+
+    <update id="updateArticleTag" parameterType="ArticleTag">
+        update portal_article_tag
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
+            <if test="articlesTotal != null">articles_total = #{articlesTotal},</if>
+        </trim>
+        where tag_id = #{tagId,jdbcType=BIGINT}
+    </update>
+
+    <delete id="deleteArticleTagById">
+        delete from portal_article_tag where tag_id = #{tagId,jdbcType=BIGINT}
+    </delete>
+
+    <delete id="deleteArticleTagByIds">
+        delete from portal_article_tag where tag_id in
+        <foreach item="tagId" collection="array" open="(" separator="," close=")">
+            #{tagId,jdbcType=BIGINT}
+        </foreach>
+    </delete>
+</mapper>

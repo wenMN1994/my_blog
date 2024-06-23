@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dragon.portal.mapper.ArticleCategoryRelMapper">
+    
+    <resultMap type="ArticleCategoryRel" id="ArticleCategoryRelResult">
+        <result property="id"    column="id"    />
+        <result property="articleId"    column="article_id"    />
+        <result property="categoryId"    column="category_id"    />
+    </resultMap>
+
+    <sql id="selectArticleCategoryRelVo">
+        select id, article_id, category_id from portal_article_category_rel
+    </sql>
+
+    <select id="selectArticleCategoryRelList" parameterType="ArticleCategoryRel" resultMap="ArticleCategoryRelResult">
+        <include refid="selectArticleCategoryRelVo"/>
+        <where>  
+            <if test="articleId != null "> and article_id = #{articleId}</if>
+            <if test="categoryId != null "> and category_id = #{categoryId}</if>
+        </where>
+    </select>
+    
+    <select id="selectArticleCategoryRelById" parameterType="Long" resultMap="ArticleCategoryRelResult">
+        <include refid="selectArticleCategoryRelVo"/>
+        where id = #{id}
+    </select>
+
+    <!--根据文章ID获取文章与分类关联关系-->
+    <select id="selectByArticleId" parameterType="Long" resultMap="ArticleCategoryRelResult">
+        <include refid="selectArticleCategoryRelVo"/>
+        where article_id = #{articleId,jdbcType=BIGINT}
+    </select>
+
+    <insert id="insertArticleCategoryRel" parameterType="ArticleCategoryRel" useGeneratedKeys="true" keyProperty="id">
+        insert into portal_article_category_rel
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="articleId != null">article_id,</if>
+            <if test="categoryId != null">category_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="articleId != null">#{articleId},</if>
+            <if test="categoryId != null">#{categoryId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateArticleCategoryRel" parameterType="ArticleCategoryRel">
+        update portal_article_category_rel
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="articleId != null">article_id = #{articleId},</if>
+            <if test="categoryId != null">category_id = #{categoryId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteArticleCategoryRelById" parameterType="Long">
+        delete from portal_article_category_rel where id = #{id}
+    </delete>
+
+    <delete id="deleteArticleCategoryRelByIds" parameterType="String">
+        delete from portal_article_category_rel where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--根据文章 ID 删除关联记录-->
+    <delete id="deleteByArticleId">
+        delete from portal_article_category_rel where article_id = #{articleId,jdbcType=BIGINT}
+    </delete>
+
+    <!--根据文章ID批量删除文章分类关联表-->
+    <delete id="deleteArticleCategoryRelByArticleIds">
+        delete from portal_article_category_rel where article_id in
+        <foreach collection="articleIds" item="articleId" open="(" separator="," close=")">
+            #{articleId,jdbcType=BIGINT}
+        </foreach>
+    </delete>
+</mapper>

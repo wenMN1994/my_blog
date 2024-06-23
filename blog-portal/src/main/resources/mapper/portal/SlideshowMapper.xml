@@ -106,14 +106,15 @@
 
     <!--批量删除轮播图-->
     <delete id="deleteSlideshowBySlideshowIds" parameterType="String">
+        update portal_slideshow
+        <trim prefix="SET" suffixOverrides=",">
+            is_enable = '1',
+            update_by = #{loginUser,jdbcType=VARCHAR},
+            update_time = #{nowDate,jdbcType=DATE},
+        </trim>
+        where slideshow_id in
         <foreach item="slideshowId" index="index" collection="slideshowIds" open="(" separator=";" close=")">
-            update portal_slideshow
-            <trim prefix="SET" suffixOverrides=",">
-                is_enable = '1',
-                update_by = #{loginUser},
-                update_time = #{nowDate},
-            </trim>
-            where slideshow_id = #{slideshowId}
+            #{slideshowId,jdbcType=BIGINT}
         </foreach>
     </delete>
 </mapper>

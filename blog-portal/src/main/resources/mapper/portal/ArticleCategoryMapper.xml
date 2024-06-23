@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dragon.portal.mapper.ArticleCategoryMapper">
+    
+    <resultMap type="ArticleCategory" id="ArticleCategoryResult">
+        <result property="categoryId"    column="category_id"    />
+        <result property="name"    column="name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="isDeleted"    column="is_deleted"    />
+        <result property="articlesTotal"    column="articles_total"    />
+    </resultMap>
+
+    <sql id="selectArticleCategoryVo">
+        select category_id, name, create_by, create_time, update_by, update_time, is_deleted, articles_total from portal_article_category
+    </sql>
+
+    <select id="selectArticleCategoryList" parameterType="ArticleCategory" resultMap="ArticleCategoryResult">
+        <include refid="selectArticleCategoryVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectArticleCategoryById" resultMap="ArticleCategoryResult">
+        <include refid="selectArticleCategoryVo"/>
+        where category_id = #{categoryId,jdbcType=BIGINT}
+    </select>
+        
+    <insert id="insertArticleCategory" parameterType="ArticleCategory" useGeneratedKeys="true" keyProperty="categoryId">
+        insert into portal_article_category
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="isDeleted != null">is_deleted,</if>
+            <if test="articlesTotal != null">articles_total,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="articlesTotal != null">#{articlesTotal},</if>
+         </trim>
+    </insert>
+
+    <update id="updateArticleCategory" parameterType="ArticleCategory">
+        update portal_article_category
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
+            <if test="articlesTotal != null">articles_total = #{articlesTotal},</if>
+        </trim>
+        where category_id = #{categoryId,jdbcType=BIGINT}
+    </update>
+
+    <delete id="deleteArticleCategoryById">
+        delete from portal_article_category where category_id = #{categoryId,jdbcType=BIGINT}
+    </delete>
+
+    <delete id="deleteArticleCategoryByIds">
+        delete from portal_article_category where category_id in
+        <foreach item="categoryId" collection="array" open="(" separator="," close=")">
+            #{categoryId}
+        </foreach>
+    </delete>
+</mapper>

@@ -63,4 +63,13 @@ public interface IArticleService {
      * @return 结果
      */
     public int deleteArticleByArticleId(Long articleId, LoginUser loginUser);
+
+    /**
+     * 更新文章置顶状态
+     * @param articleId
+     * @param isTop
+     * @param loginUser
+     * @return
+     */
+    public int updateArticleIsTop(Long articleId, Boolean isTop, LoginUser loginUser);
 }

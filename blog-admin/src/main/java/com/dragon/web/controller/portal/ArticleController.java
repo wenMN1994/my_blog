@@ -10,14 +10,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.dragon.common.annotation.Log;
 import com.dragon.common.core.controller.BaseController;
 import com.dragon.common.core.domain.AjaxResult;
@@ -111,5 +104,17 @@ public class ArticleController extends BaseController {
     public AjaxResult remove(@PathVariable Long[] articleIds) {
         LoginUser loginUser = getLoginUser();
         return toAjax(articleService.deleteArticleByArticleIds(articleIds, loginUser));
+    }
+
+    /**
+     * 修改文章信息
+     */
+    @ApiOperation(value = "更新文章置顶状态")
+    @PreAuthorize("@ss.hasPermi('portal:article:edit')")
+    @Log(title = "文章信息", businessType = BusinessType.UPDATE)
+    @GetMapping(value = "/isTop/update")
+    public AjaxResult updateArticleIsTop(@RequestParam(name = "articleId") Long articleId, @RequestParam(name = "isTop") Boolean isTop) {
+        LoginUser loginUser = getLoginUser();
+        return toAjax(articleService.updateArticleIsTop(articleId, isTop, loginUser));
     }
 }

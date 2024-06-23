@@ -35,7 +35,7 @@
         <aliyun-oss.version>3.13.0</aliyun-oss.version>
         <aliyun-sms.version>2.0.17</aliyun-sms.version>
         <hutool.version>5.8.0.M3</hutool.version>
-        <lombok.version>1.18.24</lombok.version>
+        <lombok.version>1.18.28</lombok.version>
     </properties>
 
     <!-- 依赖声明 -->
