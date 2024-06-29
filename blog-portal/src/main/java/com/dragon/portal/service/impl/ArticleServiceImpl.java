@@ -8,12 +8,14 @@ import com.dragon.common.core.domain.model.LoginUser;
 import com.dragon.common.utils.DateUtils;
 import com.dragon.common.utils.DictUtils;
 import com.dragon.portal.domain.*;
+import com.dragon.portal.event.UpdateArticleEvent;
 import com.dragon.portal.mapper.*;
 import com.dragon.system.domain.SysFile;
 import com.dragon.system.service.ISysFileService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.compress.utils.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import com.dragon.portal.service.IArticleService;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +46,9 @@ public class ArticleServiceImpl implements IArticleService {
 
     @Autowired
     private ArticleTagRelMapper articleTagRelMapper;
+
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
 
     /**
      * 查询文章信息
@@ -164,6 +169,12 @@ public class ArticleServiceImpl implements IArticleService {
             // 保存文章关联的标签集合
             List<String> publishTags = article.getArticleTags();
             insertArticleTags(articleId, publishTags, loginUser);
+
+            // 发布文章
+            if (Objects.equals("0", article.getStatus())) {
+                // 发送文章发布事件
+                eventPublisher.publishEvent(new UpdateArticleEvent(this, Arrays.asList(articleId), 1));
+            }
             return count;
         } catch (Exception e) {
             throw new RuntimeException("新增失败！");
@@ -218,6 +229,9 @@ public class ArticleServiceImpl implements IArticleService {
         articleTagRelMapper.deleteByArticleId(articleId);
         List<String> publishTags = article.getArticleTags();
         insertArticleTags(articleId, publishTags, loginUser);
+
+        // 发送文章修改事件
+        eventPublisher.publishEvent(new UpdateArticleEvent(this, Arrays.asList(articleId), 2));
         return count;
     }
 
@@ -234,12 +248,15 @@ public class ArticleServiceImpl implements IArticleService {
         Date nowDate = DateUtils.getNowDate();
         // 批量删除文章
         int count = articleMapper.deleteArticleByArticleIds(articleIds, loginUser.getUsername(), nowDate);
-        if (count > 0) {
-            // 批量删除文章分类关联表
-            articleCategoryRelMapper.deleteArticleCategoryRelByArticleIds(articleIds);
-            // 批量删除文章标签关联表
-            articleTagRelMapper.deleteArticleTagRelByArticleIds(articleIds);
-        }
+        // 文章软删除无需删除分类和标签关联关系
+        // if (count > 0) {
+        //     // 批量删除文章分类关联表
+        //     articleCategoryRelMapper.deleteArticleCategoryRelByArticleIds(articleIds);
+        //     // 批量删除文章标签关联表
+        //     articleTagRelMapper.deleteArticleTagRelByArticleIds(articleIds);
+        // }
+        // 发送文章修改事件
+        eventPublisher.publishEvent(new UpdateArticleEvent(this, Arrays.asList(articleIds), 3));
         return count;
     }
 

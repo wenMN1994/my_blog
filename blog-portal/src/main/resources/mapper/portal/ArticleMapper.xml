@@ -15,6 +15,9 @@
         <result property="status"    column="status"    />
         <result property="content"    column="content"    />
         <result property="contentHtml"    column="content_html"    />
+        <result property="readNum"    column="read_num"    />
+        <result property="weight"    column="weight"    />
+        <result property="type"    column="type"    />
         <result property="createBy"    column="create_by"    />
         <result property="createTime"    column="create_time"    />
         <result property="updateBy"    column="update_by"    />
@@ -22,7 +25,7 @@
     </resultMap>
 
     <sql id="selectArticleVo">
-        select article_id, article_title, article_type, cover, summary, publish_type, content_level, status, content, content_html, weight, create_by, create_time, update_by, update_time from portal_article
+        select article_id, article_title, article_type, cover, summary, publish_type, content_level, status, content, content_html, read_num, weight, type, create_by, create_time, update_by, update_time from portal_article
     </sql>
 
     <!--查询文章信息列表-->
@@ -116,6 +119,11 @@
             update_time = #{nowDate,jdbcType=DATE},
         </trim>
          where article_id = #{articleId,jdbcType=BIGINT}
+    </update>
+
+    <!--执行文章阅读量 +1-->
+    <update id="increaseReadNum">
+        update portal_article set read_num = read_num + 1 where article_id = #{articleId,jdbcType=BIGINT}
     </update>
 
     <!--批量删除文章信息-->

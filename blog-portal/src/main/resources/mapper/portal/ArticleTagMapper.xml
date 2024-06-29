@@ -21,7 +21,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectArticleTagList" parameterType="ArticleTag" resultMap="ArticleTagResult">
         <include refid="selectArticleTagVo"/>
-        <where>  
+        <where>
+            and is_deleted = 0
             <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
         </where>
     </select>
@@ -56,23 +57,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateArticleTag" parameterType="ArticleTag">
         update portal_article_tag
         <trim prefix="SET" suffixOverrides=",">
-            <if test="name != null and name != ''">name = #{name},</if>
-            <if test="createBy != null">create_by = #{createBy},</if>
-            <if test="createTime != null">create_time = #{createTime},</if>
-            <if test="updateBy != null">update_by = #{updateBy},</if>
-            <if test="updateTime != null">update_time = #{updateTime},</if>
-            <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
-            <if test="articlesTotal != null">articles_total = #{articlesTotal},</if>
+            <if test="name != null and name != ''">name = #{name,jdbcType=VARCHAR},</if>
+            <if test="createBy != null">create_by = #{createBy,jdbcType=VARCHAR},</if>
+            <if test="createTime != null">create_time = #{createTime,jdbcType=DATE},</if>
+            <if test="updateBy != null">update_by = #{updateBy,jdbcType=VARCHAR},</if>
+            <if test="updateTime != null">update_time = #{updateTime,jdbcType=DATE},</if>
+            <if test="isDeleted != null">is_deleted = #{isDeleted,jdbcType=INTEGER},</if>
+            <if test="articlesTotal != null">articles_total = #{articlesTotal,jdbcType=BIGINT},</if>
         </trim>
         where tag_id = #{tagId,jdbcType=BIGINT}
     </update>
 
     <delete id="deleteArticleTagById">
-        delete from portal_article_tag where tag_id = #{tagId,jdbcType=BIGINT}
+        update portal_article_tag set is_deleted = 1 where tag_id = #{tagId,jdbcType=BIGINT}
     </delete>
 
     <delete id="deleteArticleTagByIds">
-        delete from portal_article_tag where tag_id in
+        update portal_article_tag set is_deleted = 1 where tag_id in
         <foreach item="tagId" collection="array" open="(" separator="," close=")">
             #{tagId,jdbcType=BIGINT}
         </foreach>

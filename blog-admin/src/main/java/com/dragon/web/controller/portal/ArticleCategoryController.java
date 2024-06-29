@@ -41,9 +41,9 @@ public class ArticleCategoryController extends BaseController {
     @ApiOperation(value = "查询文章分类列表")
     @PreAuthorize("@ss.hasPermi('portal:category:list')")
     @GetMapping("/list")
-    public TableDataInfo list(ArticleCategory ArticleCategory) {
+    public TableDataInfo list(ArticleCategory articleCategory) {
         startPage();
-        List<ArticleCategory> list = articleCategoryService.selectArticleCategoryList(ArticleCategory);
+        List<ArticleCategory> list = articleCategoryService.selectArticleCategoryList(articleCategory);
         return getDataTable(list);
     }
 
@@ -54,8 +54,8 @@ public class ArticleCategoryController extends BaseController {
     @PreAuthorize("@ss.hasPermi('portal:category:export')")
     @Log(title = "文章分类管理", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, ArticleCategory ArticleCategory) {
-        List<ArticleCategory> list = articleCategoryService.selectArticleCategoryList(ArticleCategory);
+    public void export(HttpServletResponse response, ArticleCategory articleCategory) {
+        List<ArticleCategory> list = articleCategoryService.selectArticleCategoryList(articleCategory);
         ExcelUtil<ArticleCategory> util = new ExcelUtil<ArticleCategory>(ArticleCategory.class);
         util.exportExcel(response, list, "文章分类管理数据");
     }
@@ -77,8 +77,8 @@ public class ArticleCategoryController extends BaseController {
     @PreAuthorize("@ss.hasPermi('portal:category:add')")
     @Log(title = "文章分类管理", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody ArticleCategory ArticleCategory) {
-        return toAjax(articleCategoryService.insertArticleCategory(ArticleCategory));
+    public AjaxResult add(@RequestBody ArticleCategory articleCategory) {
+        return toAjax(articleCategoryService.insertArticleCategory(articleCategory));
     }
 
     /**
@@ -88,8 +88,8 @@ public class ArticleCategoryController extends BaseController {
     @PreAuthorize("@ss.hasPermi('portal:category:edit')")
     @Log(title = "文章分类管理", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody ArticleCategory ArticleCategory) {
-        return toAjax(articleCategoryService.updateArticleCategory(ArticleCategory));
+    public AjaxResult edit(@RequestBody ArticleCategory articleCategory) {
+        return toAjax(articleCategoryService.updateArticleCategory(articleCategory));
     }
 
     /**

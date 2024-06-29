@@ -70,4 +70,10 @@ public interface ArticleMapper
      * @return
      */
     public Integer selectMaxWeight();
+
+    /**
+     * 执行文章阅读量 +1
+     * @param articleId
+     */
+    public void increaseReadNum(@Param("articleId") Long articleId);
 }

@@ -22,26 +22,26 @@ public interface IArticleCategoryService {
     /**
      * 查询文章分类管理列表
      * 
-     * @param ArticleCategory 文章分类管理
+     * @param articleCategory 文章分类管理
      * @return 文章分类管理集合
      */
-    public List<ArticleCategory> selectArticleCategoryList(ArticleCategory ArticleCategory);
+    public List<ArticleCategory> selectArticleCategoryList(ArticleCategory articleCategory);
 
     /**
      * 新增文章分类管理
      * 
-     * @param ArticleCategory 文章分类管理
+     * @param articleCategory 文章分类管理
      * @return 结果
      */
-    public int insertArticleCategory(ArticleCategory ArticleCategory);
+    public int insertArticleCategory(ArticleCategory articleCategory);
 
     /**
      * 修改文章分类管理
      * 
-     * @param ArticleCategory 文章分类管理
+     * @param articleCategory 文章分类管理
      * @return 结果
      */
-    public int updateArticleCategory(ArticleCategory ArticleCategory);
+    public int updateArticleCategory(ArticleCategory articleCategory);
 
     /**
      * 批量删除文章分类管理

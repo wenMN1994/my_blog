@@ -38,36 +38,36 @@ public class ArticleCategoryServiceImpl implements IArticleCategoryService {
     /**
      * 查询文章分类管理列表
      * 
-     * @param ArticleCategory 文章分类管理
+     * @param articleCategory 文章分类管理
      * @return 文章分类管理
      */
     @Override
-    public List<ArticleCategory> selectArticleCategoryList(ArticleCategory ArticleCategory) {
-        return articleCategoryMapper.selectArticleCategoryList(ArticleCategory);
+    public List<ArticleCategory> selectArticleCategoryList(ArticleCategory articleCategory) {
+        return articleCategoryMapper.selectArticleCategoryList(articleCategory);
     }
 
     /**
      * 新增文章分类管理
      * 
-     * @param ArticleCategory 文章分类管理
+     * @param articleCategory 文章分类管理
      * @return 结果
      */
     @Override
-    public int insertArticleCategory(ArticleCategory ArticleCategory) {
-        ArticleCategory.setCreateTime(DateUtils.getNowDate());
-        return articleCategoryMapper.insertArticleCategory(ArticleCategory);
+    public int insertArticleCategory(ArticleCategory articleCategory) {
+        articleCategory.setCreateTime(DateUtils.getNowDate());
+        return articleCategoryMapper.insertArticleCategory(articleCategory);
     }
 
     /**
      * 修改文章分类管理
      * 
-     * @param ArticleCategory 文章分类管理
+     * @param articleCategory 文章分类管理
      * @return 结果
      */
     @Override
-    public int updateArticleCategory(ArticleCategory ArticleCategory) {
-        ArticleCategory.setUpdateTime(DateUtils.getNowDate());
-        return articleCategoryMapper.updateArticleCategory(ArticleCategory);
+    public int updateArticleCategory(ArticleCategory articleCategory) {
+        articleCategory.setUpdateTime(DateUtils.getNowDate());
+        return articleCategoryMapper.updateArticleCategory(articleCategory);
     }
 
     /**

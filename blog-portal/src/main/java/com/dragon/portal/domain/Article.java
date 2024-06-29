@@ -89,8 +89,18 @@ public class Article extends BaseEntity {
     @Excel(name = "文章内容（html格式）")
     private String contentHtml;
 
+    /** 阅读数量 */
+    private Long readNum;
+
     /** 权重 */
     private Integer weight;
+
+    /** 文章类型（1：普通文章，2：收录于知识库'） */
+    private Integer type;
+
+    /** 文章类型描述（1：普通文章，2：收录于知识库'） */
+    private String typeStr;
+
 
     /** 文章置顶状态 */
     private Boolean isTop;

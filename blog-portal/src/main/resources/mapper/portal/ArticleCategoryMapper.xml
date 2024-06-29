@@ -21,7 +21,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectArticleCategoryList" parameterType="ArticleCategory" resultMap="ArticleCategoryResult">
         <include refid="selectArticleCategoryVo"/>
-        <where>  
+        <where>
+            and is_deleted = 0
             <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
         </where>
     </select>
@@ -68,11 +69,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
     <delete id="deleteArticleCategoryById">
-        delete from portal_article_category where category_id = #{categoryId,jdbcType=BIGINT}
+        update portal_article_category set is_deleted = 1 where category_id = #{categoryId,jdbcType=BIGINT}
     </delete>
 
     <delete id="deleteArticleCategoryByIds">
-        delete from portal_article_category where category_id in
+        update portal_article_category set is_deleted = 1 where category_id in
         <foreach item="categoryId" collection="array" open="(" separator="," close=")">
             #{categoryId}
         </foreach>
