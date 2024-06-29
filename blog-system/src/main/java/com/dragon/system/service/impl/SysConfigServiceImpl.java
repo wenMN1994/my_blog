@@ -167,6 +167,21 @@ public class SysConfigServiceImpl implements ISysConfigService {
     }
 
     /**
+     * 根据Key修改参数配置
+     * @param config 参数配置信息
+     * @return
+     */
+    @Override
+    public int updateConfigByKey(SysConfig config) {
+        redisCache.deleteObject(getCacheKey(config.getConfigKey()));
+        int row = configMapper.updateConfigByKey(config);
+        if (row > 0) {
+            redisCache.setCacheObject(getCacheKey(config.getConfigKey()), config.getConfigValue());
+        }
+        return row;
+    }
+
+    /**
      * 批量删除参数信息
      *
      * @param configIds 需要删除的参数ID

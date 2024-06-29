@@ -74,6 +74,14 @@ public interface ISysConfigService {
     public int updateConfig(SysConfig config);
 
     /**
+     * 根据Key修改参数配置
+     *
+     * @param config 参数配置信息
+     * @return 结果
+     */
+    public int updateConfigByKey(SysConfig config);
+
+    /**
      * 批量删除参数信息
      * 
      * @param configIds 需要删除的参数ID
