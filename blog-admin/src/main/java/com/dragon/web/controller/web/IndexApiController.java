@@ -1,5 +1,6 @@
-package com.dragon.web.controller.api;
+package com.dragon.web.controller.web;
 
+import com.dragon.common.annotation.Anonymous;
 import com.dragon.common.annotation.RateLimiter;
 import com.dragon.common.constant.CacheConstants;
 import com.dragon.common.core.controller.BaseController;
@@ -7,6 +8,7 @@ import com.dragon.common.core.domain.AjaxResult;
 import com.dragon.common.core.redis.RedisCache;
 import com.dragon.portal.domain.Slideshow;
 import com.dragon.portal.service.ISlideshowService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,8 +26,10 @@ import java.util.List;
  * @modifiedBy：
  * @version:
  */
+@Anonymous
 @RestController
-@RequestMapping("/publicApi/indexFront")
+@RequestMapping("/web/index")
+@Api(tags = "网站首页基础信息")
 public class IndexApiController extends BaseController {
     @Autowired
     private ISlideshowService slideshowService;
@@ -39,7 +43,6 @@ public class IndexApiController extends BaseController {
      * @return
      */
     @GetMapping("/getSlideshowList")
-    @RateLimiter
     public AjaxResult getSlideshowList(Slideshow slideshow) {
         List<Slideshow> slideshowList = new ArrayList<>();
         if(redisCache.hasKey(CacheConstants.INDEX_FRONT_SLIDESHOW_KEY)){
@@ -56,7 +59,6 @@ public class IndexApiController extends BaseController {
      * @return
      */
     @GetMapping("/getIndexData")
-    @RateLimiter
     public AjaxResult getIndexData() {
         // @TODO 查询热门课程和新上好课
         return AjaxResult.success();
@@ -73,4 +75,6 @@ public class IndexApiController extends BaseController {
         // @TODO 查询数据库校验账号、手机号码、邮箱是否已注册
         return AjaxResult.success(true);
     }
+
+
 }

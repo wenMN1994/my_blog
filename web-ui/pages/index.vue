@@ -12,7 +12,7 @@
       <div class="swiper-pagination" slot="pagination"></div>
     </div>
     <!-- 幻灯片 结束 -->
-    
+
     <div id="index-course-list">
       <!-- 热门课程 开始 -->
       <div>
@@ -45,12 +45,12 @@
                       <span class="fl jgAttr c-ccc f-fA">
                         <i class="c-999 f-fA">9634人学习</i>
                         |
-                        <i class="c-999 f-fA">9634评论</i>
+                        <i class="c-999 f-fA">9634评论管理</i>
                       </span>
                     </section>
                   </div>
                 </li>
-               
+
               </ul>
               <div class="clear"></div>
             </article>
@@ -91,12 +91,12 @@
                       <span class="fl jgAttr c-ccc f-fA">
                         <i class="c-999 f-fA">9634人学习</i>
                         |
-                        <i class="c-999 f-fA">9634评论</i>
+                        <i class="c-999 f-fA">9634评论管理</i>
                       </span>
                     </section>
                   </div>
                 </li>
-               
+
               </ul>
               <div class="clear"></div>
             </article>
@@ -284,7 +284,7 @@ export default {
     courseItemClick(courseId) {
       this.$router.push({
         path: `/course/${courseId}`,
-      })	
+      })
     }
   }
 }

@@ -3,6 +3,7 @@ package com.dragon.portal.service;
 import java.util.List;
 
 import com.dragon.common.core.domain.model.LoginUser;
+import com.dragon.portal.domain.Article;
 import com.dragon.portal.domain.ArticleTag;
 import com.dragon.system.domain.vo.SelectRspVo;
 
@@ -68,4 +69,11 @@ public interface IArticleTagService {
      * @return
      */
     public List<SelectRspVo> findTagSelectList();
+
+    /**
+     * 前台获取标签下文章列表
+     * @param articleTag
+     * @return
+     */
+    public List<Article> getTagArticlePageList(ArticleTag articleTag);
 }

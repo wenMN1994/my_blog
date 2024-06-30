@@ -27,6 +27,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
 
+    <!--根据标签ID查询关联信息-->
+    <select id="selectByTagId" resultMap="ArticleTagRelResult">
+        select article_id, tag_id from portal_article_tag_rel where tag_id = #{tagId,jdbcType=BIGINT}
+    </select>
+
     <insert id="insertArticleTagRel" parameterType="ArticleTagRel" useGeneratedKeys="true" keyProperty="id">
         insert into portal_article_tag_rel
         <trim prefix="(" suffix=")" suffixOverrides=",">

@@ -39,7 +39,7 @@
         <guava.version>31.1-jre</guava.version>
         <commonmark.version>0.20.0</commonmark.version>
         <lucene.version>8.11.1</lucene.version>
-        <toolgood-words.version>3.1.0.1</toolgood-words.version>
+        <toolgood-words.version>3.0.3.1</toolgood-words.version>
     </properties>
 
     <!-- 依赖声明 -->

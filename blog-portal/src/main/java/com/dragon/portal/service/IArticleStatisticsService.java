@@ -1,5 +1,7 @@
 package com.dragon.portal.service;
 
+import com.dragon.portal.domain.StatisticsInfo;
+
 /**
  * @author: DragonWen
  * @date: 2024/6/29
@@ -17,4 +19,10 @@ public interface IArticleStatisticsService {
      * 统计各标签下文章总数
      */
     public void statisticsTagArticleTotal();
+
+    /**
+     * 前台获取统计信息
+     * @return
+     */
+    public StatisticsInfo findInfo();
 }

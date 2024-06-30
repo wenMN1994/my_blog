@@ -47,9 +47,9 @@ public class PortalSettings {
     @Email(message = "邮箱格式不正确")
     private String mail;
 
-    @NotNull(message = "请设置评论敏感词过滤是否开启")
+    @NotNull(message = "请设置评论管理敏感词过滤是否开启")
     private Boolean isCommentSensitiveWordsOpen;
 
-    @NotNull(message = "请设置评论审核是否开启")
+    @NotNull(message = "请设置评论管理审核是否开启")
     private Boolean isCommentExamineOpen;
 }

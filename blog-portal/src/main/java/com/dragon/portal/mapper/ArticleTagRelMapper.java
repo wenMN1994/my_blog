@@ -82,4 +82,11 @@ public interface ArticleTagRelMapper {
      * @return 结果
      */
     void deleteArticleTagRelByArticleIds(@Param("articleIds") Long[] articleIds);
+
+    /**
+     * 根据标签ID查询关联信息
+     * @param tagId
+     * @return
+     */
+    public List<ArticleTagRel> selectByTagId(@Param("tagId") Long tagId);
 }

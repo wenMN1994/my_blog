@@ -6,6 +6,7 @@ import lombok.Data;
 import com.dragon.common.annotation.Excel;
 import com.dragon.common.core.domain.BaseEntity;
 
+import java.time.YearMonth;
 import java.util.List;
 
 /**
@@ -18,6 +19,10 @@ import java.util.List;
 @ApiModel(value = "Article", description = "文章实体")
 public class Article extends BaseEntity {
     private static final long serialVersionUID = 1L;
+
+    /** 文章ID集合 */
+    @ApiModelProperty("文章ID集合")
+    private List<Long> articleIds;
 
     /** 文章ID */
     @ApiModelProperty("文章ID")
@@ -105,9 +110,18 @@ public class Article extends BaseEntity {
     /** 文章置顶状态 */
     private Boolean isTop;
 
-    /** 文章分类 */
+    /** 文章分类ID */
     private Long articleCategoryId;
 
-    /** 文章标签 */
+    /** 文章标签ID */
     private List<String> articleTags;
+
+    @ApiModelProperty("文章分类")
+    private ArticleCategory category;
+
+    @ApiModelProperty("文章标签")
+    private List<ArticleTag> tags;
+
+    /** 发布的月份（此字段不需要展示在前端，主要用于按月份分组使用） */
+    private YearMonth createMonth;
 }

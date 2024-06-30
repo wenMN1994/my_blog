@@ -16,19 +16,19 @@
                     </a>
                     <div class="operation">
                       <p>
-                        <img src="~/assets/img/common/articleReadEyes.png"> 
+                        <img src="~/assets/img/common/articleReadEyes.png">
                         <span class="num ">122 浏览</span>
                       </p>
                       <p>
-                        <img src="~/assets/img/common/comment.png"> 
-                        <span class="num ">122 评论</span>
+                        <img src="~/assets/img/common/comment.png">
+                        <span class="num ">122 评论管理</span>
                       </p>
                       <p>
-                        <img src="~/assets/img/common/zan.png"> 
+                        <img src="~/assets/img/common/zan.png">
                         <span class="num ">122 赞</span>
                       </p>
                       <p>
-                        <img src="~/assets/img/common/cai.png"> 
+                        <img src="~/assets/img/common/cai.png">
                         <span class="num ">122 踩</span>
                       </p>
                     </div>
@@ -132,7 +132,7 @@ export default {
     articleItemClick(articleId) {
       this.$router.push({
         path: `/article/${articleId}`,
-      })	
+      })
     }
   }
 }

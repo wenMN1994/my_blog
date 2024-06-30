@@ -1,5 +1,6 @@
 package com.dragon.portal.service.impl;
 
+import java.time.YearMonth;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -116,7 +117,7 @@ public class ArticleServiceImpl implements IArticleService {
             // 获取文章所属分类
             ArticleCategoryRel articleCategoryRel = articleCategoryRelMapper.selectByArticleId(articleVo.getArticleId());
             if (Objects.nonNull(articleCategoryRel)) {
-                article.setArticleCategoryId(articleCategoryRel.getCategoryId());
+                articleVo.setArticleCategoryId(articleCategoryRel.getCategoryId());
             }
             // 获取文章对应标签
             ArticleTagRel articleTagRel = new ArticleTagRel();
@@ -298,6 +299,77 @@ public class ArticleServiceImpl implements IArticleService {
         article.setUpdateBy(loginUser.getUsername());
         article.setUpdateTime(DateUtils.getNowDate());
         return articleMapper.updateArticle(article);
+    }
+
+    /**
+     * 获取首页文章分页数据
+     * @param article
+     * @return
+     */
+    @Override
+    public List<Article> getArticlePageList(Article article) {
+        article.setPublishType("1");
+        article.setStatus("0");
+        // 第一步：分页查询文章主体记录
+        List<Article> articleList = this.selectArticleList(article);
+        // 拿到所有文章的 ID 集合
+        List<Long> articleIds = articleList.stream().map(Article::getArticleId).collect(Collectors.toList());
+        // 第二步：设置文章所属分类
+        // 查询所有文章分类
+        List<ArticleCategory> categoryDOS = articleCategoryMapper.selectArticleCategoryList(new ArticleCategory());
+        // 转 Map, 方便后续根据分类 ID 拿到对应的分类名称
+        Map<Long, String> categoryIdNameMap = categoryDOS.stream().collect(Collectors.toMap(ArticleCategory::getCategoryId, ArticleCategory::getName));
+        // 第三步：设置文章标签
+        // 查询所有标签
+        List<ArticleTag> tagDOS = articleTagMapper.selectArticleTagList(new ArticleTag());
+        // 转 Map, 方便后续根据标签 ID 拿到对应的标签名称
+        Map<Long, String> tagIdNameMap = tagDOS.stream().collect(Collectors.toMap(ArticleTag::getTagId, ArticleTag::getName));
+        articleList.forEach(vo -> {
+            if (Objects.nonNull(vo.getArticleCategoryId())) {
+                // 设置当前文章分类信息
+                ArticleCategory articleCategory = new ArticleCategory();
+                articleCategory.setCategoryId(vo.getArticleCategoryId());
+                articleCategory.setName(categoryIdNameMap.get(vo.getArticleCategoryId()));
+                vo.setCategory(articleCategory);
+            }
+            if (CollectionUtil.isNotEmpty(vo.getArticleTags())) {
+                List<ArticleTag> articleTags = new ArrayList<>();
+                vo.getArticleTags().forEach(tagId -> {
+                    // 设置当前文章标签信息
+                    ArticleTag articleTag = new ArticleTag();
+                    articleTag.setTagId(Long.valueOf(tagId));
+                    articleTag.setName(tagIdNameMap.get(Long.valueOf(tagId)));
+                    articleTags.add(articleTag);
+                });
+                vo.setTags(articleTags);
+            }
+        });
+        return articleList;
+    }
+
+    /**
+     * 获取文章归档分页数据
+     * @return
+     */
+    @Override
+    public List<ArchiveArticle> getArchivePageList() {
+        Article article = new Article();
+        article.setPublishType("1");
+        article.setStatus("0");
+        List<Article> articleList = this.selectArticleList(article);
+        List<ArchiveArticle> vos = new ArrayList<>();
+        if (CollectionUtil.isNotEmpty(articleList)) {
+            articleList.stream().forEach(item -> {
+                item.setCreateMonth(YearMonth.from(DateUtils.toLocalDateTime(item.getCreateTime())));
+            });
+            Map<YearMonth, List<Article>> map = articleList.stream().collect(Collectors.groupingBy(Article::getCreateMonth));
+            // 使用 TreeMap 按月份倒序排列
+            Map<YearMonth, List<Article>> sortedMap = new TreeMap<>(Collections.reverseOrder());
+            sortedMap.putAll(map);
+            // 遍历排序后的 Map，将其转换为归档 VO
+            sortedMap.forEach((k, v) -> vos.add(ArchiveArticle.builder().month(k).articles(v).build()));
+        }
+        return vos;
     }
 
     /**

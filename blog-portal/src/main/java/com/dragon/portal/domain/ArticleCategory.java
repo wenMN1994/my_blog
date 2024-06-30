@@ -17,11 +17,9 @@ import com.dragon.common.core.domain.BaseEntity;
 public class ArticleCategory extends BaseEntity{
     private static final long serialVersionUID = 1L;
 
-    /** 分类ID */
     @ApiModelProperty("分类ID")
     private Long categoryId;
 
-    /** 分类名称 */
     @ApiModelProperty("分类名称")
     @Excel(name = "分类名称")
     private String name;
@@ -30,7 +28,6 @@ public class ArticleCategory extends BaseEntity{
     @ApiModelProperty("逻辑删除标志位：0：未删除 1：已删除")
     private Long isDeleted;
 
-    /** 文章数量 */
     @ApiModelProperty("文章数量")
     @Excel(name = "文章数量")
     private Long articlesTotal;

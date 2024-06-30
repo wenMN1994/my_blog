@@ -138,7 +138,7 @@
               </tr>
               <tr>
                 <td colspan="3" class="el-table__cell is-leaf">
-                  <p class="cell data-info">展现量0 · 阅读0 · 评论0 · 收藏0</p>
+                  <p class="cell data-info">展现量0 · 阅读0 · 评论管理0 · 收藏0</p>
                 </td>
                 <td colspan="1" class="el-table__cell is-leaf" style="text-align: right;">
                   <p class="cell">
@@ -176,12 +176,12 @@
 
 
     <!-- 添加或修改文章信息对话框 -->
-    <el-dialog 
-      :title="title" 
-      :visible.sync="open" 
-      :close-on-click-modal="false" 
-      width="800px" 
-      append-to-body 
+    <el-dialog
+      :title="title"
+      :visible.sync="open"
+      :close-on-click-modal="false"
+      width="800px"
+      append-to-body
       class="scrollbar">
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="文章标题" prop="articleTitle">
@@ -329,7 +329,7 @@ export default {
         })
       }else{
         this.articleListHeight = 'calc(100vh - 140px)';
-      } 
+      }
     }
   },
   created() {

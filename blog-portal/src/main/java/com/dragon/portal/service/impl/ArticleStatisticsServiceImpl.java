@@ -1,14 +1,8 @@
 package com.dragon.portal.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.dragon.portal.domain.ArticleCategory;
-import com.dragon.portal.domain.ArticleCategoryRel;
-import com.dragon.portal.domain.ArticleTag;
-import com.dragon.portal.domain.ArticleTagRel;
-import com.dragon.portal.mapper.ArticleCategoryMapper;
-import com.dragon.portal.mapper.ArticleCategoryRelMapper;
-import com.dragon.portal.mapper.ArticleTagMapper;
-import com.dragon.portal.mapper.ArticleTagRelMapper;
+import com.dragon.portal.domain.*;
+import com.dragon.portal.mapper.*;
 import com.dragon.portal.service.IArticleStatisticsService;
 import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +21,9 @@ import java.util.stream.Collectors;
  */
 @Service
 public class ArticleStatisticsServiceImpl implements IArticleStatisticsService {
+
+    @Autowired
+    private ArticleMapper articleMapper;
 
     @Autowired
     private ArticleCategoryMapper articleCategoryMapper;
@@ -108,5 +105,31 @@ public class ArticleStatisticsServiceImpl implements IArticleStatisticsService {
                 articleTagMapper.updateArticleTag(updateDo);
             }
         }
+    }
+
+    /**
+     * 前台获取统计信息
+     * @return
+     */
+    @Override
+    public StatisticsInfo findInfo() {
+        // 查询文章总数
+        List<Article> articles = articleMapper.selectArticleList(new Article());
+        Long articleTotalCount = CollectionUtil.isEmpty(articles) ? 0L : articles.size();
+        // 查询分类总数
+        List<ArticleCategory> articleCategories = articleCategoryMapper.selectArticleCategoryList(new ArticleCategory());
+        Long categoryTotalCount = CollectionUtil.isEmpty(articleCategories) ? 0L : articleCategories.size();
+        // 查询标签总数
+        List<ArticleTag> articleTags = articleTagMapper.selectArticleTagList(new ArticleTag());
+        Long tagTotalCount = CollectionUtil.isEmpty(articleTags) ? 0L : articleTags.size();
+        // 总浏览量
+        Long pvTotalCount = CollectionUtil.isEmpty(articles) ? 0L : articles.stream().mapToLong(Article::getReadNum).sum();
+        // 组装 VO 类
+        StatisticsInfo statisticsInfo = new StatisticsInfo();
+        statisticsInfo.setArticleTotalCount(articleTotalCount);
+        statisticsInfo.setCategoryTotalCount(categoryTotalCount);
+        statisticsInfo.setTagTotalCount(tagTotalCount);
+        statisticsInfo.setPvTotalCount(pvTotalCount);
+        return statisticsInfo;
     }
 }

@@ -1,6 +1,8 @@
 package com.dragon.portal.service;
 
 import java.util.List;
+
+import com.dragon.portal.domain.Article;
 import com.dragon.portal.domain.ArticleCategory;
 import com.dragon.system.domain.vo.SelectRspVo;
 
@@ -64,4 +66,11 @@ public interface IArticleCategoryService {
      * @return
      */
     public List<SelectRspVo> findCategorySelectList();
+
+    /**
+     * 前台获取分类下文章分页数据
+     * @param articleCategory
+     * @return
+     */
+    public List<Article> getCategoryArticlePageList(ArticleCategory articleCategory);
 }

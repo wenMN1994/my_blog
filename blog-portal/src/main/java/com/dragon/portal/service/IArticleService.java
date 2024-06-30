@@ -3,6 +3,7 @@ package com.dragon.portal.service;
 import java.util.List;
 
 import com.dragon.common.core.domain.model.LoginUser;
+import com.dragon.portal.domain.ArchiveArticle;
 import com.dragon.portal.domain.Article;
 
 /**
@@ -72,4 +73,17 @@ public interface IArticleService {
      * @return
      */
     public int updateArticleIsTop(Long articleId, Boolean isTop, LoginUser loginUser);
+
+    /**
+     * 获取首页文章分页数据
+     * @param article
+     * @return
+     */
+    public List<Article> getArticlePageList(Article article);
+
+    /**
+     * 获取文章归档分页数据
+     * @return
+     */
+    public List<ArchiveArticle> getArchivePageList();
 }

@@ -80,4 +80,11 @@ public interface ArticleCategoryRelMapper {
      * @param articleIds 文章ID集合
      */
     public void deleteArticleCategoryRelByArticleIds(@Param("articleIds") Long[] articleIds);
+
+    /**
+     * 根据分类ID查询关联信息
+     * @param categoryId
+     * @return
+     */
+    public List<ArticleCategoryRel> selectByCategoryId(@Param("categoryId") Long categoryId);
 }

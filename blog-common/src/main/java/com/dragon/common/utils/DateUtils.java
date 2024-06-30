@@ -161,4 +161,19 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
         ZonedDateTime zdt = localDateTime.atZone(ZoneId.systemDefault());
         return Date.from(zdt.toInstant());
     }
+
+    /**
+     * 增加 Date ==> LocalDateTime
+     * @param date
+     * @return
+     */
+    public static LocalDateTime toLocalDateTime(Date date) {
+        // 将Date转换为Instant
+        Instant instant = date.toInstant();
+        // 使用系统默认时区（或其他指定时区）将Instant转换为LocalDateTime
+        ZoneId zoneId = ZoneId.systemDefault(); // 或者ZoneId.of("Asia/Shanghai")等其他时区
+        LocalDateTime localDateTime = instant.atZone(zoneId).toLocalDateTime();
+
+        return localDateTime;
+    }
 }
