@@ -17,12 +17,6 @@
 
     <dependencies>
 
-        <!-- 通用工具-->
-        <dependency>
-            <groupId>com.dragon</groupId>
-            <artifactId>blog-common</artifactId>
-        </dependency>
-
         <!-- 核心模块-->
         <dependency>
             <groupId>com.dragon</groupId>
