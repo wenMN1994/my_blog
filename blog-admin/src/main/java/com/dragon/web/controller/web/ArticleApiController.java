@@ -38,7 +38,7 @@ public class ArticleApiController extends BaseController {
      * @return
      */
     @ApiOperation(value = "获取首页文章分页数据")
-    @PostMapping("/getArticlePageList")
+    @GetMapping("/getArticlePageList")
     public TableDataInfo getArticlePageList(Article article) {
         startPage();
         List<Article> list = articleService.getArticlePageList(article);

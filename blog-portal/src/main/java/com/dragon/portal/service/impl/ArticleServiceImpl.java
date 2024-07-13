@@ -312,8 +312,6 @@ public class ArticleServiceImpl implements IArticleService {
         article.setStatus("0");
         // 第一步：分页查询文章主体记录
         List<Article> articleList = this.selectArticleList(article);
-        // 拿到所有文章的 ID 集合
-        List<Long> articleIds = articleList.stream().map(Article::getArticleId).collect(Collectors.toList());
         // 第二步：设置文章所属分类
         // 查询所有文章分类
         List<ArticleCategory> categoryDOS = articleCategoryMapper.selectArticleCategoryList(new ArticleCategory());
