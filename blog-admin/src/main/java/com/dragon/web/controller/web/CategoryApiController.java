@@ -12,10 +12,7 @@ import com.dragon.portal.service.IArticleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,15 +31,15 @@ public class CategoryApiController extends BaseController {
     @Autowired
     private IArticleCategoryService articleCategoryService;
 
-    @PostMapping("/list")
     @ApiOperation(value = "前台获取分类列表")
+    @PostMapping("/list")
     public AjaxResult findCategoryList() {
         return AjaxResult.success(articleCategoryService.selectArticleCategoryList(new ArticleCategory()));
     }
 
     @ApiOperation(value = "前台获取分类下文章分页数据")
-    @PostMapping("/article/list")
-    public TableDataInfo getCategoryArticlePageList(@RequestBody ArticleCategory articleCategory) {
+    @GetMapping("/article/list")
+    public TableDataInfo getCategoryArticlePageList(ArticleCategory articleCategory) {
         startPage();
         List<Article> list = articleCategoryService.getCategoryArticlePageList(articleCategory);
         return getDataTable(list);
