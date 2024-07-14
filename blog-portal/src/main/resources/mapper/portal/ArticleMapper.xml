@@ -24,6 +24,11 @@
         <result property="updateTime"    column="update_time"    />
     </resultMap>
 
+    <resultMap type="FindPreNextArticle" id="FindPreNextArticleResult">
+        <result property="articleId"    column="article_id"    />
+        <result property="articleTitle"    column="article_title"    />
+    </resultMap>
+
     <sql id="selectArticleVo">
         select article_id, article_title, article_type, cover, summary, publish_type, content_level, status, content, content_html, read_num, weight, type, create_by, create_time, update_by, update_time from portal_article
     </sql>
@@ -57,6 +62,18 @@
     <!--获取文章最大权重-->
     <select id="selectMaxWeight" resultType="java.lang.Integer">
         select max(weight) from portal_article t
+    </select>
+
+    <!--获取上一篇文章-->
+    <select id="selectPreArticle" parameterType="Long" resultMap="FindPreNextArticleResult">
+        select article_id, article_title from portal_article
+        where article_id = (select max(article_id) from portal_article t where t.article_id &lt; #{articleId,jdbcType=BIGINT})
+    </select>
+
+    <!--获取下一篇文章-->
+    <select id="selectNextArticle" parameterType="Long" resultMap="FindPreNextArticleResult">
+        select article_id, article_title from portal_article
+        where article_id = (select min(article_id) from portal_article t where t.article_id &gt; #{articleId,jdbcType=BIGINT})
     </select>
 
     <!--新增文章信息-->

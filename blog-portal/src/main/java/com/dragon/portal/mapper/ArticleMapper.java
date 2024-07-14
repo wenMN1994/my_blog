@@ -3,6 +3,7 @@ package com.dragon.portal.mapper;
 import java.util.Date;
 import java.util.List;
 import com.dragon.portal.domain.Article;
+import com.dragon.portal.domain.FindPreNextArticle;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -76,4 +77,18 @@ public interface ArticleMapper
      * @param articleId
      */
     public void increaseReadNum(@Param("articleId") Long articleId);
+
+    /**
+     * 获取上一篇文章
+     * @param articleId
+     * @return
+     */
+    public FindPreNextArticle selectPreArticle(@Param("articleId") Long articleId);
+
+    /**
+     * 获取下一篇文章
+     * @param articleId
+     * @return
+     */
+    public FindPreNextArticle selectNextArticle(@Param("articleId") Long articleId);
 }

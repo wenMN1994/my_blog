@@ -124,4 +124,20 @@ public class Article extends BaseEntity {
 
     /** 发布的月份（此字段不需要展示在前端，主要用于按月份分组使用） */
     private YearMonth createMonth;
+
+    /**总字数*/
+    @ApiModelProperty("总字数")
+    private Integer totalWords;
+
+    /**阅读时长*/
+    @ApiModelProperty("阅读时长")
+    private String readTime;
+
+    /**上一篇文章*/
+    @ApiModelProperty("上一篇文章")
+    private FindPreNextArticle preArticle;
+
+    /**下一篇文章*/
+    @ApiModelProperty("下一篇文章")
+    private FindPreNextArticle nextArticle;
 }
