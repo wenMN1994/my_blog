@@ -16,7 +16,7 @@ public interface StatisticsArticlePvMapper {
      * @param id 统计 - 文章 PV (浏览量)主键
      * @return 统计 - 文章 PV (浏览量)
      */
-    public StatisticsArticlePv selectStatisticsArticlePvById(String id);
+    public StatisticsArticlePv selectStatisticsArticlePvById(Long id);
 
     /**
      * 查询统计 - 文章 PV (浏览量)列表
@@ -48,7 +48,7 @@ public interface StatisticsArticlePvMapper {
      * @param id 统计 - 文章 PV (浏览量)主键
      * @return 结果
      */
-    public int deleteStatisticsArticlePvById(String id);
+    public int deleteStatisticsArticlePvById(Long id);
 
     /**
      * 批量删除统计 - 文章 PV (浏览量)
@@ -56,7 +56,7 @@ public interface StatisticsArticlePvMapper {
      * @param ids 需要删除的数据主键集合
      * @return 结果
      */
-    public int deleteStatisticsArticlePvByIds(String[] ids);
+    public int deleteStatisticsArticlePvByIds(Long[] ids);
 
     /**
      * 当日文章 PV 访问量 +1

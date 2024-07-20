@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
     
-    <select id="selectStatisticsArticlePvById" parameterType="String" resultMap="StatisticsArticlePvResult">
+    <select id="selectStatisticsArticlePvById" parameterType="Long" resultMap="StatisticsArticlePvResult">
         <include refid="selectStatisticsArticlePvVo"/>
         where id = #{id}
     </select>
@@ -64,11 +64,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where pv_date = #{pvDate}
     </update>
 
-    <delete id="deleteStatisticsArticlePvById" parameterType="String">
+    <delete id="deleteStatisticsArticlePvById" parameterType="Long">
         delete from portal_statistics_article_pv where id = #{id}
     </delete>
 
-    <delete id="deleteStatisticsArticlePvByIds" parameterType="String">
+    <delete id="deleteStatisticsArticlePvByIds" parameterType="Long">
         delete from portal_statistics_article_pv where id in 
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}

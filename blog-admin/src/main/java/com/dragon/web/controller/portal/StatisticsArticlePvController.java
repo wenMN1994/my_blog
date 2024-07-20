@@ -61,7 +61,7 @@ public class StatisticsArticlePvController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('portal:statisticsArticlePv:query')")
     @GetMapping(value = "/{id}")
-    public AjaxResult getInfo(@PathVariable("id") String id) {
+    public AjaxResult getInfo(@PathVariable("id") Long id) {
         return success(statisticsArticlePvService.selectStatisticsArticlePvById(id));
     }
 
@@ -91,7 +91,7 @@ public class StatisticsArticlePvController extends BaseController {
     @PreAuthorize("@ss.hasPermi('portal:statisticsArticlePv:remove')")
     @Log(title = "统计 - 文章 PV (浏览量)", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable String[] ids) {
+    public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(statisticsArticlePvService.deleteStatisticsArticlePvByIds(ids));
     }
 }

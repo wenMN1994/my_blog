@@ -19,7 +19,7 @@ public class StatisticsArticlePv extends BaseEntity{
     private static final long serialVersionUID = 1L;
 
     /** id */
-    private String id;
+    private Long id;
 
     /** 被统计的日期 */
     @JsonFormat(pattern = "yyyy-MM-dd")

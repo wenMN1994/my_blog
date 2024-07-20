@@ -29,7 +29,7 @@ public class StatisticsArticlePvServiceImpl implements IStatisticsArticlePvServi
      * @return 统计 - 文章 PV (浏览量)
      */
     @Override
-    public StatisticsArticlePv selectStatisticsArticlePvById(String id) {
+    public StatisticsArticlePv selectStatisticsArticlePvById(Long id) {
         return statisticsArticlePvMapper.selectStatisticsArticlePvById(id);
     }
 
@@ -75,7 +75,7 @@ public class StatisticsArticlePvServiceImpl implements IStatisticsArticlePvServi
      * @return 结果
      */
     @Override
-    public int deleteStatisticsArticlePvByIds(String[] ids) {
+    public int deleteStatisticsArticlePvByIds(Long[] ids) {
         return statisticsArticlePvMapper.deleteStatisticsArticlePvByIds(ids);
     }
 
@@ -86,7 +86,7 @@ public class StatisticsArticlePvServiceImpl implements IStatisticsArticlePvServi
      * @return 结果
      */
     @Override
-    public int deleteStatisticsArticlePvById(String id) {
+    public int deleteStatisticsArticlePvById(Long id) {
         return statisticsArticlePvMapper.deleteStatisticsArticlePvById(id);
     }
 
