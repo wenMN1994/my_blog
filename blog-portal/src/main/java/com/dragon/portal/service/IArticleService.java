@@ -86,4 +86,12 @@ public interface IArticleService {
      * @return
      */
     public List<ArchiveArticle> getArchivePageList();
+
+    /**
+     * 根据文章ID获取文章详细信息
+     *
+     * @param articleId 文章信息主键
+     * @return 文章信息
+     */
+    public Article getArticleInfo(Long articleId);
 }

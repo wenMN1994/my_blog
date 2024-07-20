@@ -11,6 +11,7 @@ import com.dragon.common.utils.DictUtils;
 import com.dragon.common.utils.markdown.MarkdownHelper;
 import com.dragon.common.utils.markdown.MarkdownStatsUtil;
 import com.dragon.portal.domain.*;
+import com.dragon.portal.event.ReadArticleEvent;
 import com.dragon.portal.event.UpdateArticleEvent;
 import com.dragon.portal.mapper.*;
 import com.dragon.system.domain.SysFile;
@@ -67,16 +68,6 @@ public class ArticleServiceImpl implements IArticleService {
             log.warn("==> 查询的文章不存在，articleId: {}", articleId);
             throw new RuntimeException("该文章不存在！");
         }
-        String content = article.getContent();
-        // 计算 md 正文字数
-        Integer totalWords = MarkdownStatsUtil.calculateWordCount(content);
-        article.setTotalWords(totalWords);
-
-        // 计算阅读时间
-        article.setReadTime(MarkdownStatsUtil.calculateReadingTime(totalWords));
-
-        article.setContentHtml(MarkdownHelper.convertMarkdown2Html(content));
-
         // 获取封面URL
         if(article != null && article.getCover() != null){
             SysFile sysFile = iSysFileService.selectSysFileByFileId(article.getCover());
@@ -84,23 +75,10 @@ public class ArticleServiceImpl implements IArticleService {
                 article.setCoverUrl(sysFile.getFileUrl());
             }
         }
-        // 查询所有文章分类
-        List<ArticleCategory> categoryDOS = articleCategoryMapper.selectArticleCategoryList(new ArticleCategory());
-        // 转 Map, 方便后续根据分类 ID 拿到对应的分类名称
-        Map<Long, String> categoryIdNameMap = categoryDOS.stream().collect(Collectors.toMap(ArticleCategory::getCategoryId, ArticleCategory::getName));
-        // 查询所有标签
-        List<ArticleTag> tagDOS = articleTagMapper.selectArticleTagList(new ArticleTag());
-        // 转 Map, 方便后续根据标签 ID 拿到对应的标签名称
-        Map<Long, String> tagIdNameMap = tagDOS.stream().collect(Collectors.toMap(ArticleTag::getTagId, ArticleTag::getName));
         // 获取文章所属分类
         ArticleCategoryRel articleCategoryRel = articleCategoryRelMapper.selectByArticleId(articleId);
         if (Objects.nonNull(articleCategoryRel)) {
             article.setArticleCategoryId(articleCategoryRel.getCategoryId());
-            // 设置当前文章分类信息
-            ArticleCategory articleCategory = new ArticleCategory();
-            articleCategory.setCategoryId(article.getArticleCategoryId());
-            articleCategory.setName(categoryIdNameMap.get(article.getArticleCategoryId()));
-            article.setCategory(articleCategory);
         }
         // 获取文章对应标签
         ArticleTagRel articleTagRel = new ArticleTagRel();
@@ -109,21 +87,7 @@ public class ArticleServiceImpl implements IArticleService {
         if (CollectionUtil.isNotEmpty(articleTagRelList)) {
             List<String> tagIds = articleTagRelList.stream().map(e -> String.valueOf(e.getTagId())).collect(Collectors.toList());
             article.setArticleTags(tagIds);
-            List<ArticleTag> articleTags = new ArrayList<>();
-            tagIds.forEach(tagId -> {
-                // 设置当前文章标签信息
-                ArticleTag articleTag = new ArticleTag();
-                articleTag.setTagId(Long.valueOf(tagId));
-                articleTag.setName(tagIdNameMap.get(Long.valueOf(tagId)));
-                articleTags.add(articleTag);
-            });
-            article.setTags(articleTags);
         }
-
-        // 上一篇
-        article.setPreArticle(articleMapper.selectPreArticle(articleId));
-        // 下一篇
-        article.setNextArticle(articleMapper.selectNextArticle(articleId));
         return article;
     }
 
@@ -362,24 +326,7 @@ public class ArticleServiceImpl implements IArticleService {
         // 转 Map, 方便后续根据标签 ID 拿到对应的标签名称
         Map<Long, String> tagIdNameMap = tagDOS.stream().collect(Collectors.toMap(ArticleTag::getTagId, ArticleTag::getName));
         articleList.forEach(vo -> {
-            if (Objects.nonNull(vo.getArticleCategoryId())) {
-                // 设置当前文章分类信息
-                ArticleCategory articleCategory = new ArticleCategory();
-                articleCategory.setCategoryId(vo.getArticleCategoryId());
-                articleCategory.setName(categoryIdNameMap.get(vo.getArticleCategoryId()));
-                vo.setCategory(articleCategory);
-            }
-            if (CollectionUtil.isNotEmpty(vo.getArticleTags())) {
-                List<ArticleTag> articleTags = new ArrayList<>();
-                vo.getArticleTags().forEach(tagId -> {
-                    // 设置当前文章标签信息
-                    ArticleTag articleTag = new ArticleTag();
-                    articleTag.setTagId(Long.valueOf(tagId));
-                    articleTag.setName(tagIdNameMap.get(Long.valueOf(tagId)));
-                    articleTags.add(articleTag);
-                });
-                vo.setTags(articleTags);
-            }
+            setArticleCategoryTag(vo, categoryIdNameMap, tagIdNameMap);
         });
         return articleList;
     }
@@ -407,6 +354,69 @@ public class ArticleServiceImpl implements IArticleService {
             sortedMap.forEach((k, v) -> vos.add(ArchiveArticle.builder().month(k).articles(v).build()));
         }
         return vos;
+    }
+
+    /**
+     * 根据文章ID获取文章详细信息
+     * @param articleId 文章信息主键
+     * @return
+     */
+    @Override
+    public Article getArticleInfo(Long articleId) {
+        Article article = this.selectArticleByArticleId(articleId);
+        String content = article.getContent();
+        // 计算 md 正文字数
+        Integer totalWords = MarkdownStatsUtil.calculateWordCount(content);
+        article.setTotalWords(totalWords);
+
+        // 计算阅读时间
+        article.setReadTime(MarkdownStatsUtil.calculateReadingTime(totalWords));
+
+        article.setContentHtml(MarkdownHelper.convertMarkdown2Html(content));
+
+        // 查询所有文章分类
+        List<ArticleCategory> categoryDOS = articleCategoryMapper.selectArticleCategoryList(new ArticleCategory());
+        // 转 Map, 方便后续根据分类 ID 拿到对应的分类名称
+        Map<Long, String> categoryIdNameMap = categoryDOS.stream().collect(Collectors.toMap(ArticleCategory::getCategoryId, ArticleCategory::getName));
+        // 查询所有标签
+        List<ArticleTag> tagDOS = articleTagMapper.selectArticleTagList(new ArticleTag());
+        // 转 Map, 方便后续根据标签 ID 拿到对应的标签名称
+        Map<Long, String> tagIdNameMap = tagDOS.stream().collect(Collectors.toMap(ArticleTag::getTagId, ArticleTag::getName));
+        setArticleCategoryTag(article, categoryIdNameMap, tagIdNameMap);
+        // 上一篇
+        article.setPreArticle(articleMapper.selectPreArticle(articleId));
+        // 下一篇
+        article.setNextArticle(articleMapper.selectNextArticle(articleId));
+        // 发布文章阅读事件
+        eventPublisher.publishEvent(new ReadArticleEvent(this, articleId));
+        return article;
+    }
+
+    /**
+     * 设置文章分类和标签信息
+     * @param article
+     * @param categoryIdNameMap
+     * @param tagIdNameMap
+     */
+    private void setArticleCategoryTag(Article article, Map<Long, String> categoryIdNameMap, Map<Long, String> tagIdNameMap) {
+        if (Objects.nonNull(article.getArticleCategoryId())) {
+            // 设置当前文章分类信息
+            ArticleCategory articleCategory = new ArticleCategory();
+            articleCategory.setCategoryId(article.getArticleCategoryId());
+            articleCategory.setName(categoryIdNameMap.get(article.getArticleCategoryId()));
+            article.setCategory(articleCategory);
+        }
+        if (CollectionUtil.isNotEmpty(article.getArticleTags())) {
+            List<ArticleTag> articleTags = new ArrayList<>();
+            article.getArticleTags().forEach(tagId -> {
+                // 设置当前文章标签信息
+                ArticleTag articleTag = new ArticleTag();
+                articleTag.setTagId(Long.valueOf(tagId));
+                articleTag.setName(tagIdNameMap.get(Long.valueOf(tagId)));
+                articleTags.add(articleTag);
+            });
+            article.setTags(articleTags);
+       }
     }
 
     /**

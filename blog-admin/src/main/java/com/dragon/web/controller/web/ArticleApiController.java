@@ -51,6 +51,6 @@ public class ArticleApiController extends BaseController {
     @ApiOperation(value = "根据文章ID获取文章详细信息")
     @GetMapping( "/getArticleInfo")
     public AjaxResult getArticleInfo(Article article) {
-        return AjaxResult.success(articleService.selectArticleByArticleId(article.getArticleId()));
+        return AjaxResult.success(articleService.getArticleInfo(article.getArticleId()));
     }
 }

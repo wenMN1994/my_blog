@@ -2,6 +2,7 @@ package com.dragon.portal.event.subscriber;
 
 import com.dragon.portal.event.ReadArticleEvent;
 import com.dragon.portal.mapper.ArticleMapper;
+import com.dragon.portal.service.IStatisticsArticlePvService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -23,6 +24,9 @@ public class ReadArticleSubscriber implements ApplicationListener<ReadArticleEve
     @Autowired
     private ArticleMapper articleMapper;
 
+    @Autowired
+    private IStatisticsArticlePvService statisticsArticlePvService;
+
     @Override
     @Async("threadPoolTaskExecutor")
     public void onApplicationEvent(ReadArticleEvent event) {
@@ -41,7 +45,7 @@ public class ReadArticleSubscriber implements ApplicationListener<ReadArticleEve
 
         // 当日文章 PV 访问量 +1
         LocalDate currDate = LocalDate.now();
-        // articlePVMapper.increasePVCount(currDate);
+        statisticsArticlePvService.increasePVCount(currDate);
         log.info("==> 当日文章 PV 访问量 +1 操作成功，date: {}", currDate);
     }
 }
