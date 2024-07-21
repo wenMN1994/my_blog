@@ -91,4 +91,11 @@ public interface ArticleMapper
      * @return
      */
     public FindPreNextArticle selectNextArticle(@Param("articleId") Long articleId);
+
+    /**
+     * 根据文章id获取文章列表
+     * @param articleIds
+     * @return
+     */
+    public List<Article> selectArticleByArticleIds(@Param("articleIds") List<Long> articleIds);
 }

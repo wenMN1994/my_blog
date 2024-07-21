@@ -107,7 +107,7 @@ public class ArticleController extends BaseController {
     }
 
     /**
-     * 修改文章信息
+     * 更新文章置顶状态
      */
     @ApiOperation(value = "更新文章置顶状态")
     @PreAuthorize("@ss.hasPermi('portal:article:edit')")

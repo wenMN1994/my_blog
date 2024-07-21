@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dragon.portal.mapper.PortalWikiCatalogMapper">
+    
+    <resultMap type="PortalWikiCatalog" id="PortalWikiCatalogResult">
+        <result property="wikiCatalogId"    column="wiki_catalog_id"    />
+        <result property="catalogName"    column="catalog_name"    />
+        <result property="parentId"    column="parent_id"    />
+        <result property="icon"    column="icon"    />
+        <result property="orderNum"    column="order_num"    />
+        <result property="catalogType"    column="catalog_type"    />
+        <result property="wikiId"    column="wiki_id"    />
+        <result property="articleId"    column="article_id"    />
+        <result property="isDeleted"    column="is_deleted"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectPortalWikiCatalogVo">
+        select wiki_catalog_id, catalog_name, parent_id, icon, order_num, catalog_type, wiki_id, article_id, is_deleted, create_by, create_time, update_by, update_time from portal_wiki_catalog
+    </sql>
+
+    <select id="selectPortalWikiCatalogList" parameterType="PortalWikiCatalog" resultMap="PortalWikiCatalogResult">
+        <include refid="selectPortalWikiCatalogVo"/>
+        <where>
+            <if test="catalogName != null  and catalogName != ''"> and catalog_name like concat('%', #{catalogName}, '%')</if>
+            <if test="wikiId != null"> and wiki_id = #{wikiId}</if>
+        </where>
+    </select>
+
+    <select id="selectPortalWikiCatalogByWikiCatalogId" parameterType="Long" resultMap="PortalWikiCatalogResult">
+        <include refid="selectPortalWikiCatalogVo"/>
+        where wiki_catalog_id = #{wikiCatalogId}
+    </select>
+
+    <!--获取知识库第一篇文章ID-->
+    <select id="selectFirstArticleId" resultType="java.lang.Long">
+        select article_id from portal_wiki_catalog where wiki_id = #{wikiId} and catalog_type = 'C' order by order_num asc limit 1
+    </select>
+
+    <insert id="insertPortalWikiCatalog" parameterType="PortalWikiCatalog" useGeneratedKeys="true" keyProperty="wikiCatalogId">
+        insert into portal_wiki_catalog
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="catalogName != null and catalogName != ''">catalog_name,</if>
+            <if test="parentId != null">parent_id,</if>
+            <if test="icon != null">icon,</if>
+            <if test="orderNum != null">order_num,</if>
+            <if test="catalogType != null and catalogType != ''">catalog_type,</if>
+            <if test="wikiId != null">wiki_id,</if>
+            <if test="articleId != null">article_id,</if>
+            <if test="isDeleted != null">is_deleted,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="catalogName != null and catalogName != ''">#{catalogName},</if>
+            <if test="parentId != null">#{parentId},</if>
+            <if test="icon != null">#{icon},</if>
+            <if test="orderNum != null">#{orderNum},</if>
+            <if test="catalogType != null and catalogType != ''">#{catalogType},</if>
+            <if test="wikiId != null">#{wikiId},</if>
+            <if test="articleId != null">#{articleId},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <!--foreach批量插入知识库内容-->
+    <insert id="batchInsertPortalWikiCatalog">
+        insert into portal_wiki_catalog
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            catalog_name,
+            parent_id,
+            order_num,
+            catalog_type,
+            wiki_id,
+            article_id,
+            create_by,
+            create_time,
+        </trim>
+        <foreach collection="list" item="item" index="index" separator="union all">
+            select #{item.catalogName,jdbcType=VARCHAR},
+                   #{item.parentId,jdbcType=BIGINT},
+                   #{item.orderNum,jdbcType=INTEGER},
+                   #{item.catalogType,jdbcType=VARCHAR},
+                   #{item.wikiId,jdbcType=BIGINT},
+                   #{item.articleId,jdbcType=BIGINT},
+                   #{item.createBy,jdbcType=VARCHAR},
+                   #{item.createTime,jdbcType=DATE}
+        </foreach>
+    </insert>
+
+    <update id="updatePortalWikiCatalog" parameterType="PortalWikiCatalog">
+        update portal_wiki_catalog
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="catalogName != null and catalogName != ''">catalog_name = #{catalogName},</if>
+            <if test="parentId != null">parent_id = #{parentId},</if>
+            <if test="icon != null">icon = #{icon},</if>
+            <if test="orderNum != null">order_num = #{orderNum},</if>
+            <if test="catalogType != null and catalogType != ''">catalog_type = #{catalogType},</if>
+            <if test="wikiId != null">wiki_id = #{wikiId},</if>
+            <if test="articleId != null">article_id = #{articleId},</if>
+            <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where wiki_catalog_id = #{wikiCatalogId}
+    </update>
+
+    <delete id="deletePortalWikiCatalogByWikiCatalogId" parameterType="Long">
+        delete from portal_wiki_catalog where wiki_catalog_id = #{wikiCatalogId}
+    </delete>
+
+    <delete id="deletePortalWikiCatalogByWikiCatalogIds" parameterType="String">
+        delete from portal_wiki_catalog where wiki_catalog_id in 
+        <foreach item="wikiCatalogId" collection="array" open="(" separator="," close=")">
+            #{wikiCatalogId}
+        </foreach>
+    </delete>
+</mapper>
