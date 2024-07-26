@@ -3,6 +3,7 @@ package com.dragon.web.controller.web;
 import com.dragon.common.annotation.Anonymous;
 import com.dragon.common.core.controller.BaseController;
 import com.dragon.common.core.domain.AjaxResult;
+import com.dragon.portal.domain.FindWikiArticlePreNextVo;
 import com.dragon.portal.domain.PortalWiki;
 import com.dragon.portal.domain.PortalWikiCatalog;
 import com.dragon.portal.service.IPortalWikiCatalogService;
@@ -10,9 +11,7 @@ import com.dragon.portal.service.IPortalWikiService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -52,5 +51,17 @@ public class WikiApiController extends BaseController {
     public AjaxResult getWikiCatalogs(PortalWikiCatalog portalWikiCatalog) {
         List<PortalWikiCatalog> list = portalWikiCatalogService.selectPortalWikiCatalogList(portalWikiCatalog);
         return success(list);
+    }
+
+    /**
+     * 获取知识库文章上下页
+     * @param portalWikiCatalog
+     * @return
+     */
+    @ApiOperation(value = "获取知识库文章上下页")
+    @PostMapping("/article/preNext")
+    public AjaxResult findArticlePreNext(@RequestBody PortalWikiCatalog portalWikiCatalog) {
+        FindWikiArticlePreNextVo findWikiArticlePreNextVo = portalWikiCatalogService.findArticlePreNext(portalWikiCatalog);
+        return success(findWikiArticlePreNextVo);
     }
 }

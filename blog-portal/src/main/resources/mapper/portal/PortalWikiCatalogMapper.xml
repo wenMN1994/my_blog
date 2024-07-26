@@ -42,6 +42,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select article_id from portal_wiki_catalog where wiki_id = #{wikiId} and catalog_type = 'C' order by order_num asc limit 1
     </select>
 
+    <!--获取当前文章所属知识库的目录的上一篇文章和下一篇文章-->
+    <select id="selectByWikiIdAndArticleId" resultType="java.util.Map">
+        WITH CTE AS (
+            SELECT
+                T2.ARTICLE_ID,
+                T2.CATALOG_NAME AS ARTICLE_TITLE,
+                T2.ORDER_NUM,
+                LAG(T2.ARTICLE_ID) OVER (ORDER BY T1.ORDER_NUM, T2.ORDER_NUM) AS PREV_ARTICLE_ID,
+                    LAG(T2.CATALOG_NAME) OVER (ORDER BY T1.ORDER_NUM, T2.ORDER_NUM) AS PREV_ARTICLE_TITLE,
+                    LEAD(T2.ARTICLE_ID) OVER (ORDER BY T1.ORDER_NUM, T2.ORDER_NUM) AS NEXT_ARTICLE_ID,
+                    LEAD(T2.CATALOG_NAME) OVER (ORDER BY T1.ORDER_NUM, T2.ORDER_NUM) AS NEXT_ARTICLE_TITLE
+            FROM
+                PORTAL_WIKI_CATALOG T1
+                    LEFT JOIN
+                PORTAL_WIKI_CATALOG T2 ON T1.WIKI_CATALOG_ID = T2.PARENT_ID
+            WHERE
+                T2.ARTICLE_ID IS NOT NULL
+              AND T2.WIKI_ID = #{wikiId,jdbcType=BIGINT}
+        )
+        SELECT
+            ARTICLE_ID,
+            ARTICLE_TITLE,
+            PREV_ARTICLE_ID,
+            PREV_ARTICLE_TITLE,
+            NEXT_ARTICLE_ID,
+            NEXT_ARTICLE_TITLE
+        FROM CTE WHERE ARTICLE_ID = #{articleId,jdbcType=BIGINT}
+    </select>
+
     <insert id="insertPortalWikiCatalog" parameterType="PortalWikiCatalog" useGeneratedKeys="true" keyProperty="wikiCatalogId">
         insert into portal_wiki_catalog
         <trim prefix="(" suffix=")" suffixOverrides=",">

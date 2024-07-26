@@ -3,6 +3,7 @@ package com.dragon.portal.service;
 import java.util.List;
 
 import com.dragon.common.core.domain.model.LoginUser;
+import com.dragon.portal.domain.FindWikiArticlePreNextVo;
 import com.dragon.portal.domain.PortalWikiCatalog;
 
 /**
@@ -61,4 +62,11 @@ public interface IPortalWikiCatalogService {
      * @return 结果
      */
     public int deletePortalWikiCatalogByWikiCatalogId(Long wikiCatalogId);
+
+    /**
+     * 获取知识库文章上下页
+     * @param portalWikiCatalog
+     * @return
+     */
+    public FindWikiArticlePreNextVo findArticlePreNext(PortalWikiCatalog portalWikiCatalog);
 }

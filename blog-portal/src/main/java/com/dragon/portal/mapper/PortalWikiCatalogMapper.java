@@ -1,7 +1,10 @@
 package com.dragon.portal.mapper;
 
 import java.util.List;
+import java.util.Map;
+
 import com.dragon.portal.domain.PortalWikiCatalog;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 知识库目录Mapper接口
@@ -71,4 +74,11 @@ public interface PortalWikiCatalogMapper {
      * @return
      */
     public Long selectFirstArticleId(Long wikiId);
+
+    /**
+     * 获取当前文章所属知识库的目录的上一篇文章和下一篇文章
+     * @param wikiId 知识库ID
+     * @param articleId 文章ID
+     */
+    public Map<String, Object> selectByWikiIdAndArticleId(@Param("wikiId") Long wikiId, @Param("articleId") Long articleId);
 }
