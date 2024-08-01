@@ -1,5 +1,6 @@
 package com.dragon.system.service.impl;
 
+import com.dragon.common.utils.DictUtils;
 import com.dragon.system.domain.SysNotice;
 import com.dragon.system.mapper.SysNoticeMapper;
 import com.dragon.system.service.ISysNoticeService;
@@ -37,7 +38,11 @@ public class SysNoticeServiceImpl implements ISysNoticeService {
      */
     @Override
     public List<SysNotice> selectNoticeList(SysNotice notice) {
-        return noticeMapper.selectNoticeList(notice);
+        List<SysNotice> sysNotices = noticeMapper.selectNoticeList(notice);
+        sysNotices.forEach(item -> {
+            item.setNoticeTypeStr(DictUtils.getDictLabel("sys_notice_type", item.getNoticeType()));
+        });
+        return sysNotices;
     }
 
     /**

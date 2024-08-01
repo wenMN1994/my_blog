@@ -8,12 +8,12 @@ import com.dragon.common.core.domain.AjaxResult;
 import com.dragon.common.core.redis.RedisCache;
 import com.dragon.portal.domain.Slideshow;
 import com.dragon.portal.service.ISlideshowService;
+import com.dragon.system.domain.SysNotice;
+import com.dragon.system.service.ISysNoticeService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +33,9 @@ import java.util.List;
 public class IndexApiController extends BaseController {
     @Autowired
     private ISlideshowService slideshowService;
+
+    @Autowired
+    private ISysNoticeService sysNoticeService;
 
     @Autowired
     private RedisCache redisCache;
@@ -76,5 +79,9 @@ public class IndexApiController extends BaseController {
         return AjaxResult.success(true);
     }
 
-
+    @ApiOperation(value = "获取通知公告列表")
+    @PostMapping("/getNoticeList")
+    public AjaxResult getNoticeList() {
+        return AjaxResult.success(sysNoticeService.selectNoticeList(new SysNotice()));
+    }
 }
