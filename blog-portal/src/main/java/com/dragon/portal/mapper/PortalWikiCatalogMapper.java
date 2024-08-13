@@ -81,4 +81,11 @@ public interface PortalWikiCatalogMapper {
      * @param articleId 文章ID
      */
     public Map<String, Object> selectByWikiIdAndArticleId(@Param("wikiId") Long wikiId, @Param("articleId") Long articleId);
+
+    /**
+     * 根据目录ID集合获取文章目录信息
+     * @param wikiCatalogIds
+     * @return
+     */
+    public List<PortalWikiCatalog> selectByWikiCatalogIds(Long[] wikiCatalogIds);
 }

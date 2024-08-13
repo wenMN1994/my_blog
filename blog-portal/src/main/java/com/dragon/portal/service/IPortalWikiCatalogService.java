@@ -51,9 +51,10 @@ public interface IPortalWikiCatalogService {
      * 批量删除知识库目录
      *
      * @param wikiCatalogIds 需要删除的知识库目录主键集合
+     * @param loginUser
      * @return 结果
      */
-    public int deletePortalWikiCatalogByWikiCatalogIds(Long[] wikiCatalogIds);
+    public int deletePortalWikiCatalogByWikiCatalogIds(Long[] wikiCatalogIds, LoginUser loginUser);
 
     /**
      * 删除知识库目录信息

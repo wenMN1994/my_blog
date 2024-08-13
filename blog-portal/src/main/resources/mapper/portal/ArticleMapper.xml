@@ -43,6 +43,7 @@
             <if test="contentLevel != null and contentLevel != ''"> and content_level = #{contentLevel}</if>
             <if test="status != null and status != ''"> and status = #{status}</if>
             <if test="status == null or status == ''">and status != 1</if>
+            <if test="type != null">and type = #{type}</if>
             <if test="articleIds != null">
                 and article_id in
                 <foreach collection="articleIds" item="item" index="index" open="(" separator="," close=")">
@@ -156,6 +157,20 @@
     <!--执行文章阅读量 +1-->
     <update id="increaseReadNum">
         update portal_article set read_num = read_num + 1 where article_id = #{articleId,jdbcType=BIGINT}
+    </update>
+
+    <!--根据文章ID集合更新文章类型-->
+    <update id="updateArticleTypeByArticleIds">
+        update portal_article
+        <trim prefix="SET" suffixOverrides=",">
+            type = #{type,jdbcType=INTEGER},
+            update_by = #{username,jdbcType=VARCHAR},
+            update_time = #{nowDate,jdbcType=DATE},
+        </trim>
+        where article_id in
+        <foreach item="articleId" index="index" collection="articleIds" open="(" separator=";" close=")">
+            #{articleId,jdbcType=BIGINT}
+        </foreach>
     </update>
 
     <!--批量删除文章信息-->

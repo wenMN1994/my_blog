@@ -94,6 +94,7 @@ public class PortalWikiCatalogController extends BaseController {
     @Log(title = "知识库目录", businessType = BusinessType.DELETE)
     @DeleteMapping("/{wikiCatalogIds}")
     public AjaxResult remove(@PathVariable Long[] wikiCatalogIds) {
-        return toAjax(portalWikiCatalogService.deletePortalWikiCatalogByWikiCatalogIds(wikiCatalogIds));
+        LoginUser loginUser = getLoginUser();
+        return toAjax(portalWikiCatalogService.deletePortalWikiCatalogByWikiCatalogIds(wikiCatalogIds, loginUser));
     }
 }

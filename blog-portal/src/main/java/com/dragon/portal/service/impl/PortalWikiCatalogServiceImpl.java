@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import com.dragon.portal.mapper.PortalWikiCatalogMapper;
 import com.dragon.portal.domain.PortalWikiCatalog;
 import com.dragon.portal.service.IPortalWikiCatalogService;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 知识库目录Service业务层处理
@@ -63,6 +65,7 @@ public class PortalWikiCatalogServiceImpl implements IPortalWikiCatalogService {
      * @return 结果
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int insertPortalWikiCatalog(PortalWikiCatalog portalWikiCatalog, LoginUser loginUser) {
         if (Objects.equals("C", portalWikiCatalog.getCatalogType())) {
             // 添加内容
@@ -80,6 +83,7 @@ public class PortalWikiCatalogServiceImpl implements IPortalWikiCatalogService {
                 portalWikiCatalogItem.setCreateTime(DateUtils.getNowDate());
                 portalWikiCatalogList.add(portalWikiCatalogItem);
             });
+            articleMapper.updateArticleTypeByArticleIds(portalWikiCatalog.getArticleIds(), 2, loginUser.getUsername(), DateUtils.getNowDate());
             return portalWikiCatalogMapper.batchInsertPortalWikiCatalog(portalWikiCatalogList);
         } else if (Objects.equals("M", portalWikiCatalog.getCatalogType())) {
             // 添加目录
@@ -108,10 +112,15 @@ public class PortalWikiCatalogServiceImpl implements IPortalWikiCatalogService {
      * 批量删除知识库目录
      *
      * @param wikiCatalogIds 需要删除的知识库目录主键
+     * @param loginUser
      * @return 结果
      */
     @Override
-    public int deletePortalWikiCatalogByWikiCatalogIds(Long[] wikiCatalogIds) {
+    @Transactional(rollbackFor = Exception.class)
+    public int deletePortalWikiCatalogByWikiCatalogIds(Long[] wikiCatalogIds, LoginUser loginUser) {
+        List<PortalWikiCatalog> tempList = portalWikiCatalogMapper.selectByWikiCatalogIds(wikiCatalogIds);
+        List<Long> articleIds = tempList.stream().filter(e -> Objects.nonNull(e.getArticleId())).map(PortalWikiCatalog::getArticleId).collect(Collectors.toList());
+        articleMapper.updateArticleTypeByArticleIds(articleIds, 1, loginUser.getUsername(), DateUtils.getNowDate());
         return portalWikiCatalogMapper.deletePortalWikiCatalogByWikiCatalogIds(wikiCatalogIds);
     }
 

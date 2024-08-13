@@ -71,6 +71,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM CTE WHERE ARTICLE_ID = #{articleId,jdbcType=BIGINT}
     </select>
 
+    <!--根据目录ID集合获取文章目录信息-->
+    <select id="selectByWikiCatalogIds" resultMap="PortalWikiCatalogResult">
+        <include refid="selectPortalWikiCatalogVo"/>
+        <where>
+            wiki_catalog_id in
+            <foreach item="wikiCatalogId" collection="array" open="(" separator="," close=")">
+                #{wikiCatalogId}
+            </foreach>
+        </where>
+    </select>
+
     <insert id="insertPortalWikiCatalog" parameterType="PortalWikiCatalog" useGeneratedKeys="true" keyProperty="wikiCatalogId">
         insert into portal_wiki_catalog
         <trim prefix="(" suffix=")" suffixOverrides=",">

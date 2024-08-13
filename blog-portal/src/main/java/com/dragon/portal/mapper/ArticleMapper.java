@@ -98,4 +98,14 @@ public interface ArticleMapper
      * @return
      */
     public List<Article> selectArticleByArticleIds(@Param("articleIds") List<Long> articleIds);
+
+    /**
+     * 根据文章ID集合更新文章类型
+     *
+     * @param articleIds
+     * @param type
+     * @param username
+     * @param nowDate
+     */
+    public void updateArticleTypeByArticleIds(@Param("articleIds") List<Long> articleIds, @Param("type") Integer type, @Param("username") String username, @Param("nowDate") Date nowDate);
 }
