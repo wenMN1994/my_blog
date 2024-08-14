@@ -60,29 +60,8 @@ public class SysLoginService {
     public String login(String username, String password, String code, String uuid) {
         // 验证码校验
         validateCaptcha(username, code, uuid);
-        // 登录前置校验
-        loginPreCheck(username, password);
         // 用户验证
-        Authentication authentication = null;
-        try {
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
-            AuthenticationContextHolder.setContext(authenticationToken);
-            // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
-            authentication = authenticationManager.authenticate(authenticationToken);
-        } catch (Exception e) {
-            if (e instanceof BadCredentialsException) {
-                AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.password.not.match")));
-                throw new UserPasswordNotMatchException();
-            } else {
-                AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, e.getMessage()));
-                throw new ServiceException(e.getMessage());
-            }
-        } finally {
-            AuthenticationContextHolder.clearContext();
-        }
-        AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_SUCCESS, MessageUtils.message("user.login.success")));
-        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
-        recordLoginInfo(loginUser.getUserId());
+        LoginUser loginUser = getLoginUser(username, password);
         // 生成token
         return tokenService.createToken(loginUser);
     }
@@ -117,7 +96,9 @@ public class SysLoginService {
      * @param username 用户名
      * @param password 用户密码
      */
-    public void loginPreCheck(String username, String password) {
+    public String loginPreCheck(String username, String password) {
+        // 根据前端输入用户名（账号、手机号、邮箱）获取用户名
+        username = userService.selectUserNameByLoginAccount(username);
         // 用户名或密码为空 错误
         if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
             AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("not.null")));
@@ -141,6 +122,7 @@ public class SysLoginService {
             AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("login.blocked")));
             throw new BlackListException();
         }
+        return username;
     }
 
     /**
@@ -154,5 +136,51 @@ public class SysLoginService {
         sysUser.setLoginIp(IpUtils.getIpAddr());
         sysUser.setLoginDate(DateUtils.getNowDate());
         userService.updateUserProfile(sysUser);
+    }
+
+    /**
+     * 会员登录验证
+     * @param username
+     * @param password
+     * @param verificationCode
+     * @return
+     */
+    public String membersLogin(String username, String password, String verificationCode) {
+        LoginUser loginUser = getLoginUser(username, password);
+        // 生成token
+        return tokenService.createToken(loginUser);
+    }
+
+    /**
+     * 用户验证
+     * @param username
+     * @param password
+     * @return
+     */
+    private LoginUser getLoginUser(String username, String password) {
+        // 登录前置校验
+        username = loginPreCheck(username, password);
+        // 用户验证
+        Authentication authentication = null;
+        try {
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
+            AuthenticationContextHolder.setContext(authenticationToken);
+            // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
+            authentication = authenticationManager.authenticate(authenticationToken);
+        } catch (Exception e) {
+            if (e instanceof BadCredentialsException) {
+                AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.password.not.match")));
+                throw new UserPasswordNotMatchException();
+            } else {
+                AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, e.getMessage()));
+                throw new ServiceException(e.getMessage());
+            }
+        } finally {
+            AuthenticationContextHolder.clearContext();
+        }
+        AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_SUCCESS, MessageUtils.message("user.login.success")));
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        recordLoginInfo(loginUser.getUserId());
+        return loginUser;
     }
 }

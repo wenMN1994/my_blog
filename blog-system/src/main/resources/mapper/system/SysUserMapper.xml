@@ -68,8 +68,6 @@
 		<if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
 			AND date_format(u.create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
 		</if>
-		<!-- 数据范围过滤 -->
-		${params.dataScope}
 	</select>
 
 	<select id="selectAllocatedList" parameterType="SysUser" resultMap="SysUserResult">
@@ -84,8 +82,6 @@
 		<if test="phonenumber != null and phonenumber != ''">
 			AND u.phonenumber like concat('%', #{phonenumber}, '%')
 		</if>
-		<!-- 数据范围过滤 -->
-		${params.dataScope}
 	</select>
 
 	<select id="selectUnallocatedList" parameterType="SysUser" resultMap="SysUserResult">
@@ -101,8 +97,6 @@
 		<if test="phonenumber != null and phonenumber != ''">
 			AND u.phonenumber like concat('%', #{phonenumber}, '%')
 		</if>
-		<!-- 数据范围过滤 -->
-		${params.dataScope}
 	</select>
 
 	<select id="selectUserByUserName" parameterType="String" resultMap="SysUserResult">
@@ -125,6 +119,11 @@
 
 	<select id="checkEmailUnique" parameterType="String" resultMap="SysUserResult">
 		select user_id, email from sys_user where email = #{email} and del_flag = '0' limit 1
+	</select>
+
+	<!--根据登录用户名获取用户名-->
+	<select id="selectUserNameByLoginAccount" resultType="java.lang.String">
+		select user_name from sys_user where user_name = #{loginAccount} or phonenumber = #{loginAccount} or email = #{loginAccount} and del_flag = '0' limit 1
 	</select>
 
 	<insert id="insertUser" parameterType="SysUser" useGeneratedKeys="true" keyProperty="userId">

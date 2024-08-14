@@ -1,6 +1,5 @@
 package com.dragon.system.service.impl;
 
-import com.dragon.common.annotation.DataScope;
 import com.dragon.common.constant.UserConstants;
 import com.dragon.common.core.domain.entity.SysRole;
 import com.dragon.common.core.domain.entity.SysUser;
@@ -62,7 +61,6 @@ public class SysUserServiceImpl implements ISysUserService {
      * @return 用户信息集合信息
      */
     @Override
-    @DataScope(userAlias = "u")
     public List<SysUser> selectUserList(SysUser user) {
         return userMapper.selectUserList(user);
     }
@@ -74,7 +72,6 @@ public class SysUserServiceImpl implements ISysUserService {
      * @return 用户信息集合信息
      */
     @Override
-    @DataScope(userAlias = "u")
     public List<SysUser> selectAllocatedList(SysUser user) {
         return userMapper.selectAllocatedList(user);
     }
@@ -86,7 +83,6 @@ public class SysUserServiceImpl implements ISysUserService {
      * @return 用户信息集合信息
      */
     @Override
-    @DataScope(userAlias = "u")
     public List<SysUser> selectUnallocatedList(SysUser user) {
         return userMapper.selectUnallocatedList(user);
     }
@@ -455,5 +451,15 @@ public class SysUserServiceImpl implements ISysUserService {
             successMsg.insert(0, "恭喜您，数据已全部导入成功！共 " + successNum + " 条，数据如下：");
         }
         return successMsg.toString();
+    }
+
+    /**
+     * 根据登录用户名获取用户名
+     * @param loginAccount
+     * @return
+     */
+    @Override
+    public String selectUserNameByLoginAccount(String loginAccount) {
+        return userMapper.selectUserNameByLoginAccount(loginAccount);
     }
 }
