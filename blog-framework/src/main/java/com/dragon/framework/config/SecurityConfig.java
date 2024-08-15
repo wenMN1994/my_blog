@@ -1,6 +1,8 @@
 package com.dragon.framework.config;
 
+import com.dragon.framework.security.provider.SmsCodeAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,10 +30,18 @@ import com.dragon.framework.security.handle.LogoutSuccessHandlerImpl;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /**
-     * 自定义用户认证逻辑
+     * 自定义用户认证逻辑 用户密码登录
      */
     @Autowired
-    private UserDetailsService userDetailsService;
+    @Qualifier("userDetailsByUsername")
+    private UserDetailsService userDetailsByUsername;
+
+    /**
+     * 自定义用户认证逻辑 短信验证码登录
+     */
+    @Autowired
+    @Qualifier("userDetailsBySms")
+    private UserDetailsService userDetailsBySms;
 
     /**
      * 认证失败处理类
@@ -139,6 +149,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+        // 用户名密码登录验证
+        auth.userDetailsService(userDetailsByUsername).passwordEncoder(bCryptPasswordEncoder());
+        // 短信验证登录
+        auth.authenticationProvider(new SmsCodeAuthenticationProvider(userDetailsBySms));
     }
 }

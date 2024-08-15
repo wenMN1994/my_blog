@@ -15,6 +15,7 @@ import com.dragon.common.utils.ip.IpUtils;
 import com.dragon.framework.manager.AsyncManager;
 import com.dragon.framework.manager.factory.AsyncFactory;
 import com.dragon.framework.security.context.AuthenticationContextHolder;
+import com.dragon.framework.security.token.SmsCodeAuthenticationToken;
 import com.dragon.system.service.ISysConfigService;
 import com.dragon.system.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -146,13 +147,18 @@ public class SysLoginService {
      * @return
      */
     public String membersLogin(String username, String password, String verificationCode) {
-        LoginUser loginUser = getLoginUser(username, password);
+        LoginUser loginUser = new LoginUser();
+        if (StringUtils.isNotEmpty(verificationCode)) {
+            loginUser = smsLogin(username, verificationCode);
+        } else {
+            loginUser = getLoginUser(username, password);
+        }
         // 生成token
         return tokenService.createToken(loginUser);
     }
 
     /**
-     * 用户验证
+     * 账号密码登录用户验证
      * @param username
      * @param password
      * @return
@@ -181,6 +187,33 @@ public class SysLoginService {
         AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_SUCCESS, MessageUtils.message("user.login.success")));
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         recordLoginInfo(loginUser.getUserId());
+        return loginUser;
+    }
+
+    /**
+     * 短信登录验证
+     *
+     * @param mobile
+     * @return
+     */
+    public LoginUser smsLogin(String mobile, String code) {
+        // 用户验证
+        Authentication authentication = null;
+        try {
+            SmsCodeAuthenticationToken authenticationToken = new SmsCodeAuthenticationToken(mobile, code);
+            AuthenticationContextHolder.setContext(authenticationToken);
+            // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
+            authentication = authenticationManager.authenticate(authenticationToken);
+        } catch (Exception e) {
+            AsyncManager.me().execute(AsyncFactory.recordLogininfor(mobile, Constants.LOGIN_FAIL, e.getMessage()));
+            throw new ServiceException(e.getMessage());
+        } finally {
+            AuthenticationContextHolder.clearContext();
+        }
+        AsyncManager.me().execute(AsyncFactory.recordLogininfor(mobile, Constants.LOGIN_SUCCESS, MessageUtils.message("user.login.success")));
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        recordLoginInfo(loginUser.getUserId());
+        // 生成token
         return loginUser;
     }
 }

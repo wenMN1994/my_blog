@@ -9,7 +9,6 @@ import com.dragon.common.core.controller.BaseController;
 import com.dragon.common.core.domain.AjaxResult;
 import com.dragon.common.core.domain.entity.SysUser;
 import com.dragon.common.core.domain.entity.Verification;
-import com.dragon.common.core.domain.model.LoginBody;
 import com.dragon.common.core.domain.model.MembersLoginBody;
 import com.dragon.common.core.redis.RedisCache;
 import com.dragon.common.utils.SecurityUtils;
@@ -17,7 +16,6 @@ import com.dragon.common.utils.StringUtils;
 import com.dragon.common.utils.email.MailUtil;
 import com.dragon.common.utils.sms.SmsClientUtil;
 import com.dragon.framework.web.service.SysLoginService;
-import com.dragon.system.domain.CheckSliderCaptcha;
 import com.dragon.system.service.ISysConfigService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -77,7 +75,7 @@ public class MembersApiController extends BaseController {
     @ApiOperation(value = "获取验证码")
     @PostMapping("/getVerificationCode")
     public AjaxResult getVerificationCode(@RequestBody Verification verification) {
-        String phoneEmailVerifyKey = CacheConstants.CAPTCHA_CODE_KEY + verification.getUsername();
+        String phoneEmailVerifyKey = CacheConstants.SMS_CAPTCHA_CODE_KEY + verification.getUsername();
         if (redisCache.hasKey(phoneEmailVerifyKey)) {
             throw new RuntimeException("请勿重复获取验证码");
         }

@@ -16,19 +16,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
- * 用户验证处理
- *
- * @author dragon
+ * @author: DragonWen
+ * @date: 2024/8/15
+ * @Version: 1.0
+ * @description: 用户验证处理
  */
-@Service("userDetailsByUsername")
-public class UserDetailsServiceImpl implements UserDetailsService {
-    private static final Logger log = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
+@Service("userDetailsBySms")
+public class SmsUserDetailsServiceImpl implements UserDetailsService {
+    private static final Logger log = LoggerFactory.getLogger(SmsUserDetailsServiceImpl.class);
 
     @Autowired
     private ISysUserService userService;
-
-    @Autowired
-    private SysPasswordService passwordService;
 
     @Autowired
     private SysPermissionService permissionService;
@@ -46,7 +44,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             log.info("登录用户：{} 已被停用.", username);
             throw new ServiceException(MessageUtils.message("user.blocked"));
         }
-        passwordService.validate(user);
         return createLoginUser(user);
     }
 
