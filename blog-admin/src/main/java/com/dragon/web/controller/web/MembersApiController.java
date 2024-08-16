@@ -122,7 +122,7 @@ public class MembersApiController extends BaseController {
                 throw new RuntimeException("服务异常，请稍后再试！");
             }
         }
-        // 缓存当前手机号码或邮箱地址+验证码到Redis 2分钟内不允许重复发送验证码
+        // 缓存当前手机号码或邮箱地址+验证码到Redis 5分钟内不允许重复发送验证码
         redisCache.setCacheObject(phoneEmailVerifyKey, phoneEmailVerifyValue, Constants.CAPTCHA_EXPIRATION, TimeUnit.MINUTES);
         return ajax;
     }
