@@ -84,7 +84,7 @@ public class MembersApiController extends BaseController {
         // 注册获取验证码校验账号是否存在
         if (Constants.REGISTER.equals(verification.getType()) && Objects.nonNull(sysUser)) {
             throw new RuntimeException("用户'" + sysUser.getUserName() + "'发送短信失败，注册账号已存在");
-        } else if (Objects.isNull(sysUser)){
+        } else if ((Constants.LOGIN.equals(verification.getType()) || Constants.RESET_PWD.equals(verification.getType())) && Objects.isNull(sysUser)){
             throw new UserPasswordNotMatchException();
         }
         AjaxResult ajax = AjaxResult.success();

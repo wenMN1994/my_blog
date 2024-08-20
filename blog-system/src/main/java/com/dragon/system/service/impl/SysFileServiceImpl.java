@@ -89,4 +89,14 @@ public class SysFileServiceImpl implements ISysFileService {
     public int deleteSysFileByFileId(Long fileId) {
         return cmsFileMapper.deleteSysFileByFileId(fileId);
     }
+
+    /**
+     * 根据文件路径查询文件信息
+     * @param fileUrl
+     * @return
+     */
+    @Override
+    public SysFile selectSysFileByFileUrl(String fileUrl) {
+        return cmsFileMapper.selectSysFileByFileUrl(fileUrl);
+    }
 }

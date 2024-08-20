@@ -51,4 +51,9 @@ public class CacheConstants {
      * 短信验证码 redis key
      */
     public static final String SMS_CAPTCHA_CODE_KEY = "sms:captcha";
+
+    /**
+     * 网站设置 redis key
+     */
+    public static final String CONFIG_KEY_PORTAL_SETTINGS_INFO = "portal.settings.info";
 }

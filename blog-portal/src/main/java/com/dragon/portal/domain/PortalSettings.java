@@ -52,4 +52,7 @@ public class PortalSettings {
 
     @NotNull(message = "请设置评论管理审核是否开启")
     private Boolean isCommentExamineOpen;
+
+    @NotBlank(message = "会员头像不能为空")
+    private String memberAvatar;
 }

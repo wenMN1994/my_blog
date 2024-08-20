@@ -48,6 +48,11 @@
         where file_id = #{fileId}
     </select>
 
+    <!--根据文件路径查询文件信息-->
+    <select id="selectSysFileByFileUrl" resultMap="SysFileResult">
+        <include refid="selectSysFileVo"/> where file_url = #{fileUrl}
+    </select>
+
     <insert id="insertSysFile" parameterType="SysFile" useGeneratedKeys="true" keyProperty="fileId" keyColumn="file_id">
         insert into sys_file
         <trim prefix="(" suffix=")" suffixOverrides=",">

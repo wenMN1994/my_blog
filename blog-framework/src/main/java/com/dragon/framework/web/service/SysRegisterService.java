@@ -1,5 +1,7 @@
 package com.dragon.framework.web.service;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.dragon.common.constant.CacheConstants;
 import com.dragon.common.constant.Constants;
 import com.dragon.common.constant.RegExpConstants;
@@ -15,7 +17,9 @@ import com.dragon.common.utils.SecurityUtils;
 import com.dragon.common.utils.StringUtils;
 import com.dragon.framework.manager.AsyncManager;
 import com.dragon.framework.manager.factory.AsyncFactory;
+import com.dragon.system.domain.SysFile;
 import com.dragon.system.service.ISysConfigService;
+import com.dragon.system.service.ISysFileService;
 import com.dragon.system.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,6 +41,9 @@ public class SysRegisterService {
 
     @Autowired
     private RedisCache redisCache;
+
+    @Autowired
+    private ISysFileService sysFileService;
 
     /**
      * 注册
@@ -142,6 +149,14 @@ public class SysRegisterService {
             } else if (Constants.EMAIL.equals(accountType)) {
                 sysUser.setEmail(username);
             }
+            String configValue = configService.selectConfigByKey(CacheConstants.CONFIG_KEY_PORTAL_SETTINGS_INFO);
+            JSONObject obj = new JSONObject();
+            if (StringUtils.isEmpty(configValue)) {
+                obj = JSON.parseObject(Constants.PORTAL_SETTINGS);
+            }
+            obj = JSON.parseObject(configValue);
+            SysFile sysFile = sysFileService.selectSysFileByFileUrl(obj.getString("memberAvatar"));
+            sysUser.setAvatarId(sysFile.getFileId());
             sysUser.setNickName(username);
             sysUser.setPassword(SecurityUtils.encryptPassword(password));
             sysUser.setUserType(userType);

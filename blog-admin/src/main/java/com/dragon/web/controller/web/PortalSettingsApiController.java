@@ -1,6 +1,7 @@
 package com.dragon.web.controller.web;
 
 import com.dragon.common.annotation.Anonymous;
+import com.dragon.common.constant.CacheConstants;
 import com.dragon.common.core.controller.BaseController;
 import com.dragon.common.core.domain.AjaxResult;
 import com.dragon.portal.domain.PortalSettings;
@@ -25,8 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "网站设置")
 public class PortalSettingsApiController extends BaseController {
 
-    private static final String CONFIG_KEY_PORTAL_SETTINGS_INFO = "portal.settings.info";
-
     @Autowired
     private ISysConfigService configService;
 
@@ -36,7 +35,7 @@ public class PortalSettingsApiController extends BaseController {
     @ApiOperation(value = "获取网站详细信息")
     @PostMapping("/detail")
     public AjaxResult findDetail() {
-        String configValue = configService.selectConfigByKey(CONFIG_KEY_PORTAL_SETTINGS_INFO);
+        String configValue = configService.selectConfigByKey(CacheConstants.CONFIG_KEY_PORTAL_SETTINGS_INFO);
         PortalSettings portalSettings = portalSettingsService.packageSettingsInfo(configValue);
         return AjaxResult.success(portalSettings);
     }

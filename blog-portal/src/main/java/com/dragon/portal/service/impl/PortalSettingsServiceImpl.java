@@ -2,6 +2,7 @@ package com.dragon.portal.service.impl;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
+import com.dragon.common.constant.Constants;
 import com.dragon.common.utils.StringUtils;
 import com.dragon.portal.domain.PortalSettings;
 import com.dragon.portal.service.IPortalSettingsService;
@@ -24,8 +25,8 @@ public class PortalSettingsServiceImpl implements IPortalSettingsService {
     @Override
     public PortalSettings packageSettingsInfo(String configValue) {
         JSONObject obj = new JSONObject();
-        if(StringUtils.isEmpty(configValue)){
-            obj = JSON.parseObject("{\"author\":\"DragonWen\",\"avatar\":\"https://blog-dragon.oss-cn-shenzhen.aliyuncs.com/2024-06-29/avatar_20240629200033A002.jpg\",\"csdnHomepage\":\"https://www.dragonwen.cn\",\"giteeHomepage\":\"https://www.dragonwen.cn\",\"githubHomepage\":\"https://www.dragonwen.cn\",\"introduction\":\"一枚程序员\",\"isCommentExamineOpen\":false,\"isCommentSensitiveWordsOpen\":true,\"logo\":\"https://blog-dragon.oss-cn-shenzhen.aliyuncs.com/2024-06-29/logo-200px_20240629200026A001.png\",\"mail\":\"dragonwen1994@163.com\",\"name\":\"码农油管\",\"zhihuHomepage\":\"https://www.dragonwen.cn\"}");
+        if (StringUtils.isEmpty(configValue)) {
+            obj = JSON.parseObject(Constants.PORTAL_SETTINGS);
         }
         obj = JSON.parseObject(configValue);
         PortalSettings portalSettings = new PortalSettings();
@@ -41,6 +42,7 @@ public class PortalSettingsServiceImpl implements IPortalSettingsService {
         portalSettings.setMail(obj.getString("mail"));
         portalSettings.setIsCommentSensitiveWordsOpen(obj.getBoolean("isCommentSensitiveWordsOpen"));
         portalSettings.setIsCommentExamineOpen(obj.getBoolean("isCommentExamineOpen"));
+        portalSettings.setMemberAvatar(obj.getString("memberAvatar"));
         return portalSettings;
     }
 }

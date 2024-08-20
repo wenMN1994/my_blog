@@ -59,4 +59,11 @@ public interface ISysFileService {
      * @return 结果
      */
     public int deleteSysFileByFileId(Long fileId);
+
+    /**
+     * 根据文件路径查询文件信息
+     * @param fileUrl
+     * @return
+     */
+    public SysFile selectSysFileByFileUrl(String fileUrl);
 }
