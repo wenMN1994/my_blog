@@ -49,6 +49,11 @@ public class Constants {
     public static final String LOGIN_SUCCESS = "Success";
 
     /**
+     * 登录
+     */
+    public static final String LOGIN = "Login";
+
+    /**
      * 注销
      */
     public static final String LOGOUT = "Logout";
@@ -57,6 +62,11 @@ public class Constants {
      * 注册
      */
     public static final String REGISTER = "Register";
+
+    /**
+     * 重置密码
+     */
+    public static final String RESET_PWD = "ResetPwd";
 
     /**
      * 登录失败
@@ -193,4 +203,14 @@ public class Constants {
      * 斜杠“/”分隔符
      */
     public static final String SLASH = "/";
+
+    /**
+     * 账户类型 phone 手机号码
+     */
+    public static final String PHONE = "phone";
+
+    /**
+     * 账户类型 email 邮箱地址
+     */
+    public static final String EMAIL = "email";
 }

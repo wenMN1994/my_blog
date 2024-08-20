@@ -55,6 +55,10 @@ public class SysUser extends BaseEntity {
     /** 密码 */
     private String password;
 
+    /** 用户类型（00：系统用户 11：会员用户） */
+    @Excel(name = "用户类型", readConverterExp = "00=系统用户,11=会员用户")
+    private String userType;
+
     /** 帐号状态（0正常 1停用） */
     @Excel(name = "帐号状态", readConverterExp = "0=正常,1=停用")
     private String status;
@@ -179,6 +183,14 @@ public class SysUser extends BaseEntity {
         return status;
     }
 
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
     public void setStatus(String status) {
         this.status = status;
     }
@@ -243,6 +255,7 @@ public class SysUser extends BaseEntity {
             .append("avatar", getAvatar())
             .append("avatarId", getAvatarId())
             .append("password", getPassword())
+            .append("userType", getUserType())
             .append("status", getStatus())
             .append("delFlag", getDelFlag())
             .append("loginIp", getLoginIp())

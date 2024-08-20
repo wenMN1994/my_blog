@@ -66,11 +66,21 @@ public class UserConstants {
      * 用户名长度限制
      */
     public static final int USERNAME_MIN_LENGTH = 2;
-    public static final int USERNAME_MAX_LENGTH = 20;
+    public static final int USERNAME_MAX_LENGTH = 30;
 
     /**
      * 密码长度限制
      */
     public static final int PASSWORD_MIN_LENGTH = 5;
     public static final int PASSWORD_MAX_LENGTH = 20;
+
+    /**
+     * 用户类型-系统
+     */
+    public static final String USER_TYPE_SYS = "00";
+
+    /**
+     * 用户类型-会员
+     */
+    public static final String USER_TYPE_MEMBER = "11";
 }

@@ -10,13 +10,17 @@ import com.dragon.common.core.domain.AjaxResult;
 import com.dragon.common.core.domain.entity.SysUser;
 import com.dragon.common.core.domain.entity.Verification;
 import com.dragon.common.core.domain.model.MembersLoginBody;
+import com.dragon.common.core.domain.model.MembersRegisterBody;
 import com.dragon.common.core.redis.RedisCache;
+import com.dragon.common.exception.user.UserPasswordNotMatchException;
 import com.dragon.common.utils.SecurityUtils;
 import com.dragon.common.utils.StringUtils;
 import com.dragon.common.utils.email.MailUtil;
 import com.dragon.common.utils.sms.SmsClientUtil;
 import com.dragon.framework.web.service.SysLoginService;
+import com.dragon.framework.web.service.SysRegisterService;
 import com.dragon.system.service.ISysConfigService;
+import com.dragon.system.service.ISysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
@@ -47,16 +52,6 @@ import java.util.regex.Pattern;
 @Api(tags = "会员中心")
 public class MembersApiController extends BaseController {
 
-    /**
-     * 账户类型 phone 手机号码
-     */
-    private static String PHONE = "phone";
-
-    /**
-     * 账户类型 email 邮箱地址
-     */
-    private static String EMAIL = "email";
-
     @Autowired
     private RedisCache redisCache;
 
@@ -72,12 +67,25 @@ public class MembersApiController extends BaseController {
     @Autowired
     private SysLoginService loginService;
 
+    @Autowired
+    private SysRegisterService registerService;
+
+    @Autowired
+    private ISysUserService userService;
+
     @ApiOperation(value = "获取验证码")
     @PostMapping("/getVerificationCode")
     public AjaxResult getVerificationCode(@RequestBody Verification verification) {
         String phoneEmailVerifyKey = CacheConstants.SMS_CAPTCHA_CODE_KEY + verification.getUsername();
         if (redisCache.hasKey(phoneEmailVerifyKey)) {
             throw new RuntimeException("请勿重复获取验证码");
+        }
+        SysUser sysUser = userService.selectUserByUserName(verification.getUsername());
+        // 注册获取验证码校验账号是否存在
+        if (Constants.REGISTER.equals(verification.getType()) && Objects.nonNull(sysUser)) {
+            throw new RuntimeException("用户'" + sysUser.getUserName() + "'发送短信失败，注册账号已存在");
+        } else if (Objects.isNull(sysUser)){
+            throw new UserPasswordNotMatchException();
         }
         AjaxResult ajax = AjaxResult.success();
         Pattern phone = Pattern.compile(RegExpConstants.PHONE);
@@ -87,16 +95,16 @@ public class MembersApiController extends BaseController {
             throw new RuntimeException("手机号码或邮箱不能为空");
         }
         if (phone.matcher(verification.getUsername()).matches()) {
-            accountType = PHONE;
+            accountType = Constants.PHONE;
         } else if (email.matcher(verification.getUsername()).matches()) {
-            accountType = EMAIL;
+            accountType = Constants.EMAIL;
         } else {
             throw new RuntimeException("请输入正确的手机号码或邮箱");
         }
         // 保存验证码信息
         String phoneEmailVerifyValue = StringUtils.generateCaptcha();
         // 发送短信或邮箱验证码
-        if (PHONE.equals(accountType)) {
+        if (Constants.PHONE.equals(accountType)) {
             // 短信发送
             try {
                 JSONObject jsonObject = configService.selectAliyunSms();
@@ -107,7 +115,7 @@ public class MembersApiController extends BaseController {
             } catch (Exception e) {
                 throw new RuntimeException("服务异常，请稍后再试！");
             }
-        } else if (EMAIL.equals(accountType)) {
+        } else if (Constants.EMAIL.equals(accountType)) {
             // 邮件发送
             try {
                 String emailTemplate = configService.selectEmailTemplateVerificationCode();
@@ -145,5 +153,22 @@ public class MembersApiController extends BaseController {
         AjaxResult ajax = AjaxResult.success();
         ajax.put("user", user);
         return ajax;
+    }
+
+    @ApiOperation(value = "会员注册")
+    @PostMapping("/membersRegister")
+    public AjaxResult membersRegister(@RequestBody MembersRegisterBody membersRegisterBody) {
+        if (!("true".equals(configService.selectConfigByKey("sys.account.registerUser")))) {
+            return error("当前系统没有开启注册功能！");
+        }
+        String msg = registerService.membersRegister(membersRegisterBody);
+        return StringUtils.isEmpty(msg) ? success() : error(msg);
+    }
+
+    @ApiOperation(value = "会员重置密码")
+    @PostMapping("/membersResetPwd")
+    public AjaxResult membersResetPwd(@RequestBody MembersRegisterBody membersRegisterBody) {
+        String msg = registerService.membersResetPwd(membersRegisterBody);
+        return StringUtils.isEmpty(msg) ? success() : error(msg);
     }
 }
