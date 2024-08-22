@@ -11,8 +11,7 @@ import com.dragon.portal.domain.PortalSettings;
 public interface IPortalSettingsService {
     /**
      * 组装网站设置信息实体
-     * @param configValue
      * @return
      */
-    public PortalSettings packageSettingsInfo(String configValue);
+    public PortalSettings packageSettingsInfo();
 }

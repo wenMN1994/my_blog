@@ -47,8 +47,7 @@ public class PortalSettingsController extends BaseController {
     @PostMapping("/detail")
     @PreAuthorize("@ss.hasPermi('portal:settings:query')")
     public AjaxResult findDetail() {
-        String configValue = configService.selectConfigByKey(CacheConstants.CONFIG_KEY_PORTAL_SETTINGS_INFO);
-        PortalSettings portalSettings = portalSettingsService.packageSettingsInfo(configValue);
+        PortalSettings portalSettings = portalSettingsService.packageSettingsInfo();
         return AjaxResult.success(portalSettings);
     }
 

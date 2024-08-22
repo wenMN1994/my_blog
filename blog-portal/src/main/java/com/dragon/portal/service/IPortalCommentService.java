@@ -1,6 +1,8 @@
 package com.dragon.portal.service;
 
 import java.util.List;
+
+import com.dragon.portal.domain.FindCommentListRspVO;
 import com.dragon.portal.domain.PortalComment;
 
 /**
@@ -49,4 +51,18 @@ public interface IPortalCommentService {
      * @return 结果
      */
     public int deletePortalCommentByCommentId(Long commentId);
+
+    /**
+     * 发布评论
+     * @param portalComment
+     * @return
+     */
+    public int publishComment(PortalComment portalComment);
+
+    /**
+     * 获取页面所有评论
+     * @param portalComment
+     * @return
+     */
+    public FindCommentListRspVO findPageComments(PortalComment portalComment);
 }

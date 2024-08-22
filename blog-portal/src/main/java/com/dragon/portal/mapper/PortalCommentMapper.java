@@ -48,12 +48,20 @@ public interface PortalCommentMapper {
      * @param commentId
      * @return
      */
-    int deletePortalCommentByCommentId(@Param("commentId") Long commentId);
+    public int deletePortalCommentByCommentId(@Param("commentId") Long commentId);
 
     /**
      * 获取回复评论
      * @param commentId
      * @return
      */
-    List<PortalComment> selectPortalCommentByReplyCommentId(Long commentId);
+    public List<PortalComment> selectPortalCommentByReplyCommentId(Long commentId);
+
+    /**
+     * 根据该路由地址下所有评论（仅查询状态正常的）
+     * @param routerUrl
+     * @param status
+     * @return
+     */
+    public List<PortalComment> selectByRouterUrlAndStatus(@Param("routerUrl") String routerUrl, @Param("status") Integer status);
 }

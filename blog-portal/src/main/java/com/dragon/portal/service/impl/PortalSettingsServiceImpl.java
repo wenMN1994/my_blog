@@ -2,10 +2,13 @@ package com.dragon.portal.service.impl;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
+import com.dragon.common.constant.CacheConstants;
 import com.dragon.common.constant.Constants;
 import com.dragon.common.utils.StringUtils;
 import com.dragon.portal.domain.PortalSettings;
 import com.dragon.portal.service.IPortalSettingsService;
+import com.dragon.system.service.ISysConfigService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,13 +20,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class PortalSettingsServiceImpl implements IPortalSettingsService {
 
+    @Autowired
+    private ISysConfigService configService;
+
     /**
      * 组装网站设置信息实体
-     * @param configValue
      * @return
      */
     @Override
-    public PortalSettings packageSettingsInfo(String configValue) {
+    public PortalSettings packageSettingsInfo() {
+        String configValue = configService.selectConfigByKey(CacheConstants.CONFIG_KEY_PORTAL_SETTINGS_INFO);
         JSONObject obj = new JSONObject();
         if (StringUtils.isEmpty(configValue)) {
             obj = JSON.parseObject(Constants.PORTAL_SETTINGS);

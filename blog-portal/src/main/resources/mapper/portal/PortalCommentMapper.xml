@@ -52,6 +52,12 @@
         where id = #{reply_comment_id,jdbcType=BIGINT}
     </select>
 
+    <!--根据该路由地址下所有评论按创建时间倒序（仅查询状态正常的）-->
+    <select id="selectByRouterUrlAndStatus" resultMap="PortalCommentResult">
+        <include refid="selectPortalCommentVo"/>
+        where router_url = #{routerUrl,jdbcType=VARCHAR} and status = #{status,jdbcType=INTEGER} order by create_time desc
+    </select>
+
     <insert id="insertPortalComment" parameterType="PortalComment" useGeneratedKeys="true" keyProperty="commentId">
         insert into portal_comment
         <trim prefix="(" suffix=")" suffixOverrides=",">
