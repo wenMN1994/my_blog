@@ -66,7 +66,7 @@ public class MailUtil {
     }
 
     /**
-     * 发送富文本邮件
+     * 发送HTML邮件
      * @param to 收件人
      * @param cc 抄送
      * @param bcc 密送

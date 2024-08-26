@@ -14,6 +14,7 @@ import com.dragon.common.utils.StringUtils;
 import com.dragon.portal.domain.FindCommentItemRspVO;
 import com.dragon.portal.domain.FindCommentListRspVO;
 import com.dragon.portal.domain.PortalSettings;
+import com.dragon.portal.event.PublishCommentEvent;
 import com.dragon.portal.service.IPortalSettingsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -203,7 +204,7 @@ public class PortalCommentServiceImpl implements IPortalCommentService {
         int count = portalCommentMapper.insertPortalComment(portalComment);
         Long commentId = portalComment.getCommentId();
         // 发送评论发布事件
-        // eventPublisher.publishEvent(new PublishCommentEvent(this, commentId));
+        eventPublisher.publishEvent(new PublishCommentEvent(this, commentId));
         // 给予前端对应的提示信息
         if (isContainSensitiveWord) {
             throw new ServiceException("评论内容中包含敏感词，请修改后再次发布");
