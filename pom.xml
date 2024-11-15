@@ -39,7 +39,7 @@
         <guava.version>31.1-jre</guava.version>
         <commonmark.version>0.20.0</commonmark.version>
         <lucene.version>8.11.1</lucene.version>
-        <toolgood-words.version>3.0.3.1</toolgood-words.version>
+        <sensitive-words.version>0.22.0</sensitive-words.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -240,9 +240,9 @@
 
             <!-- 敏感词过滤 -->
             <dependency>
-                <groupId>io.github.toolgood</groupId>
-                <artifactId>toolgood-words</artifactId>
-                <version>${toolgood-words.version}</version>
+                <groupId>com.github.houbb</groupId>
+                <artifactId>sensitive-word</artifactId>
+                <version>${sensitive-words.version}</version>
             </dependency>
 
             <!-- 阿里JSON解析器 -->

@@ -199,8 +199,8 @@
 
         <!-- 敏感词过滤 -->
         <dependency>
-            <groupId>io.github.toolgood</groupId>
-            <artifactId>toolgood-words</artifactId>
+            <groupId>com.github.houbb</groupId>
+            <artifactId>sensitive-word</artifactId>
         </dependency>
 
         <!-- Markdown 解析 -->

@@ -16,6 +16,7 @@ import com.dragon.portal.domain.FindCommentListRspVO;
 import com.dragon.portal.domain.PortalSettings;
 import com.dragon.portal.event.PublishCommentEvent;
 import com.dragon.portal.service.IPortalSettingsService;
+import com.github.houbb.sensitive.word.core.SensitiveWordHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -25,8 +26,6 @@ import com.dragon.portal.domain.PortalComment;
 import com.dragon.portal.service.IPortalCommentService;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
-import toolgood.words.IllegalWordsSearch;
-import toolgood.words.IllegalWordsSearchResult;
 
 /**
  * 评论管理Service业务层处理
@@ -42,9 +41,6 @@ public class PortalCommentServiceImpl implements IPortalCommentService {
 
     @Autowired
     private IPortalSettingsService portalSettingsService;
-
-    @Autowired
-    private IllegalWordsSearch wordsSearch;
 
     @Autowired
     private ApplicationEventPublisher eventPublisher;
@@ -184,15 +180,15 @@ public class PortalCommentServiceImpl implements IPortalCommentService {
         // 是否开启了敏感词过滤
         if (isCommentSensitiveWordsOpen) {
             // 校验评论中是否包含敏感词
-            isContainSensitiveWord = wordsSearch.ContainsAny(content);
+            isContainSensitiveWord = SensitiveWordHelper.contains(content);
 
             if (isContainSensitiveWord) {
                 // 若包含敏感词，设置状态为审核不通过
                 status = CommentStatusEnum.EXAMINE_FAILED.getCode();
                 // 匹配到的所有敏感词组
-                List<IllegalWordsSearchResult> results = wordsSearch.FindAll(content);
-                List<String> keywords = results.stream().map(result -> result.Keyword).collect(Collectors.toList());
-                // 不同过的原因
+                List<String> keywords = SensitiveWordHelper.findAll(content);
+
+                // 不通过的原因
                 reason = String.format("系统自动拦截，包含敏感词：%s", keywords);
                 log.warn("此评论内容中包含敏感词: {}, content: {}", keywords, content);
             }
