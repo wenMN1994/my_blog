@@ -39,6 +39,7 @@
                 and date_format(update_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
             </if>
         </where>
+        order by create_time desc
     </select>
 
     <select id="selectPortalCommentBycommentId" parameterType="Long" resultMap="PortalCommentResult">

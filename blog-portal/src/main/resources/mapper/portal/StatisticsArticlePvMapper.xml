@@ -22,6 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="pvDate != null "> and pv_date = #{pvDate}</if>
             <if test="pvCount != null  and pvCount != ''"> and pv_count = #{pvCount}</if>
         </where>
+        order by pv_date desc
     </select>
     
     <select id="selectStatisticsArticlePvById" parameterType="Long" resultMap="StatisticsArticlePvResult">
