@@ -49,6 +49,10 @@ public class PortalSettingsServiceImpl implements IPortalSettingsService {
         portalSettings.setIsCommentSensitiveWordsOpen(obj.getBoolean("isCommentSensitiveWordsOpen"));
         portalSettings.setIsCommentExamineOpen(obj.getBoolean("isCommentExamineOpen"));
         portalSettings.setMemberAvatar(obj.getString("memberAvatar"));
+        portalSettings.setIcp(obj.getString("icp"));
+        portalSettings.setDomainName(obj.getString("domainName"));
+        portalSettings.setMiit(obj.getString("miit"));
+        portalSettings.setCopyrightNotice(obj.getString("copyrightNotice"));
         return portalSettings;
     }
 }
