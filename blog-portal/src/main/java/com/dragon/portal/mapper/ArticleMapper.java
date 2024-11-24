@@ -1,8 +1,11 @@
 package com.dragon.portal.mapper;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+
 import com.dragon.portal.domain.Article;
+import com.dragon.portal.domain.ArticlePublishCountDO;
 import com.dragon.portal.domain.FindPreNextArticle;
 import org.apache.ibatis.annotations.Param;
 
@@ -108,4 +111,12 @@ public interface ArticleMapper
      * @param nowDate
      */
     public void updateArticleTypeByArticleIds(@Param("articleIds") List<Long> articleIds, @Param("type") Integer type, @Param("username") String username, @Param("nowDate") Date nowDate);
+
+    /**
+     * 按日分组，并统计每日发布的文章数量
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    public List<ArticlePublishCountDO> selectDateArticlePublishCount(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 }

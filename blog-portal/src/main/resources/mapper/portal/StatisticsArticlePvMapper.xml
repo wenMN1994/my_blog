@@ -29,7 +29,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectStatisticsArticlePvVo"/>
         where id = #{id}
     </select>
-        
+
+    <!--查询最近一周的文章 PV 访问量记录-->
+    <select id="selectLatestWeekRecords" resultMap="StatisticsArticlePvResult">
+        <![CDATA[
+        select pv_date, pv_count from portal_statistics_article_pv
+        where pv_date <= now()
+        order by pv_date desc limit 7
+        ]]>
+
+    </select>
+
     <insert id="insertStatisticsArticlePv" parameterType="StatisticsArticlePv" useGeneratedKeys="true" keyProperty="id">
         insert into portal_statistics_article_pv
         <trim prefix="(" suffix=")" suffixOverrides=",">

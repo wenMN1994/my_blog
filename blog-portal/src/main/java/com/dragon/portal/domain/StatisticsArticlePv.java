@@ -1,10 +1,8 @@
 package com.dragon.portal.domain;
 
-import java.util.Date;
+import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import com.dragon.common.annotation.Excel;
 import com.dragon.common.core.domain.BaseEntity;
 
@@ -24,9 +22,9 @@ public class StatisticsArticlePv extends BaseEntity{
     /** 被统计的日期 */
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "被统计的日期", width = 30, dateFormat = "yyyy-MM-dd")
-    private Date pvDate;
+    private LocalDate pvDate;
 
     /** pv浏览量 */
     @Excel(name = "pv浏览量")
-    private Integer pvCount;
+    private Long pvCount;
 }

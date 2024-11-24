@@ -64,4 +64,10 @@ public interface StatisticsArticlePvMapper {
      * @return
      */
     public int increasePVCount(StatisticsArticlePv statisticsArticlePv);
+
+    /**
+     * 查询最近一周的文章 PV 访问量记录
+     * @return
+     */
+    public List<StatisticsArticlePv> selectLatestWeekRecords();
 }

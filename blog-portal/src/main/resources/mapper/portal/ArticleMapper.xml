@@ -29,6 +29,11 @@
         <result property="articleTitle"    column="article_title"    />
     </resultMap>
 
+    <resultMap type="ArticlePublishCountDO" id="ArticlePublishCountResult">
+        <result property="createDate"    column="create_date"    />
+        <result property="count"    column="count"    />
+    </resultMap>
+
     <sql id="selectArticleVo">
         select article_id, article_title, article_type, cover, summary, publish_type, content_level, status, content, content_html, read_num, weight, type, create_by, create_time, update_by, update_time from portal_article
     </sql>
@@ -84,6 +89,13 @@
         <foreach collection="articleIds" item="item" index="index" open="(" separator="," close=")">
             #{item,jdbcType=BIGINT}
         </foreach>
+    </select>
+
+    <!--按日分组，并统计每日发布的文章数量-->
+    <select id="selectDateArticlePublishCount" resultMap="ArticlePublishCountResult">
+        select date(create_time) as create_date, count(1) as count from portal_article
+        where create_time between #{startDate} and #{endDate}
+        group by date(create_time)
     </select>
 
     <!--新增文章信息-->

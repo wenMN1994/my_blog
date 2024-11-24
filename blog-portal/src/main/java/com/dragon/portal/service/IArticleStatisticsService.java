@@ -1,6 +1,13 @@
 package com.dragon.portal.service;
 
+import com.dragon.portal.domain.ArticleCategoryStatistics;
+import com.dragon.portal.domain.ArticlePvStatistics;
+import com.dragon.portal.domain.ArticleTagStatistics;
 import com.dragon.portal.domain.StatisticsInfo;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author: DragonWen
@@ -25,4 +32,28 @@ public interface IArticleStatisticsService {
      * @return
      */
     public StatisticsInfo findInfo();
+
+    /**
+     * 获取后台仪表盘文章发布热点统计信息
+     * @return
+     */
+    public Map<LocalDate, Long> publishArticleStatisticsInfo();
+
+    /**
+     * 获取后台仪表盘最近一周 PV 访问量信息
+     * @return
+     */
+    public ArticlePvStatistics articleViewStatisticsInfo();
+
+    /**
+     * 获取后台仪表盘文章分类统计
+     * @return
+     */
+    public List<ArticleCategoryStatistics> articleCategoryStatisticsInfo();
+
+    /**
+     * 获取后台仪表盘文章标签统计
+     * @return
+     */
+    public ArticleTagStatistics articleTagStatisticsInfo();
 }

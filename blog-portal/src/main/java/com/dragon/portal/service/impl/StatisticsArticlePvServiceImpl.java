@@ -97,12 +97,12 @@ public class StatisticsArticlePvServiceImpl implements IStatisticsArticlePvServi
     @Override
     public void increasePVCount(LocalDate currDate) {
         StatisticsArticlePv statisticsArticlePv = new StatisticsArticlePv();
-        statisticsArticlePv.setPvDate(DateUtils.toDate(currDate));
+        statisticsArticlePv.setPvDate(currDate);
         // 当日文章 PV 访问量 +1
         int count = statisticsArticlePvMapper.increasePVCount(statisticsArticlePv);
         // 如果更新数据为零则新增数据
         if (Objects.equals(0, count)) {
-            statisticsArticlePv.setPvCount(1);
+            statisticsArticlePv.setPvCount(1L);
             this.insertStatisticsArticlePv(statisticsArticlePv);
         }
     }

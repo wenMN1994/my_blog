@@ -1,16 +1,22 @@
 package com.dragon.portal.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
+import com.dragon.common.utils.DateUtils;
 import com.dragon.portal.domain.*;
 import com.dragon.portal.mapper.*;
+import com.dragon.portal.service.IArticleCategoryService;
 import com.dragon.portal.service.IArticleStatisticsService;
+import com.dragon.portal.service.IArticleTagService;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -36,6 +42,15 @@ public class ArticleStatisticsServiceImpl implements IArticleStatisticsService {
 
     @Autowired
     private ArticleTagRelMapper articleTagRelMapper;
+
+    @Autowired
+    private StatisticsArticlePvMapper statisticsArticlePvMapper;
+
+    @Autowired
+    private IArticleCategoryService articleCategoryService;
+
+    @Autowired
+    private IArticleTagService articleTagService;
 
     /**
      * 统计各分类下文章总数
@@ -131,5 +146,103 @@ public class ArticleStatisticsServiceImpl implements IArticleStatisticsService {
         statisticsInfo.setTagTotalCount(tagTotalCount);
         statisticsInfo.setPvTotalCount(pvTotalCount);
         return statisticsInfo;
+    }
+
+    /**
+     * 获取后台仪表盘文章发布热点统计信息
+     * @return
+     */
+    @Override
+    public Map<LocalDate, Long> publishArticleStatisticsInfo() {
+        // 当前日期
+        LocalDate currDate = LocalDate.now();
+
+        // 当前日期倒退一年的日期
+        LocalDate startDate = currDate.minusYears(1);
+
+        // 查找这一年内，每日发布的文章数量
+        List<ArticlePublishCountDO> articleList = articleMapper.selectDateArticlePublishCount(startDate, currDate.plusDays(1));
+
+        Map<LocalDate, Long> map = null;
+        if (CollectionUtil.isNotEmpty(articleList)) {
+            // list转map
+            Map<LocalDate, Long> dateArticleCountMap = articleList.stream().collect(Collectors.toMap(ArticlePublishCountDO::getCreateDate, ArticlePublishCountDO::getCount));
+            // 有序 Map, 返回的日期文章数需要以升序排列
+            map = Maps.newLinkedHashMap();
+            // 从上一年的今天循环到今天
+            for (; startDate.isBefore(currDate) || startDate.isEqual(currDate); startDate = startDate.plusDays(1)) {
+                // 以日期作为 key 从 dateArticleCountMap 中取文章发布总量
+                Long count = dateArticleCountMap.get(startDate);
+                // 设置到返参 Map
+                map.put(startDate, Objects.isNull(count) ? 0 : count);
+            }
+        }
+        return map;
+    }
+
+    /**
+     * 获取后台仪表盘最近一周 PV 访问量信息
+     * @return
+     */
+    @Override
+    public ArticlePvStatistics articleViewStatisticsInfo() {
+        List<StatisticsArticlePv> pvList = statisticsArticlePvMapper.selectLatestWeekRecords();
+        ArticlePvStatistics rsp = new ArticlePvStatistics();
+        if (CollectionUtil.isNotEmpty(pvList)) {
+            // 转 Map, 方便后续通过日期获取 PV 访问量
+            Map<LocalDate, Long> pvMap = pvList.stream().collect(Collectors.toMap(StatisticsArticlePv::getPvDate, StatisticsArticlePv::getPvCount));
+            // 日期集合
+            List<String> pvDates = Lists.newArrayList();
+            // PV 集合
+            List<Long> pvCounts = Lists.newArrayList();
+
+            // 当前日期
+            LocalDate currDate = LocalDate.now();
+            // 一周前
+            LocalDate tmpDate = currDate.minusWeeks(1);
+            // 从一周前开始循环
+            for (; tmpDate.isBefore(currDate) || tmpDate.isEqual(currDate); tmpDate = tmpDate.plusDays(1)) {
+                // 设置对应日期的 PV 访问量
+                pvDates.add(tmpDate.format(DateUtils.MONTH_DAY_FORMATTER));
+                Long pvCount = pvMap.get(tmpDate);
+                pvCounts.add(Objects.isNull(pvCount) ? 0 : pvCount);
+            }
+            rsp = ArticlePvStatistics.builder().pvDates(pvDates).pvCounts(pvCounts).build();
+        }
+        return rsp;
+    }
+
+    /**
+     * 获取后台仪表盘文章分类统计
+     * @return
+     */
+    @Override
+    public List<ArticleCategoryStatistics> articleCategoryStatisticsInfo() {
+        List<ArticleCategory> categoryList = articleCategoryService.selectArticleCategoryList(new ArticleCategory());
+        List<ArticleCategoryStatistics> rspList = Lists.newArrayList();
+        if (CollectionUtil.isNotEmpty(categoryList)) {
+            categoryList.forEach(item -> {
+                ArticleCategoryStatistics rsp = new ArticleCategoryStatistics(item.getName(), item.getArticlesTotal());
+                rspList.add(rsp);
+            });
+        }
+        return rspList;
+    }
+
+    /**
+     * 获取后台仪表盘文章分类统计
+     * @return
+     */
+    @Override
+    public ArticleTagStatistics articleTagStatisticsInfo() {
+        List<ArticleTag> tagList = articleTagService.selectArticleTagList(new ArticleTag());
+        ArticleTagStatistics result = new ArticleTagStatistics();
+        if (CollectionUtil.isNotEmpty(tagList)) {
+            List<String> tagNames = tagList.stream().map(ArticleTag::getName).collect(Collectors.toList());
+            List<Long> articleCounts = tagList.stream().map(ArticleTag::getArticlesTotal).collect(Collectors.toList());
+            result.setTagNames(tagNames);
+            result.setArticleCounts(articleCounts);
+        }
+        return result;
     }
 }
