@@ -97,6 +97,9 @@ public class Article extends BaseEntity {
     /** 阅读数量 */
     private Long readNum;
 
+    /** 评论数量 */
+    private Long commentNum;
+
     /** 权重 */
     private Integer weight;
 

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.dragon.common.core.domain.model.LoginUser;
+import com.dragon.common.enums.CommentStatusEnum;
 import com.dragon.common.utils.DateUtils;
 import com.dragon.common.utils.DictUtils;
 import com.dragon.common.utils.markdown.MarkdownHelper;
@@ -53,6 +54,9 @@ public class ArticleServiceImpl implements IArticleService {
 
     @Autowired
     private ApplicationEventPublisher eventPublisher;
+
+    @Autowired
+    private PortalCommentMapper portalCommentMapper;
 
     /**
      * 查询文章信息
@@ -130,6 +134,10 @@ public class ArticleServiceImpl implements IArticleService {
                 List<String> tagIds = articleTagRelList.stream().map(e -> String.valueOf(e.getTagId())).collect(Collectors.toList());
                 articleVo.setArticleTags(tagIds);
             }
+            // 获取文章评论量
+            // 根据该路由地址下所有评论（仅查询状态正常的）
+            List<PortalComment> commentDOS = portalCommentMapper.selectByRouterUrlAndStatus("/article/" + articleVo.getArticleId(), CommentStatusEnum.NORMAL.getCode());
+            articleVo.setCommentNum(Long.valueOf(commentDOS.size()));
         }
         return articleList;
     }
