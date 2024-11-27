@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dragon.portal.mapper.PortalWikiMapper">
+    
+    <resultMap type="PortalWiki" id="PortalWikiResult">
+        <result property="wikiId"    column="wiki_id"    />
+        <result property="title"    column="title"    />
+        <result property="cover"    column="cover"    />
+        <result property="summary"    column="summary"    />
+        <result property="isDeleted"    column="is_deleted"    />
+        <result property="weight"    column="weight"    />
+        <result property="isPublish"    column="is_publish"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectPortalWikiVo">
+        select wiki_id, title, cover, summary, is_deleted, weight, is_publish, create_by, create_time, update_by, update_time from portal_wiki
+    </sql>
+
+    <select id="selectPortalWikiList" parameterType="PortalWiki" resultMap="PortalWikiResult">
+        <include refid="selectPortalWikiVo"/>
+        <where>  
+            <if test="title != null  and title != ''"> and title = #{title}</if>
+            <if test="isPublish != null "> and is_publish = #{isPublish}</if>
+        </where>
+    </select>
+    
+    <select id="selectPortalWikiByWikiId" parameterType="Long" resultMap="PortalWikiResult">
+        <include refid="selectPortalWikiVo"/>
+        where wiki_id = #{wikiId}
+    </select>
+
+    <!--获取知识库最大权重值-->
+    <select id="selectMaxWeight" resultType="java.lang.Integer">
+        select max(weight) from portal_wiki
+    </select>
+
+    <insert id="insertPortalWiki" parameterType="PortalWiki" useGeneratedKeys="true" keyProperty="wikiId">
+        insert into portal_wiki
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title != null and title != ''">title,</if>
+            <if test="cover != null">cover,</if>
+            <if test="summary != null and summary != ''">summary,</if>
+            <if test="isDeleted != null">is_deleted,</if>
+            <if test="weight != null">weight,</if>
+            <if test="isPublish != null">is_publish,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="title != null and title != ''">#{title},</if>
+            <if test="cover != null">#{cover},</if>
+            <if test="summary != null and summary != ''">#{summary},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="weight != null">#{weight},</if>
+            <if test="isPublish != null">#{isPublish},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePortalWiki" parameterType="PortalWiki">
+        update portal_wiki
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="cover != null">cover = #{cover},</if>
+            <if test="summary != null and summary != ''">summary = #{summary},</if>
+            <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
+            <if test="weight != null">weight = #{weight},</if>
+            <if test="isPublish != null">is_publish = #{isPublish},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where wiki_id = #{wikiId}
+    </update>
+
+    <!--根据id删除知识库-->
+    <update id="deletePortalWikiByWikiId" parameterType="Long">
+        update portal_wiki set is_deleted = 1, update_by = #{username}, update_time = sysdate() where wiki_id = #{wikiId}
+    </update>
+
+    <!--根据id批量删除知识库-->
+    <delete id="deletePortalWikiByWikiIds" parameterType="String">
+        update portal_wiki set is_deleted = 1, update_by = #{username}, update_time = sysdate() where wiki_id in
+        <foreach item="wikiId" collection="wikiIds" open="(" separator="," close=")">
+            #{wikiId}
+        </foreach>
+    </delete>
+</mapper>

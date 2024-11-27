@@ -46,4 +46,14 @@ public class CacheConstants {
      * 网站首页轮播图缓存 redis key
      */
     public static final String INDEX_FRONT_SLIDESHOW_KEY = "index_front:slideshow";
+
+    /**
+     * 短信验证码 redis key
+     */
+    public static final String SMS_CAPTCHA_CODE_KEY = "sms:captcha";
+
+    /**
+     * 网站设置 redis key
+     */
+    public static final String CONFIG_KEY_PORTAL_SETTINGS_INFO = "portal.settings.info";
 }

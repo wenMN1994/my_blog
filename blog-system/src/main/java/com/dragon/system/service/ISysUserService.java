@@ -198,4 +198,11 @@ public interface ISysUserService {
      * @return 结果
      */
     public String importUser(List<SysUser> userList, Boolean isUpdateSupport, String operName);
+
+    /**
+     * 根据登录用户名获取用户名
+     * @param loginAccount
+     * @return
+     */
+    public String selectUserNameByLoginAccount(String loginAccount);
 }

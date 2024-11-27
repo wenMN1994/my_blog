@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dragon.portal.mapper.StatisticsArticlePvMapper">
+    
+    <resultMap type="StatisticsArticlePv" id="StatisticsArticlePvResult">
+        <result property="id"    column="id"    />
+        <result property="pvDate"    column="pv_date"    />
+        <result property="pvCount"    column="pv_count"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectStatisticsArticlePvVo">
+        select id, pv_date, pv_count, create_time, update_time from portal_statistics_article_pv
+    </sql>
+
+    <select id="selectStatisticsArticlePvList" parameterType="StatisticsArticlePv" resultMap="StatisticsArticlePvResult">
+        <include refid="selectStatisticsArticlePvVo"/>
+        <where>  
+            <if test="pvDate != null "> and pv_date = #{pvDate}</if>
+            <if test="pvCount != null  and pvCount != ''"> and pv_count = #{pvCount}</if>
+        </where>
+        order by pv_date desc
+    </select>
+    
+    <select id="selectStatisticsArticlePvById" parameterType="Long" resultMap="StatisticsArticlePvResult">
+        <include refid="selectStatisticsArticlePvVo"/>
+        where id = #{id}
+    </select>
+
+    <!--查询最近一周的文章 PV 访问量记录-->
+    <select id="selectLatestWeekRecords" resultMap="StatisticsArticlePvResult">
+        <![CDATA[
+        select pv_date, pv_count from portal_statistics_article_pv
+        where pv_date <= now()
+        order by pv_date desc limit 7
+        ]]>
+
+    </select>
+
+    <insert id="insertStatisticsArticlePv" parameterType="StatisticsArticlePv" useGeneratedKeys="true" keyProperty="id">
+        insert into portal_statistics_article_pv
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pvDate != null">pv_date,</if>
+            <if test="pvCount != null and pvCount != ''">pv_count,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pvDate != null">#{pvDate},</if>
+            <if test="pvCount != null and pvCount != ''">#{pvCount},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateStatisticsArticlePv" parameterType="StatisticsArticlePv">
+        update portal_statistics_article_pv
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="pvDate != null">pv_date = #{pvDate},</if>
+            <if test="pvCount != null and pvCount != ''">pv_count = #{pvCount},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <!--当日文章 PV 访问量 +1-->
+    <update id="increasePVCount">
+        update portal_statistics_article_pv
+        set pv_count = pv_count + 1,
+            update_time = now()
+        where pv_date = #{pvDate}
+    </update>
+
+    <delete id="deleteStatisticsArticlePvById" parameterType="Long">
+        delete from portal_statistics_article_pv where id = #{id}
+    </delete>
+
+    <delete id="deleteStatisticsArticlePvByIds" parameterType="Long">
+        delete from portal_statistics_article_pv where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

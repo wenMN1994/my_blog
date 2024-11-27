@@ -8,8 +8,8 @@ dragon:
   copyrightYear: 2023
   # 实例演示开关
   demoEnabled: true
-  # 文件路径 示例（ Windows配置D:/dragon/uploadPath，Linux配置 /home/dragon/uploadPath）
-  profile: D:/dragon/uploadPath
+  # 文件路径 示例（ Windows配置D:/home/dragon/uploadPath，Linux配置 /home/dragon/uploadPath）
+  profile: D:/home/dragon/uploadPath
   # 获取ip地址开关
   addressEnabled: true
   # 验证码类型 math 数字计算 char 字符验证
@@ -208,3 +208,8 @@ oss:
     accessKeySecret: yourAccessKeySecret
     endpoint: https://oss-cn-shenzhen.aliyuncs.com
     bucketName: yourEndpoint
+
+# Lucene 全文检索
+lucene:
+  # 索引存放的位置 示例（ Windows配置D:/home/dragon/lucene-index，Linux配置 /home/dragon/lucene-index）
+  indexDir: D:\\home\\dragon\\lucene-index

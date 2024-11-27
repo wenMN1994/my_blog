@@ -6,6 +6,7 @@ import java.lang.management.ManagementFactory;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -23,6 +24,11 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
     public static String YYYYMMDDHHMMSS = "yyyyMMddHHmmss";
 
     public static String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
+
+    /**
+     * 月-日 格式
+     */
+    public static DateTimeFormatter MONTH_DAY_FORMATTER = DateTimeFormatter.ofPattern("MM-dd");
 
     private static String[] parsePatterns = {
             "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm", "yyyy-MM", 
@@ -160,5 +166,20 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
         LocalDateTime localDateTime = LocalDateTime.of(temporalAccessor, LocalTime.of(0, 0, 0));
         ZonedDateTime zdt = localDateTime.atZone(ZoneId.systemDefault());
         return Date.from(zdt.toInstant());
+    }
+
+    /**
+     * 增加 Date ==> LocalDateTime
+     * @param date
+     * @return
+     */
+    public static LocalDateTime toLocalDateTime(Date date) {
+        // 将Date转换为Instant
+        Instant instant = date.toInstant();
+        // 使用系统默认时区（或其他指定时区）将Instant转换为LocalDateTime
+        ZoneId zoneId = ZoneId.systemDefault(); // 或者ZoneId.of("Asia/Shanghai")等其他时区
+        LocalDateTime localDateTime = instant.atZone(zoneId).toLocalDateTime();
+
+        return localDateTime;
     }
 }

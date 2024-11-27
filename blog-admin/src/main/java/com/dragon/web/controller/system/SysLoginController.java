@@ -99,10 +99,10 @@ public class SysLoginController {
         AjaxResult ajax = AjaxResult.success();
         ajax.put("captchaEnabled", captchaEnabled);
         ajax.put("registerUser", registerUser);
-        ajax.put("ICP", jsonObject.get("ICP"));
+        ajax.put("icp", jsonObject.get("icp"));
         ajax.put("domainName", jsonObject.get("domainName"));
-        ajax.put("year", jsonObject.get("year"));
-        ajax.put("MIIT", jsonObject.get("MIIT"));
+        ajax.put("copyrightNotice", jsonObject.get("copyrightNotice"));
+        ajax.put("miit", jsonObject.get("miit"));
         return ajax;
     }
 }

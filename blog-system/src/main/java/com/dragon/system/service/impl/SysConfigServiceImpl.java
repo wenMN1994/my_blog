@@ -5,6 +5,7 @@ import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.dragon.common.annotation.DataSource;
 import com.dragon.common.constant.CacheConstants;
+import com.dragon.common.constant.Constants;
 import com.dragon.common.constant.UserConstants;
 import com.dragon.common.core.redis.RedisCache;
 import com.dragon.common.core.text.Convert;
@@ -113,12 +114,13 @@ public class SysConfigServiceImpl implements ISysConfigService {
      */
     @Override
     public JSONObject selectDomainNameIcp() {
-        String registerUser = selectConfigByKey("sys.domainName.ICP");
-        if(StringUtils.isEmpty(registerUser)){
-            JSONObject obj = JSON.parseObject("{\"ICP\":\"粤ICP备20001307号\",\"domainName\":\"www.dragonwen.cn\",\"year\":\"2018-2022\",\"MIIT\":\"https://beian.miit.gov.cn/\"}");
-            return obj;
+        String configValue = this.selectConfigByKey(CacheConstants.CONFIG_KEY_PORTAL_SETTINGS_INFO);
+        JSONObject obj = new JSONObject();
+        if (StringUtils.isEmpty(configValue)) {
+            obj = JSON.parseObject(Constants.PORTAL_SETTINGS);
         }
-        return JSON.parseObject(registerUser);
+        obj = JSON.parseObject(configValue);
+        return obj;
     }
 
     /**
@@ -160,6 +162,21 @@ public class SysConfigServiceImpl implements ISysConfigService {
             redisCache.deleteObject(getCacheKey(temp.getConfigKey()));
         }
         int row = configMapper.updateConfig(config);
+        if (row > 0) {
+            redisCache.setCacheObject(getCacheKey(config.getConfigKey()), config.getConfigValue());
+        }
+        return row;
+    }
+
+    /**
+     * 根据Key修改参数配置
+     * @param config 参数配置信息
+     * @return
+     */
+    @Override
+    public int updateConfigByKey(SysConfig config) {
+        redisCache.deleteObject(getCacheKey(config.getConfigKey()));
+        int row = configMapper.updateConfigByKey(config);
         if (row > 0) {
             redisCache.setCacheObject(getCacheKey(config.getConfigKey()), config.getConfigValue());
         }

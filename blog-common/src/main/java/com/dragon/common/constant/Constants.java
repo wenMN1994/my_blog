@@ -49,6 +49,11 @@ public class Constants {
     public static final String LOGIN_SUCCESS = "Success";
 
     /**
+     * 登录
+     */
+    public static final String LOGIN = "Login";
+
+    /**
      * 注销
      */
     public static final String LOGOUT = "Logout";
@@ -57,6 +62,11 @@ public class Constants {
      * 注册
      */
     public static final String REGISTER = "Register";
+
+    /**
+     * 重置密码
+     */
+    public static final String RESET_PWD = "ResetPwd";
 
     /**
      * 登录失败
@@ -86,7 +96,7 @@ public class Constants {
     /**
      * 验证码有效期（分钟）
      */
-    public static final Integer CAPTCHA_EXPIRATION = 2;
+    public static final Integer CAPTCHA_EXPIRATION = 5;
 
     /**
      * 令牌
@@ -193,4 +203,19 @@ public class Constants {
      * 斜杠“/”分隔符
      */
     public static final String SLASH = "/";
+
+    /**
+     * 账户类型 phone 手机号码
+     */
+    public static final String PHONE = "phone";
+
+    /**
+     * 账户类型 email 邮箱地址
+     */
+    public static final String EMAIL = "email";
+
+    /**
+     * 网站设置
+     */
+    public static final String PORTAL_SETTINGS = "{\"author\":\"DragonWen\",\"avatar\":\"https://blog-dragon.oss-cn-shenzhen.aliyuncs.com/2024-06-29/avatar_20240629200033A002.jpg\",\"csdnHomepage\":\"https://www.dragonwen.cn\",\"giteeHomepage\":\"https://www.dragonwen.cn\",\"githubHomepage\":\"https://www.dragonwen.cn\",\"introduction\":\"一枚程序员\",\"isCommentExamineOpen\":false,\"isCommentSensitiveWordsOpen\":true,\"logo\":\"https://blog-dragon.oss-cn-shenzhen.aliyuncs.com/2024-06-29/logo-200px_20240629200026A001.png\",\"mail\":\"dragonwen1994@163.com\",\"memberAvatar\":\"https://blog-dragon.oss-cn-shenzhen.aliyuncs.com/2024-08-20/user_20240820170907A001.png\",\"name\":\"码农油管\",\"zhihuHomepage\":\"https://www.dragonwen.cn\",\"icp\":\"粤ICP备20001307号\",\"domainName\":\"http://dragonwen.cn\",\"miit\":\"https://beian.miit.gov.cn\",\"copyrightNotice\":\"© 2018-2024\"}";
 }

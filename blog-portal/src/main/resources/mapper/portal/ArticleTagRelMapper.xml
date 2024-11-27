@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dragon.portal.mapper.ArticleTagRelMapper">
+    
+    <resultMap type="ArticleTagRel" id="ArticleTagRelResult">
+        <result property="id"    column="id"    />
+        <result property="articleId"    column="article_id"    />
+        <result property="tagId"    column="tag_id"    />
+    </resultMap>
+
+    <sql id="selectArticleTagRelVo">
+        select id, article_id, tag_id from portal_article_tag_rel
+    </sql>
+
+    <select id="selectArticleTagRelList" parameterType="ArticleTagRel" resultMap="ArticleTagRelResult">
+        <include refid="selectArticleTagRelVo"/>
+        <where>  
+            <if test="articleId != null "> and article_id = #{articleId,jdbcType=BIGINT}</if>
+            <if test="tagId != null "> and tag_id = #{tagId,jdbcType=BIGINT}</if>
+        </where>
+    </select>
+    
+    <select id="selectArticleTagRelById" parameterType="Long" resultMap="ArticleTagRelResult">
+        <include refid="selectArticleTagRelVo"/>
+        where id = #{id}
+    </select>
+
+    <!--根据标签ID查询关联信息-->
+    <select id="selectByTagId" resultMap="ArticleTagRelResult">
+        select article_id, tag_id from portal_article_tag_rel where tag_id = #{tagId,jdbcType=BIGINT}
+    </select>
+
+    <insert id="insertArticleTagRel" parameterType="ArticleTagRel" useGeneratedKeys="true" keyProperty="id">
+        insert into portal_article_tag_rel
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="articleId != null">article_id,</if>
+            <if test="tagId != null">tag_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="articleId != null">#{articleId},</if>
+            <if test="tagId != null">#{tagId},</if>
+         </trim>
+    </insert>
+
+    <!--批量插入文章-标签关联关系-->
+    <insert id="insertBatchArticleTagRel">
+        insert into portal_article_tag_rel
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            article_id,
+            tag_id
+        </trim>
+        <foreach collection="list" item="item" index="index" separator="union all">
+            select #{item.articleId,jdbcType=BIGINT}, #{item.tagId,jdbcType=BIGINT}
+        </foreach>
+    </insert>
+
+    <update id="updateArticleTagRel" parameterType="ArticleTagRel">
+        update portal_article_tag_rel
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="articleId != null">article_id = #{articleId},</if>
+            <if test="tagId != null">tag_id = #{tagId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteArticleTagRelById" parameterType="Long">
+        delete from portal_article_tag_rel where id = #{id}
+    </delete>
+
+    <delete id="deleteArticleTagRelByIds" parameterType="String">
+        delete from portal_article_tag_rel where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--根据文章ID删除文章标签-->
+    <delete id="deleteByArticleId">
+        delete from portal_article_tag_rel where article_id = #{articleId,jdbcType=BIGINT}
+    </delete>
+
+    <!--根据文章ID批量删除文章标签关联表-->
+    <delete id="deleteArticleTagRelByArticleIds">
+        delete from portal_article_tag_rel where article_id in
+        <foreach item="articleId" index="index" collection="articleIds" open="(" separator=";" close=")">
+            #{articleId,jdbcType=BIGINT}
+        </foreach>
+    </delete>
+</mapper>

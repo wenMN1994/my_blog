@@ -39,7 +39,7 @@ import java.util.regex.Pattern;
 
 /**
  * 验证码操作处理
- * 
+ *
  * @author dragon
  */
 @Slf4j
@@ -73,7 +73,7 @@ public class CaptchaController {
 
     @Autowired
     private RedisCache redisCache;
-    
+
     @Autowired
     private ISysConfigService configService;
 
@@ -85,6 +85,7 @@ public class CaptchaController {
 
     /**
      * 生成验证码
+     *
      * @param response
      * @return
      */
@@ -133,20 +134,21 @@ public class CaptchaController {
 
     /**
      * 生产滑块拼图验证码
+     *
      * @param response
      * @return
      */
     @GetMapping("/sliderCaptcha")
-    public AjaxResult sliderCaptcha(HttpServletResponse response, String emailOrPhone){
+    public AjaxResult sliderCaptcha(HttpServletResponse response, String emailOrPhone) {
         AjaxResult ajax = AjaxResult.success();
-        Map<String,Object> result = new HashMap<>(16);
+        Map<String, Object> result = new HashMap<>(16);
         JSONArray jsonArray = configService.selectSliderCaptcha();
         Random random = new Random();
         int nextInt = random.nextInt(jsonArray.size());
         Map<String, Object> imageUrlMap = (Map<String, Object>) jsonArray.get(nextInt);
         String imageUrl = imageUrlMap.get("imgUrl").toString();
         SliderCaptchaUtils.createImage(null, imageUrl, result);
-        if(!CollectionUtils.isEmpty(result)){
+        if (!CollectionUtils.isEmpty(result)) {
             // 保存验证码信息
             String uuid = IdUtils.simpleUUID();
             String verifyKey = CacheConstants.CAPTCHA_CODE_KEY + uuid;
@@ -161,12 +163,13 @@ public class CaptchaController {
 
     /**
      * 验证滑块拼图验证码
+     *
      * @return
      */
     @PostMapping("/checkSliderCaptcha")
-    public AjaxResult checkSliderCaptcha(@RequestBody CheckSliderCaptcha sliderCaptcha){
+    public AjaxResult checkSliderCaptcha(@RequestBody CheckSliderCaptcha sliderCaptcha) {
         String phoneEmailVerifyKey = CacheConstants.CAPTCHA_CODE_KEY + sliderCaptcha.getName();
-        if(redisCache.hasKey(phoneEmailVerifyKey)){
+        if (redisCache.hasKey(phoneEmailVerifyKey)) {
             throw new RuntimeException("请勿重复获取验证码");
         }
         AjaxResult ajax = AjaxResult.success();
@@ -175,14 +178,14 @@ public class CaptchaController {
         String accountType = "";
         if (sliderCaptcha.getCode() == null) {
             throw new RuntimeException("验证码不能为空");
-        } else if(StringUtils.isEmpty(sliderCaptcha.getName())){
+        } else if (StringUtils.isEmpty(sliderCaptcha.getName())) {
             throw new RuntimeException("手机号码或邮箱不能为空");
-        } else if(StringUtils.isEmpty(sliderCaptcha.getVerifyKey())){
+        } else if (StringUtils.isEmpty(sliderCaptcha.getVerifyKey())) {
             throw new RuntimeException("verifyKey不能为空");
         }
-        if(phone.matcher(sliderCaptcha.getName()).matches()){
+        if (phone.matcher(sliderCaptcha.getName()).matches()) {
             accountType = PHONE;
-        }else if(email.matcher(sliderCaptcha.getName()).matches()){
+        } else if (email.matcher(sliderCaptcha.getName()).matches()) {
             accountType = EMAIL;
         } else {
             throw new RuntimeException("请输入正确的手机号码或邮箱");
@@ -209,7 +212,7 @@ public class CaptchaController {
         // 保存验证码信息
         String phoneEmailVerifyValue = StringUtils.generateCaptcha();
         // 发送短信或邮箱验证码
-        if(PHONE.equals(accountType)){
+        if (PHONE.equals(accountType)) {
             // 短信发送
             try {
                 JSONObject jsonObject = configService.selectAliyunSms();
@@ -220,7 +223,7 @@ public class CaptchaController {
             } catch (Exception e) {
                 throw new RuntimeException("服务异常，请稍后再试！");
             }
-        }else if(EMAIL.equals(accountType)){
+        } else if (EMAIL.equals(accountType)) {
             // 邮件发送
             try {
                 String emailTemplate = configService.selectEmailTemplateVerificationCode();
@@ -229,8 +232,8 @@ public class CaptchaController {
                 params.put("expires", Constants.CAPTCHA_EXPIRATION);
                 ExpressionParser parser = new SpelExpressionParser();
                 TemplateParserContext parserContext = new TemplateParserContext();
-                String content = parser.parseExpression(emailTemplate,parserContext).getValue(params, String.class);
-                mailUtil.sendText(sliderCaptcha.getName(), "", "", "龙颜问世", content);
+                String content = parser.parseExpression(emailTemplate, parserContext).getValue(params, String.class);
+                mailUtil.sendText(sliderCaptcha.getName(), "", "", "码农油管", content);
             } catch (Exception e) {
                 throw new RuntimeException("服务异常，请稍后再试！");
             }

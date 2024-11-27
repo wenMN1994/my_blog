@@ -59,6 +59,14 @@ public interface SysConfigMapper {
     public int updateConfig(SysConfig config);
 
     /**
+     * 根据Key修改参数配置
+     *
+     * @param config 参数配置信息
+     * @return 结果
+     */
+    public int updateConfigByKey(SysConfig config);
+
+    /**
      * 删除参数配置
      *
      * @param configId 参数ID

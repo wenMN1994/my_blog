@@ -2,10 +2,12 @@ package com.dragon.portal.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import lombok.Data;
 import com.dragon.common.annotation.Excel;
 import com.dragon.common.core.domain.BaseEntity;
+
+import java.time.YearMonth;
+import java.util.List;
 
 /**
  * 文章信息对象 portal_article
@@ -13,9 +15,14 @@ import com.dragon.common.core.domain.BaseEntity;
  * @author dragon
  * @date 2022-05-08
  */
+@Data
 @ApiModel(value = "Article", description = "文章实体")
 public class Article extends BaseEntity {
     private static final long serialVersionUID = 1L;
+
+    /** 文章ID集合 */
+    @ApiModelProperty("文章ID集合")
+    private List<Long> articleIds;
 
     /** 文章ID */
     @ApiModelProperty("文章ID")
@@ -87,144 +94,53 @@ public class Article extends BaseEntity {
     @Excel(name = "文章内容（html格式）")
     private String contentHtml;
 
-    public void setArticleId(Long articleId) {
-        this.articleId = articleId;
-    }
+    /** 阅读数量 */
+    private Long readNum;
 
-    public Long getArticleId() {
-        return articleId;
-    }
-    public void setArticleTitle(String articleTitle) {
-        this.articleTitle = articleTitle;
-    }
+    /** 评论数量 */
+    private Long commentNum;
 
-    public String getArticleTitle() {
-        return articleTitle;
-    }
-    public void setArticleType(String articleType) {
-        this.articleType = articleType;
-    }
+    /** 权重 */
+    private Integer weight;
 
-    public String getArticleType() {
-        return articleType;
-    }
+    /** 文章类型（1：普通文章，2：收录于知识库'） */
+    private Integer type;
 
-    public String getArticleTypeStr() {
-        return articleTypeStr;
-    }
+    /** 文章类型描述（1：普通文章，2：收录于知识库'） */
+    private String typeStr;
 
-    public void setArticleTypeStr(String articleTypeStr) {
-        this.articleTypeStr = articleTypeStr;
-    }
 
-    public void setCover(Long cover) {
-        this.cover = cover;
-    }
+    /** 文章置顶状态 */
+    private Boolean isTop;
 
-    public String getCoverUrl() {
-        return coverUrl;
-    }
+    /** 文章分类ID */
+    private Long articleCategoryId;
 
-    public void setCoverUrl(String coverUrl) {
-        this.coverUrl = coverUrl;
-    }
+    /** 文章标签ID */
+    private List<String> articleTags;
 
-    public Long getCover() {
-        return cover;
-    }
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
+    @ApiModelProperty("文章分类")
+    private ArticleCategory category;
 
-    public String getSummary() {
-        return summary;
-    }
-    public void setPublishType(String publishType) {
-        this.publishType = publishType;
-    }
+    @ApiModelProperty("文章标签")
+    private List<ArticleTag> tags;
 
-    public String getPublishType() {
-        return publishType;
-    }
+    /** 发布的月份（此字段不需要展示在前端，主要用于按月份分组使用） */
+    private YearMonth createMonth;
 
-    public String getPublishTypeStr() {
-        return publishTypeStr;
-    }
+    /**总字数*/
+    @ApiModelProperty("总字数")
+    private Integer totalWords;
 
-    public void setPublishTypeStr(String publishTypeStr) {
-        this.publishTypeStr = publishTypeStr;
-    }
+    /**阅读时长*/
+    @ApiModelProperty("阅读时长")
+    private String readTime;
 
-    public void setContentLevel(String contentLevel) {
-        this.contentLevel = contentLevel;
-    }
+    /**上一篇文章*/
+    @ApiModelProperty("上一篇文章")
+    private FindPreNextArticle preArticle;
 
-    public String getContentLevel() {
-        return contentLevel;
-    }
-
-    public String getContentLevelStr() {
-        return contentLevelStr;
-    }
-
-    public void setContentLevelStr(String contentLevelStr) {
-        this.contentLevelStr = contentLevelStr;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public String getStatusStr() {
-        return statusStr;
-    }
-
-    public void setStatusStr(String statusStr) {
-        this.statusStr = statusStr;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public String getContentHtml() {
-        return contentHtml;
-    }
-
-    public void setContentHtml(String contentHtml) {
-        this.contentHtml = contentHtml;
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-                .append("articleId", getArticleId())
-                .append("articleTitle", getArticleTitle())
-                .append("articleType", getArticleType())
-                .append("articleTypeStr", getArticleTypeStr())
-                .append("cover", getCover())
-                .append("coverUrl", getCoverUrl())
-                .append("summary", getSummary())
-                .append("publishType", getPublishType())
-                .append("publishTypeStr", getPublishTypeStr())
-                .append("contentLevel", getContentLevel())
-                .append("contentLevelStr", getContentLevelStr())
-                .append("status", getStatus())
-                .append("statusStr", getStatusStr())
-                .append("content", getContent())
-                .append("contentHtml", getContentHtml())
-                .append("createBy", getCreateBy())
-                .append("createTime", getCreateTime())
-                .append("updateBy", getUpdateBy())
-                .append("updateTime", getUpdateTime())
-                .toString();
-    }
+    /**下一篇文章*/
+    @ApiModelProperty("下一篇文章")
+    private FindPreNextArticle nextArticle;
 }

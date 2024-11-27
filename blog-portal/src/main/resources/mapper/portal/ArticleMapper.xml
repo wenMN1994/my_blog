@@ -15,34 +15,87 @@
         <result property="status"    column="status"    />
         <result property="content"    column="content"    />
         <result property="contentHtml"    column="content_html"    />
+        <result property="readNum"    column="read_num"    />
+        <result property="weight"    column="weight"    />
+        <result property="type"    column="type"    />
         <result property="createBy"    column="create_by"    />
         <result property="createTime"    column="create_time"    />
         <result property="updateBy"    column="update_by"    />
         <result property="updateTime"    column="update_time"    />
     </resultMap>
 
+    <resultMap type="FindPreNextArticle" id="FindPreNextArticleResult">
+        <result property="articleId"    column="article_id"    />
+        <result property="articleTitle"    column="article_title"    />
+    </resultMap>
+
+    <resultMap type="ArticlePublishCountDO" id="ArticlePublishCountResult">
+        <result property="createDate"    column="create_date"    />
+        <result property="count"    column="count"    />
+    </resultMap>
+
     <sql id="selectArticleVo">
-        select article_id, article_title, article_type, cover, summary, publish_type, content_level, status, content, content_html, create_by, create_time, update_by, update_time from portal_article
+        select article_id, article_title, article_type, cover, summary, publish_type, content_level, status, content, content_html, read_num, weight, type, create_by, create_time, update_by, update_time from portal_article
     </sql>
 
     <!--查询文章信息列表-->
     <select id="selectArticleList" parameterType="Article" resultMap="ArticleResult">
         <include refid="selectArticleVo"/>
         <where>
-            <if test="articleTitle != null and articleTitle != ''"> and article_title = #{articleTitle}</if>
+            <if test="articleTitle != null and articleTitle != ''"> and article_title like concat('%', #{articleTitle,jdbcType=VARCHAR}, '%')</if>
             <if test="articleType != null and articleType != ''"> and article_type = #{articleType}</if>
             <if test="publishType != null and publishType != ''"> and publish_type = #{publishType}</if>
             <if test="contentLevel != null and contentLevel != ''"> and content_level = #{contentLevel}</if>
             <if test="status != null and status != ''"> and status = #{status}</if>
             <if test="status == null or status == ''">and status != 1</if>
+            <if test="type != null">and type = #{type}</if>
+            <if test="articleIds != null">
+                and article_id in
+                <foreach collection="articleIds" item="item" index="index" open="(" separator="," close=")">
+                    #{item,jdbcType=BIGINT}
+                </foreach>
+            </if>
         </where>
-        order by create_time desc
+        order by weight desc, create_time desc
     </select>
 
     <!--查询文章信息-->
     <select id="selectArticleByArticleId" parameterType="Long" resultMap="ArticleResult">
         <include refid="selectArticleVo"/>
-        where article_id = #{articleId}
+        where article_id = #{articleId,jdbcType=BIGINT}
+    </select>
+
+    <!--获取文章最大权重-->
+    <select id="selectMaxWeight" resultType="java.lang.Integer">
+        select max(weight) from portal_article t
+    </select>
+
+    <!--获取上一篇文章-->
+    <select id="selectPreArticle" parameterType="Long" resultMap="FindPreNextArticleResult">
+        select article_id, article_title from portal_article
+        where article_id = (select max(article_id) from portal_article t where t.article_id &lt; #{articleId,jdbcType=BIGINT})
+    </select>
+
+    <!--获取下一篇文章-->
+    <select id="selectNextArticle" parameterType="Long" resultMap="FindPreNextArticleResult">
+        select article_id, article_title from portal_article
+        where article_id = (select min(article_id) from portal_article t where t.article_id &gt; #{articleId,jdbcType=BIGINT})
+    </select>
+
+    <!--根据文章id获取文章列表-->
+    <select id="selectArticleByArticleIds" resultMap="ArticleResult">
+        <include refid="selectArticleVo"></include>
+        where article_id in
+        <foreach collection="articleIds" item="item" index="index" open="(" separator="," close=")">
+            #{item,jdbcType=BIGINT}
+        </foreach>
+    </select>
+
+    <!--按日分组，并统计每日发布的文章数量-->
+    <select id="selectDateArticlePublishCount" resultMap="ArticlePublishCountResult">
+        select date(create_time) as create_date, count(1) as count from portal_article
+        where create_time between #{startDate} and #{endDate}
+        group by date(create_time)
     </select>
 
     <!--新增文章信息-->
@@ -93,35 +146,56 @@
             <if test="status != null and status != ''">status = #{status},</if>
             <if test="content != null and content != ''">content = #{content},</if>
             <if test="contentHtml != null and contentHtml != ''">content_html = #{contentHtml},</if>
+            <if test="weight != null">weight = #{weight,jdbcType=INTEGER},</if>
             <if test="createBy != null">create_by = #{createBy},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateBy != null">update_by = #{updateBy},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
         </trim>
-        where article_id = #{articleId}
+        where article_id = #{articleId,jdbcType=BIGINT}
     </update>
 
     <!--删除文章信息-->
-    <update id="deleteArticleByArticleId" parameterType="Long">
+    <update id="deleteArticleByArticleId">
         update portal_article
         <trim prefix="SET" suffixOverrides=",">
             status = '1',
-            update_by = #{loginUser},
-            update_time = #{nowDate},
+            update_by = #{loginUser,jdbcType=VARCHAR},
+            update_time = #{nowDate,jdbcType=DATE},
         </trim>
-         where article_id = #{articleId}
+         where article_id = #{articleId,jdbcType=BIGINT}
+    </update>
+
+    <!--执行文章阅读量 +1-->
+    <update id="increaseReadNum">
+        update portal_article set read_num = read_num + 1 where article_id = #{articleId,jdbcType=BIGINT}
+    </update>
+
+    <!--根据文章ID集合更新文章类型-->
+    <update id="updateArticleTypeByArticleIds">
+        update portal_article
+        <trim prefix="SET" suffixOverrides=",">
+            type = #{type,jdbcType=INTEGER},
+            update_by = #{username,jdbcType=VARCHAR},
+            update_time = #{nowDate,jdbcType=DATE},
+        </trim>
+        where article_id in
+        <foreach item="articleId" index="index" collection="articleIds" open="(" separator=";" close=")">
+            #{articleId,jdbcType=BIGINT}
+        </foreach>
     </update>
 
     <!--批量删除文章信息-->
-    <delete id="deleteArticleByArticleIds" parameterType="String">
-        <foreach item="articleId" index="index" collection="articleIds" open="" separator=";" close="">
-            update portal_article
-            <trim prefix="SET" suffixOverrides=",">
-                status = '1',
-                update_by = #{loginUser},
-                update_time = #{nowDate},
-            </trim>
-            where article_id = #{articleId}
+    <delete id="deleteArticleByArticleIds">
+        update portal_article
+        <trim prefix="SET" suffixOverrides=",">
+            status = '1',
+            update_by = #{loginUser,jdbcType=VARCHAR},
+            update_time = #{nowDate,jdbcType=DATE},
+        </trim>
+        where article_id in
+        <foreach item="articleId" index="index" collection="articleIds" open="(" separator=";" close=")">
+            #{articleId,jdbcType=BIGINT}
         </foreach>
     </delete>
 </mapper>

@@ -12,8 +12,9 @@
 		<result property="phonenumber"  column="phonenumber"  />
 		<result property="sex"          column="sex"          />
 		<result property="avatar"       column="avatar"       />
-		<result property="avatarId"       column="avatar_id"  />
+		<result property="avatarId"     column="avatar_id"  />
 		<result property="password"     column="password"     />
+		<result property="userType"     column="user_type"       />
 		<result property="status"       column="status"       />
 		<result property="delFlag"      column="del_flag"     />
 		<result property="loginIp"      column="login_ip"     />
@@ -35,7 +36,7 @@
 	</resultMap>
 
 	<sql id="selectUserVo">
-        select u.user_id, u.user_name, u.nick_name, u.email, u.avatar_id, u.phonenumber, u.password, u.sex, u.status,
+        select u.user_id, u.user_name, u.nick_name, u.email, u.avatar_id, u.phonenumber, u.password, u.sex, u.user_type, u.status,
         u.del_flag, u.login_ip, u.login_date, u.create_by, u.create_time, u.remark,
         r.role_id, r.role_name, r.role_key, r.role_sort, r.status as role_status, f.file_url as avatar
         from sys_user u
@@ -68,8 +69,6 @@
 		<if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
 			AND date_format(u.create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
 		</if>
-		<!-- 数据范围过滤 -->
-		${params.dataScope}
 	</select>
 
 	<select id="selectAllocatedList" parameterType="SysUser" resultMap="SysUserResult">
@@ -84,8 +83,6 @@
 		<if test="phonenumber != null and phonenumber != ''">
 			AND u.phonenumber like concat('%', #{phonenumber}, '%')
 		</if>
-		<!-- 数据范围过滤 -->
-		${params.dataScope}
 	</select>
 
 	<select id="selectUnallocatedList" parameterType="SysUser" resultMap="SysUserResult">
@@ -101,13 +98,11 @@
 		<if test="phonenumber != null and phonenumber != ''">
 			AND u.phonenumber like concat('%', #{phonenumber}, '%')
 		</if>
-		<!-- 数据范围过滤 -->
-		${params.dataScope}
 	</select>
 
 	<select id="selectUserByUserName" parameterType="String" resultMap="SysUserResult">
 		<include refid="selectUserVo"/>
-		where u.user_name = #{userName} and u.del_flag = '0'
+		where u.user_name = #{userName} or phonenumber = #{userName} or email = #{userName} and u.del_flag = '0'
 	</select>
 
 	<select id="selectUserById" parameterType="Long" resultMap="SysUserResult">
@@ -116,7 +111,7 @@
 	</select>
 
 	<select id="checkUserNameUnique" parameterType="String" resultMap="SysUserResult">
-		select user_id, user_name from sys_user where user_name = #{userName} and del_flag = '0' limit 1
+		select user_id, user_name from sys_user where user_name = #{userName} or phonenumber = #{userName} or email = #{userName} and del_flag = '0' limit 1
 	</select>
 
 	<select id="checkPhoneUnique" parameterType="String" resultMap="SysUserResult">
@@ -125,6 +120,11 @@
 
 	<select id="checkEmailUnique" parameterType="String" resultMap="SysUserResult">
 		select user_id, email from sys_user where email = #{email} and del_flag = '0' limit 1
+	</select>
+
+	<!--根据登录用户名获取用户名-->
+	<select id="selectUserNameByLoginAccount" resultType="java.lang.String">
+		select user_name from sys_user where user_name = #{loginAccount} or phonenumber = #{loginAccount} or email = #{loginAccount} and del_flag = '0' limit 1
 	</select>
 
 	<insert id="insertUser" parameterType="SysUser" useGeneratedKeys="true" keyProperty="userId">
@@ -137,6 +137,7 @@
 		<if test="phonenumber != null and phonenumber != ''">phonenumber,</if>
 		<if test="sex != null and sex != ''">sex,</if>
 		<if test="password != null and password != ''">password,</if>
+		<if test="userType != null and userType != ''">user_type,</if>
 		<if test="status != null and status != ''">status,</if>
 		<if test="createBy != null and createBy != ''">create_by,</if>
 		<if test="remark != null and remark != ''">remark,</if>
@@ -150,6 +151,7 @@
 		<if test="phonenumber != null and phonenumber != ''">#{phonenumber},</if>
 		<if test="sex != null and sex != ''">#{sex},</if>
 		<if test="password != null and password != ''">#{password},</if>
+		<if test="userType != null and userType != ''">#{userType},</if>
 		<if test="status != null and status != ''">#{status},</if>
 		<if test="createBy != null and createBy != ''">#{createBy},</if>
 		<if test="remark != null and remark != ''">#{remark},</if>

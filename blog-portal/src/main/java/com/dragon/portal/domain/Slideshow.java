@@ -1,5 +1,7 @@
 package com.dragon.portal.domain;
 
+import io.swagger.annotations.ApiModel;
+import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.dragon.common.annotation.Excel;
@@ -11,6 +13,8 @@ import com.dragon.common.core.domain.BaseEntity;
  * @author dragon
  * @date 2022-08-20
  */
+@Data
+@ApiModel(value = "Article", description = "轮播图实体")
 public class Slideshow extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
@@ -48,90 +52,4 @@ public class Slideshow extends BaseEntity {
     /** 是否有效（0：有效，1：无效） */
     @Excel(name = "是否有效", readConverterExp = "0=：有效，1：无效")
     private String isEnable;
-
-    public void setSlideshowId(Long slideshowId) {
-        this.slideshowId = slideshowId;
-    }
-
-    public Long getSlideshowId() {
-        return slideshowId;
-    }
-    public void setSlideshow(Long slideshow) {
-        this.slideshow = slideshow;
-    }
-
-    public Long getSlideshow() {
-        return slideshow;
-    }
-
-    public String getSlideshowImageUrl() {
-        return slideshowImageUrl;
-    }
-
-    public void setSlideshowImageUrl(String slideshowImageUrl) {
-        this.slideshowImageUrl = slideshowImageUrl;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-    public void setSubTitle(String subTitle) {
-        this.subTitle = subTitle;
-    }
-
-    public String getSubTitle() {
-        return subTitle;
-    }
-    public void setLinkUrl(String linkUrl)
-    {
-        this.linkUrl = linkUrl;
-    }
-
-    public String getLinkUrl() {
-        return linkUrl;
-    }
-    public void setTarget(String target) {
-        this.target = target;
-    }
-
-    public String getTarget() {
-        return target;
-    }
-    public void setClicks(Long clicks) {
-        this.clicks = clicks;
-    }
-
-    public Long getClicks() {
-        return clicks;
-    }
-    public void setIsEnable(String isEnable) {
-        this.isEnable = isEnable;
-    }
-
-    public String getIsEnable() {
-        return isEnable;
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-                .append("slideshowId", getSlideshowId())
-                .append("slideshow", getSlideshow())
-                .append("slideshowImageUrl", getSlideshowImageUrl())
-                .append("title", getTitle())
-                .append("subTitle", getSubTitle())
-                .append("linkUrl", getLinkUrl())
-                .append("target", getTarget())
-                .append("clicks", getClicks())
-                .append("isEnable", getIsEnable())
-                .append("createBy", getCreateBy())
-                .append("createTime", getCreateTime())
-                .append("updateBy", getUpdateBy())
-                .append("updateTime", getUpdateTime())
-                .toString();
-    }
 }

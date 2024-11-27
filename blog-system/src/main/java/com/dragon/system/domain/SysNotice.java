@@ -25,6 +25,8 @@ public class SysNotice extends BaseEntity {
     /** 公告类型（1通知 2公告） */
     private String noticeType;
 
+    private String noticeTypeStr;
+
     /** 公告内容 */
     private String noticeContent;
 
@@ -56,6 +58,14 @@ public class SysNotice extends BaseEntity {
 
     public String getNoticeType() {
         return noticeType;
+    }
+
+    public String getNoticeTypeStr() {
+        return noticeTypeStr;
+    }
+
+    public void setNoticeTypeStr(String noticeTypeStr) {
+        this.noticeTypeStr = noticeTypeStr;
     }
 
     public void setNoticeContent(String noticeContent) {

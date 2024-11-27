@@ -124,4 +124,11 @@ public interface SysUserMapper {
      * @return 结果
      */
     public SysUser checkEmailUnique(String email);
+
+    /**
+     * 根据登录用户名获取用户名
+     * @param loginAccount
+     * @return
+     */
+    public String selectUserNameByLoginAccount(@Param("loginAccount") String loginAccount);
 }

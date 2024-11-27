@@ -103,6 +103,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where config_id = #{configId}
     </update>
 
+    <!--根据Key修改参数配置-->
+    <update id="updateConfigByKey">
+        update sys_config
+        <set>
+            <if test="configValue != null and configValue != ''">config_value = #{configValue},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+ 			update_time = sysdate()
+        </set>
+       where config_key = #{configKey,jdbcType=VARCHAR}
+    </update>
+
     <delete id="deleteConfigById" parameterType="Long">
         delete from sys_config where config_id = #{configId}
     </delete>

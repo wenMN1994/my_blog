@@ -59,4 +59,11 @@ public interface SysFileMapper {
      * @return 结果
      */
     public int deleteSysFileByFileIds(@Param("fileIds") String[] fileIds, @Param("updateBy") String updateBy);
+
+    /**
+     * 根据文件路径查询文件信息
+     * @param fileUrl
+     * @return
+     */
+    public SysFile selectSysFileByFileUrl(@Param("fileUrl") String fileUrl);
 }

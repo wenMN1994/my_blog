@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dragon.portal.mapper.PortalCommentMapper">
+
+    <resultMap type="PortalComment" id="PortalCommentResult">
+        <result property="commentId"    column="id"    />
+        <result property="content"    column="content"    />
+        <result property="avatar"    column="avatar"    />
+        <result property="nickname"    column="nickname"    />
+        <result property="mail"    column="mail"    />
+        <result property="website"    column="website"    />
+        <result property="routerUrl"    column="router_url"    />
+        <result property="isDeleted"    column="is_deleted"    />
+        <result property="replyCommentId"    column="reply_comment_id"    />
+        <result property="parentCommentId"    column="parent_comment_id"    />
+        <result property="reason"    column="reason"    />
+        <result property="status"    column="status"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectPortalCommentVo">
+        select id, content, avatar, nickname, mail, website, router_url, is_deleted, reply_comment_id, parent_comment_id, reason, status, create_time, update_time from portal_comment
+    </sql>
+
+    <select id="selectPortalCommentList" parameterType="PortalComment" resultMap="PortalCommentResult">
+        <include refid="selectPortalCommentVo"/>
+        <where>
+            <if test="nickname != null  and nickname != ''"> and nickname like concat('%', #{nickname}, '%')</if>
+            <if test="mail != null  and mail != ''"> and mail like concat('%', #{mail}, '%')</if>
+            <if test="routerUrl != null  and routerUrl != ''"> and router_url = #{routerUrl}</if>
+            <if test="status != null "> and status = #{status}</if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                and date_format(update_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                and date_format(update_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="selectPortalCommentBycommentId" parameterType="Long" resultMap="PortalCommentResult">
+        <include refid="selectPortalCommentVo"/>
+        where id = #{commentId}
+    </select>
+
+    <!--获取回复评论-->
+    <select id="selectPortalCommentByReplyCommentId" parameterType="Long" resultMap="PortalCommentResult">
+        <include refid="selectPortalCommentVo"/>
+        where id = #{reply_comment_id,jdbcType=BIGINT}
+    </select>
+
+    <!--根据该路由地址下所有评论按创建时间倒序（仅查询状态正常的）-->
+    <select id="selectByRouterUrlAndStatus" resultMap="PortalCommentResult">
+        <include refid="selectPortalCommentVo"/>
+        where router_url = #{routerUrl,jdbcType=VARCHAR} and status = #{status,jdbcType=INTEGER} order by create_time desc
+    </select>
+
+    <insert id="insertPortalComment" parameterType="PortalComment" useGeneratedKeys="true" keyProperty="commentId">
+        insert into portal_comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="content != null">content,</if>
+            <if test="avatar != null">avatar,</if>
+            <if test="nickname != null">nickname,</if>
+            <if test="mail != null">mail,</if>
+            <if test="website != null">website,</if>
+            <if test="routerUrl != null">router_url,</if>
+            <if test="isDeleted != null">is_deleted,</if>
+            <if test="replyCommentId != null">reply_comment_id,</if>
+            <if test="parentCommentId != null">parent_comment_id,</if>
+            <if test="reason != null">reason,</if>
+            <if test="status != null">status,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="content != null">#{content},</if>
+            <if test="avatar != null">#{avatar},</if>
+            <if test="nickname != null">#{nickname},</if>
+            <if test="mail != null">#{mail},</if>
+            <if test="website != null">#{website},</if>
+            <if test="routerUrl != null">#{routerUrl},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="replyCommentId != null">#{replyCommentId},</if>
+            <if test="parentCommentId != null">#{parentCommentId},</if>
+            <if test="reason != null">#{reason},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <!--修改评论管理-->
+    <update id="updatePortalComment" parameterType="PortalComment">
+        update portal_comment
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="reason != null">reason = #{reason,jdbcType=VARCHAR},</if>
+            <if test="status != null">status = #{status,jdbcType=INTEGER},</if>
+            <if test="updateTime != null">update_time = #{updateTime,jdbcType=DATE},</if>
+        </trim>
+        where id = #{commentId,jdbcType=BIGINT}
+    </update>
+
+    <!--删除评论管理-->
+    <delete id="deletePortalCommentByCommentId">
+        update portal_comment set is_deleted = 1 where id = #{commentId,jdbcType=BIGINT}
+    </delete>
+</mapper>

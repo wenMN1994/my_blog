@@ -48,8 +48,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
 			and date_format(r.create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
 		</if>
-		<!-- 数据范围过滤 -->
-		${params.dataScope}
 		order by r.role_sort
 	</select>
     
