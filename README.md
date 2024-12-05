@@ -20,6 +20,7 @@
 16. 连接池监视：监视当前系统数据库连接池状态，可进行分析SQL找出系统性能瓶颈。
 
 ## 本地启动
+环境：JDK1.8、MySQL5.7+、Redis、Maven3.8+
 1、数据库脚本：/my_blog/sql/my_blog.sql
 
 2、修改配置文件：/my_blog/src/main/resources/application-dev.yml
