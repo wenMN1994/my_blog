@@ -29,7 +29,7 @@
         <commons.io.version>2.13.0</commons.io.version>
         <commons.fileupload.version>1.5</commons.fileupload.version>
         <commons.collections.version>3.2.2</commons.collections.version>
-        <poi.version>4.1.2</poi.version>
+        <poi.version>5.4.0</poi.version>
         <velocity.version>2.3</velocity.version>
         <jwt.version>0.9.1</jwt.version>
         <aliyun-oss.version>3.13.0</aliyun-oss.version>
