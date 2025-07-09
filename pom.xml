@@ -27,7 +27,7 @@
         <oshi.version>6.4.6</oshi.version>
         <jna.version>5.10.0</jna.version>
         <commons.io.version>2.13.0</commons.io.version>
-        <commons.fileupload.version>1.5</commons.fileupload.version>
+        <commons.fileupload.version>1.6.0</commons.fileupload.version>
         <commons.collections.version>3.2.2</commons.collections.version>
         <poi.version>4.1.2</poi.version>
         <velocity.version>2.3</velocity.version>
