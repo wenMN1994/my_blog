@@ -36,7 +36,7 @@
         <aliyun-sms.version>2.0.17</aliyun-sms.version>
         <hutool.version>5.8.0.M3</hutool.version>
         <lombok.version>1.18.28</lombok.version>
-        <guava.version>31.1-jre</guava.version>
+        <guava.version>33.7.1-jre</guava.version>
         <commonmark.version>0.20.0</commonmark.version>
         <lucene.version>8.11.1</lucene.version>
         <sensitive-words.version>0.22.0</sensitive-words.version>
